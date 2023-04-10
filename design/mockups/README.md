@@ -31,3 +31,5 @@ El mockup de esta aplicación fue realizado utilizando la aplicación **Figma**.
 ### Descarga de reportes
 
 ![](screenshots/descarga_reportes.jpeg)
+
+[**Regresar al inicio**](../)
