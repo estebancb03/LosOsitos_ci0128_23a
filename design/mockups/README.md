@@ -32,4 +32,4 @@ El mockup de esta aplicación fue realizado utilizando la aplicación **Figma**.
 
 ![](screenshots/descarga_reportes.jpeg)
 
-[**Regresar al inicio**](../)
+[**Regresar al inicio**](../../)
