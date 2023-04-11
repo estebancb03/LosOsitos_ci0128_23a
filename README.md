@@ -17,7 +17,7 @@ La aplicación web en cuestión debe de contar con las siguientes funcionalidade
 
 ## Diseño de la aplicación
 
-La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de las frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.
+La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.
 
 ### Mockup
 
@@ -31,11 +31,11 @@ Para más información, refierase al directorio [database](design/database/).
 
 ### Desarrolladores
 
-* Esteban Castañeda Blanco
-* Daniel Lizano Morales
-* Israel López Vallecillo
-* Carlos Quesada Estrada
-* Dylan Gabriel Tenorio Rojas
+* Esteban Castañeda Blanco: C01795
+* Daniel Lizano Morales: C04285
+* Israel López Vallecillo: C04396
+* Carlos Quesada Estrada: C06133
+* Dylan Gabriel Tenorio Rojas: C07802
 
 ### Terceros
 
