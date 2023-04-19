@@ -1,8 +1,8 @@
-import React from 'react'
+import SideBarMenu from "../components/SideBarMenu"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <SideBarMenu />
   )
 }
 
