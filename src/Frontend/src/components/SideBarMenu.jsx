@@ -7,13 +7,15 @@ import SideBarData from "../data/SideBarData";
 import SubMenu from "./SubMenu";
 
 const SideBarMenu = () => {
+  // State of the sidebar
   const [sideBar, setSideBar] = useState(false);
-
+  // Function that changes the sidebar state
   const showSideBar = () => setSideBar(!sideBar);
 
   return (
     <div>
-      {!sideBar ? (
+      {
+        !sideBar ? (
           <div className="top-0 right-0 fixed p-5">
             <Link
               to="#"
@@ -31,18 +33,22 @@ const SideBarMenu = () => {
           >
             <IoIcons.IoMdClose />
           </Link>
-        )}
-        <div
-          className={`bg-[#21295c] top-0 right-0 fixed w-96 h-full p-5 ${
-            sideBar ? "translate-x-0" : "translate-x-full"
-          } ease-in-out duration-300`}
-        >
-          <div className="pt-16">
-            {SideBarData.map((submenu, index) => (
+          )
+      }
+      <div
+        className={`bg-[#21295c] top-0 right-0 fixed w-96 h-full p-5 ${
+          sideBar ? "translate-x-0" : "translate-x-full"
+        } ease-in-out duration-300`}
+      >
+        <div className="pt-16">
+          {
+            // A SubMenu component is created for ach item in the data array
+            SideBarData.map((submenu, index) => (
               <SubMenu item={submenu} key={index} />
-            ))}
-          </div>
+            ))
+          }
         </div>
+      </div>
     </div>
   );
 };
