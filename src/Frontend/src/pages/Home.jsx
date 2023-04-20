@@ -1,9 +1,7 @@
-import SideBarMenu from "../components/SideBarMenu"
+import NavMenu from "../components/NavMenu"
 
 const Home = () => {
-  return (
-    <SideBarMenu />
-  )
+  return <NavMenu />
 }
 
 export default Home
