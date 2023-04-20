@@ -5,7 +5,7 @@ const NavMenu = () => {
   return (
     <div>
       <SideBarMenu />
-      <nav className="p-5 bg-sky-950 shadow flex items-center justify-between">
+      <nav className="h-20 p-5 bg-sky-950 shadow flex items-center justify-between">
         <div className="flex justify-between items-center">
             <Link className="text-2xl text-gray-300 cursor-pointer">
                 Img
@@ -25,7 +25,7 @@ const NavMenu = () => {
               Option
             </Link>
         </ul>
-    </nav>
+      </nav>
     </div>
   );
 };
