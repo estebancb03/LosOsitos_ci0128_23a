@@ -1,9 +1,7 @@
-import React from 'react'
+import NavMenu from "../components/NavMenu"
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
+  return <NavMenu />
 }
 
 export default Home
