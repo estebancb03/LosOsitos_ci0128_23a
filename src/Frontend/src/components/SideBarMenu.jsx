@@ -14,7 +14,7 @@ const SideBarMenu = () => {
   return (
     <div>
       {!sideBar ? (
-          <div className="top-0 right-0 fixed p-4">
+          <div className="top-0 right-0 fixed p-5">
             <Link
               to="#"
               className="text-stone-50 text-3xl h-10 flex justify-end items-center"
@@ -33,7 +33,7 @@ const SideBarMenu = () => {
           </Link>
         )}
         <div
-          className={`bg-sky-950 top-0 right-0 fixed w-96 h-full p-5 ${
+          className={`bg-[#21295c] top-0 right-0 fixed w-96 h-full p-5 ${
             sideBar ? "translate-x-0" : "translate-x-full"
           } ease-in-out duration-300`}
         >

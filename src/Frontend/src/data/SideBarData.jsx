@@ -7,7 +7,7 @@ import * as RxIcons from "react-icons/rx";
 const SideBarData = [
   {
     title: "Reservation",
-    path: "/reservation",
+    path: "/reservation"
   },
   {
     title: "Testimonials",

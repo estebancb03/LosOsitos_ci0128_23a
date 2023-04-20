@@ -12,8 +12,8 @@ const SubMenu = ({ item }) => {
         <Link
           to={item.path}
           className="
-            flex text-gray-300 justify-between items-center h-16 text-lg 
-          hover:bg-sky-900 cursor-pointer hover:border-gray-300 border-transparent border-2"
+            flex text-gray-300 items-center justify-between h-16 text-lg 
+          hover:bg-[#6545e6] cursor-pointer hover:border-gray-300 border-transparent border-2"
           onClick={item.subnav && showIcon}
         >
           <span className="ml-4">{item.title}</span>
@@ -29,10 +29,11 @@ const SubMenu = ({ item }) => {
         <Link
           to={item.path}
           className="
-          bg-sky-900 flex text-gray-300 justify-between items-center h-16 text-lg 
-          hover:bg-sky-900 cursor-pointer hover:border-gray-300 border-transparent border-2"
+          bg-[#6545e6] flex text-gray-300 justify-between items-center h-16 text-lg 
+          hover:bg-[#6545e6] cursor-pointer hover:border-gray-300 border-transparent border-2"
           onClick={item.subnav && showIcon}
         >
+          {item.icon}
           <span className="ml-4">{item.title}</span>
           <div className="mr-4">
             {item.subnav && subNav
@@ -51,9 +52,10 @@ const SubMenu = ({ item }) => {
               to={item.path}
               key={index}
               className="
-        bg-sky-900 h-16 pl-10 flex items-center no-underline text-gray-200 text-lg
-          hover:bg-sky-800 cursor-pointer hover:border-gray-300 border-transparent border-2"
+          bg-[#6545e6] h-16 pl-10 flex items-center no-underline text-gray-200 text-lg
+          hover:cursor-pointer hover:border-gray-300 border-transparent border-2"
             >
+              {item.icon}
               <span className="ml-4">{item.title}</span>
             </Link>
           );
