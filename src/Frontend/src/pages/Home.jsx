@@ -1,7 +1,11 @@
-import NavMenu from "../components/NavMenu"
+import Footer from "../components/Footer";
+import NavMenu from "../components/NavMenu";
 
 const Home = () => {
-  return <NavMenu />
-}
+  return <>
+    <NavMenu />
+    <Footer />
+  </>
+};
 
-export default Home
+export default Home;
