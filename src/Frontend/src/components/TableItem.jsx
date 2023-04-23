@@ -1,4 +1,4 @@
-const ReservationTableItem = ({ number, data }) => {
+const TableItem = ({ number, data }) => {
   return (
     <>
       {number && number % 2 === 0 ? (
@@ -22,4 +22,4 @@ const ReservationTableItem = ({ number, data }) => {
   );
 };
 
-export default ReservationTableItem;
+export default TableItem;
