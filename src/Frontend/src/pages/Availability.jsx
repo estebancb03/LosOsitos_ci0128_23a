@@ -7,7 +7,7 @@ const Availability = () => {
   return <div>
     <NavMenu />
     <Container>
-      <Title name="Availability"></Title>
+      <Title name="Availability" />
     </Container>
     <Footer />
   </div>;
