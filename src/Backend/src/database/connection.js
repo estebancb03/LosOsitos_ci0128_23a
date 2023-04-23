@@ -1,13 +1,18 @@
 import sql from "mssql"
+import config from "../config"
 
-const dbSettings = {
-    user,
-    password,
-    server,
-    database
+export const dbSettings = {
+    user: config.dbUser,
+    password: config.dbPassword,
+    server: config.dbServer,
+    database: config.dbDatabase,
+    options: {
+        encrypt: true,
+        trustSeverCertificate: true,
+    }
 }
 
-const getConnection = async () => {
+export const getConnection = async () => {
     try {
         const pool = await sql.connect(dbSettings)
         return pool
@@ -15,3 +20,5 @@ const getConnection = async () => {
         console.error(error)
     }
 }
+
+export {sql}
