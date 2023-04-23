@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import SideBarMenu from "./SideBarMenu";
-import img from "../assets/images/3-asojunquillal-logo.png";
+import img from "../../assets/images/3-asojunquillal-logo.png";
 
 const NavMenu = () => {
   return (
@@ -9,7 +9,7 @@ const NavMenu = () => {
       <nav className="h-20 p-5 bg-[#21295c] shadow flex items-center justify-between">
         <div className="flex justify-between items-center">
           <Link className="text-2xl text-gray-300 cursor-pointer">
-              <img className="h-16 w-16" src={img} />
+            <img className="h-16 w-16" src={img} />
           </Link>
         </div>
         <ul
