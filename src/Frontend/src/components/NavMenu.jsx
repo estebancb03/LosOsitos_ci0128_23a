@@ -3,7 +3,7 @@ import SideBarMenu from "./SideBarMenu";
 
 const NavMenu = () => {
   return (
-    <div>
+    <div className="sticky top-0">
       <SideBarMenu />
       <nav className="h-20 p-5 bg-[#21295c] shadow flex items-center justify-between">
         <div className="flex justify-between items-center">
