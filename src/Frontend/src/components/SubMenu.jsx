@@ -42,7 +42,7 @@ const SubMenu = ({ item }) => {
           >
             <span className="ml-4">{item.icon}</span>
             <span className="ml-4">{item.title}</span>
-            <div className="mr-4">
+            <div className="ml-4 mr-4">
               {
                 // Item properties are validated
                 item.subnav && subNav
