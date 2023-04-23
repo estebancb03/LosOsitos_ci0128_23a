@@ -16,7 +16,7 @@ const SideBarMenu = () => {
     <div>
       {
         !sideBar ? (
-          <div className="top-0 right-0 fixed p-5">
+          <div className="top-0 right-0 absolute p-5">
             <Link
               to="#"
               className="text-stone-50 text-3xl h-10 flex justify-end items-center"
