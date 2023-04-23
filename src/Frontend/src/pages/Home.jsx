@@ -1,15 +1,15 @@
-import Footer from "../components/Footer";
-import NavMenu from "../components/NavMenu";
-import Container from "../components/Container"
+import Footer from "../components/Footer/Footer";
+import NavMenu from "../components/NavMenu/NavMenu";
+import Container from "../components/Container";
 
 const Home = () => {
-  return <>
-    <NavMenu />
-    <Container>
-      
-    </Container>
-    <Footer />
-  </>
+  return (
+    <>
+      <NavMenu />
+      <Container></Container>
+      <Footer />
+    </>
+  );
 };
 
 export default Home;
