@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import Availability from "./pages/Availability";
+import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
 
 const App = () => {
@@ -16,12 +16,12 @@ const App = () => {
         //Private access operator routes
         <Route path="/operator">
           <Route index element={<Home />} />
-          <Route path="availability" element={<Availability />} />
+          <Route path="reservation-list" element={<ReservationList />} />
         </Route>
         //Private access admin routes
         <Route path="/admin">
           <Route index element={<Home />} />
-          <Route path="availability" element={<Availability />} />
+          <Route path="reservation-list" element={<ReservationList />} />
         </Route>
       </Routes>
     </BrowserRouter>

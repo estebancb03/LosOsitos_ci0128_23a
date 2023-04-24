@@ -8,7 +8,7 @@ import TableItem from "../components/Table/TableItem";
 
 import AvailabilityTestData from "../data/AvailabilityTestData";
 
-const Availability = () => {
+const ReservationList = () => {
   return (
     <>
       <NavMenu />
@@ -45,4 +45,4 @@ const Availability = () => {
   );
 };
 
-export default Availability;
+export default ReservationList;
