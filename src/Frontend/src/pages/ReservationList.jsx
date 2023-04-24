@@ -13,15 +13,17 @@ const ReservationList = () => {
     <>
       <NavMenu />
       <Container>
-        <Title name="Availability" />
+        <Title name="Reservation List" />
         <Table
           colums={[
-            "Parcel",
+            "Id",
             "Customer",
+            "Reservation date",
             "Start date",
             "End date",
-            "State",
-            "Action",
+            "Products",
+            "Pay",
+            ""
           ]}
         >
           {AvailabilityTestData.map((record, index) => (
@@ -29,11 +31,13 @@ const ReservationList = () => {
               key={index}
               number={index}
               data={[
-                record.parcel,
+                record.id,
                 record.customer,
+                record.reservationDate,
                 record.startDate,
                 record.endDate,
-                <StatusText text={record.state} status={record.state} />,
+                record.products,
+                record.pay,
                 record.action,
               ]}
             />
