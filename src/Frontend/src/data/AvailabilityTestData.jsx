@@ -1,11 +1,13 @@
-const AvailabilityTestData = [
+import Button from "../components/Button";
+
+const AvailabilityReserveData = [
   {
     parcel: 1,
     customer: "Esteban",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="delete" />,
   },
   {
     parcel: 2,
@@ -13,7 +15,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="modify" />,
   },
   {
     parcel: 3,
@@ -21,7 +23,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 4,
@@ -29,7 +31,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 5,
@@ -37,7 +39,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 6,
@@ -45,7 +47,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 7,
@@ -53,7 +55,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 8,
@@ -61,7 +63,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 9,
@@ -69,7 +71,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 10,
@@ -77,7 +79,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 11,
@@ -85,7 +87,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 12,
@@ -93,7 +95,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 13,
@@ -101,7 +103,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 14,
@@ -109,7 +111,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 15,
@@ -117,7 +119,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 16,
@@ -125,7 +127,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 17,
@@ -133,7 +135,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 18,
@@ -141,7 +143,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 19,
@@ -149,7 +151,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 20,
@@ -157,7 +159,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 21,
@@ -165,7 +167,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 22,
@@ -173,7 +175,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "available",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 23,
@@ -181,7 +183,7 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "reserved",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
   {
     parcel: 24,
@@ -189,8 +191,8 @@ const AvailabilityTestData = [
     startDate: "23/04/2023",
     endDate: "25/04/2023",
     state: "unavailable",
-    action: <button>Test</button>,
+    action: <Button text="Reserve" type="add" />,
   },
 ];
 
-export default AvailabilityTestData;
+export default AvailabilityReserveData;
