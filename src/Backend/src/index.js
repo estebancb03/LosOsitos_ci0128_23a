@@ -12,6 +12,7 @@ const allowedDomains = [process.env.FRONTEND_URL];
 app.use(express.json());
 app.use(cors(corsOptions));
 //Routes
+//app.use('/api/', exampleRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
