@@ -1,6 +1,6 @@
 import sql from "mssql"
 
-export const dbSettings = {
+const dbSettings = {
     user: DB_USER,
     password: DB_PASSWORD,
     server: DB_SERVER,
@@ -11,7 +11,7 @@ export const dbSettings = {
     }
 }
 
-export const getConnection = async () => {
+const getConnection = async () => {
     try {
         const pool = await sql.connect(dbSettings)
         return pool
@@ -20,4 +20,4 @@ export const getConnection = async () => {
     }
 }
 
-export {sql}
+export default getConnection;
