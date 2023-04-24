@@ -192,3 +192,5 @@ const AvailabilityTestData = [
     action: <button>Test</button>,
   },
 ];
+
+export default AvailabilityTestData;
