@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
-import PicnicCampingButtons from "./pages/PicnicCampingButtons"
+import ReservationStep1 from "./components/Reservation/ReservationStep0"
 
 const App = () => {
   return (
@@ -18,7 +18,6 @@ const App = () => {
         <Route path="/operator">
           <Route index element={<Home />} />
           <Route path="reservation-list" element={<ReservationList />} />
-          <Route path="reservation" element={<PicnicCampingButtons />} />
         </Route>
         //Private access admin routes
         <Route path="/admin">
