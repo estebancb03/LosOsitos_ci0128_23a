@@ -5,7 +5,17 @@ const TableItem = ({ number, data }) => {
         <tr className="bg-white">
           {data.map((content, index) => (
             <td key={index} className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {content}
+              {Array.isArray(content) ? (
+                <ul>
+                  {
+                    content.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))
+                  }
+                </ul>
+              ) : (
+                content
+              )}
             </td>
           ))}
         </tr>
@@ -13,7 +23,17 @@ const TableItem = ({ number, data }) => {
         <tr className="bg-gray-50">
           {data.map((content, index) => (
             <td key={index} className="p-3 text-sm text-gray-700 whitespace-nowrap">
-              {content}
+              {Array.isArray(content) ? (
+                <ul>
+                  {
+                    content.map((item, index) => (
+                      <li key={index}>{item}</li>
+                    ))
+                  }
+                </ul>
+              ) : (
+                content
+              )}
             </td>
           ))}
         </tr>
