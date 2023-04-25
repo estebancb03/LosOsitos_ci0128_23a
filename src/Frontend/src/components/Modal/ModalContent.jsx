@@ -1,4 +1,6 @@
-const ModalContent = ({information, id}) => {
+import { useEffect, useState } from "react";
+
+const ModalContent = ({reservationId}) => {
   const test = {
     id: '118090359',
     name: 'Esteban Castañeda Blanco',
@@ -29,22 +31,28 @@ const ModalContent = ({information, id}) => {
     },
     total_price: '100' 
   };
+
+  const [information, setInformation] = useState({});
+  useEffect(() => {
+    setInformation(test);
+  }, []);
+
   return (
     <>
       <div className="my-3 grid grid-cols-1">
-        <div className="mb-2 text-lg">Id: {test.id}</div>
-        <div className="mb-2 text-lg">Name: {test.name}</div>
-        <div className="mb-2 text-lg">Nationality: {test.nationality}</div>
-        <div className="mb-2 text-lg">Reservation date: {test.reservation_date}</div>
-        <div className="mb-2 text-lg">Start date: {test.start_date}</div>
-        <div className="mb-2 text-lg">End date: {test.end_date}</div>
-        <div className="mb-2 text-lg">People: {test.people}</div>
+        <div className="mb-2 text-lg">Id: {information.id}</div>
+        <div className="mb-2 text-lg">Name: {information.name}</div>
+        <div className="mb-2 text-lg">Nationality: {information.nationality}</div>
+        <div className="mb-2 text-lg">Reservation date: {information.reservation_date}</div>
+        <div className="mb-2 text-lg">Start date: {information.start_date}</div>
+        <div className="mb-2 text-lg">End date: {information.end_date}</div>
+        <div className="mb-2 text-lg">People: {information.people}</div>
         <div className="mb-2 text-lg">
           Services: 
             <ul className="mb-2 list-disc">
               {
-                test.services && (
-                  test.services.map((service, index) => (
+                information.services && (
+                  information.services.map((service, index) => (
                     <li key={index} className="mb-2 ml-10">{service.name}: (${service.price})</li>
                   ))
                 )
@@ -55,32 +63,14 @@ const ModalContent = ({information, id}) => {
           Car plates: 
             <ul className="mb-2 list-disc">
               {
-                test.plate_numbers && (
-                  test.plate_numbers.map((plate_number, index) => (
+                information.plate_numbers && (
+                  information.plate_numbers.map((plate_number, index) => (
                     <li key={index} className="mb-2 ml-10">{plate_number}</li>
                   ))
                 )
               }
             </ul>
         </div>
-        <div className="mb-2 text-lg">Parcel: #{test.parcel.number} (${test.parcel.price})</div>
-        <div className="mb-2 text-lg">Total price: ${test.total_price}</div>
-        <div className="mb-2 text-lg">Id: {test.id}</div>
-        <div className="mb-2 text-lg">Name: {test.name}</div>
-        <div className="mb-2 text-lg">Nationality: {test.nationality}</div>
-        <div className="mb-2 text-lg">Reservation date: {test.reservation_date}</div>
-        <div className="mb-2 text-lg">Start date: {test.start_date}</div>
-        <div className="mb-2 text-lg">End date: {test.end_date}</div>
-        <div className="mb-2 text-lg">People: {test.people}</div>
-        <div className="mb-2 text-lg">Parcel: #{test.parcel.number} (${test.parcel.price})</div>
-        <div className="mb-2 text-lg">Total price: ${test.total_price}</div>
-        <div className="mb-2 text-lg">Id: {test.id}</div>
-        <div className="mb-2 text-lg">Name: {test.name}</div>
-        <div className="mb-2 text-lg">Nationality: {test.nationality}</div>
-        <div className="mb-2 text-lg">Reservation date: {test.reservation_date}</div>
-        <div className="mb-2 text-lg">Start date: {test.start_date}</div>
-        <div className="mb-2 text-lg">End date: {test.end_date}</div>
-        <div className="mb-2 text-lg">People: {test.people}</div>
       </div>
     </>
   )
