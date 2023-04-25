@@ -9,7 +9,7 @@ const TableItem = ({ number, data }) => {
                 <ul>
                   {
                     content.map((item, index) => (
-                      <li>{item}</li>
+                      <li key={index}>{item}</li>
                     ))
                   }
                 </ul>
@@ -27,7 +27,7 @@ const TableItem = ({ number, data }) => {
                 <ul>
                   {
                     content.map((item, index) => (
-                      <li>{item}</li>
+                      <li key={index}>{item}</li>
                     ))
                   }
                 </ul>
