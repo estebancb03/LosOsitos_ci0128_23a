@@ -1,17 +1,12 @@
-import Button from "../components/Button";
-
-const AvailabilityViewData = [
+const ReservationTestData = [
   {
     reservationId: 1,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -31,7 +26,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -56,13 +51,10 @@ const AvailabilityViewData = [
     reservationId: 2,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -82,7 +74,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -107,13 +99,10 @@ const AvailabilityViewData = [
     reservationId: 3,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -133,7 +122,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -158,13 +147,10 @@ const AvailabilityViewData = [
     reservationId: 4,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -184,7 +170,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -209,13 +195,10 @@ const AvailabilityViewData = [
     reservationId: 5,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -235,7 +218,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -260,13 +243,10 @@ const AvailabilityViewData = [
     reservationId: 6,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -286,7 +266,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -311,13 +291,10 @@ const AvailabilityViewData = [
     reservationId: 7,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -337,7 +314,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -362,13 +339,10 @@ const AvailabilityViewData = [
     reservationId: 8,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -388,7 +362,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -413,13 +387,10 @@ const AvailabilityViewData = [
     reservationId: 9,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -439,7 +410,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -464,13 +435,10 @@ const AvailabilityViewData = [
     reservationId: 10,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -490,7 +458,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -515,13 +483,10 @@ const AvailabilityViewData = [
     reservationId: 11,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -541,7 +506,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -566,13 +531,10 @@ const AvailabilityViewData = [
     reservationId: 12,
     id: 234324589,
     customer: "Esteban",
+    nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
     startDate: "23/04/2023",
     endDate: "25/04/2023",
-    products: [
-      "Camping", 
-      "Kayak"
-    ],
     peopleQuantity: 4,
     peopleType: [
       {
@@ -592,7 +554,7 @@ const AvailabilityViewData = [
         costarican: true,
       },
     ],
-    products2: [
+    products: [
       {
         name: "Camping",
         price: "15",
@@ -615,4 +577,4 @@ const AvailabilityViewData = [
   },
 ];
 
-export default AvailabilityViewData;
+export default ReservationTestData;
