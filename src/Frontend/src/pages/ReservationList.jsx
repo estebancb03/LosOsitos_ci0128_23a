@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import Title from "../components/Title";
 import Button from "../components/Button";
 import Table from "../components/Table/Table";
@@ -11,13 +13,18 @@ import ReservationListModal from "../components/ReservationListModal";
 import AvailabilityTestData from "../data/AvailabilityTestData";
 
 const ReservationList = () => {
+  const [modal, setModal] = useState(true);
+  const [modalInformation, setModalInformation] = useState({});
+
   return (
     <>
       <NavMenu />
       <Container>
-        <ReservationListModal state={false} setState="" title="Reservation Data">
-          
-        </ReservationListModal> 
+        <ReservationListModal
+          state={modal}
+          setState={setModal}
+          title="Reservation Data"
+        ></ReservationListModal>
         <Title name="Reservation List" />
         <Table
           colums={[
@@ -28,7 +35,7 @@ const ReservationList = () => {
             "End date",
             "Products",
             "Pay",
-            ""
+            "",
           ]}
         >
           {AvailabilityTestData.map((record, index) => (
@@ -43,7 +50,7 @@ const ReservationList = () => {
                 record.endDate,
                 record.products,
                 record.pay,
-                <Button text="View" />
+                <Button text="View" onclickFunction={(e) => setModal(true)} />,
               ]}
             />
           ))}
