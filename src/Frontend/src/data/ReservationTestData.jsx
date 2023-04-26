@@ -26,11 +26,7 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
         price: "5",
@@ -74,17 +70,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -122,17 +118,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -170,17 +166,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -218,17 +214,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -266,17 +262,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -314,17 +310,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -362,17 +358,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -410,17 +406,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -458,17 +454,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -506,17 +502,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -554,17 +550,17 @@ const ReservationTestData = [
         costarican: true,
       },
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
