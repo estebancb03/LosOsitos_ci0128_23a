@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import Title from "../components/Title";
 import Modal from "../components/Modal";
-import Button from "../components/Button";
+import Button from "../components/Buttons/Button";
 import Table from "../components/Table/Table";
 import Container from "../components/Container";
 import Footer from "../components/Footer/Footer";
+import InputButton from "../components/Buttons/InputButton";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 
@@ -50,7 +51,11 @@ const ReservationList = () => {
           setState={setViewModal}
           title="Reservation Data"
         >
-          <div className="my-3 grid grid-cols-1">
+          <InputButton text="Reservation ID" placeholderText={information.reservationId} disabled={true}/>
+          <InputButton text="Costumer ID" placeholderText={information.id} disabled={true}/>
+          <InputButton text="Name" placeholderText={information.customer} disabled={true}/>
+          <InputButton text="Nationality" placeholderText={information.nationality} disabled={true}/>
+        {/* <div className="my-3 grid grid-cols-1">
             <div className="mb-2 text-lg">
               <span className="font-semibold">Reservation id:</span> {information.reservationId}
             </div>
@@ -116,7 +121,7 @@ const ReservationList = () => {
             <div className="mb-2 text-lg font-semibold">
               Total: ${information.totalPrice}
             </div>
-          </div>
+          </div> */}
         </Modal>
         <Modal
           state={addCarModal}
