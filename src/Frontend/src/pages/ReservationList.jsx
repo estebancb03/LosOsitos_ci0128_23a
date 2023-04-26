@@ -155,6 +155,7 @@ const ReservationList = () => {
               recordInfo.peopleType.map((person, index) => (
                 <span key={index} className="mx-1">
                   <DropDownSelect
+                    selectedOption={person}
                     disabled={disabledElements}
                     options={[
                       "Foreign, Adult",
