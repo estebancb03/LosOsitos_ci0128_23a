@@ -11,11 +11,13 @@ import TableItem from "../components/Table/TableItem";
 import InputButton from "../components/Buttons/InputButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
 
-import AvailabilityTestData from "../data/ReservationTestData";
+import ReservationTestData from "../data/ReservationTestData";
 
 const ReservationList = () => {
   // State that controls the popup window
   const [viewModal, setViewModal] = useState(false);
+  // State that controls the records of the table
+  const [reservationRecords, setReservationRecords] = useState([]);
   // State that constrols the modal information
   const [recordInfo, setRecordInfo] = useState({});
   // State that constrols the modify button in the popup
@@ -44,7 +46,7 @@ const ReservationList = () => {
 
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
-    const itemSelected = AvailabilityTestData.filter(
+    const itemSelected = ReservationTestData.filter(
       (item) => item.reservationId == itemID
     );
     setRecordInfo(itemSelected[0]);
@@ -57,12 +59,17 @@ const ReservationList = () => {
     modifyButton === "Modify"
       ? setModifyButton("Save changes")
       : setModifyButton("Modify");
-  }
+  };
 
   // Method that gets the names of the services of a row
   const getServicesNames = (services) => {
     return services.map((service) => service.name);
   };
+
+  // The data is loaded to the state
+  useEffect(() => {
+    setReservationRecords(ReservationTestData);
+  }, []);
 
   return (
     <>
@@ -75,12 +82,7 @@ const ReservationList = () => {
           title="Reservation Data"
         >
           <div className="my-3">
-            {
-              <Button
-                text={modifyButton}
-                onclickFunction={modifyHandleClick}
-              />
-            }
+            {<Button text={modifyButton} onclickFunction={modifyHandleClick} />}
           </div>
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
             <InputButton
@@ -149,26 +151,26 @@ const ReservationList = () => {
             recordInfo.services.map((service, index) => (
               <div key={index} className="flex">
                 <div className="bg-gray-100 w-full rounded-sm my-2">
-                <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
-                  {service.name}
-                </label>
-                <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
-                  <InputButton
-                    text=""
-                    placeholderText={service.date}
-                    disabled={disabledElements}
-                  />
-                  <DropDownSelect
-                    disabled={disabledElements}
-                    options={[
-                      service.hour,
-                      "10:30",
-                      "11:30",
-                      "12:30",
-                      "13:30",
-                    ]}
-                  />
-                </div>
+                  <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
+                    {service.name}
+                  </label>
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
+                    <InputButton
+                      text=""
+                      placeholderText={service.date}
+                      disabled={disabledElements}
+                    />
+                    <DropDownSelect
+                      disabled={disabledElements}
+                      options={[
+                        service.hour,
+                        "10:30",
+                        "11:30",
+                        "12:30",
+                        "13:30",
+                      ]}
+                    />
+                  </div>
                 </div>
               </div>
             ))}
@@ -195,12 +197,12 @@ const ReservationList = () => {
         {/* Table elements */}
         <Title name="Reservation List" />
         <Table colums={tableColumns}>
-          {AvailabilityTestData.map((record, index) => (
+          {reservationRecords.map((record, index) => (
             <TableItem
               key={index}
               number={index}
               data={[
-                record.customerId,
+                record.reservationId,
                 record.customer,
                 record.reservationDate,
                 record.startDate,
