@@ -14,12 +14,16 @@ import DropDownSelect from "../components/Buttons/DropDownSelect";
 import AvailabilityTestData from "../data/ReservationTestData";
 
 const ReservationList = () => {
+  // State that controls the popup window
   const [viewModal, setViewModal] = useState(false);
-  const [information, setInformation] = useState({});
+  // State that constrols the modal information
+  const [recordInfo, setRecordInfo] = useState({});
+  // State that constrols the modify button in the popup
   const [modifyButton, setModifyButton] = useState("Modify");
-  const [disabledButtons, setDisabledButtons] = useState(true);
-
-  const tableColums = [
+  // State that controls the elements availability in the popup
+  const [disabledElements, setDisabledElements] = useState(true);
+  // Table column
+  const tableColumns = [
     "Id",
     "Customer",
     "Reservation date",
@@ -31,35 +35,40 @@ const ReservationList = () => {
     "",
   ];
 
+  // Method that puts the element in its initial state
   const restartModal = () => {
     setViewModal(false);
-    setDisabledButtons(true);
+    setDisabledElements(true);
     setModifyButton("Modify");
   };
 
+  // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
     const itemSelected = AvailabilityTestData.filter(
       (item) => item.reservationId == itemID
     );
-    setInformation(itemSelected[0]);
+    setRecordInfo(itemSelected[0]);
     setViewModal(true);
   };
 
+  // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
-    setDisabledButtons(!disabledButtons);
+    setDisabledElements(!disabledElements);
     modifyButton === "Modify"
       ? setModifyButton("Save changes")
       : setModifyButton("Modify");
   }
 
-  const extractProductNames = (services) => {
-    return services.map((product) => product.name);
+  // Method that gets the names of the services of a row
+  const getServicesNames = (services) => {
+    return services.map((service) => service.name);
   };
 
   return (
     <>
       <NavMenu />
       <Container>
+        {/* Modal elements */}
         <Modal
           state={viewModal}
           setState={restartModal}
@@ -76,52 +85,52 @@ const ReservationList = () => {
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
             <InputButton
               text="Reservation ID"
-              placeholderText={information.reservationId}
+              placeholderText={recordInfo.reservationId}
               disabled={true}
             />
             <InputButton
               text="Costumer ID"
-              placeholderText={information.id}
-              disabled={disabledButtons}
+              placeholderText={recordInfo.customerId}
+              disabled={disabledElements}
             />
           </div>
           <InputButton
             text="Name"
-            placeholderText={information.customer}
-            disabled={disabledButtons}
+            placeholderText={recordInfo.customer}
+            disabled={disabledElements}
           />
           <InputButton
             text="Nationality"
-            placeholderText={information.nationality}
-            disabled={disabledButtons}
+            placeholderText={recordInfo.nationality}
+            disabled={disabledElements}
           />
           <InputButton
             text="Reservation Date"
-            placeholderText={information.reservationDate}
-            disabled={disabledButtons}
+            placeholderText={recordInfo.reservationDate}
+            disabled={disabledElements}
           />
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
             <InputButton
               text="Start Date"
-              placeholderText={information.startDate}
-              disabled={disabledButtons}
+              placeholderText={recordInfo.startDate}
+              disabled={disabledElements}
             />
             <InputButton
               text="End Date"
-              placeholderText={information.endDate}
-              disabled={disabledButtons}
+              placeholderText={recordInfo.endDate}
+              disabled={disabledElements}
             />
           </div>
           <label className="block text-xl font-semibold leading-6 text-gray-900">
-            People ({information.peopleQuantity})
+            People ({recordInfo.peopleQuantity})
           </label>
 
           <div className="grid grid-cols-2 mt-2 mb-3">
-            {information.peopleType &&
-              information.peopleType.map((person, index) => (
+            {recordInfo.peopleType &&
+              recordInfo.peopleType.map((person, index) => (
                 <span key={index} className="mx-1">
                   <DropDownSelect
-                    disabled={disabledButtons}
+                    disabled={disabledElements}
                     options={[
                       "Foreign, Adult",
                       "Foreign, Child",
@@ -136,8 +145,8 @@ const ReservationList = () => {
           <label className="block text-xl font-semibold leading-6 text-gray-900">
             Services
           </label>
-          {information.services &&
-            information.services.map((service, index) => (
+          {recordInfo.services &&
+            recordInfo.services.map((service, index) => (
               <div key={index} className="flex">
                 <div className="bg-gray-100 w-full rounded-sm my-2">
                 <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
@@ -147,10 +156,10 @@ const ReservationList = () => {
                   <InputButton
                     text=""
                     placeholderText={service.date}
-                    disabled={disabledButtons}
+                    disabled={disabledElements}
                   />
                   <DropDownSelect
-                    disabled={disabledButtons}
+                    disabled={disabledElements}
                     options={[
                       service.hour,
                       "10:30",
@@ -167,34 +176,36 @@ const ReservationList = () => {
             Plate Numbers
           </label>
           <div className="grid grid-cols-2 mb-3">
-            {information.services &&
-              information.plateNumbers.map((plateNumber, index) => (
+            {recordInfo.services &&
+              recordInfo.plateNumbers.map((plateNumber, index) => (
                 <InputButton
                   key={index}
                   placeholderText={plateNumber}
-                  disabled={disabledButtons}
+                  disabled={disabledElements}
                 />
               ))}
           </div>
           <InputButton
             text="Total price"
-            placeholderText={information.totalPrice}
-            disabled={disabledButtons}
+            placeholderText={recordInfo.totalPrice}
+            disabled={disabledElements}
           />
         </Modal>
+
+        {/* Table elements */}
         <Title name="Reservation List" />
-        <Table colums={tableColums}>
+        <Table colums={tableColumns}>
           {AvailabilityTestData.map((record, index) => (
             <TableItem
               key={index}
               number={index}
               data={[
-                record.id,
+                record.customerId,
                 record.customer,
                 record.reservationDate,
                 record.startDate,
                 record.endDate,
-                extractProductNames(record.services),
+                getServicesNames(record.services),
                 record.totalPrice,
                 <Button
                   text="View"
