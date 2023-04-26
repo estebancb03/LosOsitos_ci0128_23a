@@ -96,6 +96,29 @@ const ReservationList = () => {
               disabled={disabledElements}
             />
           </div>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
+            <span className="">
+              <DropDownSelect
+                text="Type"
+                selectedOption="Camping"
+                disabled={disabledElements}
+                options={[
+                  "Picnic",
+                  "Camping",
+                ]}
+              />
+            </span>
+            <span className="">
+              <DropDownSelect
+                text="Method"
+                disabled={disabledElements}
+                options={[
+                  "Online",
+                  "In the place"
+                ]}
+              />
+            </span>
+          </div>
           <InputButton
             text="Name"
             placeholderText={recordInfo.customer}

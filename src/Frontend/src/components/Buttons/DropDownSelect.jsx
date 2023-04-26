@@ -5,7 +5,7 @@ const DropDownSelect = ({ text, disabled, options }) => {
     <>
       {text ? (
         <div className="sm:col-span-3">
-          <label className="block text-sm font-medium leading-6 text-gray-900">
+          <label className="block text-xl font-medium leading-6 text-gray-900">
             {text}
           </label>
           <div className="mt-2">
