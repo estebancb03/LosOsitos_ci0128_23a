@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import Datepicker from "react-tailwindcss-datepicker";
 
 import Title from "../components/Title";
 import Modal from "../components/Modal";
-import Button from "../components/Buttons/Button";
 import Table from "../components/Table/Table";
 import Container from "../components/Container";
 import Footer from "../components/Footer/Footer";
-import DropDownSelect from "../components/Buttons/DropDownSelect";
-import InputButton from "../components/Buttons/InputButton";
+import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
+import InputButton from "../components/Buttons/InputButton";
+import DropDownSelect from "../components/Buttons/DropDownSelect";
 
 import AvailabilityTestData from "../data/ReservationTestData";
 
@@ -46,9 +45,15 @@ const ReservationList = () => {
     setViewModal(true);
   };
 
+  const modifyHandleClick = () => {
+    setDisabledButtons(!disabledButtons);
+    modifyButton === "Modify"
+      ? setModifyButton("Save changes")
+      : setModifyButton("Modify");
+  }
+
   const extractProductNames = (services) => {
-    const result = services.map((product) => product.name);
-    return result;
+    return services.map((product) => product.name);
   };
 
   return (
@@ -64,12 +69,7 @@ const ReservationList = () => {
             {
               <Button
                 text={modifyButton}
-                onclickFunction={(e) => {
-                  setDisabledButtons(!disabledButtons);
-                  modifyButton === "Modify"
-                    ? setModifyButton("Save changes")
-                    : setModifyButton("Modify");
-                }}
+                onclickFunction={modifyHandleClick}
               />
             }
           </div>
