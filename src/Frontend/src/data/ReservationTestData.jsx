@@ -1,7 +1,7 @@
 const ReservationTestData = [
   {
     reservationId: 1,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -29,10 +29,14 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
       {
         name: "Bicycle",
+        date: '24/03/2023',
+        hour: '9:30',
         price: "5",
       },
     ],
@@ -45,7 +49,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 2,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -93,7 +97,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 3,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -141,7 +145,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 4,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -189,7 +193,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 5,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -237,7 +241,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 6,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -285,7 +289,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 7,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -333,7 +337,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 8,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -381,7 +385,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 9,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -429,7 +433,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 10,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -477,7 +481,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 11,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -525,7 +529,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 12,
-    id: 234324589,
+    customerId: 234324589,
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
