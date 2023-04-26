@@ -28,12 +28,12 @@ const ReservationList = () => {
   const tableColumns = [
     "Id",
     "Customer",
-    "Reservation date",
+    "Type",
+    "Method",
     "Start date",
     "End date",
     "Services",
     "Pay",
-    "",
     "",
   ];
 
@@ -204,7 +204,8 @@ const ReservationList = () => {
               data={[
                 record.reservationId,
                 record.customer,
-                record.reservationDate,
+                record.type,
+                record.method,
                 record.startDate,
                 record.endDate,
                 getServicesNames(record.services),

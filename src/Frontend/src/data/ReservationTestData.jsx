@@ -2,6 +2,8 @@ const ReservationTestData = [
   {
     reservationId: 1,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -50,6 +52,8 @@ const ReservationTestData = [
   {
     reservationId: 2,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -98,6 +102,8 @@ const ReservationTestData = [
   {
     reservationId: 3,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -146,6 +152,8 @@ const ReservationTestData = [
   {
     reservationId: 4,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -194,6 +202,8 @@ const ReservationTestData = [
   {
     reservationId: 5,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -242,6 +252,8 @@ const ReservationTestData = [
   {
     reservationId: 6,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -290,6 +302,8 @@ const ReservationTestData = [
   {
     reservationId: 7,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -338,6 +352,8 @@ const ReservationTestData = [
   {
     reservationId: 8,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -386,6 +402,8 @@ const ReservationTestData = [
   {
     reservationId: 9,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -434,6 +452,8 @@ const ReservationTestData = [
   {
     reservationId: 10,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -482,6 +502,8 @@ const ReservationTestData = [
   {
     reservationId: 11,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
@@ -530,6 +552,8 @@ const ReservationTestData = [
   {
     reservationId: 12,
     customerId: 234324589,
+    method: "Online",
+    type: "Camping",
     customer: "Esteban",
     nationality: 'Costa Rica',
     reservationDate: "20/04/2023",
