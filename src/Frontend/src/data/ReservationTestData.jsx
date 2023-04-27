@@ -80,7 +80,7 @@ const ReservationTestData = [
   {
     reservationId: 3,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
@@ -119,7 +119,7 @@ const ReservationTestData = [
   {
     reservationId: 4,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
@@ -236,7 +236,7 @@ const ReservationTestData = [
   {
     reservationId: 7,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
@@ -275,7 +275,7 @@ const ReservationTestData = [
   {
     reservationId: 8,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
@@ -353,7 +353,7 @@ const ReservationTestData = [
   {
     reservationId: 10,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
@@ -431,7 +431,7 @@ const ReservationTestData = [
   {
     reservationId: 12,
     customerId: 234324589,
-    method: "Online",
+    method: "In site",
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
