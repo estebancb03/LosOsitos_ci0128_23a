@@ -29,6 +29,8 @@ const ReservationList = () => {
   const [typeFilter, setTypeFilter] = useState("");
   // State that controls the method filter that there are apply
   const [methodFilter, setMethodFilter] = useState("");
+  // State that controls the service filter that there are apply
+  const [serviceFilter, setServiceFilter] = useState("");
   // Table columns
   const tableColumns = [
     "Id",
