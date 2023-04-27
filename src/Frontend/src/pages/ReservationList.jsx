@@ -81,7 +81,7 @@ const ReservationList = () => {
   // Method that applys the method filter
   const applyMethodFilter = (filter) => {
     setMethodFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(record => record.type === typeFilter);
+    const recordsFiltered = ReservationTestData.filter(record => record.method === methodFilter);
     methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
   }
 
@@ -96,13 +96,21 @@ const ReservationList = () => {
       <Container>
         <Title name="Reservation List" />
         {/* Filter elements */}
-        <FiltersContainer applyFunction={applyTypeFilter}>
+        <FiltersContainer applyFunction={applyMethodFilter}>
           <span className="">
             <DropDownSelect
               text="Type"
               disabled={false}
               options={["", "Picnic", "Camping"]}
               onChangeFunction={setTypeFilter}
+            />
+          </span>
+          <span className="mx-4 sm:mt-4 sm:mx-0">
+            <DropDownSelect
+              text="Method"
+              disabled={false}
+              options={["", "Online", "In site"]}
+              onChangeFunction={setMethodFilter}
             />
           </span>
         </FiltersContainer>
