@@ -37,7 +37,7 @@ const ReservationList = () => {
     "End date",
     "Services",
     "Pay",
-    "",
+    "Action",
   ];
 
   // Method that puts the element in its initial state
