@@ -64,10 +64,10 @@ const ReservationTestData = [
         price: "5",
       },
       {
-        name: "Bicycle",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
@@ -108,6 +108,12 @@ const ReservationTestData = [
         hour: "9:30",
         price: "5",
       },
+      {
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
+      },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     parcel: {
@@ -141,12 +147,6 @@ const ReservationTestData = [
         hour: "9:30",
         price: "5",
       },
-      {
-        name: "Bicycle",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
-      },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     parcel: {
@@ -175,10 +175,10 @@ const ReservationTestData = [
     ],
     services: [
       {
-        name: "Kayak",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
       },
       {
         name: "Bicycle",
@@ -214,16 +214,10 @@ const ReservationTestData = [
     ],
     services: [
       {
-        name: "Kayak",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
-      },
-      {
-        name: "Bicycle",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
@@ -264,6 +258,12 @@ const ReservationTestData = [
         hour: "9:30",
         price: "5",
       },
+      {
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
+      },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     parcel: {
@@ -292,10 +292,10 @@ const ReservationTestData = [
     ],
     services: [
       {
-        name: "Kayak",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
       },
       {
         name: "Bicycle",
@@ -337,10 +337,10 @@ const ReservationTestData = [
         price: "5",
       },
       {
-        name: "Bicycle",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
+        name: "Hiking",
+        date: "22/03/2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
