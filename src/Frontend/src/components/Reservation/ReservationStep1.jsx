@@ -38,48 +38,15 @@ const ReservationStep1 = () => {
     console.log(quantityType);
     switch (quantityType) {
       case 1:
-        if (quantityAdultPicnic == 10) {
-          alert("You can only buy 10 tickets per person.");
-        } else {
-          setQuantityAdultPicnic(quantityAdultPicnic + 1);
-        }
-        console.log(quantityAdultPicnic);
-        break;
-
-      case 2:
-        if (quantityChildPicnic == 10) {
-          alert("You can only buy 10 tickets per person.");
-        } else {
-          setQuantityChildPicnic(quantityChildPicnic + 1);
-        }
-        break;
-
-      case 3:
-        if (quantityForeignAdultPicnic == 10) {
-          alert("You can only buy 10 tickets per person.");
-        } else {
-          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic + 1);
-          boughtTicket = true;
-        }
-        break;
-
-      case 4:
-        if (setQuantityForeignChildPicnic == 10) {
-          alert("You can only buy 10 tickets per person.");
-        } else {
-          setQuantityForeignChildPicnic(quantityForeignChildPicnic + 1);
-        }
-        break;
-
-      case 5:
         if (quantityAdultCamping == 10) {
           alert("You can only buy 10 tickets per person.");
         } else {
           setQuantityAdultCamping(quantityAdultCamping + 1);
         }
+        console.log(quantityAdultCamping);
         break;
 
-      case 6:
+      case 2:
         if (quantityChildCamping == 10) {
           alert("You can only buy 10 tickets per person.");
         } else {
@@ -87,7 +54,7 @@ const ReservationStep1 = () => {
         }
         break;
 
-      case 7:
+      case 3:
         if (quantityForeignAdultCamping == 10) {
           alert("You can only buy 10 tickets per person.");
         } else {
@@ -95,11 +62,43 @@ const ReservationStep1 = () => {
         }
         break;
 
-      case 8:
+      case 4:
         if (quantityForeignChildCamping == 10) {
           alert("You can only buy 10 tickets per person.");
         } else {
           setQuantityForeignChildCamping(quantityForeignChildCamping + 1);
+        }
+        break;
+
+      case 5:
+        if (quantityAdultPicnic == 10) {
+          alert("You can only buy 10 tickets per person.");
+        } else {
+          setQuantityAdultPicnic(quantityAdultPicnic + 1);
+        }
+        break;
+
+      case 6:
+        if (quantityChildPicnic == 10) {
+          alert("You can only buy 10 tickets per person.");
+        } else {
+          setQuantityChildPicnic(quantityChildPicnic + 1);
+        }
+        break;
+
+      case 7:
+        if (quantityForeignAdultPicnic == 10) {
+          alert("You can only buy 10 tickets per person.");
+        } else {
+          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic + 1);
+        }
+        break;
+
+      case 8:
+        if (quantityForeignChildPicnic == 10) {
+          alert("You can only buy 10 tickets per person.");
+        } else {
+          setQuantityForeignChildPicnic(quantityForeignChildPicnic + 1);
         }
         break;
     }
@@ -109,51 +108,51 @@ const ReservationStep1 = () => {
     console.log(quantityType);
     switch (quantityType) {
       case 1:
-        if (quantityAdultPicnic != 0) {
-          setQuantityAdultPicnic(quantityAdultPicnic - 1);
-        }
-        console.log(quantityAdultPicnic);
-        break;
-
-      case 2:
-        if (quantityChildPicnic != 0) {
-          setQuantityChildPicnic(quantityChildPicnic - 1);
-        }
-        break;
-
-      case 3:
-        if (quantityForeignAdultPicnic != 0) {
-          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic - 1);
-        }
-        break;
-
-      case 4:
-        if (setQuantityForeignChildPicnic != 0) {
-          setQuantityForeignChildPicnic(quantityForeignChildPicnic - 1);
-        }
-        break;
-
-      case 5:
         if (quantityAdultCamping != 0) {
           setQuantityAdultCamping(quantityAdultCamping - 1);
         }
+        console.log(quantityAdultCamping);
         break;
 
-      case 6:
+      case 2:
         if (quantityChildCamping != 0) {
           setQuantityChildCamping(quantityChildCamping - 1);
         }
         break;
 
-      case 7:
+      case 3:
         if (quantityForeignAdultCamping != 0) {
           setQuantityForeignAdultCamping(quantityForeignAdultCamping - 1);
         }
         break;
 
-      case 8:
+      case 4:
         if (quantityForeignChildCamping != 0) {
           setQuantityForeignChildCamping(quantityForeignChildCamping - 1);
+        }
+        break;
+
+      case 5:
+        if (quantityAdultPicnic != 0) {
+          setQuantityAdultPicnic(quantityAdultPicnic - 1);
+        }
+        break;
+
+      case 6:
+        if (quantityChildPicnic != 0) {
+          setQuantityChildPicnic(quantityChildPicnic - 1);
+        }
+        break;
+
+      case 7:
+        if (quantityForeignAdultPicnic != 0) {
+          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic - 1);
+        }
+        break;
+
+      case 8:
+        if (quantityForeignChildPicnic != 0) {
+          setQuantityForeignChildPicnic(quantityForeignChildPicnic - 1);
         }
         break;
     }
@@ -178,7 +177,7 @@ const ReservationStep1 = () => {
 
   return (
     <div>
-      <h2 class="pt-8 pb-4 pl-2">Camping</h2>
+      <h2 className="pt-8 pb-4 pl-2">Camping</h2>
       <Table colums={columns}>
         <TableItem
           key={0}
@@ -186,7 +185,7 @@ const ReservationStep1 = () => {
           data={[
             names[0],
             prices[0],
-            quantityAdultPicnic,
+            quantityAdultCamping,
             <Button
               text="+"
               type="add"
@@ -209,7 +208,7 @@ const ReservationStep1 = () => {
           data={[
             names[1],
             prices[1],
-            quantityChildPicnic,
+            quantityChildCamping,
             <Button
               text="+"
               type="add"
@@ -232,7 +231,7 @@ const ReservationStep1 = () => {
           data={[
             names[2],
             prices[2],
-            quantityForeignAdultPicnic,
+            quantityForeignAdultCamping,
             <Button
               text="+"
               type="add"
@@ -255,7 +254,7 @@ const ReservationStep1 = () => {
           data={[
             names[3],
             prices[3],
-            quantityForeignChildPicnic,
+            quantityForeignChildCamping,
             <Button
               text="+"
               type="add"
@@ -273,11 +272,11 @@ const ReservationStep1 = () => {
           ]}
         />
       </Table>
-      <p class="pt-4 pl-2">
+      <p className="pt-4 pl-2">
         * Note: Child between the ages 6 and 12. If they are older, choose an
         Adult ticket.
       </p>
-      <h2 class="pt-8 pb-4 pl-2">Picnic</h2>
+      <h2 className="pt-8 pb-4 pl-2">Picnic</h2>
       <Table colums={columns}>
         <TableItem
           key={4}
@@ -285,7 +284,7 @@ const ReservationStep1 = () => {
           data={[
             names[0],
             prices[4],
-            quantityAdultCamping,
+            quantityAdultPicnic,
             <Button
               text="+"
               type="add"
@@ -308,7 +307,7 @@ const ReservationStep1 = () => {
           data={[
             names[1],
             prices[5],
-            quantityChildCamping,
+            quantityChildPicnic,
             <Button
               text="+"
               type="add"
@@ -331,7 +330,7 @@ const ReservationStep1 = () => {
           data={[
             names[2],
             prices[6],
-            quantityForeignAdultCamping,
+            quantityForeignAdultPicnic,
             <Button
               text="+"
               type="add"
@@ -354,7 +353,7 @@ const ReservationStep1 = () => {
           data={[
             names[3],
             prices[7],
-            quantityForeignChildCamping,
+            quantityForeignChildPicnic,
             <Button
               text="+"
               type="add"
@@ -372,12 +371,14 @@ const ReservationStep1 = () => {
           ]}
         />
       </Table>
-      <Button
-        text="Continue"
-        onclickFunction={(e) => {
-          checkTickets();
-        }}
-      />
+      <div className="w-1/3 mt-10 ml-[67%]">
+        <Button
+          text="Continue"
+          onclickFunction={(e) => {
+            checkTickets();
+          }}
+        />
+      </div>
     </div>
   );
 };
