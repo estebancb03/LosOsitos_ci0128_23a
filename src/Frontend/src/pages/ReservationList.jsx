@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Title from "../components/Title";
 import Modal from "../components/Modal";
 import Table from "../components/Table/Table";
-import Container from "../components/Container";
+import Container from "../components/Containers/Container";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
@@ -185,6 +185,7 @@ const ReservationList = () => {
                       disabled={disabledElements}
                     />
                     <DropDownSelect
+                      selectedOption={service.hour}
                       disabled={disabledElements}
                       options={[
                         service.hour,

@@ -1,5 +1,5 @@
 import Title from "./Title";
-import Container from "./Container";
+import Container from "./Containers/Container";
 import * as IoIcons from "react-icons/io";
 
 const Modal = ({ state, setState, title, children }) => {
