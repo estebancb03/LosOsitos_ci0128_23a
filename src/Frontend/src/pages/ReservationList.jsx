@@ -25,7 +25,9 @@ const ReservationList = () => {
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-  // Table column
+  // State that controls the filters that there are apply
+  const [filters, setFilters] = useState({type: null});
+  // Table columns
   const tableColumns = [
     "Id",
     "Customer",
@@ -81,9 +83,8 @@ const ReservationList = () => {
           <span className="">
             <DropDownSelect
               text="Type"
-              selectedOption="Camping"
               disabled={false}
-              options={["Picnic", "Camping"]}
+              options={["Choose an option", "Picnic", "Camping"]}
             />
           </span>
         </FiltersContainer>
