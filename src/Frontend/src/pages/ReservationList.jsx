@@ -27,6 +27,8 @@ const ReservationList = () => {
   const [disabledElements, setDisabledElements] = useState(true);
   // State that controls the type filter that there are apply
   const [typeFilter, setTypeFilter] = useState("");
+  // State that controls the method filter that there are apply
+  const [methodFilter, setMethodFilter] = useState("");
   // Table columns
   const tableColumns = [
     "Id",
