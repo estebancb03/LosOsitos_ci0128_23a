@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import Title from "../components/Title";
 import Modal from "../components/Modal";
 import Table from "../components/Table/Table";
-import Container from "../components/Containers/Container";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
+import Container from "../components/Containers/Container";
 import InputButton from "../components/Buttons/InputButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
+import FiltersContainer from "../components/Containers/FiltersContainer";
 
 import ReservationTestData from "../data/ReservationTestData";
 
@@ -75,6 +76,17 @@ const ReservationList = () => {
     <>
       <NavMenu />
       <Container>
+        <Title name="Reservation List" />
+        <FiltersContainer>
+          <span className="">
+            <DropDownSelect
+              text="Type"
+              selectedOption="Camping"
+              disabled={false}
+              options={["Picnic", "Camping"]}
+            />
+          </span>
+        </FiltersContainer>
         {/* Modal elements */}
         <Modal
           state={viewModal}
@@ -102,20 +114,14 @@ const ReservationList = () => {
                 text="Type"
                 selectedOption="Camping"
                 disabled={disabledElements}
-                options={[
-                  "Picnic",
-                  "Camping",
-                ]}
+                options={["Picnic", "Camping"]}
               />
             </span>
             <span className="">
               <DropDownSelect
                 text="Method"
                 disabled={disabledElements}
-                options={[
-                  "Online",
-                  "In the place"
-                ]}
+                options={["Online", "In the place"]}
               />
             </span>
           </div>
@@ -220,7 +226,6 @@ const ReservationList = () => {
         </Modal>
 
         {/* Table elements */}
-        <Title name="Reservation List" />
         <Table colums={tableColumns}>
           {reservationRecords.map((record, index) => (
             <TableItem
