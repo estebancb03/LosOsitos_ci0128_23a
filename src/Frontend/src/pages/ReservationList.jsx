@@ -102,7 +102,7 @@ const ReservationList = () => {
       record.services.some((service) => service.name === serviceFilter)
     );
     console.log(recordsFiltered);
-    methodFilter !== ""
+    serviceFilter !== ""
       ? setReservationRecords(recordsFiltered)
       : setReservationRecords(ReservationTestData);
   };
