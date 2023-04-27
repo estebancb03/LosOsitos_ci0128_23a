@@ -247,12 +247,6 @@ const ReservationTestData = [
     ],
     services: [
       {
-        name: "Kayak",
-        date: "24/03/2023",
-        hour: "9:30",
-        price: "5",
-      },
-      {
         name: "Bicycle",
         date: "24/03/2023",
         hour: "9:30",

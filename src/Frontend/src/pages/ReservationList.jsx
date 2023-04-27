@@ -25,12 +25,12 @@ const ReservationList = () => {
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-  // State that controls the type filter that there are apply
-  const [typeFilter, setTypeFilter] = useState("");
-  // State that controls the method filter that there are apply
-  const [methodFilter, setMethodFilter] = useState("");
-  // State that controls the service filter that there are apply
-  const [serviceFilter, setServiceFilter] = useState("");
+  // State that controls the filters that there are apply
+  const [filters, setFilters] = useState({
+    type: null,
+    method: null,
+    service: null,
+  });
   // Table columns
   const tableColumns = [
     "Id",
@@ -73,38 +73,56 @@ const ReservationList = () => {
     return services.map((service) => service.name);
   };
 
-  // Method that applys the type filter
-  const applyTypeFilter = (filter) => {
-    setTypeFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(
-      (record) => record.type === typeFilter
-    );
-    typeFilter !== ""
-      ? setReservationRecords(recordsFiltered)
-      : setReservationRecords(ReservationTestData);
+  // Method that changes the filters that will be applied
+  const changeFiltersState = (type, value) => {
+    const updatedFilters = { ...filters };
+    if (type === "type") {
+      value !== ""
+        ? (updatedFilters.type = value)
+        : (updatedFilters.type = null);
+    } else if (type === "method") {
+      value !== ""
+        ? (updatedFilters.method = value)
+        : (updatedFilters.method = null);
+    } else if (type === "service") {
+      value !== ""
+        ? (updatedFilters.service = value)
+        : (updatedFilters.service = null);
+    }
+    setFilters(updatedFilters);
   };
 
-  // Method that applys the method filter
-  const applyMethodFilter = (filter) => {
-    setMethodFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(
-      (record) => record.method === methodFilter
-    );
-    methodFilter !== ""
-      ? setReservationRecords(recordsFiltered)
-      : setReservationRecords(ReservationTestData);
-  };
+  // Method that applys the filters
+  const applyFilters = (filter) => {
+    const typeFilterResults =
+      filters.type !== null
+        ? ReservationTestData.filter((record) => record.type === filters.type)
+        : ReservationTestData;
+    const methodFilterResults =
+      filters.method !== null
+        ? ReservationTestData.filter(
+            (record) => record.method === filters.method
+          )
+        : ReservationTestData;
+    const serviceFilterResults =
+      filters.service !== null
+        ? ReservationTestData.filter((record) =>
+            record.services.some((service) => service.name === filters.service)
+          )
+        : ReservationTestData;
 
-  // Method that applys the service filter
-  const applyServiceFilter = (filter) => {
-    setServiceFilter(filter);
-    const recordsFiltered = ReservationTestData.filter((record) =>
-      record.services.some((service) => service.name === serviceFilter)
-    );
-    console.log(recordsFiltered);
-    serviceFilter !== ""
-      ? setReservationRecords(recordsFiltered)
-      : setReservationRecords(ReservationTestData);
+    const intersectionTypeMethod = typeFilterResults.reduce((acc, curr) => {
+      const match = methodFilterResults.find(record => record.reservationId === curr.reservationId);
+      if(match) acc.push(curr);
+      return acc;
+    }, []);
+    const result = intersectionTypeMethod.reduce((acc, curr) => {
+      const match = serviceFilterResults.find(record => record.reservationId === curr.reservationId);
+      if(match) acc.push(curr);
+      return acc;
+    }, []);
+
+    setReservationRecords(result);
   };
 
   // The data is loaded to the state
@@ -118,13 +136,14 @@ const ReservationList = () => {
       <Container>
         <Title name="Reservation List" />
         {/* Filter elements */}
-        <FiltersContainer applyFunction={applyServiceFilter}>
+        <FiltersContainer applyFunction={applyFilters}>
           <span className="">
             <DropDownSelect
               text="Type"
               disabled={false}
               options={["", "Picnic", "Camping"]}
-              onChangeFunction={setTypeFilter}
+              typeChange="type"
+              onChangeFunction={changeFiltersState}
             />
           </span>
           <span className="mx-4 sm:mt-4 sm:mx-0">
@@ -132,7 +151,8 @@ const ReservationList = () => {
               text="Method"
               disabled={false}
               options={["", "Online", "In site"]}
-              onChangeFunction={setMethodFilter}
+              typeChange="method"
+              onChangeFunction={changeFiltersState}
             />
           </span>
           <span className="mx-4 sm:mt-4 sm:mx-0">
@@ -140,7 +160,8 @@ const ReservationList = () => {
               text="Service"
               disabled={false}
               options={["", "Kayak", "Bicycle"]}
-              onChangeFunction={setServiceFilter}
+              typeChange="service"
+              onChangeFunction={changeFiltersState}
             />
           </span>
         </FiltersContainer>
