@@ -78,6 +78,13 @@ const ReservationList = () => {
     typeFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
   }
 
+  // Method that applys the method filter
+  const applyMethodFilter = (filter) => {
+    setMethodFilter(filter);
+    const recordsFiltered = ReservationTestData.filter(record => record.type === typeFilter);
+    methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
+  }
+
   // The data is loaded to the state
   useEffect(() => {
     setReservationRecords(ReservationTestData);
