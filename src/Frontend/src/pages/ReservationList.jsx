@@ -76,23 +76,36 @@ const ReservationList = () => {
   // Method that applys the type filter
   const applyTypeFilter = (filter) => {
     setTypeFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(record => record.type === typeFilter);
-    typeFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
-  }
+    const recordsFiltered = ReservationTestData.filter(
+      (record) => record.type === typeFilter
+    );
+    typeFilter !== ""
+      ? setReservationRecords(recordsFiltered)
+      : setReservationRecords(ReservationTestData);
+  };
 
   // Method that applys the method filter
   const applyMethodFilter = (filter) => {
     setMethodFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(record => record.method === methodFilter);
-    methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
-  }
+    const recordsFiltered = ReservationTestData.filter(
+      (record) => record.method === methodFilter
+    );
+    methodFilter !== ""
+      ? setReservationRecords(recordsFiltered)
+      : setReservationRecords(ReservationTestData);
+  };
 
-   // Method that applys the service filter
-   const applyServiceFilter = (filter) => {
+  // Method that applys the service filter
+  const applyServiceFilter = (filter) => {
     setServiceFilter(filter);
-    const recordsFiltered = ReservationTestData.filter(record => record.services.includes(serviceFilter));
-    methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
-  }
+    const recordsFiltered = ReservationTestData.filter((record) =>
+      record.services.some((service) => service.name === serviceFilter)
+    );
+    console.log(recordsFiltered);
+    methodFilter !== ""
+      ? setReservationRecords(recordsFiltered)
+      : setReservationRecords(ReservationTestData);
+  };
 
   // The data is loaded to the state
   useEffect(() => {
@@ -105,7 +118,7 @@ const ReservationList = () => {
       <Container>
         <Title name="Reservation List" />
         {/* Filter elements */}
-        <FiltersContainer applyFunction={applyMethodFilter}>
+        <FiltersContainer applyFunction={applyServiceFilter}>
           <span className="">
             <DropDownSelect
               text="Type"
@@ -120,6 +133,14 @@ const ReservationList = () => {
               disabled={false}
               options={["", "Online", "In site"]}
               onChangeFunction={setMethodFilter}
+            />
+          </span>
+          <span className="mx-4 sm:mt-4 sm:mx-0">
+            <DropDownSelect
+              text="Service"
+              disabled={false}
+              options={["", "Kayak", "Bicycle"]}
+              onChangeFunction={setServiceFilter}
             />
           </span>
         </FiltersContainer>
