@@ -3,7 +3,7 @@ import Title from "../Title";
 const FiltersContainer = ({ children }) => {
   return (
     <>
-      <div className="rounded-sm ring-4 ring-[#21295c]">
+      <div className="mt-5 mb-2 rounded-sm ring-4 ring-[#21295c]">
         <div className="h-[25px]"></div>
         <div className="grid grid-cols-1 mx-7 md:mx-6 sm:mx-5">
             <Title name="Filters" />
