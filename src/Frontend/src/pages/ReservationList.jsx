@@ -87,6 +87,13 @@ const ReservationList = () => {
     methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
   }
 
+   // Method that applys the service filter
+   const applyServiceFilter = (filter) => {
+    setServiceFilter(filter);
+    const recordsFiltered = ReservationTestData.filter(record => record.services.includes(serviceFilter));
+    methodFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
+  }
+
   // The data is loaded to the state
   useEffect(() => {
     setReservationRecords(ReservationTestData);
