@@ -25,8 +25,8 @@ const ReservationList = () => {
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-  // State that controls the filters that there are apply
-  const [filters, setFilters] = useState({type: null});
+  // State that controls the type filter that there are apply
+  const [typeFilter, setTypeFilter] = useState("");
   // Table columns
   const tableColumns = [
     "Id",
@@ -69,6 +69,13 @@ const ReservationList = () => {
     return services.map((service) => service.name);
   };
 
+  // Method that applys the type filter
+  const applyTypeFilter = (filter) => {
+    setTypeFilter(filter);
+    const recordsFiltered = ReservationTestData.filter(record => record.type === typeFilter);
+    typeFilter !== "" ? setReservationRecords(recordsFiltered) : setReservationRecords(ReservationTestData);
+  }
+
   // The data is loaded to the state
   useEffect(() => {
     setReservationRecords(ReservationTestData);
@@ -79,12 +86,14 @@ const ReservationList = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation List" />
-        <FiltersContainer>
+        {/* Filter elements */}
+        <FiltersContainer applyFunction={applyTypeFilter}>
           <span className="">
             <DropDownSelect
               text="Type"
               disabled={false}
-              options={["Choose an option", "Picnic", "Camping"]}
+              options={["", "Picnic", "Camping"]}
+              onChangeFunction={setTypeFilter}
             />
           </span>
         </FiltersContainer>
