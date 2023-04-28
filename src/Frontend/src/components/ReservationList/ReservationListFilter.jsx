@@ -10,6 +10,8 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     method: null,
     service: null,
     customerId: null,
+    startDate: null,
+    endDate: null,
   });
 
   // Method that changes the filters that will be applied
@@ -31,6 +33,14 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
       value !== ""
         ? (updatedFilters.customerId = value)
         : (updatedFilters.customerId = null);
+    } else if (type === "startDate") {
+      value !== ""
+        ? (updatedFilters.startDate = value)
+        : (updatedFilters.startDate = null);
+    } else if (type === "endDate") {
+      value !== ""
+        ? (updatedFilters.endDate = value)
+        : (updatedFilters.endDate = null);
     }
     setFilters(updatedFilters);
   };
@@ -48,15 +58,36 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
 
   // Method that applys the filters
   const applyFilters = (filter) => {
+    // Filter by type
     const typeFilterResults =
       filters.type !== null
         ? reservationData.filter((record) => record.type === filters.type)
         : reservationData;
+    // Filter by method
     const methodFilterResults =
       filters.method !== null
         ? reservationData.filter((record) => record.method === filters.method)
         : reservationData;
-
+    // Filter by service
+    const serviceFilterResults =
+      filters.service !== null
+        ? reservationData.filter((record) =>
+            record.services.some((service) => service.name === filters.service)
+          )
+        : reservationData;
+    // Filter by start date
+    const startDateFilterResult =
+      filters.startDate !== null
+        ? reservationData.filter(
+            (record) => record.startDate == filters.startDate
+          )
+        : reservationData;
+    // Filter by end date
+    const endDateFilterResult =
+      filters.endDate !== null
+        ? reservationData.filter((record) => record.endDate == filters.endDate)
+        : reservationData;
+    // Filter by customer id
     const customerIdFilterResults =
       filters.customerId !== null
         ? reservationData.filter(
@@ -64,21 +95,20 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           )
         : reservationData;
 
-    const serviceFilterResults =
-      filters.service !== null
-        ? reservationData.filter((record) =>
-            record.services.some((service) => service.name === filters.service)
-          )
-        : reservationData;
-
+    // Intersections between the filters results
     const intersectionTM = intersection(typeFilterResults, methodFilterResults);
-    const intersectionTMS = intersection(intersectionTM, serviceFilterResults);
-    const intersectionTMSR = intersection(
-      intersectionTMS,
-      customerIdFilterResults
+    const intersectionSC = intersection(serviceFilterResults, customerIdFilterResults);
+    const intersectionSdEd = intersection(
+      startDateFilterResult,
+      endDateFilterResult
+    );
+    const intersectionTMSC = intersection(intersectionTM, intersectionSC);
+    const intersectionTMSCSdEd = intersection(
+      intersectionTMSC,
+      intersectionSdEd
     );
 
-    setReservationRecords(intersectionTMSR);
+    setReservationRecords(intersectionTMSCSdEd);
   };
   return (
     <>
@@ -111,10 +141,18 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           />
         </span>
         <span className="sm:mt-2 sm:ml-3">
-          <InputButton text="Start Date" />
+          <InputButton
+            text="Start Date"
+            type="startDate"
+            onChangeFunction={changeFiltersState}
+          />
         </span>
         <span className="mx-4 sm:mx-0 sm:mr-3">
-          <InputButton text="End Date" />
+          <InputButton
+            text="End Date"
+            type="endDate"
+            onChangeFunction={changeFiltersState}
+          />
         </span>
         <span className="sm:ml-3">
           <InputButton
