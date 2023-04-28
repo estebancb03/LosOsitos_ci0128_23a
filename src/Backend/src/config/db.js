@@ -13,9 +13,9 @@ const dbSettings = {
 
 const getConnection = async () => {
   try {
-    console.log("[] Trying to connect to the server ... ");
+    console.log("[] Trying to connect to the server... ");
     const pool = await sql.connect(dbSettings);
-    console.log("[] Managed to connect to server")
+    console.log("[] Managed to connect to server...")
     return pool;
   } catch (error) {
     console.error(error);

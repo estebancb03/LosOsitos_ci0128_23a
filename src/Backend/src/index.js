@@ -10,8 +10,7 @@ const port = process.env.PORT || 3000;
 dotenv.config();
 getConnection();
 const corsOptions = {};
-console.log(process.env.FRONTEND_URL)
-const allowedDomains = [process.env.FRONTEND_URL];
+const allowedDomains = ["http://localhost:5173/"];
 
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -19,7 +18,6 @@ app.use(cors(corsOptions));
 //Routes
 app.use('/api/country', countryRoutes);
 
-console.log(process.env.DB_USER);
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`LosOsitos Server running on port ${port}`);
 });
