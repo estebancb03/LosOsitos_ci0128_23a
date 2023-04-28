@@ -32,13 +32,6 @@ const ReservationList = () => {
     "Action",
   ];
 
-  // Method that puts the element in its initial state
-  const restartModal = () => {
-    setViewModal(false);
-    setDisabledElements(true);
-    setModifyButton("Modify");
-  };
-
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
     const itemSelected = ReservationTestData.filter(
@@ -80,7 +73,7 @@ const ReservationList = () => {
               key={index}
               number={index}
               data={[
-                record.reservationId,
+                record.customerId,
                 record.customer,
                 record.type,
                 record.method,

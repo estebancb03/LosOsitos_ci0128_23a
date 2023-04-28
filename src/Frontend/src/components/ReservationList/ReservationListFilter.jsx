@@ -9,7 +9,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     type: null,
     method: null,
     service: null,
-    reservationId: null,
+    customerId: null,
   });
 
   // Method that changes the filters that will be applied
@@ -27,10 +27,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
       value !== ""
         ? (updatedFilters.service = value)
         : (updatedFilters.service = null);
-    } else if (type === "reservationId") {
+    } else if (type === "customerId") {
       value !== ""
-        ? (updatedFilters.reservationId = value)
-        : (updatedFilters.reservationId = null);
+        ? (updatedFilters.customerId = value)
+        : (updatedFilters.customerId = null);
     }
     setFilters(updatedFilters);
   };
@@ -57,10 +57,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
         ? reservationData.filter((record) => record.method === filters.method)
         : reservationData;
 
-    const reservationIdFilterResults =
-      filters.reservationId !== null
+    const customerIdFilterResults =
+      filters.customerId !== null
         ? reservationData.filter(
-            (record) => record.reservationId == filters.reservationId
+            (record) => record.customerId == filters.customerId
           )
         : reservationData;
 
@@ -73,7 +73,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
 
     const intersectionTM = intersection(typeFilterResults, methodFilterResults);
     const intersectionTMS = intersection(intersectionTM, serviceFilterResults);
-    const intersectionTMSR = intersection(intersectionTMS, reservationIdFilterResults);
+    const intersectionTMSR = intersection(intersectionTMS, customerIdFilterResults);
 
     setReservationRecords(intersectionTMSR);
   };
@@ -112,8 +112,8 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           <InputButton text="End Date" />
         </span>
         <InputButton
-          type="reservationId"
-          text="Reservation Id"
+          type="customerId"
+          text="Costumer Id"
           onChangeFunction={changeFiltersState}
         />
       </FiltersContainer>

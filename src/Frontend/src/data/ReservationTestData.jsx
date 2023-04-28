@@ -1,7 +1,7 @@
 const ReservationTestData = [
   {
     reservationId: 1,
-    customerId: 234324589,
+    customerId: 11,
     method: "Online",
     type: "Camping",
     customer: "Esteban",
@@ -40,7 +40,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 2,
-    customerId: 234324589,
+    customerId: 21,
     method: "Online",
     type: "Picnic",
     customer: "Esteban",
@@ -79,7 +79,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 3,
-    customerId: 234324589,
+    customerId: 31,
     method: "In site",
     type: "Camping",
     customer: "Esteban",
@@ -124,7 +124,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 4,
-    customerId: 234324589,
+    customerId: 41,
     method: "In site",
     type: "Picnic",
     customer: "Esteban",
@@ -157,7 +157,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 5,
-    customerId: 234324589,
+    customerId: 51,
     method: "Online",
     type: "Camping",
     customer: "Esteban",
@@ -196,7 +196,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 6,
-    customerId: 234324589,
+    customerId: 61,
     method: "Online",
     type: "Picnic",
     customer: "Esteban",
@@ -229,7 +229,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 7,
-    customerId: 234324589,
+    customerId: 71,
     method: "In site",
     type: "Camping",
     customer: "Esteban",
@@ -268,7 +268,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 8,
-    customerId: 234324589,
+    customerId: 81,
     method: "In site",
     type: "Picnic",
     customer: "Esteban",
@@ -307,7 +307,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 9,
-    customerId: 234324589,
+    customerId: 91,
     method: "Online",
     type: "Camping",
     customer: "Esteban",
@@ -346,7 +346,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 10,
-    customerId: 234324589,
+    customerId: 101,
     method: "In site",
     type: "Picnic",
     customer: "Esteban",
@@ -385,7 +385,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 11,
-    customerId: 234324589,
+    customerId: 111,
     method: "Online",
     type: "Camping",
     customer: "Esteban",
@@ -424,7 +424,7 @@ const ReservationTestData = [
   },
   {
     reservationId: 12,
-    customerId: 234324589,
+    customerId: 121,
     method: "In site",
     type: "Picnic",
     customer: "Esteban",
