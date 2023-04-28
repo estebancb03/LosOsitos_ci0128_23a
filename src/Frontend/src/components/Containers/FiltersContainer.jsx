@@ -9,7 +9,7 @@ const FiltersContainer = ({ applyFunction, restartFunction, children }) => {
         <div className="grid grid-cols-1 mx-7 md:mx-6 sm:mx-5">
             <Title name="Filters" />
         </div>
-        <div className="grid grid-cols-4 sm:grid-cols-1 md:grid-cols-3 my-7 mx-7 md:my-6 md:mx-6 sm:my-5 sm:mx-5">
+        <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-3 my-7 mx-7 md:my-6 md:mx-6 sm:my-5 sm:mx-5">
           {children}
         </div>
         <div className="mx-6 mb-5 grid grid-cols-2 sm:grid-cols-1 sm:mx-5">

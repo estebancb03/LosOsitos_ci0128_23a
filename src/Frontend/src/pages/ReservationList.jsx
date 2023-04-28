@@ -112,13 +112,17 @@ const ReservationList = () => {
         : ReservationTestData;
 
     const intersectionTypeMethod = typeFilterResults.reduce((acc, curr) => {
-      const match = methodFilterResults.find(record => record.reservationId === curr.reservationId);
-      if(match) acc.push(curr);
+      const match = methodFilterResults.find(
+        (record) => record.reservationId === curr.reservationId
+      );
+      if (match) acc.push(curr);
       return acc;
     }, []);
     const result = intersectionTypeMethod.reduce((acc, curr) => {
-      const match = serviceFilterResults.find(record => record.reservationId === curr.reservationId);
-      if(match) acc.push(curr);
+      const match = serviceFilterResults.find(
+        (record) => record.reservationId === curr.reservationId
+      );
+      if (match) acc.push(curr);
       return acc;
     }, []);
 
@@ -164,6 +168,12 @@ const ReservationList = () => {
               onChangeFunction={changeFiltersState}
             />
           </span>
+          <InputButton
+            text="Start Date"
+          />
+          <InputButton
+            text="End Date"
+          />
         </FiltersContainer>
         {/* Modal elements */}
         <Modal
