@@ -30,6 +30,7 @@ const ReservationList = () => {
     type: null,
     method: null,
     service: null,
+    reservationId: null,
   });
   // Table columns
   const tableColumns = [
@@ -88,6 +89,10 @@ const ReservationList = () => {
       value !== ""
         ? (updatedFilters.service = value)
         : (updatedFilters.service = null);
+    } else if (type === "reservationId") {
+      value !== ""
+        ? (updatedFilters.reservationId = value)
+        : (updatedFilters.reservationId = null);
     }
     setFilters(updatedFilters);
   };
@@ -159,7 +164,7 @@ const ReservationList = () => {
               onChangeFunction={changeFiltersState}
             />
           </span>
-          <span className="mx-4 sm:mt-4 sm:mx-0">
+          <span className="">
             <DropDownSelect
               text="Service"
               disabled={false}
@@ -168,11 +173,14 @@ const ReservationList = () => {
               onChangeFunction={changeFiltersState}
             />
           </span>
+          <InputButton text="Start Date" />
+          <span className="mx-4 sm:mx-0">
+            <InputButton text="End Date" />
+          </span>
           <InputButton
-            text="Start Date"
-          />
-          <InputButton
-            text="End Date"
+            type="reservationId"
+            text="Reservation Id"
+            onChangeFunction={changeFiltersState}
           />
         </FiltersContainer>
         {/* Modal elements */}
