@@ -97,7 +97,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
 
     // Intersections between the filters results
     const intersectionTM = intersection(typeFilterResults, methodFilterResults);
-    const intersectionSC = intersection(serviceFilterResults, customerIdFilterResults);
+    const intersectionSC = intersection(
+      serviceFilterResults,
+      customerIdFilterResults
+    );
     const intersectionSdEd = intersection(
       startDateFilterResult,
       endDateFilterResult
