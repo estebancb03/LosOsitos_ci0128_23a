@@ -1,7 +1,7 @@
 import { useState } from "react";
-import InputButton from "../components/Buttons/InputButton";
-import DropDownSelect from "../components/Buttons/DropDownSelect";
-import FiltersContainer from "../components/Containers/FiltersContainer";
+import InputButton from "../Buttons/InputButton";
+import DropDownSelect from "../Buttons/DropDownSelect";
+import FiltersContainer from "../Containers/FiltersContainer";
 
 const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
   // State that controls the filters that there are apply

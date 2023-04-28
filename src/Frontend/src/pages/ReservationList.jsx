@@ -10,7 +10,7 @@ import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
 import InputButton from "../components/Buttons/InputButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
-import ReservationListFilter from "../ReservationList/ReservationListFilter";
+import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
 import ReservationTestData from "../data/ReservationTestData";
 
