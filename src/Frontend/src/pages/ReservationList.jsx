@@ -109,6 +109,14 @@ const ReservationList = () => {
             (record) => record.method === filters.method
           )
         : ReservationTestData;
+
+    const reservationIdFilterResults =
+      filters.reservationId !== null
+        ? ReservationTestData.filter(
+            (record) => record.reservationId == filters.reservationId
+          )
+        : ReservationTestData;
+
     const serviceFilterResults =
       filters.service !== null
         ? ReservationTestData.filter((record) =>
@@ -131,7 +139,15 @@ const ReservationList = () => {
       return acc;
     }, []);
 
-    setReservationRecords(result);
+    const result2 = reservationIdFilterResults.reduce((acc, curr) => {
+      const match = result.find(
+        (record) => record.reservationId == curr.reservationId
+      );
+      if (match) acc.push(curr);
+      return acc;
+    }, []);
+
+    setReservationRecords(result2);
   };
 
   // The data is loaded to the state
