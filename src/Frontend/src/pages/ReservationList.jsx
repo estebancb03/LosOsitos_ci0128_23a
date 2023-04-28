@@ -10,7 +10,7 @@ import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
 import InputButton from "../components/Buttons/InputButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
-import FiltersContainer from "../components/Containers/FiltersContainer";
+import ReservationListFilter from "../ReservationList/ReservationListFilter";
 
 import ReservationTestData from "../data/ReservationTestData";
 
@@ -25,13 +25,6 @@ const ReservationList = () => {
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-  // State that controls the filters that there are apply
-  const [filters, setFilters] = useState({
-    type: null,
-    method: null,
-    service: null,
-    reservationId: null,
-  });
   // Table columns
   const tableColumns = [
     "Id",
@@ -74,82 +67,6 @@ const ReservationList = () => {
     return services.map((service) => service.name);
   };
 
-  // Method that changes the filters that will be applied
-  const changeFiltersState = (type, value) => {
-    const updatedFilters = { ...filters };
-    if (type === "type") {
-      value !== ""
-        ? (updatedFilters.type = value)
-        : (updatedFilters.type = null);
-    } else if (type === "method") {
-      value !== ""
-        ? (updatedFilters.method = value)
-        : (updatedFilters.method = null);
-    } else if (type === "service") {
-      value !== ""
-        ? (updatedFilters.service = value)
-        : (updatedFilters.service = null);
-    } else if (type === "reservationId") {
-      value !== ""
-        ? (updatedFilters.reservationId = value)
-        : (updatedFilters.reservationId = null);
-    }
-    setFilters(updatedFilters);
-  };
-
-  // Method that applys the filters
-  const applyFilters = (filter) => {
-    const typeFilterResults =
-      filters.type !== null
-        ? ReservationTestData.filter((record) => record.type === filters.type)
-        : ReservationTestData;
-    const methodFilterResults =
-      filters.method !== null
-        ? ReservationTestData.filter(
-            (record) => record.method === filters.method
-          )
-        : ReservationTestData;
-
-    const reservationIdFilterResults =
-      filters.reservationId !== null
-        ? ReservationTestData.filter(
-            (record) => record.reservationId == filters.reservationId
-          )
-        : ReservationTestData;
-
-    const serviceFilterResults =
-      filters.service !== null
-        ? ReservationTestData.filter((record) =>
-            record.services.some((service) => service.name === filters.service)
-          )
-        : ReservationTestData;
-
-    const intersectionTypeMethod = typeFilterResults.reduce((acc, curr) => {
-      const match = methodFilterResults.find(
-        (record) => record.reservationId === curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
-    const result = intersectionTypeMethod.reduce((acc, curr) => {
-      const match = serviceFilterResults.find(
-        (record) => record.reservationId === curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
-
-    const result2 = reservationIdFilterResults.reduce((acc, curr) => {
-      const match = result.find(
-        (record) => record.reservationId == curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
-
-    setReservationRecords(result2);
-  };
-
   // The data is loaded to the state
   useEffect(() => {
     setReservationRecords(ReservationTestData);
@@ -160,45 +77,7 @@ const ReservationList = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation List" />
-        {/* Filter elements */}
-        <FiltersContainer applyFunction={applyFilters}>
-          <span className="">
-            <DropDownSelect
-              text="Type"
-              disabled={false}
-              options={["", "Picnic", "Camping"]}
-              typeChange="type"
-              onChangeFunction={changeFiltersState}
-            />
-          </span>
-          <span className="mx-4 sm:mt-4 sm:mx-0">
-            <DropDownSelect
-              text="Method"
-              disabled={false}
-              options={["", "Online", "In site"]}
-              typeChange="method"
-              onChangeFunction={changeFiltersState}
-            />
-          </span>
-          <span className="">
-            <DropDownSelect
-              text="Service"
-              disabled={false}
-              options={["", "Kayak", "Bicycle"]}
-              typeChange="service"
-              onChangeFunction={changeFiltersState}
-            />
-          </span>
-          <InputButton text="Start Date" />
-          <span className="mx-4 sm:mx-0">
-            <InputButton text="End Date" />
-          </span>
-          <InputButton
-            type="reservationId"
-            text="Reservation Id"
-            onChangeFunction={changeFiltersState}
-          />
-        </FiltersContainer>
+        <ReservationListFilter reservationData={ReservationTestData} setReservationRecords={setReservationRecords} />
         {/* Modal elements */}
         <Modal
           state={viewModal}
