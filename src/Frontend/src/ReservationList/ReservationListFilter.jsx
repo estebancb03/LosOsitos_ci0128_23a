@@ -11,6 +11,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     service: null,
     reservationId: null,
   });
+
   // Method that changes the filters that will be applied
   const changeFiltersState = (type, value) => {
     const updatedFilters = { ...filters };
@@ -33,6 +34,17 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     }
     setFilters(updatedFilters);
   };
+
+  // Method that returns an intersection between two filters
+  const intersection = (filter1, filter2) => {
+    return filter1.reduce((acc, curr) => {
+      const match = filter2.find(
+        (record) => record.reservationId == curr.reservationId
+      );
+      if (match) acc.push(curr);
+      return acc;
+    }, []);
+  }
 
   // Method that applys the filters
   const applyFilters = (filter) => {
@@ -59,30 +71,11 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           )
         : reservationData;
 
-    const intersectionTypeMethod = typeFilterResults.reduce((acc, curr) => {
-      const match = methodFilterResults.find(
-        (record) => record.reservationId === curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
-    const result = intersectionTypeMethod.reduce((acc, curr) => {
-      const match = serviceFilterResults.find(
-        (record) => record.reservationId === curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
+    const intersectionTM = intersection(typeFilterResults, methodFilterResults);
+    const intersectionTMS = intersection(intersectionTM, serviceFilterResults);
+    const intersectionTMSR = intersection(intersectionTMS, reservationIdFilterResults);
 
-    const result2 = reservationIdFilterResults.reduce((acc, curr) => {
-      const match = result.find(
-        (record) => record.reservationId == curr.reservationId
-      );
-      if (match) acc.push(curr);
-      return acc;
-    }, []);
-
-    setReservationRecords(result2);
+    setReservationRecords(intersectionTMSR);
   };
   return (
     <>
