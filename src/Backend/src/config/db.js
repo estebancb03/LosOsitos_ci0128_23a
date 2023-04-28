@@ -1,18 +1,17 @@
 import sql from "mssql";
 
-
 const dbSettings = {
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
+  user: "LosOsitos_Admin",
+  password: "LosOsitos_Admin",
+  server: "172.16.202.209",
+  database: "LosOsitos",
   options: {
-    encrypt: true,
+    encrypt: false,
     trustSeverCertificate: true,
   },
 };
 
-export const getConnection = async () => {
+const getConnection = async () => {
   try {
     console.log("[] Trying to connect to the server ... ");
     const pool = await sql.connect(dbSettings);
@@ -23,5 +22,4 @@ export const getConnection = async () => {
   }
 };
 
-//export default getConnection;
-export {sql};
+export {sql, getConnection};

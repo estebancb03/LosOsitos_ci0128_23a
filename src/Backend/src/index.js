@@ -1,12 +1,14 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import { getConnection } from "./config/db.js";
 import countryRoutes from "./routes/countryRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 dotenv.config();
+getConnection();
 const corsOptions = {};
 console.log(process.env.FRONTEND_URL)
 const allowedDomains = [process.env.FRONTEND_URL];
