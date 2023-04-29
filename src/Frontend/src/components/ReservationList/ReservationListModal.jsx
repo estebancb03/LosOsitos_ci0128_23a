@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
+import { formatDateDDMMYYYY } from "../../helpers/formatDate"
 
 const ReservationListModal = ({
   records,
