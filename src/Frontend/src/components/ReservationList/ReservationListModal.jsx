@@ -14,6 +14,8 @@ const ReservationListModal = ({
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
+  // State that controls the selected record information
+  const [recordInfo, setRecordInfo] = useState(selectedRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
