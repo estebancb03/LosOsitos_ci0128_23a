@@ -3,7 +3,8 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
-import { formatDateDDMMYYYY } from "../../helpers/formatDate"
+import { formatDateDDMMYYYY } from "../../helpers/formatDate";
+import DatePickerButton from "../Buttons/DatePickerButton";
 
 const ReservationListModal = ({
   records,
@@ -35,16 +36,20 @@ const ReservationListModal = ({
   };
 
   const changeRecordInfo = (type, value) => {
-    const newRecord = {...selectedRecord};
-    if(type === "customerId") {
+    const newRecord = { ...selectedRecord };
+    if (type === "customerId") {
       newRecord.customerId = value;
-    } else if(type === "customer") {
+    } else if (type === "customer") {
       newRecord.customer = value;
-    } else if(type === "nationality") {
+    } else if (type === "nationality") {
       newRecord.nationality = value;
+    } else if (type === "startDate") {
+      newRecord.startDate = value;
+    } else if (type === "endDate") {
+      newRecord.endDate = value;
     }
     setSelectedRecord(newRecord);
-  }
+  };
 
   return (
     <Modal state={viewModal} setState={restartModal} title="Reservation Data">
@@ -53,7 +58,7 @@ const ReservationListModal = ({
       </div>
       <InputButton
         text="Reservation Date"
-        placeholderText={selectedRecord.reservationDate}
+        placeholderText={formatDateDDMMYYYY(selectedRecord.reservationDate)}
         disabled={true}
       />
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
@@ -89,17 +94,27 @@ const ReservationListModal = ({
         disabled={disabledElements}
         onChangeFunction={changeRecordInfo}
       />
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
-        <InputButton
-          text="Start Date"
-          placeholderText={selectedRecord.startDate}
-          disabled={disabledElements}
-        />
-        <InputButton
-          text="End Date"
-          placeholderText={selectedRecord.endDate}
-          disabled={disabledElements}
-        />
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-8">
+        <span className="">
+          <DatePickerButton
+            text="Start Date"
+            typeClass="2"
+            type="startDate"
+            disabled={disabledElements}
+            selectedDate={new Date(selectedRecord.startDate)}
+            onChangeFunction={changeRecordInfo}
+          />
+        </span>
+        <span className="mr-2">
+          <DatePickerButton
+            text="End Date"
+            typeClass="2"
+            type="endDate"
+            disabled={disabledElements}
+            selectedDate={new Date(selectedRecord.endDate)}
+            onChangeFunction={changeRecordInfo}
+          />
+        </span>
       </div>
       <label className="block text-xl font-semibold leading-6 text-gray-900">
         People ({selectedRecord.peopleQuantity})
@@ -134,11 +149,16 @@ const ReservationListModal = ({
                 {service.name}
               </label>
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
-                <InputButton
-                  text=""
-                  placeholderText={service.date}
-                  disabled={disabledElements}
-                />
+                <span className="mr-2">
+                  <DatePickerButton
+                    text=""
+                    typeClass="2"
+                    disabled={disabledElements}
+                    type={"service" + index}
+                    selectedDate={new Date(service.date)}
+                    onChangeFunction={changeRecordInfo}
+                  />
+                </span>
                 <DropDownSelect
                   selectedOption={service.hour}
                   disabled={disabledElements}
