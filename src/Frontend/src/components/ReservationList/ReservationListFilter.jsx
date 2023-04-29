@@ -19,13 +19,17 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
   const changeFiltersState = (type, value) => {
     const updatedFilters = { ...filters };
     if (type === "type") {
-      value !== ""
-        ? (updatedFilters.type = value)
-        : (updatedFilters.type = null);
+      if (value !== "") {
+        value === "Camping" ? (updatedFilters.type = 1) : (updatedFilters.type = 2);
+      } else {
+        updatedFilters.type = null;
+      }
     } else if (type === "method") {
-      value !== ""
-        ? (updatedFilters.method = value)
-        : (updatedFilters.method = null);
+      if (value !== "") {
+        value === "Online" ? (updatedFilters.method = 1) : (updatedFilters.method = 2);
+      } else {
+        updatedFilters.type = null;
+      }
     } else if (type === "service") {
       value !== ""
         ? (updatedFilters.service = value)
