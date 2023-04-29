@@ -6,9 +6,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "1/04/2023",
-    endDate: "1/04/2023",
+    reservationDate: "4-20-2023",
+    startDate: "1-4-2023",
+    endDate: "1-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -20,13 +20,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -45,9 +45,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "2/04/2023",
-    endDate: "2/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "2-4-2023",
+    endDate: "2-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -59,13 +59,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -84,9 +84,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "3/04/2023",
-    endDate: "3/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "3-4-2023",
+    endDate: "3-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -98,19 +98,19 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "2-3-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -129,9 +129,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "4/04/2023",
-    endDate: "4/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "4-4-2023",
+    endDate: "4-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -143,7 +143,7 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -162,9 +162,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "5/04/2023",
-    endDate: "5/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "5-4-2023",
+    endDate: "5-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -176,13 +176,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -201,9 +201,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "6/04/2023",
-    endDate: "6/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "6-4-2023",
+    endDate: "6-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -215,7 +215,7 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -234,9 +234,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "7/04/2023",
-    endDate: "7/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "7-4-2023",
+    endDate: "7-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -248,13 +248,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -273,9 +273,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "8/04/2023",
-    endDate: "8/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "8-4-2023",
+    endDate: "8-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -287,13 +287,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -312,9 +312,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "9/04/2023",
-    endDate: "9/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "9-4-2023",
+    endDate: "9-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -326,13 +326,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22/03/2023",
+        date: "22-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -351,9 +351,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "10/04/2023",
-    endDate: "10/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "1-4-2023",
+    endDate: "1-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -365,13 +365,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -390,9 +390,9 @@ const ReservationTestData = [
     type: "Camping",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "11/04/2023",
-    endDate: "1/04/2023",
+    reservationDate: "2-4-2023",
+    startDate: "1-4-2023",
+    endDate: "1-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -404,13 +404,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -429,9 +429,9 @@ const ReservationTestData = [
     type: "Picnic",
     customer: "Esteban",
     nationality: "Costa Rica",
-    reservationDate: "20/04/2023",
-    startDate: "11/04/2023",
-    endDate: "2/04/2023",
+    reservationDate: "20-04-2023",
+    startDate: "1-4-2023",
+    endDate: "2-4-2023",
     peopleQuantity: 5,
     peopleType: [
       "Foreign, Adult",
@@ -443,13 +443,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24/03/2023",
+        date: "24-03-2023",
         hour: "9:30",
         price: "5",
       },
