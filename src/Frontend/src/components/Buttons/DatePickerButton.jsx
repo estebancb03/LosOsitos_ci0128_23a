@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { createDate, formatDateMMDDYYYY } from "../../helpers/formatDate";
+import { formatDateMMDDYYYY } from "../../helpers/formatDate";
 
 const DatePickerButton = ({ text, typeClass, type, selectedDate, disabled = false , onChangeFunction }) => {
   // State that controls the date
