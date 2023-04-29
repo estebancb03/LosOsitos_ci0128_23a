@@ -23,7 +23,7 @@ const DatePickerButton = ({ text, typeClass, type, onChangeFunction }) => {
     <div className="grid grid-cols-1">
       <div className="sm:col-span-2">
         {typeClass && typeClass === "1" ? (
-          <div className="mt-4 sm:ml-3">
+          <div className="mt-3 sm:ml-3">
             <label className="block mb-2 text-xl font-semibold leading-6 text-gray-900">
               {text}
             </label>
