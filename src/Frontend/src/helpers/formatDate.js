@@ -1,7 +1,7 @@
 // Method that formats the date from mm-dd-yyyy to dd/mm/yy
 const formatDateDDMMYYYY = (date) => {
-  const parts = date.split("-");
-  return parts[1] + "/" + parts[0] + "/" + parts[2];
+  const parts = date !== undefined ? date.split("-") : "";
+  return parts !== "" ? parts[1] + "/" + parts[0] + "/" + parts[2] : "";
 };
   // Method that formats the date
   const formatDateMMDDYYYY = (date) => {
