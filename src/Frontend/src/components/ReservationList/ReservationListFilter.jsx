@@ -171,7 +171,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
         <span className="sm:mt-2">
           <DatePickerButton
             text="End Date"
-            typeClass="2"
+            typeClass=""
             type="endDate"
             onChangeFunction={changeFiltersState}
           />
