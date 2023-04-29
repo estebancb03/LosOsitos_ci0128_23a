@@ -7,6 +7,7 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 const ReservationListModal = ({
   records,
   selectedRecord,
+  setSelectedRecord,
   viewModal,
   setViewModal,
 }) => {
@@ -15,7 +16,7 @@ const ReservationListModal = ({
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
   // State that controls the selected record information
-  const [recordInfo, setRecordInfo] = useState(selectedRecord);
+  const [recordInfo, setRecordInfo] = useState({});
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -31,6 +32,14 @@ const ReservationListModal = ({
     setDisabledElements(true);
     setModifyButton("Modify");
   };
+
+  const changeRecordInfo = (type, value) => {
+    const newRecord = {...selectedRecord};
+    if(type === "customerId") {
+      newRecord.customerId = value;
+    }
+    setSelectedRecord(newRecord);
+  }
 
   return (
     <Modal state={viewModal} setState={restartModal} title="Reservation Data">
@@ -55,9 +64,11 @@ const ReservationListModal = ({
         />
       </div>
       <InputButton
-        text="Costumer ID"
+        text="Customer ID"
+        type="customerId"
         placeholderText={selectedRecord.customerId}
         disabled={disabledElements}
+        onChangeFunction={changeRecordInfo}
       />
       <InputButton
         text="Name"

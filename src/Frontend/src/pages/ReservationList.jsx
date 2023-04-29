@@ -63,6 +63,7 @@ const ReservationList = () => {
         />
         <ReservationListModal
           selectedRecord={recordInfo}
+          setSelectedRecord={setRecordInfo}
           viewModal={viewModal}
           setViewModal={setViewModal}
         />
