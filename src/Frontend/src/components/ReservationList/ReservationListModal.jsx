@@ -37,6 +37,10 @@ const ReservationListModal = ({
     const newRecord = {...selectedRecord};
     if(type === "customerId") {
       newRecord.customerId = value;
+    } else if(type === "customer") {
+      newRecord.customer = value;
+    } else if(type === "nationality") {
+      newRecord.nationality = value;
     }
     setSelectedRecord(newRecord);
   }
@@ -72,13 +76,17 @@ const ReservationListModal = ({
       />
       <InputButton
         text="Name"
+        type="customer"
         placeholderText={selectedRecord.customer}
         disabled={disabledElements}
+        onChangeFunction={changeRecordInfo}
       />
       <InputButton
         text="Nationality"
+        type="nationality"
         placeholderText={selectedRecord.nationality}
         disabled={disabledElements}
+        onChangeFunction={changeRecordInfo}
       />
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
         <InputButton
