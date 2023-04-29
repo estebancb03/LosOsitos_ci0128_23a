@@ -1,23 +1,11 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { formatDateMMDDYYYY } from "../../helpers/formatDate";
 
 const DatePickerButton = ({ text, typeClass, type, onChangeFunction }) => {
   // State that controls the date
   const [startDate, setStartDate] = useState();
-
-  // Method that formats the date
-  const formatDate = (date) => {
-    if (date !== null) {
-      const day = "" + date.getDate();
-      const month = "" + (date.getMonth() + 1);
-      const year = "" + date.getFullYear();
-      const result = month + "-" + day + "-" + year;
-      return result;
-    } else {
-      return "";
-    }
-  };
 
   return (
     <div className="grid grid-cols-1">
@@ -30,7 +18,7 @@ const DatePickerButton = ({ text, typeClass, type, onChangeFunction }) => {
             <DatePicker
               onChange={(date) => {
                 setStartDate(date);
-                onChangeFunction(type, formatDate(date));
+                onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
               selected={startDate}
               dateFormat="dd/MM/yyyy"
@@ -45,7 +33,7 @@ const DatePickerButton = ({ text, typeClass, type, onChangeFunction }) => {
             <DatePicker
               onChange={(date) => {
                 setStartDate(date);
-                onChangeFunction(type, formatDate(date));
+                onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
               selected={startDate}
               dateFormat="dd/MM/yyyy"

@@ -7,6 +7,7 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
+import { formatDateDDMMYYYY } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
@@ -75,12 +76,12 @@ const ReservationList = () => {
               data={[
                 record.customerId,
                 record.customer,
-                record.type,
-                record.method,
-                record.startDate,
-                record.endDate,
+                record.type == 1 ? "Camping" : "Picnic",
+                record.method == 1 ? "Online" : "In site",
+                formatDateDDMMYYYY(record.startDate),
+                formatDateDDMMYYYY(record.endDate),
                 getServicesNames(record.services),
-                record.totalPrice,
+                "$" + record.totalPrice,
                 <Button
                   text="View"
                   onclickFunction={(e) =>
