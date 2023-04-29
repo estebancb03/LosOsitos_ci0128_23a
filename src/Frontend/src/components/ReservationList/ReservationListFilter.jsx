@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
+import DatePickerButton from "../Buttons/DatePickerButton";
 import FiltersContainer from "../Containers/FiltersContainer";
 
 const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
@@ -143,16 +144,18 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="sm:mt-2 sm:ml-3">
-          <InputButton
+        <span className="sm:mt-2 sm:mr-3">
+          <DatePickerButton
             text="Start Date"
+            typeClass="1"
             type="startDate"
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="mx-4 sm:mx-0 sm:mr-3">
-          <InputButton
+        <span className="sm:mt-2">
+          <DatePickerButton
             text="End Date"
+            typeClass="2"
             type="endDate"
             onChangeFunction={changeFiltersState}
           />
