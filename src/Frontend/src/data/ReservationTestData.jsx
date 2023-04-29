@@ -20,13 +20,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -59,13 +59,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -104,13 +104,13 @@ const ReservationTestData = [
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -143,7 +143,7 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -176,13 +176,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -215,7 +215,7 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -248,13 +248,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -287,13 +287,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -326,13 +326,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Hiking",
-        date: "22-03-2023",
+        date: "4-03-2023",
         hour: "14:45",
         price: "10",
       },
@@ -365,13 +365,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -404,13 +404,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
@@ -443,13 +443,13 @@ const ReservationTestData = [
     services: [
       {
         name: "Kayak",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
-        date: "24-03-2023",
+        date: "4-03-2023",
         hour: "9:30",
         price: "5",
       },
