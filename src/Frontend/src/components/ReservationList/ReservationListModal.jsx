@@ -37,35 +37,28 @@ const ReservationListModal = ({
       <div className="my-3">
         {<Button text={modifyButton} onclickFunction={modifyHandleClick} />}
       </div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+      <InputButton
+        text="Reservation Date"
+        placeholderText={selectedRecord.reservationDate}
+        disabled={true}
+      />
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
         <InputButton
-          text="Reservation ID"
-          placeholderText={selectedRecord.reservationId}
+          text="Type"
+          placeholderText={selectedRecord.type == 1 ? "Camping" : "Picnic"}
           disabled={true}
         />
         <InputButton
-          text="Costumer ID"
-          placeholderText={selectedRecord.customerId}
-          disabled={disabledElements}
+          text="Method"
+          placeholderText={selectedRecord.method == 1 ? "Online" : "In site"}
+          disabled={true}
         />
       </div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
-        <span className="">
-          <DropDownSelect
-            text="Type"
-            selectedOption="Camping"
-            disabled={disabledElements}
-            options={["Picnic", "Camping"]}
-          />
-        </span>
-        <span className="">
-          <DropDownSelect
-            text="Method"
-            disabled={disabledElements}
-            options={["Online", "In the place"]}
-          />
-        </span>
-      </div>
+      <InputButton
+        text="Costumer ID"
+        placeholderText={selectedRecord.customerId}
+        disabled={disabledElements}
+      />
       <InputButton
         text="Name"
         placeholderText={selectedRecord.customer}
@@ -74,11 +67,6 @@ const ReservationListModal = ({
       <InputButton
         text="Nationality"
         placeholderText={selectedRecord.nationality}
-        disabled={disabledElements}
-      />
-      <InputButton
-        text="Reservation Date"
-        placeholderText={selectedRecord.reservationDate}
         disabled={disabledElements}
       />
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
