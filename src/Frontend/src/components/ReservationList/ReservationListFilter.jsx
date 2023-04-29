@@ -179,6 +179,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           <InputButton
             type="customerId"
             text="Costumer Id"
+            placeholderText=""
             onChangeFunction={changeFiltersState}
           />
         </span>
