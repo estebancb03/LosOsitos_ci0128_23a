@@ -14,19 +14,25 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     startDate: null,
     endDate: null,
   });
+  // State that controls when clear the filters elements
+  const [clear, setClear] = useState(false);
 
   // Method that changes the filters that will be applied
   const changeFiltersState = (type, value) => {
     const updatedFilters = { ...filters };
     if (type === "type") {
       if (value !== "") {
-        value === "Camping" ? (updatedFilters.type = 1) : (updatedFilters.type = 2);
+        value === "Camping"
+          ? (updatedFilters.type = 1)
+          : (updatedFilters.type = 2);
       } else {
         updatedFilters.type = null;
       }
     } else if (type === "method") {
       if (value !== "") {
-        value === "Online" ? (updatedFilters.method = 1) : (updatedFilters.method = 2);
+        value === "Online"
+          ? (updatedFilters.method = 1)
+          : (updatedFilters.method = 2);
       } else {
         updatedFilters.type = null;
       }
@@ -115,12 +121,17 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
       intersectionTMSC,
       intersectionSdEd
     );
-
     setReservationRecords(intersectionTMSCSdEd);
   };
+
+  // Method that removes the filtes applied
+  const deleteFilters = () => {
+    window.location.reload(true);
+  };
+
   return (
     <>
-      <FiltersContainer applyFunction={applyFilters}>
+      <FiltersContainer applyFunction={applyFilters} restartFunction={deleteFilters}>
         <span className="sm:mr-3">
           <DropDownSelect
             text="Type"
@@ -164,7 +175,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="sm:ml-3">
+        <span className="sm:ml-3 mt-0.5 sm:mt-0">
           <InputButton
             type="customerId"
             text="Costumer Id"
