@@ -34,7 +34,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           ? (updatedFilters.method = 1)
           : (updatedFilters.method = 2);
       } else {
-        updatedFilters.type = null;
+        updatedFilters.method = null;
       }
     } else if (type === "service") {
       value !== ""
@@ -72,12 +72,12 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     // Filter by type
     const typeFilterResults =
       filters.type !== null
-        ? reservationData.filter((record) => record.type === filters.type)
+        ? reservationData.filter((record) => record.type == filters.type)
         : reservationData;
     // Filter by method
     const methodFilterResults =
       filters.method !== null
-        ? reservationData.filter((record) => record.method === filters.method)
+        ? reservationData.filter((record) => record.method == filters.method)
         : reservationData;
     // Filter by service
     const serviceFilterResults =
@@ -121,6 +121,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
       intersectionTMSC,
       intersectionSdEd
     );
+    // The table items are updated
     setReservationRecords(intersectionTMSCSdEd);
   };
 
