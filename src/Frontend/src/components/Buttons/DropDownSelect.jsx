@@ -1,4 +1,15 @@
-const DropDownSelect = ({ text, disabled, selectedOption, options, typeChange, onChangeFunction }) => {
+import { useState } from "react";
+
+const DropDownSelect = ({
+  text,
+  disabled,
+  selectedOption,
+  options,
+  typeChange,
+  onChangeFunction,
+}) => {
+  // State that manages the current value of the component
+  const [currentOption, setCurrentOption] = useState(selectedOption);
   return (
     <>
       {text ? (
@@ -8,13 +19,19 @@ const DropDownSelect = ({ text, disabled, selectedOption, options, typeChange, o
           </label>
           <div className="mt-2">
             <select
-              value={selectedOption}
+              onChange={(e) => {
+                setCurrentOption(e.target.value);
+                onChangeFunction(typeChange, e.target.value);
+              }}
+              selected={currentOption}
+              value={currentOption}
               disabled={disabled}
               className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#6545e6] sm:text-sm sm:leading-6"
-              onChange={e => onChangeFunction(typeChange, e.target.value)}
             >
               {options.map((option, index) => (
-                <option key={index} value={option}>{option}</option>
+                <option key={index} value={option}>
+                  {option}
+                </option>
               ))}
             </select>
           </div>
@@ -23,13 +40,19 @@ const DropDownSelect = ({ text, disabled, selectedOption, options, typeChange, o
         <div className="sm:col-span-3">
           <div className="mt-3.5 mx-2">
             <select
-              value={selectedOption}
+              onChange={(e) => {
+                setCurrentOption(e.target.value);
+                onChangeFunction(typeChange, e.target.value);
+              }}
+              selected={currentOption}
+              value={currentOption}
               disabled={disabled}
               className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#6545e6] sm:text-sm sm:leading-6"
-              onChange={e => onChangeFunction(typeChange, e.target.value)}
             >
               {options.map((option, index) => (
-                <option key={index} value={option}>{option}</option>
+                <option key={index} value={option}>
+                  {option}
+                </option>
               ))}
             </select>
           </div>
