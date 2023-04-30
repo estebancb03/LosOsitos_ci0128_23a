@@ -35,18 +35,27 @@ const ReservationListModal = ({
     setModifyButton("Modify");
   };
 
+  // Method that validates what part of the state to modify
   const changeRecordInfo = (type, value) => {
     const newRecord = { ...selectedRecord };
-    if (type === "customerId") {
-      newRecord.customerId = value;
-    } else if (type === "customer") {
-      newRecord.customer = value;
-    } else if (type === "nationality") {
-      newRecord.nationality = value;
-    } else if (type === "startDate") {
-      newRecord.startDate = value;
-    } else if (type === "endDate") {
-      newRecord.endDate = value;
+    if (Array.isArray(type)) {
+      if (type[0] === "plateNumbers") {
+        const newPlateNumbers = [...newRecord.plateNumbers];
+        newPlateNumbers[type[1]] = value;
+        newRecord.plateNumbers = newPlateNumbers;
+      }
+    } else {
+      if (type === "customerId") {
+        newRecord.customerId = value;
+      } else if (type === "customer") {
+        newRecord.customer = value;
+      } else if (type === "nationality") {
+        newRecord.nationality = value;
+      } else if (type === "startDate") {
+        newRecord.startDate = value;
+      } else if (type === "endDate") {
+        newRecord.endDate = value;
+      }
     }
     setSelectedRecord(newRecord);
   };
@@ -180,8 +189,10 @@ const ReservationListModal = ({
           selectedRecord.plateNumbers.map((plateNumber, index) => (
             <InputButton
               key={index}
+              type={['plateNumbers', index]}
               placeholderText={plateNumber}
               disabled={disabledElements}
+              onChangeFunction={changeRecordInfo}
             />
           ))}
       </div>
