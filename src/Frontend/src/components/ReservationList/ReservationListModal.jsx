@@ -80,20 +80,24 @@ const ReservationListModal = ({
         disabled={true}
         onChangeFunction={changeRecordInfo}
       />
-      <InputButton
-        text="Name"
-        type="customer"
-        placeholderText={selectedRecord.customer}
-        disabled={disabledElements}
-        onChangeFunction={changeRecordInfo}
-      />
-      <InputButton
-        text="Nationality"
-        type="nationality"
-        placeholderText={selectedRecord.nationality}
-        disabled={disabledElements}
-        onChangeFunction={changeRecordInfo}
-      />
+      <div className="mt-6">
+        <InputButton
+          text="Name"
+          type="customer"
+          placeholderText={selectedRecord.customer}
+          disabled={disabledElements}
+          onChangeFunction={changeRecordInfo}
+        />
+      </div>
+      <div className="mt-6">
+        <InputButton
+          text="Nationality"
+          type="nationality"
+          placeholderText={selectedRecord.nationality}
+          disabled={disabledElements}
+          onChangeFunction={changeRecordInfo}
+        />
+      </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-8">
         <span className="">
           <DatePickerButton
@@ -138,7 +142,7 @@ const ReservationListModal = ({
             </span>
           ))}
       </div>
-      <label className="block text-xl font-semibold leading-6 text-gray-900">
+      <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Services
       </label>
       {selectedRecord.services &&
@@ -168,10 +172,10 @@ const ReservationListModal = ({
             </div>
           </div>
         ))}
-      <label className="block text-xl font-semibold leading-6 text-gray-900">
+      <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Plate Numbers
       </label>
-      <div className="grid grid-cols-2 mb-3">
+      <div className="grid grid-cols-2 mb-7">
         {selectedRecord.services &&
           selectedRecord.plateNumbers.map((plateNumber, index) => (
             <InputButton
@@ -181,11 +185,13 @@ const ReservationListModal = ({
             />
           ))}
       </div>
-      <InputButton
-        text="Total price"
-        placeholderText={selectedRecord.totalPrice}
-        disabled={disabledElements}
-      />
+      <span className="mt-10">
+        <InputButton
+          text="Total price"
+          placeholderText={selectedRecord.totalPrice}
+          disabled={disabledElements}
+        />
+      </span>
     </Modal>
   );
 };
