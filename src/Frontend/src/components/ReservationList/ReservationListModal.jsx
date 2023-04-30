@@ -77,7 +77,7 @@ const ReservationListModal = ({
         text="Customer ID"
         type="customerId"
         placeholderText={selectedRecord.customerId}
-        disabled={disabledElements}
+        disabled={true}
         onChangeFunction={changeRecordInfo}
       />
       <InputButton

@@ -23,7 +23,7 @@ const DatePickerButton = ({ text, typeClass, type, selectedDate, disabled = fals
               disabled={disabled}
               selected={startDate}
               dateFormat="dd/MM/yyyy"
-              className="block w-[100%] md:w-[93%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#6545e6] sm:text-sm sm:leading-6"
+              className="block w-[100%] md:w-[100%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#6545e6] sm:text-sm sm:leading-6"
             />
           </div>
         ) : typeClass && typeClass === "2" ? (
