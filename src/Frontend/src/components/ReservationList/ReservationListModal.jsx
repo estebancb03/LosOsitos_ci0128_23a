@@ -43,6 +43,11 @@ const ReservationListModal = ({
         const newPlateNumbers = [...newRecord.plateNumbers];
         newPlateNumbers[type[1]] = value;
         newRecord.plateNumbers = newPlateNumbers;
+      } else if (type[0] === "services") {
+        const newServices = [...newRecord.services];
+        type[1] === "date"
+          ? (newServices[type[2]].date = value)
+          : (newServices[type[2]].hour = value);
       }
     } else {
       if (type === "customerId") {
@@ -167,16 +172,20 @@ const ReservationListModal = ({
                     text=""
                     typeClass="2"
                     disabled={disabledElements}
-                    type={"service" + index}
+                    type={["services", "date", index]}
                     selectedDate={new Date(service.date)}
                     onChangeFunction={changeRecordInfo}
                   />
                 </span>
-                <DropDownSelect
-                  selectedOption={service.hour}
-                  disabled={disabledElements}
-                  options={[service.hour, "10:30", "11:30", "12:30", "13:30"]}
-                />
+                <div className="mt-1">
+                  <DropDownSelect
+                    options={[service.hour, "10:30", "11:30", "12:30", "13:30"]}
+                    selectedOption={service.hour}
+                    disabled={disabledElements}
+                    typeChange={["services", "hour", index]}
+                    onChangeFunction={changeRecordInfo}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -189,7 +198,7 @@ const ReservationListModal = ({
           selectedRecord.plateNumbers.map((plateNumber, index) => (
             <InputButton
               key={index}
-              type={['plateNumbers', index]}
+              type={["plateNumbers", index]}
               placeholderText={plateNumber}
               disabled={disabledElements}
               onChangeFunction={changeRecordInfo}
