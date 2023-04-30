@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 //Routes
-app.use('/api/country', countryRoutes);
+app.use('/api', countryRoutes);
 
 app.listen(port, () => {
   console.log(`LosOsitos Server running on port ${port}`);

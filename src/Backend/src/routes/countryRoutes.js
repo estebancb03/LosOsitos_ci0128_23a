@@ -3,6 +3,6 @@ import { getCountry } from "../models/countryModel.js";
 
 const router = Router();
 
-router.get("/", getCountry);
+router.get("/country", getCountry);
 
 export default router;
