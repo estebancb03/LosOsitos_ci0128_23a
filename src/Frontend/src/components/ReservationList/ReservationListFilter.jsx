@@ -60,7 +60,9 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
   const intersection = (filter1, filter2) => {
     return filter1.reduce((acc, curr) => {
       const match = filter2.find(
-        (record) => record.reservationId == curr.reservationId
+        (record) =>
+          record.customerId + record.reservationDate ==
+          curr.customerId + curr.reservationDate
       );
       if (match) acc.push(curr);
       return acc;
@@ -132,7 +134,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
 
   return (
     <>
-      <FiltersContainer applyFunction={applyFilters} restartFunction={deleteFilters}>
+      <FiltersContainer
+        applyFunction={applyFilters}
+        restartFunction={deleteFilters}
+      >
         <span className="sm:mr-3">
           <DropDownSelect
             text="Type"

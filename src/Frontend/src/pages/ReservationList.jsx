@@ -36,7 +36,7 @@ const ReservationList = () => {
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
     const itemSelected = ReservationTestData.filter(
-      (item) => item.reservationId == itemID
+      (item) => (item.customerId + item.reservationDate) == itemID
     );
     setRecordInfo(itemSelected[0]);
     setViewModal(true);
@@ -85,9 +85,10 @@ const ReservationList = () => {
                 "$" + record.totalPrice,
                 <Button
                   text="View"
-                  onclickFunction={(e) =>
-                    setModalDataStatus(record.reservationId)
-                  }
+                  onclickFunction={(e) => {
+                    const reservationId = record.customerId + record.reservationDate;
+                    setModalDataStatus(reservationId);
+                  }}
                 />,
               ]}
             />

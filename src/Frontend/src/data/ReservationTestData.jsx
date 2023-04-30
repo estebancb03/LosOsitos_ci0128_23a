@@ -1,6 +1,5 @@
 const ReservationTestData = [
   {
-    reservationId: 1,
     customerId: 11,
     method: 1,
     type: 1,
@@ -32,14 +31,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 2,
     customerId: 21,
     method: 1,
     type: 2,
@@ -71,14 +75,10 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 3,
     customerId: 31,
     method: 2,
     type: 1,
@@ -116,14 +116,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 4,
     customerId: 41,
     method: 2,
     type: 2,
@@ -149,14 +154,10 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 5,
     customerId: 51,
     method: 1,
     type: 1,
@@ -188,14 +189,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 6,
     customerId: 61,
     method: 1,
     type: 2,
@@ -221,14 +227,10 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 7,
     customerId: 71,
     method: 2,
     type: 1,
@@ -260,14 +262,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 8,
     customerId: 81,
     method: 2,
     type: 2,
@@ -299,14 +306,10 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 9,
     customerId: 91,
     method: 1,
     type: 1,
@@ -338,14 +341,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 10,
     customerId: 101,
     method: 2,
     type: 2,
@@ -377,14 +385,10 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 11,
     customerId: 111,
     method: 1,
     type: 1,
@@ -416,14 +420,19 @@ const ReservationTestData = [
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        localitation: 7,
+        size: 0,
+      },
+      {
+        localitation: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 12,
     customerId: 121,
     method: 2,
     type: 2,
@@ -459,6 +468,7 @@ const ReservationTestData = [
       number: "7",
       price: "20",
     },
+    spots: [],
     totalPrice: "100",
   },
 ];
