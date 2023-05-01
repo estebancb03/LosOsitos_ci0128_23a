@@ -63,7 +63,6 @@ const ReservationList = () => {
     try {
       const url = '/reservation-list/getRecordsServices';
       const result = await AxiosClient(url);
-      console.log(result.data);
       setServices(result.data);
     } catch (exception) {
       console.log(exception);
@@ -73,7 +72,7 @@ const ReservationList = () => {
   // Method that returns only the associated services to a reservation ID
   const extractServiceByID = (reservationID) => {
     return services.filter((service) => service.ID_Client + service.Reservation_Date == reservationID);
-  }
+  };
 
   // Method that gets the names of the services of a row
   const getServicesNames = (reservationServices) => {
@@ -94,6 +93,7 @@ const ReservationList = () => {
         <ReservationListFilter
           reservationData={allRecords}
           setReservationRecords={setCurrentRecords}
+          services={services}
         />
         <ReservationListModal
           selectedRecord={recordInfo}

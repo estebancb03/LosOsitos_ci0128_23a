@@ -4,14 +4,17 @@ import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import FiltersContainer from "../Containers/FiltersContainer";
-import { 
-  formatDateDTMMDDYYYY,
-  addZerosToDate 
-} from "../../helpers/formatDate";
+import { formatDateDTMMDDYYYY, addZerosToDate } from "../../helpers/formatDate";
 
-const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
+const ReservationListFilter = ({
+  reservationData,
+  setReservationRecords,
+  services,
+}) => {
   // State that constrols the options of service dropdown
   const [servicesOptions, setServicesOptions] = useState([]);
+  // State that controls all services names of all reservations
+  const [allServicesNames, setAllServicesNames] = useState([]);
   // State that controls the filters that there are apply
   const [filters, setFilters] = useState({
     Reservation_Type: null,
@@ -25,13 +28,20 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
   // Method that full the serviceOptions with the data base result
   const getServicesOptions = async () => {
     try {
-      const url = '/reservation-list/getServicesOptions';
+      const url = "/reservation-list/getServicesOptions";
       const options = await AxiosClient.get(url);
       const result = ["", ...options.data.map((service) => service.Name)];
       setServicesOptions(result);
     } catch (exception) {
       console.log(exception);
     }
+  };
+
+  // Method that search if the reservation have x service
+  const findServiceInReservation = (reservationID, serviceName) => {
+    const filteredByReservationID = services.filter((service) => (service.ID_Client + service.Reservation_Date) == reservationID);
+    const filtered = filteredByReservationID.filter((service) => service.Name_Service == serviceName);
+    return filtered.length > 0 ? true : false;
   };
 
   // Method that changes the filters that will be applied
@@ -58,9 +68,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
         ? (updatedFilters.service = value)
         : (updatedFilters.service = null);
     } else if (type === "customerId") {
-      value !== ""
-        ? (updatedFilters.ID = value)
-        : (updatedFilters.ID = null);
+      value !== "" ? (updatedFilters.ID = value) : (updatedFilters.ID = null);
     } else if (type === "startDate") {
       value !== ""
         ? (updatedFilters.Start_Date = value)
@@ -78,8 +86,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     return filter1.reduce((acc, curr) => {
       const match = filter2.find(
         (record) =>
-          record.ID + record.reservationDate ==
-          curr.ID + curr.reservationDate
+          record.ID + record.reservationDate == curr.ID + curr.reservationDate
       );
       if (match) acc.push(curr);
       return acc;
@@ -91,38 +98,46 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     // Filter by type
     const typeFilterResults =
       filters.Reservation_Type !== null
-        ? reservationData.filter((record) => record.Reservation_Type == filters.Reservation_Type)
+        ? reservationData.filter(
+            (record) => record.Reservation_Type == filters.Reservation_Type
+          )
         : reservationData;
     // Filter by method
     const methodFilterResults =
       filters.Reservation_Method !== null
-        ? reservationData.filter((record) => record.Reservation_Method == filters.Reservation_Method)
+        ? reservationData.filter(
+            (record) => record.Reservation_Method == filters.Reservation_Method
+          )
         : reservationData;
     // Filter by service
     const serviceFilterResults =
       filters.service !== null
         ? reservationData.filter((record) =>
-            record.services.some((service) => service.name === filters.service)
+            findServiceInReservation((record.ID + record.Reservation_Date), filters.service) == true
           )
         : reservationData;
     // Filter by start date
     const startDateFilterResult =
       filters.Start_Date !== null
         ? reservationData.filter(
-            (record) => formatDateDTMMDDYYYY(record.Start_Date) == addZerosToDate(filters.Start_Date)
+            (record) =>
+              formatDateDTMMDDYYYY(record.Start_Date) ==
+              addZerosToDate(filters.Start_Date)
           )
         : reservationData;
     // Filter by end date
     const endDateFilterResult =
       filters.End_Date !== null
-        ? reservationData.filter((record) => formatDateDTMMDDYYYY(record.End_Date) == addZerosToDate(filters.End_Date))
+        ? reservationData.filter(
+            (record) =>
+              formatDateDTMMDDYYYY(record.End_Date) ==
+              addZerosToDate(filters.End_Date)
+          )
         : reservationData;
     // Filter by customer id
     const customerIdFilterResults =
       filters.ID !== null
-        ? reservationData.filter(
-            (record) => record.ID.trim() == filters.ID
-          )
+        ? reservationData.filter((record) => record.ID.trim() == filters.ID)
         : reservationData;
 
     // Intersections between the filters results
@@ -151,7 +166,7 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
 
   useEffect(() => {
     getServicesOptions();
-  });
+  }, []);
 
   return (
     <>
@@ -181,10 +196,9 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           <DropDownSelect
             text="Service"
             disabled={false}
-            // options={["", "Kayak", "Bicycle"]}
             options={servicesOptions}
             typeChange="service"
-            onChangeFunction={getServicesOptions}
+            onChangeFunction={changeFiltersState}
           />
         </span>
         <span className="sm:mt-2 sm:mr-3">
