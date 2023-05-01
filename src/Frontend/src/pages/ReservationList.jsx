@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import Title from "../components/Title";
 import Table from "../components/Table/Table";
+import AxiosClient from "../config/AxiosClient";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
@@ -29,9 +30,19 @@ const ReservationList = () => {
     "Start date",
     "End date",
     "Services",
-    "Pay",
     "Action",
   ];
+
+  // Method that gets the records from the Data Base
+  const getRecords = async () => {
+    try {
+      const url = '/reservation-list';
+      const records = await AxiosClient.get(url);
+      setReservationRecords(records.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  }
 
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
@@ -49,7 +60,7 @@ const ReservationList = () => {
 
   // The data is loaded to the state
   useEffect(() => {
-    setReservationRecords(ReservationTestData);
+    getRecords();
   }, []);
 
   return (
@@ -74,19 +85,32 @@ const ReservationList = () => {
             <TableItem
               key={index}
               number={index}
+              // data={[
+              //   record.customerId,
+              //   record.customer,
+              //   record.type == 0 ? "Camping" : "Picnic",
+              //   record.method == 0 ? "Online" : "In site",
+              //   formatDateDDMMYYYY(record.startDate),
+              //   formatDateDDMMYYYY(record.endDate),
+              //   getServicesNames(record.services),
+              //   <Button
+              //     text="View"
+              //     onclickFunction={(e) => {
+              //       const reservationId = record.customerId + record.reservationDate;
+              //       setModalDataStatus(reservationId);
+              //     }}
               data={[
-                record.customerId,
-                record.customer,
-                record.type == 0 ? "Camping" : "Picnic",
-                record.method == 0 ? "Online" : "In site",
-                formatDateDDMMYYYY(record.startDate),
-                formatDateDDMMYYYY(record.endDate),
-                getServicesNames(record.services),
-                "$" + record.totalPrice,
+                record.ID,
+                record.Name,
+                record.Reservation_Type == 1 ? "Camping" : "Picnic",
+                record.Reservation_Method == 0 ? "Online" : "In site",
+                formatDateDDMMYYYY(record.Start_Date),
+                formatDateDDMMYYYY(record.End_Date),
+                getServicesNames(["Picha", "Picha2"]),
                 <Button
                   text="View"
                   onclickFunction={(e) => {
-                    const reservationId = record.customerId + record.reservationDate;
+                    const reservationId = record.ID + record.Reservation_Date;
                     setModalDataStatus(reservationId);
                   }}
                 />,
