@@ -10,11 +10,31 @@ const ReservationTestData = [
     endDate: "1-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -54,11 +74,31 @@ const ReservationTestData = [
     endDate: "2-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -89,11 +129,31 @@ const ReservationTestData = [
     endDate: "3-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -139,11 +199,31 @@ const ReservationTestData = [
     endDate: "4-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -168,11 +248,31 @@ const ReservationTestData = [
     endDate: "5-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -212,11 +312,31 @@ const ReservationTestData = [
     endDate: "6-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -241,11 +361,31 @@ const ReservationTestData = [
     endDate: "7-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -285,11 +425,31 @@ const ReservationTestData = [
     endDate: "8-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -320,11 +480,31 @@ const ReservationTestData = [
     endDate: "9-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -364,11 +544,31 @@ const ReservationTestData = [
     endDate: "1-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -399,11 +599,31 @@ const ReservationTestData = [
     endDate: "1-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
@@ -443,11 +663,31 @@ const ReservationTestData = [
     endDate: "2-4-2023",
     peopleQuantity: 5,
     tickets: [
-      "Foreign, Adult",
-      "Foreign, Child",
-      "National, Adult",
-      "National, Child",
-      "Special Visitor",
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
+      },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
     services: [
       {
