@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Button from "../Buttons/Button";
+import DropDownSelect from "../Buttons/DropDownSelect"
 
 
 function ReservationStep0() {
@@ -9,6 +10,7 @@ function ReservationStep0() {
   const [idNumber, setIDNumber] = useState('');
   const [nationality, setNationality] = useState('');
   const [email, setEmail] = useState('');
+  const [gender, setGender] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -71,7 +73,19 @@ function ReservationStep0() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-      <button type="submit">Submit</button>
+        <div>
+          <DropDownSelect
+            text="Gender"
+            disabled={false}
+            options={["Male","Female","Non-Binary","Other"]}
+            typeChange={gender}
+            onChangeFunction={(e)=>{setGender(e.target.value)}}
+
+          />
+        </div>
+        <div className="my-10">
+          <Button text="Next" type="add" onclickFunction={() => {}}/>
+        </div>
     </form>
   );
 }
