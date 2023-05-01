@@ -24,7 +24,7 @@ const getServicesNames = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        "SELECT Reservation.ID_Client, Service_Reservation.Name_Service FROM Reservation FULL OUTER JOIN Service_Reservation ON Service_Reservation.ID_Client = Reservation.ID_Client"
+        "SELECT Reservation.ID_Client, Reservation.Reservation_Date, Service_Reservation.Name_Service FROM Reservation FULL OUTER JOIN Service_Reservation ON Service_Reservation.ID_Client = Reservation.ID_Client"
       );
       console.log(result);
       res.json(result.recordset);
