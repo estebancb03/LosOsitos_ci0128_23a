@@ -1,6 +1,6 @@
 import { getConnection } from "../config/db.js";
 
-// Metho that return reservation data
+// Method that returns reservation data
 const getReservations = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -17,4 +17,24 @@ const getReservations = async (req, res) => {
   }
 };
 
-export { getReservations };
+// Method that returns the services names of all reservations
+const getServicesNames = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        "SELECT Reservation.ID_Client, Service_Reservation.Name_Service FROM Reservation FULL OUTER JOIN Service_Reservation ON Service_Reservation.ID_Client = Reservation.ID_Client"
+      );
+      console.log(result);
+      res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export { 
+  getReservations,
+  getServicesNames
+};
