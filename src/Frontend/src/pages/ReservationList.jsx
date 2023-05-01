@@ -8,7 +8,7 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
-import { formatDateDDMMYYYY, formatDateFromDataTime } from "../helpers/formatDate";
+import { formatDateFromDataTime } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
@@ -105,23 +105,9 @@ const ReservationList = () => {
             <TableItem
               key={index}
               number={index}
-              // data={[
-              //   record.customerId,
-              //   record.customer,
-              //   record.type == 0 ? "Camping" : "Picnic",
-              //   record.method == 0 ? "Online" : "In site",
-              //   formatDateDDMMYYYY(record.startDate),
-              //   formatDateDDMMYYYY(record.endDate),
-              //   getServicesNames(record.services),
-              //   <Button
-              //     text="View"
-              //     onclickFunction={(e) => {
-              //       const reservationId = record.customerId + record.reservationDate;
-              //       setModalDataStatus(reservationId);
-              //     }}
               data={[
                 record.ID,
-                record.Name,
+                record.Name + " " + record.LastName1 + " " + record.LastName2,
                 record.Reservation_Type == 1 ? "Camping" : "Picnic",
                 record.Reservation_Method == 0 ? "Online" : "In site",
                 formatDateFromDataTime(record.Start_Date),
