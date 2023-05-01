@@ -19,6 +19,8 @@ const ReservationList = () => {
   const [viewModal, setViewModal] = useState(false);
   // State that controls the records of the table
   const [reservationRecords, setReservationRecords] = useState([]);
+  // State that controls the services of each row
+  const [services, setServices] = useState([]);
   // State that constrols the modal information
   const [recordInfo, setRecordInfo] = useState({});
   // Table columns
@@ -42,7 +44,7 @@ const ReservationList = () => {
     } catch (exception) {
       console.log(exception);
     }
-  }
+  };
 
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
@@ -53,14 +55,32 @@ const ReservationList = () => {
     setViewModal(true);
   };
 
+  // Method that gets the services names of the records from the Data Base
+  const getServices = async () => {
+    try {
+      const url = '/reservation-list/getServicesNames';
+      const result = await AxiosClient(url);
+      console.log(result.data);
+      setServices(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that returns only the associated services to a reservation ID
+  const extractServiceByID = (reservationID) => {
+    return services.filter((service) => service.ID_Client + service.Reservation_Date == reservationID);
+  }
+
   // Method that gets the names of the services of a row
-  const getServicesNames = (services) => {
-    return services.map((service) => service.name);
+  const getServicesNames = (reservationServices) => {
+    return reservationServices.map((service) => service.Name_Service);
   };
 
   // The data is loaded to the state
   useEffect(() => {
     getAllRecords();
+    getServices();
   }, []);
 
   return (
@@ -106,7 +126,7 @@ const ReservationList = () => {
                 record.Reservation_Method == 0 ? "Online" : "In site",
                 formatDateFromDataTime(record.Start_Date),
                 formatDateFromDataTime(record.End_Date),
-                getServicesNames(["Picha", "Picha2"]),
+                getServicesNames(extractServiceByID(record.ID + record.Reservation_Date)),
                 <Button
                   text="View"
                   onclickFunction={(e) => {
