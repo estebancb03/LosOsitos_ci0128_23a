@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { 
   getReservations,
-  getServicesNames
+  getRecordsServices
  } from "../models/reservationListModel.js";
 
 const router = Router();
 
 router.get("/reservation-list/getAllRecords", getReservations);
-router.get("/reservation-list/getServicesNames", getServicesNames);
+router.get("/reservation-list/getRecordsServices", getRecordsServices);
 
 export default router;

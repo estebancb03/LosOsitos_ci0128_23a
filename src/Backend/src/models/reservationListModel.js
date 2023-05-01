@@ -18,7 +18,7 @@ const getReservations = async (req, res) => {
 };
 
 // Method that returns the services names of all reservations
-const getServicesNames = async (req, res) => {
+const getRecordsServices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool
@@ -36,5 +36,5 @@ const getServicesNames = async (req, res) => {
 
 export { 
   getReservations,
-  getServicesNames
+  getRecordsServices
 };

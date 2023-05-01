@@ -58,7 +58,7 @@ const ReservationList = () => {
   // Method that gets the services names of the records from the Data Base
   const getServices = async () => {
     try {
-      const url = '/reservation-list/getServicesNames';
+      const url = '/reservation-list/getRecordsServices';
       const result = await AxiosClient(url);
       console.log(result.data);
       setServices(result.data);
