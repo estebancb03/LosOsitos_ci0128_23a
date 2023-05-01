@@ -1,15 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
-import { formatDateDDMMYYYY } from "../../helpers/formatDate";
+import { formatDateDTDDMMYYYY } from "../../helpers/formatDate";
 import DatePickerButton from "../Buttons/DatePickerButton";
 
 const ReservationListModal = ({
-  records,
-  selectedRecord,
-  setSelectedRecord,
+  mainRecordInfo,
+  setMainRecordInfo,
   viewModal,
   setViewModal,
 }) => {
@@ -61,7 +60,7 @@ const ReservationListModal = ({
 
   // Method that validates what part of the state to modify
   const changeRecordInfo = (type, value) => {
-    const newRecord = { ...selectedRecord };
+    const newRecord = { ...mainRecordInfo };
     if (Array.isArray(type)) {
       if (type[0] === "plateNumbers") {
         const newPlateNumbers = [...newRecord.plateNumbers];
@@ -97,15 +96,21 @@ const ReservationListModal = ({
         newRecord.ID = value;
       } else if (type === "Name") {
         newRecord.Name = value;
-      } else if (type === "nationality") {
-        newRecord.nationality = value;
+      } else if (type === "Lastname1") {
+        newRecord.LastName1 = value;
+      } else if (type === "Lastname2") {
+        newRecord.LastName2 = value;
+      } else if (type === "Email") {
+        newRecord.Email = value;
+      } else if (type === "Country_Name") {
+        newRecord.Country_Name = value;
       } else if (type === "Start_Date") {
         newRecord.Start_Date = value;
       } else if (type === "End_Date") {
         newRecord.End_Date = value;
       }
     }
-    setSelectedRecord(newRecord);
+    setMainRecordInfo(newRecord);
   };
 
   return (
@@ -113,27 +118,33 @@ const ReservationListModal = ({
       <div className="my-3">
         {<Button text={modifyButton} onclickFunction={modifyHandleClick} />}
       </div>
-      <InputButton
-        text="Reservation Date"
-        placeholderText={formatDateDDMMYYYY(selectedRecord.Reservation_Date)}
-        disabled={true}
-      />
+      <div className="mt-6">
+        <InputButton
+          text="Reservation Date"
+          placeholderText={formatDateDTDDMMYYYY(mainRecordInfo.Reservation_Date)}
+          disabled={true}
+        />
+      </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
         <InputButton
           text="Type"
-          placeholderText={selectedRecord.Reservation_Type == 0 ? "Camping" : "Picnic"}
+          placeholderText={
+            mainRecordInfo.Reservation_Type == 0 ? "Picnic" : "Camping"
+          }
           disabled={true}
         />
         <InputButton
           text="Method"
-          placeholderText={selectedRecord.Reservation_Method == 0 ? "Online" : "In site"}
+          placeholderText={
+            mainRecordInfo.Reservation_Method == 0 ? "Online" : "In site"
+          }
           disabled={true}
         />
       </div>
       <InputButton
         text="Customer ID"
         type="ID"
-        placeholderText={selectedRecord.ID}
+        placeholderText={mainRecordInfo.ID}
         disabled={true}
         onChangeFunction={changeRecordInfo}
       />
@@ -141,7 +152,34 @@ const ReservationListModal = ({
         <InputButton
           text="Name"
           type="Name"
-          placeholderText={selectedRecord.Name}
+          placeholderText={mainRecordInfo.Name}
+          disabled={disabledElements}
+          onChangeFunction={changeRecordInfo}
+        />
+      </div>
+      <div className="mt-6">
+        <InputButton
+          text="Lastname 1"
+          type="Lastname1"
+          placeholderText={mainRecordInfo.LastName1}
+          disabled={disabledElements}
+          onChangeFunction={changeRecordInfo}
+        />
+      </div>
+      <div className="mt-6">
+        <InputButton
+          text="Lastname 2"
+          type="Lastname2"
+          placeholderText={mainRecordInfo.LastName2}
+          disabled={disabledElements}
+          onChangeFunction={changeRecordInfo}
+        />
+      </div>
+      <div className="mt-6">
+        <InputButton
+          text="Email"
+          type="Email"
+          placeholderText={mainRecordInfo.Email}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -149,8 +187,8 @@ const ReservationListModal = ({
       <div className="mt-6">
         <InputButton
           text="Nationality"
-          type="nationality"
-          placeholderText={selectedRecord.nationality}
+          type="Country_Name"
+          placeholderText={mainRecordInfo.Country_Name}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -162,7 +200,7 @@ const ReservationListModal = ({
             typeClass="2"
             type="Start_Date"
             disabled={disabledElements}
-            selectedDate={new Date(selectedRecord.Start_Date)}
+            selectedDate={new Date(mainRecordInfo.Start_Date)}
             onChangeFunction={changeRecordInfo}
           />
         </span>
@@ -172,17 +210,17 @@ const ReservationListModal = ({
             typeClass="2"
             type="End_Date"
             disabled={disabledElements}
-            selectedDate={new Date(selectedRecord.End_Date)}
+            selectedDate={new Date(mainRecordInfo.End_Date)}
             onChangeFunction={changeRecordInfo}
           />
         </span>
       </div>
-      <label className="block text-xl font-semibold leading-6 text-gray-900">
+      {/* <label className="block text-xl font-semibold leading-6 text-gray-900">
         Tickets
       </label>
       <div className="grid grid-cols-2 mt-2 mb-3">
-        {selectedRecord.tickets &&
-          selectedRecord.tickets.map((ticket, index) => (
+        {mainRecordInfo.tickets &&
+          mainRecordInfo.tickets.map((ticket, index) => (
             <span key={index} className="mx-1">
               <DropDownSelect
                 options={[
@@ -200,7 +238,7 @@ const ReservationListModal = ({
             </span>
           ))}
       </div>
-      {selectedRecord.spots && selectedRecord.spots.length != 0 ? (
+      {mainRecordInfo.spots && mainRecordInfo.spots.length != 0 ? (
           <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
             Spots
           </label>
@@ -210,8 +248,8 @@ const ReservationListModal = ({
           </label>
         )}
       <div className="grid grid-cols-2 mt-2 mb-3">
-        {selectedRecord.spots &&
-          selectedRecord.spots.map((spot, index) => (
+        {mainRecordInfo.spots &&
+          mainRecordInfo.spots.map((spot, index) => (
             <span key={index} className="mx-1">
               <InputButton
                 key={index}
@@ -225,8 +263,8 @@ const ReservationListModal = ({
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Services
       </label>
-      {selectedRecord.services &&
-        selectedRecord.services.map((service, index) => (
+      {mainRecordInfo.services &&
+        mainRecordInfo.services.map((service, index) => (
           <div key={index} className="flex">
             <div className="bg-gray-100 w-full rounded-sm my-2">
               <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
@@ -260,8 +298,8 @@ const ReservationListModal = ({
         Plate Numbers
       </label>
       <div className="grid grid-cols-2 mb-7">
-        {selectedRecord.services &&
-          selectedRecord.plateNumbers.map((plateNumber, index) => (
+        {mainRecordInfo.services &&
+          mainRecordInfo.plateNumbers.map((plateNumber, index) => (
             <InputButton
               key={index}
               type={["plateNumbers", index]}
@@ -274,10 +312,10 @@ const ReservationListModal = ({
       <span className="mt-10">
         <InputButton
           text="Total price"
-          placeholderText={selectedRecord.totalPrice}
+          placeholderText={mainRecordInfo.totalPrice}
           disabled={disabledElements}
         />
-      </span>
+      </span> */}
     </Modal>
   );
 };

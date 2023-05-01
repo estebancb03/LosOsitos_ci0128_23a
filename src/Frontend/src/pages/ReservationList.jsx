@@ -51,8 +51,8 @@ const ReservationList = () => {
 
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
-    const itemSelected = ReservationTestData.filter(
-      (item) => (item.ID.trim() + item.Reservation_Date) == itemID
+    const itemSelected = currentRecords.filter(
+      (item) => (item.ID + item.Reservation_Date) == itemID
     );
     setRecordInfo(itemSelected[0]);
     setViewModal(true);
@@ -96,8 +96,8 @@ const ReservationList = () => {
           services={services}
         />
         <ReservationListModal
-          selectedRecord={recordInfo}
-          setSelectedRecord={setRecordInfo}
+          mainRecordInfo={recordInfo}
+          setMainRecordInfo={setRecordInfo}
           viewModal={viewModal}
           setViewModal={setViewModal}
         />
