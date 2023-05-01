@@ -77,8 +77,8 @@ const ReservationList = () => {
               data={[
                 record.customerId,
                 record.customer,
-                record.type == 1 ? "Camping" : "Picnic",
-                record.method == 1 ? "Online" : "In site",
+                record.type == 0 ? "Camping" : "Picnic",
+                record.method == 0 ? "Online" : "In site",
                 formatDateDDMMYYYY(record.startDate),
                 formatDateDDMMYYYY(record.endDate),
                 getServicesNames(record.services),

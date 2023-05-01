@@ -37,6 +37,21 @@ const ReservationListModal = ({
       : "Special Visitor";
   };
 
+  // Method that returns tickets properties
+  const createTicket = (information) => {
+    if (information === "Foreign, Adult") {
+      return [1, 1];
+    } else if (information === "Foreign, Children") {
+      return [1, 0];
+    } else if (information === "National, Adult") {
+      return [0, 1];
+    } else if (information === "National, Children") {
+      return [0, 0]
+    } else {
+      return [0, 2];
+    }
+  }
+
   // Method that puts the element in its initial state
   const restartModal = () => {
     setViewModal(false);
@@ -57,6 +72,25 @@ const ReservationListModal = ({
         type[1] === "date"
           ? (newServices[type[2]].date = value)
           : (newServices[type[2]].hour = value);
+      } else if (type[0] === "tickets") {
+        const newTickets = [...newRecord.tickets];
+        console.log(type[1]);
+        if (value === "Foreign, Adult") {
+          newTickets[type[1]].demographicGroup = 1;
+          newTickets[type[1]].ageRange = 1;
+        } else if (value === "Foreign, Children") {
+          newTickets[type[1]].demographicGroup = 1;
+          newTickets[type[1]].ageRange = 0;
+        } else if (value === "National, Adult") {
+          newTickets[type[1]].demographicGroup = 0;
+          newTickets[type[1]].ageRange = 1;
+        } else if (value === "National, Children") {
+          newTickets[type[1]].demographicGroup = 0;
+          newTickets[type[1]].ageRange = 0;
+        } else if (value === "Special Visitor") {
+          newTickets[type[1]].demographicGroup = 2;
+          newTickets[type[1]].ageRange = 1;
+        }
       }
     } else {
       if (type === "customerId") {
@@ -87,12 +121,12 @@ const ReservationListModal = ({
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
         <InputButton
           text="Type"
-          placeholderText={selectedRecord.type == 1 ? "Camping" : "Picnic"}
+          placeholderText={selectedRecord.type == 0 ? "Camping" : "Picnic"}
           disabled={true}
         />
         <InputButton
           text="Method"
-          placeholderText={selectedRecord.method == 1 ? "Online" : "In site"}
+          placeholderText={selectedRecord.method == 0 ? "Online" : "In site"}
           disabled={true}
         />
       </div>
@@ -144,9 +178,8 @@ const ReservationListModal = ({
         </span>
       </div>
       <label className="block text-xl font-semibold leading-6 text-gray-900">
-        People ({selectedRecord.peopleQuantity})
+        Tickets
       </label>
-
       <div className="grid grid-cols-2 mt-2 mb-3">
         {selectedRecord.tickets &&
           selectedRecord.tickets.map((ticket, index) => (
@@ -161,7 +194,7 @@ const ReservationListModal = ({
                 ]}
                 selectedOption={formatTicket(ticket)}
                 disabled={disabledElements}
-                typeChange={["services", "hour", index]}
+                typeChange={["tickets", index]}
                 onChangeFunction={changeRecordInfo}
               />
             </span>
