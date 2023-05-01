@@ -26,6 +26,17 @@ const ReservationListModal = ({
       : setModifyButton("Modify");
   };
 
+  // Method tha formats the ticket information
+  const formatTicket = (ticket) => {
+    const { ageRange, demographicGroup } = ticket;
+    const resultAgeRange = ageRange == 0 ? "Children" : "Adult";
+    const resultDemographicGroup =
+      demographicGroup == 0 ? "National" : "Foreign";
+    return demographicGroup != 2
+      ?  resultDemographicGroup + ", " + resultAgeRange
+      : "Special Visitor";
+  };
+
   // Method that puts the element in its initial state
   const restartModal = () => {
     setViewModal(false);
@@ -138,18 +149,20 @@ const ReservationListModal = ({
 
       <div className="grid grid-cols-2 mt-2 mb-3">
         {selectedRecord.tickets &&
-          selectedRecord.tickets.map((person, index) => (
+          selectedRecord.tickets.map((ticket, index) => (
             <span key={index} className="mx-1">
               <DropDownSelect
-                selectedOption={person}
-                disabled={disabledElements}
                 options={[
                   "Foreign, Adult",
-                  "Foreign, Child",
+                  "Foreign, Children",
                   "National, Adult",
-                  "National, Child",
-                  "Special Visitor",
+                  "National, Children",
+                  "Special Visitor"
                 ]}
+                selectedOption={formatTicket(ticket)}
+                disabled={disabledElements}
+                typeChange={["services", "hour", index]}
+                onChangeFunction={changeRecordInfo}
               />
             </span>
           ))}
