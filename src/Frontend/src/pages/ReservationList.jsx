@@ -8,7 +8,7 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
-import { formatDateFromDataTime } from "../helpers/formatDate";
+import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
@@ -17,8 +17,10 @@ import ReservationTestData from "../data/ReservationTestData";
 const ReservationList = () => {
   // State that controls the popup window
   const [viewModal, setViewModal] = useState(false);
-  // State that controls the records of the table
-  const [reservationRecords, setReservationRecords] = useState([]);
+  // State that controls the current records of the table
+  const [allRecords, setAllRecords] = useState([]);
+  // State that controls the current records of the table
+  const [currentRecords, setCurrentRecords] = useState([]);
   // State that controls the services of each row
   const [services, setServices] = useState([]);
   // State that constrols the modal information
@@ -40,7 +42,8 @@ const ReservationList = () => {
     try {
       const url = '/reservation-list/getAllRecords';
       const records = await AxiosClient.get(url);
-      setReservationRecords(records.data);
+      setAllRecords(records.data);
+      setCurrentRecords(records.data);
     } catch (exception) {
       console.log(exception);
     }
@@ -49,7 +52,7 @@ const ReservationList = () => {
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
     const itemSelected = ReservationTestData.filter(
-      (item) => (item.ID + item.Reservation_Date) == itemID
+      (item) => (item.ID.trim() + item.Reservation_Date) == itemID
     );
     setRecordInfo(itemSelected[0]);
     setViewModal(true);
@@ -89,8 +92,8 @@ const ReservationList = () => {
       <Container>
         <Title name="Reservation List" />
         <ReservationListFilter
-          reservationData={ReservationTestData}
-          setReservationRecords={setReservationRecords}
+          reservationData={allRecords}
+          setReservationRecords={setCurrentRecords}
         />
         <ReservationListModal
           selectedRecord={recordInfo}
@@ -101,7 +104,7 @@ const ReservationList = () => {
 
         {/* Table elements */}
         <Table colums={tableColumns}>
-          {reservationRecords.map((record, index) => (
+          {currentRecords.map((record, index) => (
             <TableItem
               key={index}
               number={index}
@@ -110,8 +113,8 @@ const ReservationList = () => {
                 record.Name + " " + record.LastName1 + " " + record.LastName2,
                 record.Reservation_Type == 1 ? "Camping" : "Picnic",
                 record.Reservation_Method == 0 ? "Online" : "In site",
-                formatDateFromDataTime(record.Start_Date),
-                formatDateFromDataTime(record.End_Date),
+                formatDateDTDDMMYYYY(record.Start_Date),
+                formatDateDTDDMMYYYY(record.End_Date),
                 getServicesNames(extractServiceByID(record.ID + record.Reservation_Date)),
                 <Button
                   text="View"
