@@ -5,13 +5,31 @@ const formatDateDDMMYYYY = (date) => {
 };
 
 // Method that formats tha date form DateTime format
-const formatDateFromDataTime = (unformatedDate) => {
+const formatDateDTDDMMYYYY = (unformatedDate) => {
   const date = new Date(unformatedDate);
   const day = date.getDate().toString().padStart(2, "0");
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const year = date.getFullYear().toString();
   return `${day}/${month}/${year}`;
 };
+
+// Method that formats tha date form DateTime format
+const formatDateDTMMDDYYYY = (unformatedDate) => {
+  const date = new Date(unformatedDate);
+  let day = date.getDate().toString().padStart(2, "0");
+  let month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const year = date.getFullYear().toString();
+  const formatedDate = `${month}-${day}-${year}`;
+  return formatedDate;
+};
+
+// Method that formats a date adding zeros
+const addZerosToDate = (date) => {
+  const parts = date.split('-');
+  const day = !Array.isArray(parts[1]) ? '0' + parts[1] : parts[1];
+  const month = !Array.isArray(parts[0]) ? '0' + parts[0] : parts[0];
+  return month + '-' + day + '-' + parts[2];
+}
 
 // Method that formats the date
 const formatDateMMDDYYYY = (date) => {
@@ -29,5 +47,7 @@ const formatDateMMDDYYYY = (date) => {
 export { 
   formatDateDDMMYYYY, 
   formatDateMMDDYYYY,
-  formatDateFromDataTime 
+  formatDateDTDDMMYYYY,
+  formatDateDTMMDDYYYY,
+  addZerosToDate
 };
