@@ -8,7 +8,7 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
-import { formatDateDDMMYYYY } from "../helpers/formatDate";
+import { formatDateDDMMYYYY, formatDateFromDataTime } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
@@ -104,8 +104,8 @@ const ReservationList = () => {
                 record.Name,
                 record.Reservation_Type == 1 ? "Camping" : "Picnic",
                 record.Reservation_Method == 0 ? "Online" : "In site",
-                formatDateDDMMYYYY(record.Start_Date),
-                formatDateDDMMYYYY(record.End_Date),
+                formatDateFromDataTime(record.Start_Date),
+                formatDateFromDataTime(record.End_Date),
                 getServicesNames(["Picha", "Picha2"]),
                 <Button
                   text="View"
