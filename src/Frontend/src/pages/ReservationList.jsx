@@ -34,9 +34,9 @@ const ReservationList = () => {
   ];
 
   // Method that gets the records from the Data Base
-  const getRecords = async () => {
+  const getAllRecords = async () => {
     try {
-      const url = '/reservation-list';
+      const url = '/reservation-list/getAllRecords';
       const records = await AxiosClient.get(url);
       setReservationRecords(records.data);
     } catch (exception) {
@@ -60,7 +60,7 @@ const ReservationList = () => {
 
   // The data is loaded to the state
   useEffect(() => {
-    getRecords();
+    getAllRecords();
   }, []);
 
   return (
