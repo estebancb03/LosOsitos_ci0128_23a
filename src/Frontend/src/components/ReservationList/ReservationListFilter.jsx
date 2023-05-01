@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AxiosClient from "../../config/AxiosClient";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import FiltersContainer from "../Containers/FiltersContainer";
 
 const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
+  // State that constrols the options of service dropdown
+  const [servicesOptions, setServicesOptions] = useState([]);
   // State that controls the filters that there are apply
   const [filters, setFilters] = useState({
     type: null,
@@ -14,6 +17,18 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     startDate: null,
     endDate: null,
   });
+
+  // Method that full the serviceOptions with the data base result
+  const getServicesOptions = async () => {
+    try {
+      const url = '/reservation-list/getServicesOptions';
+      const options = await AxiosClient.get(url);
+      const result = ["", ...options.data.map((service) => service.Name)];
+      setServicesOptions(result);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
 
   // Method that changes the filters that will be applied
   const changeFiltersState = (type, value) => {
@@ -130,6 +145,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     window.location.reload(true);
   };
 
+  useEffect(() => {
+    getServicesOptions();
+  });
+
   return (
     <>
       <FiltersContainer
@@ -158,9 +177,10 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
           <DropDownSelect
             text="Service"
             disabled={false}
-            options={["", "Kayak", "Bicycle"]}
+            // options={["", "Kayak", "Bicycle"]}
+            options={servicesOptions}
             typeChange="service"
-            onChangeFunction={changeFiltersState}
+            onChangeFunction={getServicesOptions}
           />
         </span>
         <span className="sm:mt-2 sm:mr-3">
