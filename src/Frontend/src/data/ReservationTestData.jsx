@@ -53,11 +53,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],
@@ -178,11 +178,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],
@@ -291,11 +291,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],
@@ -404,11 +404,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],
@@ -523,11 +523,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],
@@ -642,11 +642,11 @@ const ReservationTestData = [
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
     spots: [
       {
-        localitation: 7,
+        location: 7,
         size: 0,
       },
       {
-        localitation: 10,
+        location: 10,
         size: 2,
       }
     ],

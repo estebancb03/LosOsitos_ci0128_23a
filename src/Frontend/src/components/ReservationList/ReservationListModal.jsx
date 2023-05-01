@@ -33,7 +33,7 @@ const ReservationListModal = ({
     const resultDemographicGroup =
       demographicGroup == 0 ? "National" : "Foreign";
     return demographicGroup != 2
-      ?  resultDemographicGroup + ", " + resultAgeRange
+      ? resultDemographicGroup + ", " + resultAgeRange
       : "Special Visitor";
   };
 
@@ -46,11 +46,11 @@ const ReservationListModal = ({
     } else if (information === "National, Adult") {
       return [0, 1];
     } else if (information === "National, Children") {
-      return [0, 0]
+      return [0, 0];
     } else {
       return [0, 2];
     }
-  }
+  };
 
   // Method that puts the element in its initial state
   const restartModal = () => {
@@ -190,12 +190,34 @@ const ReservationListModal = ({
                   "Foreign, Children",
                   "National, Adult",
                   "National, Children",
-                  "Special Visitor"
+                  "Special Visitor",
                 ]}
                 selectedOption={formatTicket(ticket)}
                 disabled={disabledElements}
                 typeChange={["tickets", index]}
                 onChangeFunction={changeRecordInfo}
+              />
+            </span>
+          ))}
+      </div>
+      {selectedRecord.spots && selectedRecord.spots.length != 0 ? (
+          <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
+            Spots
+          </label>
+        ) : (
+          <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
+            
+          </label>
+        )}
+      <div className="grid grid-cols-2 mt-2 mb-3">
+        {selectedRecord.spots &&
+          selectedRecord.spots.map((spot, index) => (
+            <span key={index} className="mx-1">
+              <InputButton
+                key={index}
+                type={["spots", index]}
+                placeholderText={spot.location}
+                disabled={true}
               />
             </span>
           ))}
