@@ -1,15 +1,15 @@
 const ReservationTestData = [
   {
     customerId: 11,
-    method: 1,
-    type: 1,
+    method: 0,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "4-20-2023",
     startDate: "1-4-2023",
     endDate: "1-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -45,15 +45,15 @@ const ReservationTestData = [
   },
   {
     customerId: 21,
-    method: 1,
-    type: 2,
+    method: 0,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "2-4-2023",
     endDate: "2-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -80,15 +80,15 @@ const ReservationTestData = [
   },
   {
     customerId: 31,
-    method: 2,
-    type: 1,
+    method: 1,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "3-4-2023",
     endDate: "3-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -130,15 +130,15 @@ const ReservationTestData = [
   },
   {
     customerId: 41,
-    method: 2,
-    type: 2,
+    method: 1,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "4-4-2023",
     endDate: "4-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -159,15 +159,15 @@ const ReservationTestData = [
   },
   {
     customerId: 51,
-    method: 1,
-    type: 1,
+    method: 0,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "5-4-2023",
     endDate: "5-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -203,15 +203,15 @@ const ReservationTestData = [
   },
   {
     customerId: 61,
-    method: 1,
-    type: 2,
+    method: 0,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "6-4-2023",
     endDate: "6-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -232,15 +232,15 @@ const ReservationTestData = [
   },
   {
     customerId: 71,
-    method: 2,
-    type: 1,
+    method: 1,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "7-4-2023",
     endDate: "7-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -276,15 +276,15 @@ const ReservationTestData = [
   },
   {
     customerId: 81,
-    method: 2,
-    type: 2,
+    method: 1,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "8-4-2023",
     endDate: "8-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -311,15 +311,15 @@ const ReservationTestData = [
   },
   {
     customerId: 91,
-    method: 1,
-    type: 1,
+    method: 0,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "9-4-2023",
     endDate: "9-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -355,15 +355,15 @@ const ReservationTestData = [
   },
   {
     customerId: 101,
-    method: 2,
-    type: 2,
+    method: 1,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "1-4-2023",
     endDate: "1-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -390,15 +390,15 @@ const ReservationTestData = [
   },
   {
     customerId: 111,
-    method: 1,
-    type: 1,
+    method: 0,
+    type: 0,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "2-4-2023",
     startDate: "1-4-2023",
     endDate: "1-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",
@@ -434,15 +434,15 @@ const ReservationTestData = [
   },
   {
     customerId: 121,
-    method: 2,
-    type: 2,
+    method: 1,
+    type: 1,
     customer: "Esteban",
     nationality: "Costa Rica",
     reservationDate: "20-04-2023",
     startDate: "1-4-2023",
     endDate: "2-4-2023",
     peopleQuantity: 5,
-    peopleType: [
+    tickets: [
       "Foreign, Adult",
       "Foreign, Child",
       "National, Adult",

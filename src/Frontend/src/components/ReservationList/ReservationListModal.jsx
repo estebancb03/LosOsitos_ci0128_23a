@@ -137,8 +137,8 @@ const ReservationListModal = ({
       </label>
 
       <div className="grid grid-cols-2 mt-2 mb-3">
-        {selectedRecord.peopleType &&
-          selectedRecord.peopleType.map((person, index) => (
+        {selectedRecord.tickets &&
+          selectedRecord.tickets.map((person, index) => (
             <span key={index} className="mx-1">
               <DropDownSelect
                 selectedOption={person}

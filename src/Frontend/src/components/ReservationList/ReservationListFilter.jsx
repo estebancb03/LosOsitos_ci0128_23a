@@ -14,8 +14,6 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     startDate: null,
     endDate: null,
   });
-  // State that controls when clear the filters elements
-  const [clear, setClear] = useState(false);
 
   // Method that changes the filters that will be applied
   const changeFiltersState = (type, value) => {
@@ -23,16 +21,16 @@ const ReservationListFilter = ({ reservationData, setReservationRecords }) => {
     if (type === "type") {
       if (value !== "") {
         value === "Camping"
-          ? (updatedFilters.type = 1)
-          : (updatedFilters.type = 2);
+          ? (updatedFilters.type = 0)
+          : (updatedFilters.type = 1);
       } else {
         updatedFilters.type = null;
       }
     } else if (type === "method") {
       if (value !== "") {
         value === "Online"
-          ? (updatedFilters.method = 1)
-          : (updatedFilters.method = 2);
+          ? (updatedFilters.method = 0)
+          : (updatedFilters.method = 1);
       } else {
         updatedFilters.method = null;
       }
