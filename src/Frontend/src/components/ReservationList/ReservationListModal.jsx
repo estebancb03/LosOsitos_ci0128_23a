@@ -93,16 +93,16 @@ const ReservationListModal = ({
         }
       }
     } else {
-      if (type === "customerId") {
-        newRecord.customerId = value;
-      } else if (type === "customer") {
-        newRecord.customer = value;
+      if (type === "ID") {
+        newRecord.ID = value;
+      } else if (type === "Name") {
+        newRecord.Name = value;
       } else if (type === "nationality") {
         newRecord.nationality = value;
-      } else if (type === "startDate") {
-        newRecord.startDate = value;
-      } else if (type === "endDate") {
-        newRecord.endDate = value;
+      } else if (type === "Start_Date") {
+        newRecord.Start_Date = value;
+      } else if (type === "End_Date") {
+        newRecord.End_Date = value;
       }
     }
     setSelectedRecord(newRecord);
@@ -115,33 +115,33 @@ const ReservationListModal = ({
       </div>
       <InputButton
         text="Reservation Date"
-        placeholderText={formatDateDDMMYYYY(selectedRecord.reservationDate)}
+        placeholderText={formatDateDDMMYYYY(selectedRecord.Reservation_Date)}
         disabled={true}
       />
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
         <InputButton
           text="Type"
-          placeholderText={selectedRecord.type == 0 ? "Camping" : "Picnic"}
+          placeholderText={selectedRecord.Reservation_Type == 0 ? "Camping" : "Picnic"}
           disabled={true}
         />
         <InputButton
           text="Method"
-          placeholderText={selectedRecord.method == 0 ? "Online" : "In site"}
+          placeholderText={selectedRecord.Reservation_Method == 0 ? "Online" : "In site"}
           disabled={true}
         />
       </div>
       <InputButton
         text="Customer ID"
-        type="customerId"
-        placeholderText={selectedRecord.customerId}
+        type="ID"
+        placeholderText={selectedRecord.ID}
         disabled={true}
         onChangeFunction={changeRecordInfo}
       />
       <div className="mt-6">
         <InputButton
           text="Name"
-          type="customer"
-          placeholderText={selectedRecord.customer}
+          type="Name"
+          placeholderText={selectedRecord.Name}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -160,9 +160,9 @@ const ReservationListModal = ({
           <DatePickerButton
             text="Start Date"
             typeClass="2"
-            type="startDate"
+            type="Start_Date"
             disabled={disabledElements}
-            selectedDate={new Date(selectedRecord.startDate)}
+            selectedDate={new Date(selectedRecord.Start_Date)}
             onChangeFunction={changeRecordInfo}
           />
         </span>
@@ -170,9 +170,9 @@ const ReservationListModal = ({
           <DatePickerButton
             text="End Date"
             typeClass="2"
-            type="endDate"
+            type="End_Date"
             disabled={disabledElements}
-            selectedDate={new Date(selectedRecord.endDate)}
+            selectedDate={new Date(selectedRecord.End_Date)}
             onChangeFunction={changeRecordInfo}
           />
         </span>
