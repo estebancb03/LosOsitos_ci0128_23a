@@ -1,8 +1,5 @@
 import { useState } from "react"
-import Container from "../Container"; import Title from "../Title";
-import Footer from "../Footer/Footer";
-import NavMenu from "../NavMenu/NavMenu";
-import Button from "../Button";
+import Button from "../Buttons/Button";
 
 const ReservationStep1 = () => {
     const [reservationType, setReservationType] = useState("");
