@@ -2,6 +2,7 @@ import { useState } from "react"
 import Button from "../Buttons/Button";
 import DropDownSelect from "../Buttons/DropDownSelect"
 import InputButton from "../Buttons/InputButton";
+import DatePickerButton from "../Buttons/DatePickerButton";
 
 function Validation() {
   
@@ -86,8 +87,26 @@ function ReservationStep0() {
             options={["Male","Female","Non-Binary","Other"]}
             typeChange={gender}
             //onChangeFunction={setGender}
-
           />
+        </div>
+          <label htmlFor="Date of arrival">Date of arrival:</label>
+          <DatePickerButton>
+            text="Date of arrival"
+            typeClass="1"
+            type="startDate"
+            disabled={false}
+          </DatePickerButton>
+        <div>
+        <div>
+          <label htmlFor="Date of departure">Date of departure:</label>
+          <DatePickerButton className = "w-20">
+            text="Date of departure"
+            typeClass="1"
+            type="endDate"
+            disabled={false}
+          </DatePickerButton>
+        </div>
+          
         </div>
         <div className="my-10">
           <Button text="Submit" type="add" onclickFunction={() => {}}/>
