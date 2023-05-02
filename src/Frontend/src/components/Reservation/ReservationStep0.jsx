@@ -2,6 +2,10 @@ import { useState } from "react"
 import Button from "../Buttons/Button";
 import DropDownSelect from "../Buttons/DropDownSelect"
 
+function Validation() {
+  
+}
+
 
 function ReservationStep0() {
   const [firstName, setName] = useState('');
@@ -77,14 +81,15 @@ function ReservationStep0() {
           <DropDownSelect
             text="Gender"
             disabled={false}
+            type="gender"
             options={["Male","Female","Non-Binary","Other"]}
             typeChange={gender}
-            onChangeFunction={(e)=>{setGender(e.target.value)}}
+            //onChangeFunction={setGender}
 
           />
         </div>
         <div className="my-10">
-          <Button text="Next" type="add" onclickFunction={() => {}}/>
+          <Button text="Submit" type="add" onclickFunction={() => {}}/>
         </div>
     </form>
   );
