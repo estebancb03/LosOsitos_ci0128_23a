@@ -1,6 +1,7 @@
 import { useState } from "react"
 import Button from "../Buttons/Button";
 import DropDownSelect from "../Buttons/DropDownSelect"
+import InputButton from "../Buttons/InputButton";
 
 function Validation() {
   
@@ -24,58 +25,58 @@ function ReservationStep0() {
   return (
     <form onSubmit={handleSubmit}>
         <div>
-            <label htmlFor="ID number">ID Number:</label>
-            <input className="bg-blue-200 my-2"
-                type = "number"
-                id="ID number"
-                value={idNumber}
-                onChange={(e) => setIDNumber(e.target.value)}
-            />
+          <label htmlFor="ID number">ID Number:</label>
+          <InputButton>
+            text="ID Number"
+            placeholderText="Enter your ID number"
+            disabled={false}
+            type="idNumber"
+          </InputButton>
         </div>
       <div>
         <label htmlFor="name">First name:</label>
-        <input className="bg-blue-200 my-2"
+        <InputButton>
+          text="First name"
+          placeholderText="Enter your first name"
+          disabled={false}
           type="firstName"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setName(e.target.value)}
-        />
+        </InputButton>
       </div>
       <div>
         <label htmlFor="email">Last name:</label>
-        <input className="bg-blue-200 my-2"
+        <InputButton>
+          text="Last name"
+          placeholderText="Enter your last name"
+          disabled={false}
           type="lastName"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-        />
+        </InputButton>
       </div>
         <div>
             <label htmlFor="age">Age:</label>
-            <input className="bg-blue-200 my-2"
+            <InputButton>
+              text="Age"
+              placeholderText="Enter your age"
+              disabled={false}
               type="age"
-              id="age"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-            />
+            </InputButton>
         </div>
         <div>
           <label htmlFor="nationality">Nationality:</label>
-          <input className="bg-blue-200 my-2"
+          <InputButton>
+            text="Nationality"
+            placeholderText="Enter your nationality"
+            disabled={false}
             type="nationality"
-            id="nationality"
-            value={nationality}
-            onChange={(e) => setNationality(e.target.value)}
-          />
+          </InputButton>
         </div>
         <div>
           <label htmlFor="Email">Email:</label>
-          <input className="bg-blue-200 my-2"
+          <InputButton>
+            text="Email"
+            placeholderText="Email"
+            disabled={false}
             type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+          </InputButton>
         </div>
         <div>
           <DropDownSelect
