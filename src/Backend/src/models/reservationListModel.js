@@ -49,8 +49,25 @@ const getServicesOptions = async (req, res) => {
   }
 };
 
+// Method that gets the spots of one reservation
+const getSpotsByReservationID = async (req, res) => {
+  const { ID, Reservation_Date } = req.body;
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(`SELECT * FROM Spot_Camping WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`);
+      console.log(result);
+      res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export { 
   getReservations,
   getRecordsServices,
-  getServicesOptions
+  getServicesOptions,
+  getSpotsByReservationID
 };
