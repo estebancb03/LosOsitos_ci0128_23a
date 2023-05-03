@@ -12,8 +12,6 @@ import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
 
-import ReservationTestData from "../data/ReservationTestData";
-
 const ReservationList = () => {
   // State that controls the popup window
   const [viewModal, setViewModal] = useState(false);
@@ -27,6 +25,8 @@ const ReservationList = () => {
   const [recordInfo, setRecordInfo] = useState({});
   // State that constrols the spots
   const [spots, setSpots] = useState([]);
+  // State that constrols the vehicles
+  const [vehicles, setVehicles] = useState([]);
   // Table columns
   const tableColumns = [
     "Id",
@@ -54,9 +54,20 @@ const ReservationList = () => {
   // Method that gets the spots of all records
   const getAllSpots = async () => {
     try {
-      const url = "/reservation-list/getSpotsByReservationID/";
+      const url = "/reservation-list/getAllSpots";
       const result = await AxiosClient.get(url);
       setSpots(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that gets the spots of all records
+  const getAllVehicles = async () => {
+    try {
+      const url = "/reservation-list/getAllVehicles";
+      const result = await AxiosClient.get(url);
+      setVehicles(result.data);
     } catch (exception) {
       console.log(exception);
     }
@@ -99,6 +110,7 @@ const ReservationList = () => {
     getAllRecords();
     getServices();
     getAllSpots();
+    getAllVehicles();
   }, []);
 
   return (

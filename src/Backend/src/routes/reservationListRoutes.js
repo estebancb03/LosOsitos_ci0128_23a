@@ -3,9 +3,8 @@ import {
   getReservations,
   getRecordsServices,
   getServicesOptions,
-  getSpotsByReservationID,
-  getVehiclesByReservationID,
-  getMainInfoByReservationID
+  getAllSpots,
+  getAllVehicles
  } from "../models/reservationListModel.js";
 
 const router = Router();
@@ -13,7 +12,7 @@ const router = Router();
 router.get("/getAllRecords", getReservations);
 router.get("/getServicesOptions", getServicesOptions);
 router.get("/getRecordsServices", getRecordsServices);
-router.get("/getSpotsByReservationID", getSpotsByReservationID);
-router.get("/getVehiclesByReservationID", getVehiclesByReservationID);
+router.get("/getAllSpots", getAllSpots);
+router.get("/getAllVehicles", getAllVehicles);
 
 export default router;

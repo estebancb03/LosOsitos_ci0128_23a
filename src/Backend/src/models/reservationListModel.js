@@ -70,7 +70,7 @@ const getServicesOptions = async (req, res) => {
 };
 
 // Method that gets the spots of one reservation
-const getSpotsByReservationID = async (req, res) => {
+const getAllSpots = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool
@@ -85,13 +85,12 @@ const getSpotsByReservationID = async (req, res) => {
 };
 
 //Method that gets the plates numbers of one reservation
-const getVehiclesByReservationID = async (req, res) => {
-  const { ID, Reservation_Date } = req.params;
+const getAllVehicles = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool
       .request()
-      .query(`SELECT * FROM Vehicle WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`);
+      .query("SELECT * FROM Vehicle");
       console.log(result);
       res.json(result.recordset);
   } catch (error) {
@@ -105,6 +104,6 @@ export {
   getMainInfoByReservationID,
   getRecordsServices,
   getServicesOptions,
-  getSpotsByReservationID,
-  getVehiclesByReservationID
+  getAllSpots,
+  getAllVehicles
 };
