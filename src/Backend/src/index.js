@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 app.use('/api', countryRoutes);
 app.use('/api', ticketPricesRoutes);
 app.use('/api', servicePricesRoutes);
-app.use('/api', reservationListRoutes);
+app.use('/api/reservation-list', reservationListRoutes);
 
 app.listen(port, () => {
   console.log(`LosOsitos Server running on port ${port}`);

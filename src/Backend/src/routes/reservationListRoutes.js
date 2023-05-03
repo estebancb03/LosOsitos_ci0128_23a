@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.get("/reservation-list/getAllRecords", getReservations);
-router.get("/reservation-list/getServicesOptions", getServicesOptions);
-router.get("/reservation-list/getRecordsServices", getRecordsServices);
-router.get("/reservation-list/getSpotsByReservationID", getSpotsByReservationID);
-router.get("/reservation-list/getVehiclesByReservationID", getVehiclesByReservationID);
+router.get("/getAllRecords", getReservations);
+router.get("/getServicesOptions", getServicesOptions);
+router.get("/getRecordsServices", getRecordsServices);
+router.get("/getSpotsByReservationID", getSpotsByReservationID);
+router.get("/getVehiclesByReservationID/:ID/:Reservation_Date", getVehiclesByReservationID);
 
 export default router;
