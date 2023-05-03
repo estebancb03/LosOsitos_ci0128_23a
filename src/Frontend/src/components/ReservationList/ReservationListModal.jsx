@@ -33,11 +33,11 @@ const ReservationListModal = ({
 
   // Method tha formats the ticket information
   const formatTicket = (ticket) => {
-    const { ageRange, demographicGroup } = ticket;
-    const resultAgeRange = ageRange == 0 ? "Children" : "Adult";
+    const { Age_Range, Demographic_Group } = ticket;
+    const resultAgeRange = Age_Range == 0 ? "Children" : "Adult";
     const resultDemographicGroup =
-      demographicGroup == 0 ? "National" : "Foreign";
-    return demographicGroup != 2
+      Demographic_Group == 0 ? "National" : "Foreign";
+    return Demographic_Group != 2
       ? resultDemographicGroup + ", " + resultAgeRange
       : "Special Visitor";
   };
@@ -68,34 +68,42 @@ const ReservationListModal = ({
   const changeRecordInfo = (type, value) => {
     const newRecord = { ...mainRecordInfo };
     if (Array.isArray(type)) {
-      if (type[0] === "plateNumbers") {
-        const newPlateNumbers = [...newRecord.plateNumbers];
-        newPlateNumbers[type[1]] = value;
-        newRecord.plateNumbers = newPlateNumbers;
+      if (type[0] === "vehicles") {
+        const newVehicles = [...newRecord.Vehicles];
+        newVehicles[type[1]] = value;
+        newRecord.Vehicles = newVehicles;
       } else if (type[0] === "services") {
-        const newServices = [...newRecord.services];
+        const newServices = [...newRecord.Services];
         type[1] === "date"
           ? (newServices[type[2]].date = value)
           : (newServices[type[2]].hour = value);
       } else if (type[0] === "tickets") {
-        const newTickets = [...newRecord.tickets];
-        console.log(type[1]);
-        if (value === "Foreign, Adult") {
-          newTickets[type[1]].demographicGroup = 1;
-          newTickets[type[1]].ageRange = 1;
-        } else if (value === "Foreign, Children") {
-          newTickets[type[1]].demographicGroup = 1;
-          newTickets[type[1]].ageRange = 0;
-        } else if (value === "National, Adult") {
-          newTickets[type[1]].demographicGroup = 0;
-          newTickets[type[1]].ageRange = 1;
-        } else if (value === "National, Children") {
-          newTickets[type[1]].demographicGroup = 0;
-          newTickets[type[1]].ageRange = 0;
-        } else if (value === "Special Visitor") {
-          newTickets[type[1]].demographicGroup = 2;
-          newTickets[type[1]].ageRange = 1;
+        const newTickets = [...newRecord.Tickets];
+        if (type[1] == "ticketType") {
+          if (value === "Foreign, Adult") {
+            newTickets[type[2]].Demographic_Group = 1;
+            newTickets[type[2]].Age_Range = 1;
+          } else if (value === "Foreign, Children") {
+            newTickets[type[2]].Demographic_Group = 1;
+            newTickets[type[2]].Age_Range = 0;
+          } else if (value === "National, Adult") {
+            newTickets[type[2]].Demographic_Group = 0;
+            newTickets[type[2]].Age_Range = 1;
+          } else if (value === "National, Children") {
+            newTickets[type[2]].Demographic_Group = 0;
+            newTickets[type[2]].Age_Range = 0;
+          } else if (value === "Special Visitor") {
+            newTickets[type[2]].Demographic_Group = 2;
+            newTickets[type[2]].Age_Range = 1;
+          }
+        } else {
+          newTickets[type[2]].Amount = value;
         }
+        newRecord.Tickets = newTickets;
+      } else if (type[0] === "spots") {
+        const newSpots = [...newRecord.Spots];
+        newSpots[type[1]].Location_Spot = value;
+        newRecord.Spots = newSpots;
       }
     } else {
       if (type === "ID") {
@@ -127,7 +135,9 @@ const ReservationListModal = ({
       <div className="mt-6">
         <InputButton
           text="Reservation Date"
-          placeholderText={formatDateDTDDMMYYYY(mainRecordInfo.Reservation_Date)}
+          placeholderText={formatDateDTDDMMYYYY(
+            mainRecordInfo.Reservation_Date
+          )}
           disabled={true}
         />
       </div>
@@ -221,52 +231,81 @@ const ReservationListModal = ({
           />
         </span>
       </div>
-      {/* <label className="block text-xl font-semibold leading-6 text-gray-900">
+      <label className="block text-xl font-semibold leading-6 text-gray-900">
         Tickets
       </label>
+      <div className="grid grid-cols-1 mt-2 mb-3">
+        {mainRecordInfo.Tickets &&
+          mainRecordInfo.Tickets.map((ticket, index) => (
+            // <span key={index} className="mx-1">
+            //   <DropDownSelect
+            //     options={[
+            //       "Foreign, Adult",
+            //       "Foreign, Children",
+            //       "National, Adult",
+            //       "National, Children",
+            //       "Special Visitor",
+            //     ]}
+            // selectedOption={formatTicket(ticket)}
+            // disabled={disabledElements}
+            // typeChange={["tickets", index]}
+            // onChangeFunction={changeRecordInfo}
+            //   />
+            // </span>
+            <div key={index} className="flex">
+              <div className="bg-gray-100 w-[500px] rounded-sm my-2">
+                <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
+                  <div className="mt-1 mb-1.5">
+                    <DropDownSelect
+                      options={[
+                        "Foreign, Adult",
+                        "Foreign, Children",
+                        "National, Adult",
+                        "National, Children",
+                        "Special Visitor",
+                      ]}
+                      selectedOption={formatTicket(ticket)}
+                      disabled={disabledElements}
+                      typeChange={["tickets", "ticketType", index]}
+                      onChangeFunction={changeRecordInfo}
+                    />
+                  </div>
+                  <div className="mt-1 mb-1.5">
+                    <InputButton
+                      key={index}
+                      type={["tickets", "amount", index]}
+                      placeholderText={ticket.Amount}
+                      disabled={disabledElements}
+                      onChangeFunction={changeRecordInfo}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+      {mainRecordInfo.Spots && mainRecordInfo.Spots.length != 0 ? (
+        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
+          Spots
+        </label>
+      ) : (
+        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7"></label>
+      )}
       <div className="grid grid-cols-2 mt-2 mb-3">
-        {mainRecordInfo.tickets &&
-          mainRecordInfo.tickets.map((ticket, index) => (
+        {mainRecordInfo.Spots &&
+          mainRecordInfo.Spots.map((spot, index) => (
             <span key={index} className="mx-1">
-              <DropDownSelect
-                options={[
-                  "Foreign, Adult",
-                  "Foreign, Children",
-                  "National, Adult",
-                  "National, Children",
-                  "Special Visitor",
-                ]}
-                selectedOption={formatTicket(ticket)}
+              <InputButton
+                key={index}
+                type={["spots", index]}
+                placeholderText={spot.Location_Spot}
                 disabled={disabledElements}
-                typeChange={["tickets", index]}
                 onChangeFunction={changeRecordInfo}
               />
             </span>
           ))}
       </div>
-      {mainRecordInfo.spots && mainRecordInfo.spots.length != 0 ? (
-          <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
-            Spots
-          </label>
-        ) : (
-          <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
-            
-          </label>
-        )}
-      <div className="grid grid-cols-2 mt-2 mb-3">
-        {mainRecordInfo.spots &&
-          mainRecordInfo.spots.map((spot, index) => (
-            <span key={index} className="mx-1">
-              <InputButton
-                key={index}
-                type={["spots", index]}
-                placeholderText={spot.location}
-                disabled={true}
-              />
-            </span>
-          ))}
-      </div>
-      <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
+      {/* <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Services
       </label>
       {mainRecordInfo.services &&
@@ -299,23 +338,23 @@ const ReservationListModal = ({
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
-        Plate Numbers
+        Vehicles
       </label>
       <div className="grid grid-cols-2 mb-7">
-        {mainRecordInfo.services &&
-          mainRecordInfo.plateNumbers.map((plateNumber, index) => (
+        {mainRecordInfo.Vehicles &&
+          mainRecordInfo.Vehicles.map((vehicle, index) => (
             <InputButton
               key={index}
-              type={["plateNumbers", index]}
-              placeholderText={plateNumber}
+              type={["vehicles", index]}
+              placeholderText={vehicle}
               disabled={disabledElements}
               onChangeFunction={changeRecordInfo}
             />
           ))}
       </div>
-      <span className="mt-10">
+      {/* <span className="mt-10">
         <InputButton
           text="Total price"
           placeholderText={mainRecordInfo.totalPrice}

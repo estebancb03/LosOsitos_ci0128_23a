@@ -106,7 +106,7 @@ const ReservationList = () => {
     );
     const spotsSelected = spots.filter(
       (spot) => spot.ID_Client + spot.Reservation_Date == reservationID
-    ).map((item) => item.Location_Spot);
+    ).map((item) => ({Location_Spot: item.Location_Spot}));
     const vehiclesSelected = vehicles.filter(
       (vehicle) => vehicle.ID_Client + vehicle.Reservation_Date == reservationID
     ).map((item) => item.ID_Vehicle);
@@ -124,7 +124,7 @@ const ReservationList = () => {
     information[0].Spots = spotsSelected;
     information[0].Vehicles = vehiclesSelected;
     information[0].Services = servicesSelected;
-    information[0].Tikets = ticketsSelected;
+    information[0].Tickets = ticketsSelected;
     setRecordInfo(information[0]);
     setViewModal(true);
   };
