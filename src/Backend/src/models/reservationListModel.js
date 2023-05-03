@@ -51,7 +51,7 @@ const getServicesOptions = async (req, res) => {
 
 // Method that gets the spots of one reservation
 const getSpotsByReservationID = async (req, res) => {
-  const { ID, Reservation_Date } = req.body;
+  const { ID, Reservation_Date } = req.params;
   try {
     const pool = await getConnection();
     const result = await pool
@@ -67,7 +67,7 @@ const getSpotsByReservationID = async (req, res) => {
 
 //Method that gets the plates numbers of one reservation
 const getVehiclesByReservationID = async (req, res) => {
-  const { ID, Reservation_Date } = req.body;
+  const { ID, Reservation_Date } = req.params;
   try {
     const pool = await getConnection();
     const result = await pool
