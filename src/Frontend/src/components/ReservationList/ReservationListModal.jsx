@@ -141,7 +141,7 @@ const ReservationListModal = ({
           disabled={true}
         />
       </div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-2">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 my-7">
         <InputButton
           text="Type"
           placeholderText={
@@ -209,7 +209,7 @@ const ReservationListModal = ({
           onChangeFunction={changeRecordInfo}
         />
       </div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-8">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-3 mb-8">
         <span className="">
           <DatePickerButton
             text="Start Date"
@@ -234,28 +234,13 @@ const ReservationListModal = ({
       <label className="block text-xl font-semibold leading-6 text-gray-900">
         Tickets
       </label>
-      <div className="grid grid-cols-1 mt-2 mb-3">
+      <div className="grid grid-cols-1 mt-2">
         {mainRecordInfo.Tickets &&
           mainRecordInfo.Tickets.map((ticket, index) => (
-            // <span key={index} className="mx-1">
-            //   <DropDownSelect
-            //     options={[
-            //       "Foreign, Adult",
-            //       "Foreign, Children",
-            //       "National, Adult",
-            //       "National, Children",
-            //       "Special Visitor",
-            //     ]}
-            // selectedOption={formatTicket(ticket)}
-            // disabled={disabledElements}
-            // typeChange={["tickets", index]}
-            // onChangeFunction={changeRecordInfo}
-            //   />
-            // </span>
             <div key={index} className="flex">
               <div className="bg-gray-100 w-[500px] rounded-sm my-2">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
-                  <div className="mt-1 mb-1.5">
+                  <div className="mt-1 mb-1.5 sm:-mb-4">
                     <DropDownSelect
                       options={[
                         "Foreign, Adult",
@@ -270,7 +255,7 @@ const ReservationListModal = ({
                       onChangeFunction={changeRecordInfo}
                     />
                   </div>
-                  <div className="mt-1 mb-1.5">
+                  <div className="mt-1 mb-1.5 sm:mt-0">
                     <InputButton
                       key={index}
                       type={["tickets", "amount", index]}
@@ -285,11 +270,11 @@ const ReservationListModal = ({
           ))}
       </div>
       {mainRecordInfo.Spots && mainRecordInfo.Spots.length != 0 ? (
-        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7">
+        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-5">
           Spots
         </label>
       ) : (
-        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-7"></label>
+        <label className="block text-xl font-semibold leading-6 text-gray-900 mt-5"></label>
       )}
       <div className="grid grid-cols-2 mt-2 mb-3">
         {mainRecordInfo.Spots &&
@@ -342,7 +327,7 @@ const ReservationListModal = ({
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Vehicles
       </label>
-      <div className="grid grid-cols-2 mb-7">
+      <div className="grid grid-cols-2 mb-5">
         {mainRecordInfo.Vehicles &&
           mainRecordInfo.Vehicles.map((vehicle, index) => (
             <InputButton

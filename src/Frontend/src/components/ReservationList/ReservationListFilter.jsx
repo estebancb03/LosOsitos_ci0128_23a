@@ -217,7 +217,7 @@ const ReservationListFilter = ({
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="mx-3 -mt-0.5 sm:mt-0 sm:ml-4">
+        <span className="mx-3 -mt-0.5 sm:mt-0 sm:ml-4 w-[95%] sm:w-[90%]">
           <InputButton
             type="customerId"
             text="Id"
