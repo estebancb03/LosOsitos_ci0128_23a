@@ -4,7 +4,8 @@ import {
   getRecordsServices,
   getServicesOptions,
   getAllSpots,
-  getAllVehicles
+  getAllVehicles,
+  getAllTickets
  } from "../models/reservationListModel.js";
 
 const router = Router();
@@ -14,5 +15,6 @@ router.get("/getServicesOptions", getServicesOptions);
 router.get("/getRecordsServices", getRecordsServices);
 router.get("/getAllSpots", getAllSpots);
 router.get("/getAllVehicles", getAllVehicles);
+router.get("/getAllTickets", getAllTickets);
 
 export default router;

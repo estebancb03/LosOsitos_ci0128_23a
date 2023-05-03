@@ -27,6 +27,8 @@ const ReservationList = () => {
   const [spots, setSpots] = useState([]);
   // State that constrols the vehicles
   const [vehicles, setVehicles] = useState([]);
+  // State that constrols the tickets
+  const [tickets, setTickets] = useState([]);
   // Table columns
   const tableColumns = [
     "Id",
@@ -62,12 +64,23 @@ const ReservationList = () => {
     }
   };
 
-  // Method that gets the spots of all records
+  // Method that gets the vehicles of all records
   const getAllVehicles = async () => {
     try {
       const url = "/reservation-list/getAllVehicles";
       const result = await AxiosClient.get(url);
       setVehicles(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that gets the tickets of all records
+  const getAllTickets = async () => {
+    try {
+      const url = "/reservation-list/getAllTickets";
+      const result = await AxiosClient.get(url);
+      setTickets(result.data);
     } catch (exception) {
       console.log(exception);
     }
@@ -111,6 +124,7 @@ const ReservationList = () => {
     getServices();
     getAllSpots();
     getAllVehicles();
+    getAllTickets();
   }, []);
 
   return (

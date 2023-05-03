@@ -69,7 +69,7 @@ const getServicesOptions = async (req, res) => {
   }
 };
 
-// Method that gets the spots of one reservation
+// Method that gets the spots of all reservations
 const getAllSpots = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -84,7 +84,7 @@ const getAllSpots = async (req, res) => {
   }
 };
 
-//Method that gets the plates numbers of one reservation
+//Method that gets the vehicles of all reservations
 const getAllVehicles = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -97,7 +97,22 @@ const getAllVehicles = async (req, res) => {
     res.status(500);
     res.send(error.message);
   }
-}
+};
+
+//Method that gets the tickets of all reservations
+const getAllTickets = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query("SELECT * FROM Ticket_Reservation");
+      console.log(result);
+      res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
 export { 
   getReservations,
@@ -105,5 +120,6 @@ export {
   getRecordsServices,
   getServicesOptions,
   getAllSpots,
-  getAllVehicles
+  getAllVehicles,
+  getAllTickets
 };
