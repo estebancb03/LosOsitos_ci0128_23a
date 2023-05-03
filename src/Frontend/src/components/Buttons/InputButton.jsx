@@ -5,7 +5,7 @@ const InputButton = ({ text, placeholderText, disabled, type, onChangeFunction }
   return (
     <>
       {text ? (
-        <div className="grid grid-cols-1 my-3">
+        <div className="grid grid-cols-1 sm:my-3">
           <div className="sm:col-span-2">
             <label className="block text-xl font-semibold leading-6 text-gray-900">
               {text}

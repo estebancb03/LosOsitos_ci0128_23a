@@ -201,15 +201,15 @@ const ReservationListFilter = ({
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="sm:mt-2 sm:mr-3">
+        <span className="ml-4 sm:mt-5">
           <DatePickerButton
             text="Start Date"
-            typeClass="1"
+            typeClass=""
             type="startDate"
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="sm:mt-2">
+        <span className="ml-4 mr-1 sm:mx-0 sm:mr-3 sm:mt-3.5">
           <DatePickerButton
             text="End Date"
             typeClass=""
@@ -217,10 +217,10 @@ const ReservationListFilter = ({
             onChangeFunction={changeFiltersState}
           />
         </span>
-        <span className="sm:ml-3 mt-0.5 sm:mt-0">
+        <span className="mx-3 -mt-0.5 sm:mt-0 sm:ml-4">
           <InputButton
             type="customerId"
-            text="Costumer Id"
+            text="Id"
             placeholderText=""
             onChangeFunction={changeFiltersState}
           />
