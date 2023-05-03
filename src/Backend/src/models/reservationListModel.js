@@ -17,6 +17,26 @@ const getReservations = async (req, res) => {
   }
 };
 
+// Method that returns the reservation main information by id
+const getMainInfoByReservationID = async (req, res) => {
+  // const { ID, Reservation_Date } = req.params;
+  const ID = '11801          ';
+  const Reservation_Date = '2023-02-02T00:00:00.000Z';
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT Person.Name, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation FULL OUTER JOIN Client ON Reservation.ID_Client = Client.ID_Person FULL OUTER JOIN Person ON Person.ID = Client.ID_Person FULL OUTER JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client WHERE Person.ID = ${ID} AND Reservation.Reservation_Date = '${Reservation_Date}'`
+      );
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 // Method that returns the services names of all reservations
 const getRecordsServices = async (req, res) => {
   try {
@@ -83,6 +103,7 @@ const getVehiclesByReservationID = async (req, res) => {
 
 export { 
   getReservations,
+  getMainInfoByReservationID,
   getRecordsServices,
   getServicesOptions,
   getSpotsByReservationID,
