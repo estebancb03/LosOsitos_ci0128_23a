@@ -71,12 +71,11 @@ const getServicesOptions = async (req, res) => {
 
 // Method that gets the spots of one reservation
 const getSpotsByReservationID = async (req, res) => {
-  const { ID, Reservation_Date } = req.params;
   try {
     const pool = await getConnection();
     const result = await pool
       .request()
-      .query(`SELECT * FROM Spot_Camping WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`);
+      .query(`SELECT * FROM Spot_Camping`);
       console.log(result);
       res.json(result.recordset);
   } catch (error) {

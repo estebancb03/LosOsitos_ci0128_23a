@@ -25,6 +25,8 @@ const ReservationList = () => {
   const [services, setServices] = useState([]);
   // State that constrols the modal information
   const [recordInfo, setRecordInfo] = useState({});
+  // State that constrols the spots
+  const [spots, setSpots] = useState([]);
   // Table columns
   const tableColumns = [
     "Id",
@@ -40,7 +42,7 @@ const ReservationList = () => {
   // Method that gets the records from the Data Base
   const getAllRecords = async () => {
     try {
-      const url = '/reservation-list/getAllRecords';
+      const url = "/reservation-list/getAllRecords";
       const records = await AxiosClient.get(url);
       setAllRecords(records.data);
       setCurrentRecords(records.data);
@@ -49,10 +51,21 @@ const ReservationList = () => {
     }
   };
 
+  // Method that gets the spots of all records
+  const getAllSpots = async () => {
+    try {
+      const url = "/reservation-list/getSpotsByReservationID/";
+      const result = await AxiosClient.get(url);
+      setSpots(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that shows the information of a row in the popup
   const setModalDataStatus = (itemID) => {
     const itemSelected = currentRecords.filter(
-      (item) => (item.ID + item.Reservation_Date) == itemID
+      (item) => item.ID + item.Reservation_Date == itemID
     );
     setRecordInfo(itemSelected[0]);
     setViewModal(true);
@@ -61,7 +74,7 @@ const ReservationList = () => {
   // Method that gets the services names of the records from the Data Base
   const getServices = async () => {
     try {
-      const url = '/reservation-list/getRecordsServices';
+      const url = "/reservation-list/getRecordsServices";
       const result = await AxiosClient(url);
       setServices(result.data);
     } catch (exception) {
@@ -71,7 +84,9 @@ const ReservationList = () => {
 
   // Method that returns only the associated services to a reservation ID
   const extractServiceByID = (reservationID) => {
-    return services.filter((service) => service.ID_Client + service.Reservation_Date == reservationID);
+    return services.filter(
+      (service) => service.ID_Client + service.Reservation_Date == reservationID
+    );
   };
 
   // Method that gets the names of the services of a row
@@ -83,6 +98,7 @@ const ReservationList = () => {
   useEffect(() => {
     getAllRecords();
     getServices();
+    getAllSpots();
   }, []);
 
   return (
@@ -115,12 +131,18 @@ const ReservationList = () => {
                 record.Reservation_Method == 0 ? "Online" : "In site",
                 formatDateDTDDMMYYYY(record.Start_Date),
                 formatDateDTDDMMYYYY(record.End_Date),
-                getServicesNames(extractServiceByID(record.ID + record.Reservation_Date)),
+                getServicesNames(
+                  extractServiceByID(record.ID + record.Reservation_Date)
+                ),
                 <Button
                   text="View"
                   onclickFunction={(e) => {
                     const reservationId = record.ID + record.Reservation_Date;
                     setModalDataStatus(reservationId);
+                    allRecords.map((record) => getAllSpots({
+                      ID: record.ID,
+                      Reservation_Date: record.Reservation_Date
+                    }));
                   }}
                 />,
               ]}
