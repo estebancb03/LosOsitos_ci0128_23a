@@ -114,6 +114,21 @@ const getAllTickets = async (req, res) => {
   }
 };
 
+//Method that gets the services of all reservations
+const getAllServices = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query("SELECT * FROM Service_Reservation");
+      console.log(result);
+      res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export { 
   getReservations,
   getMainInfoByReservationID,
@@ -121,5 +136,6 @@ export {
   getServicesOptions,
   getAllSpots,
   getAllVehicles,
-  getAllTickets
+  getAllTickets,
+  getAllServices
 };

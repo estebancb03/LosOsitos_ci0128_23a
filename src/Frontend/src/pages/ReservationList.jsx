@@ -20,7 +20,7 @@ const ReservationList = () => {
   // State that controls the current records of the table
   const [currentRecords, setCurrentRecords] = useState([]);
   // State that controls the services of each row
-  const [services, setServices] = useState([]);
+  const [servicesNames, setServicesNames] = useState([]);
   // State that constrols the modal information
   const [recordInfo, setRecordInfo] = useState({});
   // State that constrols the spots
@@ -29,6 +29,8 @@ const ReservationList = () => {
   const [vehicles, setVehicles] = useState([]);
   // State that constrols the tickets
   const [tickets, setTickets] = useState([]);
+  // State that constrols the tickets
+  const [services, setServices] = useState([]);
   // Table columns
   const tableColumns = [
     "Id",
@@ -86,12 +88,44 @@ const ReservationList = () => {
     }
   };
 
+  // Method that gets the tickets of all records
+  const getAllServices = async () => {
+    try {
+      const url = "/reservation-list/getAllServices";
+      const result = await AxiosClient.get(url);
+      setServices(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that shows the information of a row in the popup
-  const setModalDataStatus = (itemID) => {
+  const setModalDataStatus = (reservationID) => {
     const itemSelected = currentRecords.filter(
-      (item) => item.ID + item.Reservation_Date == itemID
+      (item) => item.ID + item.Reservation_Date == reservationID
     );
-    setRecordInfo(itemSelected[0]);
+    const spotsSelected = spots.filter(
+      (spot) => spot.ID_Client + spot.Reservation_Date == reservationID
+    ).map((item) => item.Location_Spot);
+    const vehiclesSelected = vehicles.filter(
+      (vehicle) => vehicle.ID_Client + vehicle.Reservation_Date == reservationID
+    ).map((item) => item.ID_Vehicle);
+    const servicesSelected = services.filter(
+      (service) => service.ID_Client + service.Reservation_Date == reservationID
+    );
+    const ticketsSelected = tickets.filter(
+      (ticket) => ticket.ID_Client + ticket.Reservation_Date == reservationID
+    ).map((item) => ({
+      Age_Range: item.Age_Range,
+      Amount: item.Amount,
+      Demographic_Group: item.Demographic_Group
+    }));
+    const information = [...itemSelected];
+    information[0].Spots = spotsSelected;
+    information[0].Vehicles = vehiclesSelected;
+    information[0].Services = servicesSelected;
+    information[0].Tikets = ticketsSelected;
+    setRecordInfo(information[0]);
     setViewModal(true);
   };
 
@@ -100,7 +134,7 @@ const ReservationList = () => {
     try {
       const url = "/reservation-list/getRecordsServices";
       const result = await AxiosClient(url);
-      setServices(result.data);
+      setServicesNames(result.data);
     } catch (exception) {
       console.log(exception);
     }
@@ -108,7 +142,7 @@ const ReservationList = () => {
 
   // Method that returns only the associated services to a reservation ID
   const extractServiceByID = (reservationID) => {
-    return services.filter(
+    return servicesNames.filter(
       (service) => service.ID_Client + service.Reservation_Date == reservationID
     );
   };
@@ -125,6 +159,7 @@ const ReservationList = () => {
     getAllSpots();
     getAllVehicles();
     getAllTickets();
+    getAllServices();
   }, []);
 
   return (
@@ -135,7 +170,7 @@ const ReservationList = () => {
         <ReservationListFilter
           reservationData={allRecords}
           setReservationRecords={setCurrentRecords}
-          services={services}
+          services={servicesNames}
         />
         <ReservationListModal
           mainRecordInfo={recordInfo}
