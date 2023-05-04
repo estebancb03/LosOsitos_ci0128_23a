@@ -49,6 +49,19 @@ const getHoursMinutesFromISOFormat = (date) => {
   return date.slice(11, 16);
 };
 
+// Method that returns an array with the hours in the interval
+const createHoursWithIntervals = (startHour, endHour, interval) => {
+  let result = [];
+  for (let i = startHour; i <= endHour; i++) {
+    for (let j = 0; j <= interval; j += interval) {
+      let hour = i < 10 ? "0" + i : i;
+      let minutes = j === 0 ? "00" : j;
+      horas.push(hour + ":" + minutes);
+    }
+  }
+  return result;
+};
+
 export { 
   formatDateDDMMYYYY, 
   formatDateMMDDYYYY,
