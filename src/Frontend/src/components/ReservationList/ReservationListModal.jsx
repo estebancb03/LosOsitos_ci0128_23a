@@ -7,7 +7,8 @@ import DatePickerButton from "../Buttons/DatePickerButton";
 import { 
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
-  createHoursWithIntervals
+  createHoursWithIntervals,
+  changeDateInISOFormat
 } from "../../helpers/formatDate";
 
 const ReservationListModal = ({
@@ -79,7 +80,7 @@ const ReservationListModal = ({
       } else if (type[0] === "services") {
         const newServices = [...newRecord.Services];
         type[1] === "date"
-          ? (newServices[type[2]].date = value)
+          ? (newServices[type[2]].Schedule = changeDateInISOFormat(value, newServices[type[2]].Schedule))
           : (newServices[type[2]].hour = value);
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
@@ -123,9 +124,9 @@ const ReservationListModal = ({
       } else if (type === "Country_Name") {
         newRecord.Country_Name = value;
       } else if (type === "Start_Date") {
-        newRecord.Start_Date = value;
+        newRecord.Start_Date = changeDateInISOFormat(value, newRecord.Start_Date);
       } else if (type === "End_Date") {
-        newRecord.End_Date = value;
+        newRecord.End_Date = changeDateInISOFormat(value, newRecord.End_Date);
       }
     }
     setMainRecordInfo(newRecord);
@@ -343,13 +344,6 @@ const ReservationListModal = ({
             />
           ))}
       </div>
-      {/* <span className="mt-10">
-        <InputButton
-          text="Total price"
-          placeholderText={mainRecordInfo.totalPrice}
-          disabled={disabledElements}
-        />
-      </span> */}
     </Modal>
   );
 };
