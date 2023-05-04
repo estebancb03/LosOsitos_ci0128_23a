@@ -44,10 +44,16 @@ const formatDateMMDDYYYY = (date) => {
   }
 };
 
+// Method that gets the hours and minutes of dates in ISO 8601 format
+const getHoursMinutesFromISOFormat = (date) => {
+  return date.slice(11, 16);
+};
+
 export { 
   formatDateDDMMYYYY, 
   formatDateMMDDYYYY,
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY,
-  addZerosToDate
+  addZerosToDate,
+  getHoursMinutesFromISOFormat
 };

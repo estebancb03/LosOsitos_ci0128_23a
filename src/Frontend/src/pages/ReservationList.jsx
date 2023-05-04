@@ -8,9 +8,12 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
-import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
+import { 
+  formatDateDTDDMMYYYY, 
+  getHoursMinutesFromISOFormat
+ } from "../helpers/formatDate";
 
 const ReservationList = () => {
   // State that controls the popup window
