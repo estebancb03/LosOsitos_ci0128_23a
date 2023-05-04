@@ -8,7 +8,8 @@ import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
   createHoursWithIntervals,
-  changeDateInISOFormat
+  changeDateInISOFormat,
+  changeHourInISOFormat
 } from "../../helpers/formatDate";
 
 const ReservationListModal = ({
@@ -81,7 +82,7 @@ const ReservationListModal = ({
         const newServices = [...newRecord.Services];
         type[1] === "date"
           ? (newServices[type[2]].Schedule = changeDateInISOFormat(value, newServices[type[2]].Schedule))
-          : (newServices[type[2]].hour = value);
+          : (newServices[type[2]].Schedule = changeHourInISOFormat(value, newServices[type[2]].Schedule));
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
         if (type[1] == "ticketType") {
