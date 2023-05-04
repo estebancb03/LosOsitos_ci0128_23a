@@ -3,8 +3,12 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
-import { formatDateDTDDMMYYYY } from "../../helpers/formatDate";
 import DatePickerButton from "../Buttons/DatePickerButton";
+import { 
+  formatDateDTDDMMYYYY,
+  getHoursMinutesFromISOFormat,
+  createHoursWithIntervals
+} from "../../helpers/formatDate";
 
 const ReservationListModal = ({
   mainRecordInfo,
@@ -290,15 +294,15 @@ const ReservationListModal = ({
             </span>
           ))}
       </div>
-      {/* <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
+      <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Services
       </label>
-      {mainRecordInfo.services &&
-        mainRecordInfo.services.map((service, index) => (
+      {mainRecordInfo.Services &&
+        mainRecordInfo.Services.map((service, index) => (
           <div key={index} className="flex">
             <div className="bg-gray-100 w-full rounded-sm my-2">
               <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
-                {service.name}
+                {service.Name_Service}
               </label>
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
                 <span className="mr-2">
@@ -307,14 +311,14 @@ const ReservationListModal = ({
                     typeClass="2"
                     disabled={disabledElements}
                     type={["services", "date", index]}
-                    selectedDate={new Date(service.date)}
+                    selectedDate={new Date(service.Schedule)}
                     onChangeFunction={changeRecordInfo}
                   />
                 </span>
                 <div className="mt-1">
                   <DropDownSelect
-                    options={[service.hour, "10:30", "11:30", "12:30", "13:30"]}
-                    selectedOption={service.hour}
+                    options={createHoursWithIntervals(8, 16, 30)}
+                    selectedOption={getHoursMinutesFromISOFormat(service.Schedule)}
                     disabled={disabledElements}
                     typeChange={["services", "hour", index]}
                     onChangeFunction={changeRecordInfo}
@@ -323,7 +327,7 @@ const ReservationListModal = ({
               </div>
             </div>
           </div>
-        ))} */}
+        ))}
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Vehicles
       </label>

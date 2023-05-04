@@ -56,7 +56,7 @@ const createHoursWithIntervals = (startHour, endHour, interval) => {
     for (let j = 0; j <= interval; j += interval) {
       let hour = i < 10 ? "0" + i : i;
       let minutes = j === 0 ? "00" : j;
-      horas.push(hour + ":" + minutes);
+      result.push(hour + ":" + minutes);
     }
   }
   return result;
@@ -68,5 +68,6 @@ export {
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY,
   addZerosToDate,
-  getHoursMinutesFromISOFormat
+  getHoursMinutesFromISOFormat,
+  createHoursWithIntervals
 };
