@@ -18,12 +18,6 @@ const ReservationListModal = ({
   viewModal,
   setViewModal,
 }) => {
-  // State that controls the spots of the reservation
-  const [spots, setSpots] = useState([]);
-  // State that controls the tickets of the reservation
-  const [tickets, setTickets] = useState([]);
-  //State that controls the plate numbers of the reservation
-  const [plateNumbers, setPlateNumbers] = useState([]);
   // State that controls the modify button in the popup
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
