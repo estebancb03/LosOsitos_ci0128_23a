@@ -1,19 +1,16 @@
-import nodemailer from "nodemailer"
+import nodemailer from 'nodemailer'
+import QRCode from 'qrcode'
 import {transporter} from '../config/mailer.js'
-// import QRCode from "qrcode"
-
-const reservationData = "11802 2023-02-02"
-
-// let img = await QRCode.toDataURL("Hello world!")
-
 
 export const mailTest = async (req, res) => {
-  // send mail with defined transport object
+    let img = await QRCode.toDataURL("Hello world!")  // aquí va el id de la reserva (id cliente y fecha)
+
     const message = {
         from: '"Los Ositos 🐻" <ositosdelacueva@gmail.com>', // sender address
-        to: "daniel.lizanomorales@ucr.ac.cr, dylan.tenorio@ucr.ac.cr, israel.lopez@ucr.ac.cr, esteban.castaneda@ucr.ac.cr, carlos.quesadaestrada@ucr.ac.cr", // list of receivers
-        subject: "Asunto sumamente importante", // Subject line
-        html: "<b>A</b>", // html body
+        to: "estebanr.castaneda03@gmail.com, isra2002lova@gmail.com", // list of receivers
+        subject: "QR Test", // Subject line, 
+        attachDataUrls: true,
+        html: `<h1>Buenas!</h1></br><img src="${img}">`, // html body
     };
     
     try {
