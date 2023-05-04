@@ -76,6 +76,18 @@ const changeDateInISOFormat = (date, ISODate) => {
   return newDateTime.toISOString();
 };
 
+// Method that update the date in a ISO 8601 format
+const changeHourInISOFormat = (hours, ISODate) => {
+  const parts = hours.split(':');
+  const hour = parts[0];
+  const minutes = parts[1];
+  let newDateTime = new Date(ISODate);
+
+  newDateTime.setHours(hour);
+  newDateTime.setMinutes(minutes);
+  return newDateTime.toISOString();
+};
+
 export { 
   formatDateDDMMYYYY, 
   formatDateMMDDYYYY,
@@ -84,5 +96,6 @@ export {
   addZerosToDate,
   getHoursMinutesFromISOFormat,
   createHoursWithIntervals,
-  changeDateInISOFormat
+  changeDateInISOFormat,
+  changeHourInISOFormat
 };
