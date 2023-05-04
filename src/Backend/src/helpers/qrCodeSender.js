@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer"
+import {transporter} from '../config/mailer.js'
 // import QRCode from "qrcode"
 
 const reservationData = "11802 2023-02-02"
@@ -6,38 +7,21 @@ const reservationData = "11802 2023-02-02"
 // let img = await QRCode.toDataURL("Hello world!")
 
 
-export const mailTest = (req, res) => {
-    let testAccount = nodemailer.createTestAccount();
-
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
-        secure: false, // true for 465, false for other ports
-        auth: {
-            user: testAccount.user, // generated ethereal user
-            pass: testAccount.pass, // generated ethereal password
-        },
-    });
-
+export const mailTest = async (req, res) => {
   // send mail with defined transport object
-    let message = {
-        from: '"Fred Foo 👻" <foo@example.com>', // sender address
-        to: "bar@example.com, baz@example.com", // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
+    const message = {
+        from: '"Los Ositos 🐻" <ositosdelacueva@gmail.com>', // sender address
+        to: "daniel.lizanomorales@ucr.ac.cr, dylan.tenorio@ucr.ac.cr, israel.lopez@ucr.ac.cr, esteban.castaneda@ucr.ac.cr, carlos.quesadaestrada@ucr.ac.cr", // list of receivers
+        subject: "Asunto sumamente importante", // Subject line
+        html: "<b>A</b>", // html body
     };
     
-    transporter.sendMail(message).then((info) => {
-        return res.status(201).json({
-            msg: "Siuu",
-            info: info.messageId,
-            preview: nodemailer.getTestMessageUrl(info)
-        })
-    }).catch(error => {
-        return res.status(500)
-    })
+    try {
+        let info = await transporter.sendMail(message)
+        res.status(200).json(info)
+    } catch (exception) {
+        res.status(500)
+    }
 }
 
 export default mailTest
