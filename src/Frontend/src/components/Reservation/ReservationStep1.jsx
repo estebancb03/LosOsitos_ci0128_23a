@@ -1,10 +1,40 @@
 import { useState } from "react";
+import { getTicketPrices, getCountries } from "../../Queries";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import Button from "../Button";
 
 const ReservationStep1 = () => {
   const columns = ["Type", "Price", "Quantity", "", ""];
+  console.log(getTicketPrices());
+  const ticketPrices = getTicketPrices();
+  //console.log("Ticket prices is: " + typeof ticketPrices);
+  // console.log(
+  //   "Is query result an array?\nAnswer: " +
+  //     Array.isArray(queryResult) +
+  //     "\n It is a: " +
+  //     typeof queryResult
+  // );
+  // console.log("Testing is: " + Object.values(queryResult));
+  // const ticketPrices = Array.from(queryResult);
+  // console.log(
+  //   "Ticket prices is an array?: " +
+  //     Array.isArray(ticketPrices) +
+  //     " and its values are:\n" +
+  //     ticketPrices[1]
+  // );
+  const picnicAdultPricesCRC = ticketPrices.filter(
+    (ticketPrice) => ticketPrice.Age_Range == 0 && ticketPrice.Currency == "CRC"
+  );
+  // console.log("Printing adult ticket prices\n" + picnicAdultPricesCRC);
+  const picnicChildPricesCRC = [];
+  const picnicAdultPricesUSD = [];
+  const picnicChildPricesUSD = [];
+  const campingAdultPricesCRC = [];
+  const campingChildPricesCRC = [];
+  const campingAdultPricesUSD = [];
+  const campingChildPricesUSD = [];
+  console.log(getTicketPrices());
   const names = [
     "Domestic Adult",
     "Domestic Child*",
