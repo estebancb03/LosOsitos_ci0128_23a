@@ -6,10 +6,15 @@ const formatDateDDMMYYYY = (date) => {
 
 // Method that formats tha date form DateTime format
 const formatDateDTDDMMYYYY = (unformatedDate) => {
+  // const date = new Date(unformatedDate);
+  // const day = date.getDate().toString().padStart(2, "0");
+  // const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  // const year = date.getFullYear().toString();
+  // return `${day}/${month}/${year}`;
   const date = new Date(unformatedDate);
-  const day = date.getDate().toString().padStart(2, "0");
-  const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const year = date.getFullYear().toString();
+  const day = date.getUTCDate().toString().padStart(2, "0");
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+  const year = date.getUTCFullYear();
   return `${day}/${month}/${year}`;
 };
 
@@ -25,11 +30,11 @@ const formatDateDTMMDDYYYY = (unformatedDate) => {
 
 // Method that formats a date adding zeros
 const addZerosToDate = (date) => {
-  const parts = date.split('-');
-  const day = !Array.isArray(parts[1]) ? '0' + parts[1] : parts[1];
-  const month = !Array.isArray(parts[0]) ? '0' + parts[0] : parts[0];
-  return month + '-' + day + '-' + parts[2];
-}
+  const parts = date.split("-");
+  const day = !Array.isArray(parts[1]) ? "0" + parts[1] : parts[1];
+  const month = !Array.isArray(parts[0]) ? "0" + parts[0] : parts[0];
+  return month + "-" + day + "-" + parts[2];
+};
 
 // Method that formats the date
 const formatDateMMDDYYYY = (date) => {
@@ -64,7 +69,7 @@ const createHoursWithIntervals = (startHour, endHour, interval) => {
 
 // Method that update the date in a ISO 8601 format
 const changeDateInISOFormat = (date, ISODate) => {
-  const parts = date.split('-');
+  const parts = date.split("-");
   const month = parts[0] - 1;
   const day = parts[1];
   const year = parts[2];
@@ -78,7 +83,7 @@ const changeDateInISOFormat = (date, ISODate) => {
 
 // Method that update the hours and minutes in a ISO 8601 format
 const changeHourInISOFormat = (hours, ISODate) => {
-  const parts = hours.split(':');
+  const parts = hours.split(":");
   const hour = parts[0];
   const minutes = parts[1];
   let newDateTime = new Date(ISODate);
@@ -88,8 +93,8 @@ const changeHourInISOFormat = (hours, ISODate) => {
   return newDateTime.toISOString();
 };
 
-export { 
-  formatDateDDMMYYYY, 
+export {
+  formatDateDDMMYYYY,
   formatDateMMDDYYYY,
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY,
@@ -97,5 +102,5 @@ export {
   getHoursMinutesFromISOFormat,
   createHoursWithIntervals,
   changeDateInISOFormat,
-  changeHourInISOFormat
+  changeHourInISOFormat,
 };

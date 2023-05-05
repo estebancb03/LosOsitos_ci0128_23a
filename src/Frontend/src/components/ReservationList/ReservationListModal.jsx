@@ -4,12 +4,12 @@ import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
-import { 
+import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
   createHoursWithIntervals,
   changeDateInISOFormat,
-  changeHourInISOFormat
+  changeHourInISOFormat,
 } from "../../helpers/formatDate";
 
 const ReservationListModal = ({
@@ -75,8 +75,14 @@ const ReservationListModal = ({
       } else if (type[0] === "services") {
         const newServices = [...newRecord.Services];
         type[1] === "date"
-          ? (newServices[type[2]].Schedule = changeDateInISOFormat(value, newServices[type[2]].Schedule))
-          : (newServices[type[2]].Schedule = changeHourInISOFormat(value, newServices[type[2]].Schedule));
+          ? (newServices[type[2]].Schedule = changeDateInISOFormat(
+              value,
+              newServices[type[2]].Schedule
+            ))
+          : (newServices[type[2]].Schedule = changeHourInISOFormat(
+              value,
+              newServices[type[2]].Schedule
+            ));
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
         if (type[1] == "ticketType") {
@@ -119,7 +125,10 @@ const ReservationListModal = ({
       } else if (type === "Country_Name") {
         newRecord.Country_Name = value;
       } else if (type === "Start_Date") {
-        newRecord.Start_Date = changeDateInISOFormat(value, newRecord.Start_Date);
+        newRecord.Start_Date = changeDateInISOFormat(
+          value,
+          newRecord.Start_Date
+        );
       } else if (type === "End_Date") {
         newRecord.End_Date = changeDateInISOFormat(value, newRecord.End_Date);
       }
@@ -138,6 +147,7 @@ const ReservationListModal = ({
           placeholderText={formatDateDTDDMMYYYY(
             mainRecordInfo.Reservation_Date
           )}
+          // placeholderText={mainRecordInfo.Reservation_Date}
           disabled={true}
         />
       </div>
@@ -211,12 +221,20 @@ const ReservationListModal = ({
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-3 mb-8">
         <span className="">
-          <DatePickerButton
+          {/* <DatePickerButton
             text="Start Date"
             typeClass="2"
             type="Start_Date"
             disabled={disabledElements}
             selectedDate={new Date(mainRecordInfo.Start_Date)}
+            onChangeFunction={changeRecordInfo}
+          /> */}
+          <DatePickerButton
+            text="Start Date"
+            typeClass="2"
+            type="Start_Date"
+            disabled={disabledElements}
+            selectedDate={new Date("2023-02-02T00:00:00.000Z")}
             onChangeFunction={changeRecordInfo}
           />
         </span>
@@ -314,7 +332,9 @@ const ReservationListModal = ({
                 <div className="mt-1">
                   <DropDownSelect
                     options={createHoursWithIntervals(8, 16, 30)}
-                    selectedOption={getHoursMinutesFromISOFormat(service.Schedule)}
+                    selectedOption={getHoursMinutesFromISOFormat(
+                      service.Schedule
+                    )}
                     disabled={disabledElements}
                     typeChange={["services", "hour", index]}
                     onChangeFunction={changeRecordInfo}
