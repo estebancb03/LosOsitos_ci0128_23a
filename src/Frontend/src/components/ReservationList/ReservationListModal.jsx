@@ -147,7 +147,6 @@ const ReservationListModal = ({
           placeholderText={formatDateDTDDMMYYYY(
             mainRecordInfo.Reservation_Date
           )}
-          // placeholderText={mainRecordInfo.Reservation_Date}
           disabled={true}
         />
       </div>
@@ -221,20 +220,12 @@ const ReservationListModal = ({
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-3 mb-8">
         <span className="">
-          {/* <DatePickerButton
-            text="Start Date"
-            typeClass="2"
-            type="Start_Date"
-            disabled={disabledElements}
-            selectedDate={new Date(mainRecordInfo.Start_Date)}
-            onChangeFunction={changeRecordInfo}
-          /> */}
           <DatePickerButton
             text="Start Date"
             typeClass="2"
             type="Start_Date"
             disabled={disabledElements}
-            selectedDate={new Date("2023-02-02T00:00:00.000Z")}
+            selectedDate={new Date(mainRecordInfo.Start_Date)}
             onChangeFunction={changeRecordInfo}
           />
         </span>

@@ -19,9 +19,8 @@ const getReservations = async (req, res) => {
 
 // Method that returns the reservation main information by id
 const getMainInfoByReservationID = async (req, res) => {
-  // const { ID, Reservation_Date } = req.params;
-  const ID = '11801          ';
-  const Reservation_Date = '2023-02-02T00:00:00.000Z';
+  const ID = "11801          ";
+  const Reservation_Date = "2023-02-02T00:00:00.000Z";
   try {
     const pool = await getConnection();
     const result = await pool
@@ -46,8 +45,8 @@ const getRecordsServices = async (req, res) => {
       .query(
         "SELECT Reservation.ID_Client, Reservation.Reservation_Date, Service_Reservation.Name_Service FROM Reservation FULL OUTER JOIN Service_Reservation ON Service_Reservation.ID_Client = Reservation.ID_Client"
       );
-      console.log(result);
-      res.json(result.recordset);
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -58,11 +57,9 @@ const getRecordsServices = async (req, res) => {
 const getServicesOptions = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool
-      .request()
-      .query("SELECT Name FROM Service");
-      console.log(result);
-      res.json(result.recordset);
+    const result = await pool.request().query("SELECT Name FROM Service");
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -73,11 +70,9 @@ const getServicesOptions = async (req, res) => {
 const getAllSpots = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool
-      .request()
-      .query(`SELECT * FROM Spot_Camping`);
-      console.log(result);
-      res.json(result.recordset);
+    const result = await pool.request().query(`SELECT * FROM Spot_Camping`);
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -88,11 +83,9 @@ const getAllSpots = async (req, res) => {
 const getAllVehicles = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool
-      .request()
-      .query("SELECT * FROM Vehicle");
-      console.log(result);
-      res.json(result.recordset);
+    const result = await pool.request().query("SELECT * FROM Vehicle");
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -106,30 +99,47 @@ const getAllTickets = async (req, res) => {
     const result = await pool
       .request()
       .query("SELECT * FROM Ticket_Reservation");
-      console.log(result);
-      res.json(result.recordset);
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
   }
 };
 
-//Method that gets the services of all reservations
+// Method that gets the services of all reservations
 const getAllServices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool
       .request()
       .query("SELECT * FROM Service_Reservation");
-      console.log(result);
-      res.json(result.recordset);
+    console.log(result);
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
   }
 };
 
-export { 
+// Method that updates the Person table by ID
+const updatePersonInformation = async (req, res) => {
+  try {
+    const { information } = req.params;
+    const { ID, Name, LastName1, LastName2, Email, Country_Name } = information;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(`UPDATE Person SET Person.Name = ${Name}, Person.LastName1 = ${LastName1}, Person.LastName2 = ${LastName2}, Person.Email = ${Email}, Person.Country_Name = ${Country_Name} WHERE Person.Id = ${ID}`);
+    console.log(result);
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export {
   getReservations,
   getMainInfoByReservationID,
   getRecordsServices,
@@ -137,5 +147,6 @@ export {
   getAllSpots,
   getAllVehicles,
   getAllTickets,
-  getAllServices
+  getAllServices,
+  updatePersonInformation
 };
