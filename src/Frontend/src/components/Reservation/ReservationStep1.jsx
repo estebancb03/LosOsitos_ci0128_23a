@@ -1,32 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getTicketPrices, getCountries } from "../../Queries";
+import AxiosClient from "../../config/AxiosClient";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import Button from "../Button";
 
 const ReservationStep1 = () => {
+  const [ticketsPrices, setTicketsPrices] = useState([]);
+  // const getTicketPrices = async () => {
+  //   try {
+  //     const url = "/ticket-prices";
+  //     const result = await AxiosClient.get(url);
+  //     setTicketsPrices(result.data);
+  //   } catch (exception) {
+  //     console.error(exception);
+  //   }
+  // };
+  const waitForTicketPrices = async () => {
+    try {
+      const result = await getTicketPrices();
+      console.log(result);
+      setTicketsPrices(result);
+    } catch (exception) {
+      console.error(exception);
+    }
+  };
+
   const columns = ["Type", "Price", "Quantity", "", ""];
-  console.log(getTicketPrices());
-  const ticketPrices = getTicketPrices();
-  //console.log("Ticket prices is: " + typeof ticketPrices);
-  // console.log(
-  //   "Is query result an array?\nAnswer: " +
-  //     Array.isArray(queryResult) +
-  //     "\n It is a: " +
-  //     typeof queryResult
-  // );
-  // console.log("Testing is: " + Object.values(queryResult));
-  // const ticketPrices = Array.from(queryResult);
-  // console.log(
-  //   "Ticket prices is an array?: " +
-  //     Array.isArray(ticketPrices) +
-  //     " and its values are:\n" +
-  //     ticketPrices[1]
-  // );
-  const picnicAdultPricesCRC = ticketPrices.filter(
+  const picnicAdultPricesCRC = ticketsPrices.filter(
     (ticketPrice) => ticketPrice.Age_Range == 0 && ticketPrice.Currency == "CRC"
   );
-  // console.log("Printing adult ticket prices\n" + picnicAdultPricesCRC);
   const picnicChildPricesCRC = [];
   const picnicAdultPricesUSD = [];
   const picnicChildPricesUSD = [];
@@ -34,7 +37,6 @@ const ReservationStep1 = () => {
   const campingChildPricesCRC = [];
   const campingAdultPricesUSD = [];
   const campingChildPricesUSD = [];
-  console.log(getTicketPrices());
   const names = [
     "Domestic Adult",
     "Domestic Child*",
@@ -51,6 +53,14 @@ const ReservationStep1 = () => {
     "$13.56",
     "$5.65",
   ];
+
+  const setPicnicAdultPricesCRC = () => {
+    ticketsPrices.filter(
+      (ticketPrice) =>
+        ticketPrice.Age_Range == 0 && ticketPrice.Currency == "CRC"
+    );
+  };
+
   const [quantityAdultPicnic, setQuantityAdultPicnic] = useState(0);
   const [quantityChildPicnic, setQuantityChildPicnic] = useState(0);
   const [quantityForeignAdultPicnic, setQuantityForeignAdultPicnic] =
@@ -205,6 +215,11 @@ const ReservationStep1 = () => {
     }
   };
 
+  useEffect(() => {
+    waitForTicketPrices();
+    setPicnicAdultPricesCRC();
+  }, []);
+
   return (
     <div>
       <h2 className="pt-8 pb-4 pl-2">Camping</h2>
@@ -221,6 +236,8 @@ const ReservationStep1 = () => {
               type="add"
               onclickFunction={(e) => {
                 handleClickAdd("", 1);
+                console.log(ticketsPrices);
+                console.log(picnicAdultPricesCRC);
               }}
             />,
             <Button
