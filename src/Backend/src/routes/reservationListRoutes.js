@@ -11,7 +11,8 @@ import {
   updateStartEndDates,
   getVehiclesByReservationID,
   updateVehicle,
-  getSpotsByReservationID
+  getSpotsByReservationID,
+  updateSpot
  } from "../models/reservationListModel.js";
 
 const router = Router();
@@ -24,9 +25,10 @@ router.get("/getAllVehicles", getAllVehicles);
 router.get("/getAllTickets", getAllTickets);
 router.get("/getAllServices", getAllServices);
 router.get("/getVehiclesByReservationID/:ID/:Reservation_Date", getVehiclesByReservationID);
-router.get("/getSpotsByReservationID/:ID/Reservation_Date", getSpotsByReservationID);
+router.get("/getSpotsByReservationID/:ID/:Reservation_Date", getSpotsByReservationID);
 router.put("/updatePersonData", updatePersonData);
 router.put("/updateStartEndDates", updateStartEndDates);
 router.put("/updateVehicle", updateVehicle);
+router.put("/updateSpot", updateSpot);
 
 export default router;

@@ -235,5 +235,6 @@ export {
   updateStartEndDates,
   getVehiclesByReservationID,
   updateVehicle,
-  getSpotsByReservationID
+  getSpotsByReservationID,
+  updateSpot
 };

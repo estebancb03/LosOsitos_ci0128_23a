@@ -24,6 +24,34 @@ const ReservationListModal = ({
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
 
+  // Method that updates the spots
+  const updateSpots = async () => {
+    try {
+      const { ID, Reservation_Date, Spots } = mainRecordInfo;
+      const url = `/reservation-list/getSpotsByReservationID/${ID}/${Reservation_Date}`;
+      const { data } = await AxiosClient.get(url);
+      let oldSpots = [];
+      let spotsToChange = [];
+      data.map((spot, index) => oldSpots.push(spot.Location_Spot));
+      Spots.map((spot, index) => {
+        if (!oldSpots.includes(parseInt(spot.Location_Spot))) spotsToChange.push(index);
+      });
+      const url2 = "/reservation-list/updateSpot";
+      await Promise.all(
+        spotsToChange.map(async (spot) => {
+          await AxiosClient.put(url2, {
+            ID,
+            Reservation_Date,
+            oldLocation_Spot: oldSpots[spot],
+            newLocation_Spot: parseInt(Spots[spot].Location_Spot)
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that updates the vehicles
   const updateVehicles = async () => {
     try {
@@ -33,11 +61,9 @@ const ReservationListModal = ({
       let oldVehicles = [];
       let vehiclesToChange = [];
       data.map((vehicle, index) => oldVehicles.push(vehicle.ID_Vehicle));
-      console.log(oldVehicles);
       Vehicles.map((vehicle, index) => {
         if (!oldVehicles.includes(vehicle)) vehiclesToChange.push(index);
       });
-      console.log(vehiclesToChange);
       const url2 = "/reservation-list/updateVehicle";
       await Promise.all(
         vehiclesToChange.map(async (vehicle) => {
@@ -207,6 +233,7 @@ const ReservationListModal = ({
                 updatePersonData();
                 if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
                 if (mainRecordInfo.Vehicles) updateVehicles();
+                if (mainRecordInfo.Spots) updateSpots();
               }
             }}
           />
