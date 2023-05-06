@@ -177,6 +177,21 @@ const ReservationListModal = ({
     }
   };
 
+  // Method that updates the data of a camping dates
+  const updateState = async () => {
+    try {
+      const { ID, Reservation_Date, State } = mainRecordInfo;
+      const url = "/reservation-list/updateState";
+      await AxiosClient.put(url, {
+        ID,
+        Reservation_Date,
+        State,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
     setDisabledElements(!disabledElements);
@@ -289,6 +304,7 @@ const ReservationListModal = ({
                 updatePersonData();
                 updateServices();
                 updateTickets();
+                updateState();
                 if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
                 if (mainRecordInfo.Vehicles) updateVehicles();
                 if (mainRecordInfo.Spots) updateSpots();
