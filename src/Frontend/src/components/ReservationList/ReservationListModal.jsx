@@ -24,6 +24,36 @@ const ReservationListModal = ({
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
 
+  // Method that updates the vehicles
+  const updateVehicles = async () => {
+    try {
+      const { ID, Reservation_Date, Vehicles } = mainRecordInfo;
+      const url = `/reservation-list/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
+      const { data } = await AxiosClient.get(url);
+      let oldVehicles = [];
+      let vehiclesToChange = [];
+      data.map((vehicle, index) => oldVehicles.push(vehicle.ID_Vehicle));
+      console.log(oldVehicles);
+      Vehicles.map((vehicle, index) => {
+        if (!oldVehicles.includes(vehicle)) vehiclesToChange.push(index);
+      });
+      console.log(vehiclesToChange);
+      const url2 = "/reservation-list/updateVehicle";
+      await Promise.all(
+        vehiclesToChange.map(async (vehicle) => {
+          await AxiosClient.put(url2, {
+            ID,
+            Reservation_Date,
+            oldID_Vehicle: oldVehicles[vehicle],
+            newID_Vehicle: Vehicles[vehicle]
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that updates the costumer data
   const updatePersonData = async () => {
     try {
@@ -175,8 +205,8 @@ const ReservationListModal = ({
               modifyHandleClick();
               if (modifyButton === "Save changes") {
                 updatePersonData();
-                if (mainRecordInfo.Reservation_Type == 1)
-                  updateStartEndDates();
+                if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
+                if (mainRecordInfo.Vehicles) updateVehicles();
               }
             }}
           />

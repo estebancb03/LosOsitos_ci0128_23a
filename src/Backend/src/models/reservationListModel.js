@@ -154,7 +154,7 @@ const updateStartEndDates = async (req, res) => {
   }
 };
 
-// Method that checks if a vehicle exists
+// Method that gets all vehicles by Reservation ID
 const getVehiclesByReservationID = async (req, res) => {
   try {
     const { ID, Reservation_Date } = req.params;
@@ -173,6 +173,22 @@ const getVehiclesByReservationID = async (req, res) => {
   }
 };
 
+// Method that updates a vehicle
+const updateVehicle = async (req, res) => {
+  try {
+    const {ID, Reservation_Date, oldID_Vehicle, newID_Vehicle} = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Vehicle SET ID_Vehicle = '${newID_Vehicle}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND ID_Vehicle = '${oldID_Vehicle}'`
+    );
+    res.status(200);
+    console.log("The update to the Vehicle was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -185,4 +201,5 @@ export {
   updatePersonData,
   updateStartEndDates,
   getVehiclesByReservationID,
+  updateVehicle
 };
