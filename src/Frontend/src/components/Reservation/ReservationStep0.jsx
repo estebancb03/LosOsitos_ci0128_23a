@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Button from "../Buttons/Button";
 
-const ReservationStep1 = () => {
+const ReservationStep0 = () => {
     const [reservationType, setReservationType] = useState("");
     return <>
         <div className="grid grid-cols-2">
@@ -23,4 +23,4 @@ const ReservationStep1 = () => {
     </>
 }
 
-export default ReservationStep1
+export default ReservationStep0;

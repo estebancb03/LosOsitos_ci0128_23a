@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Reservation from "./pages/Reservation";
-import ReservationStep1 from "./components/Reservation/ReservationStep0"
+import ReservationStep0 from "./components/Reservation/ReservationStep0"
 
 const App = () => {
   return (
