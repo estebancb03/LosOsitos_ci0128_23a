@@ -1,11 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import AxiosClient from "../../config/AxiosClient";
 import Button from "../Button";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
 import Reservation2Data from "./Reservation2Data";
+import axiosClient from "../../config/AxiosClient";
 
 const ReservationStep2 = () => {
+  const [availableSpots, setAvailableSpots] = useState();
+  const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
+  const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
+  const [quantityBigSpot, setQuantityBigSpot] = useState(0);
+  const [quantityAdded, setQuantityAdded] = useState(0);
+
+  const getAvailableSpotsByDates = async () => {
+    try {
+      let startDate = "2020-01-01T06:15:20.000";
+      let endDate = "2023-02-02T16:00:00.000";
+      const url =
+        "/getAvailableSpotsByDates/2020-01-01T06:15:20.000/2023-02-02T17:20:00.000";
+
+      const url2 = `/getAvailableSpotsByDates/${startDate}/${endDate}`;
+      const result = await axiosClient.get(url);
+      setAvailableSpots();
+      console.log(result);
+    } catch (exception) {
+      console.error(exception);
+    }
+  };
   const columns = [
     "Available Tents",
     "Type",
@@ -14,11 +37,6 @@ const ReservationStep2 = () => {
     "Price",
     "",
   ];
-
-  const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
-  const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
-  const [quantityBigSpot, setQuantityBigSpot] = useState(0);
-  const [quantityAdded, setQuantityAdded] = useState(0);
 
   const handleClick = (typeOfSpot, location) => {
     setQuantityAdded(quantityAdded + 1);
@@ -45,6 +63,22 @@ const ReservationStep2 = () => {
       : (result = "Big");
     return result;
   };
+
+  const checkParcelWasAdded = () => {
+    if (
+      quantitySmallSpot != 0 ||
+      quantityMediumSpot != 0 ||
+      quantityBigSpot != 0
+    ) {
+      console.log("Success");
+    } else {
+      alert("To proceed, please add at least one spot to your reservation");
+    }
+  };
+
+  useEffect(() => {
+    getAvailableSpotsByDates();
+  }, []);
 
   return (
     <>
@@ -78,6 +112,14 @@ const ReservationStep2 = () => {
               />
             ))}
           </Table>
+          <div className="w-1/3 mt-10 ml-[67%]">
+            <Button
+              text="Continue"
+              onclickFunction={(e) => {
+                checkParcelWasAdded();
+              }}
+            />
+          </div>
         </div>
       </div>
     </>
