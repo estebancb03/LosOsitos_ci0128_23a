@@ -12,7 +12,6 @@ import {
   changeDateInISOFormat,
   changeHourInISOFormat,
 } from "../../helpers/formatDate";
-import { string } from "prop-types";
 
 const ReservationListModal = ({
   mainRecordInfo,
@@ -25,14 +24,44 @@ const ReservationListModal = ({
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
 
-  const getServicesOptions = async () => {
+  // Method that updates the costumer data
+  const updatePersonData = async () => {
     try {
-      const {ID, Reservation_Date, Name, LastName1, LastName2, Email, Country_Name } = mainRecordInfo;
-      const url = `/reservation-list/updatePersonData`;
-      const result = await AxiosClient.put(url, {ID, Reservation_Date, Name, LastName1, LastName2, Email, Country_Name});
-      // const result = ["", ...options.data.map((service) => service.Name)];
-      // console.log(result);
-      // setServicesOptions(result);
+      const {
+        ID,
+        Reservation_Date,
+        Name,
+        LastName1,
+        LastName2,
+        Email,
+        Country_Name,
+      } = mainRecordInfo;
+      const url = "/reservation-list/updatePersonData";
+      await AxiosClient.put(url, {
+        ID,
+        Reservation_Date,
+        Name,
+        LastName1,
+        LastName2,
+        Email,
+        Country_Name,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that updates the data of a camping dates
+  const updateStartEndDates = async () => {
+    try {
+      const { ID, Reservation_Date, Start_Date, End_Date } = mainRecordInfo;
+      const url = "/reservation-list/updateStartEndDates";
+      await AxiosClient.put(url, {
+        ID,
+        Reservation_Date,
+        Start_Date,
+        End_Date
+      });
     } catch (exception) {
       console.log(exception);
     }
@@ -55,21 +84,6 @@ const ReservationListModal = ({
     return Demographic_Group != 2
       ? resultDemographicGroup + ", " + resultAgeRange
       : "Special Visitor";
-  };
-
-  // Method that returns tickets properties
-  const createTicket = (information) => {
-    if (information === "Foreign, Adult") {
-      return [1, 1];
-    } else if (information === "Foreign, Children") {
-      return [1, 0];
-    } else if (information === "National, Adult") {
-      return [0, 1];
-    } else if (information === "National, Children") {
-      return [0, 0];
-    } else {
-      return [0, 2];
-    }
   };
 
   // Method that puts the element in its initial state
@@ -154,11 +168,19 @@ const ReservationListModal = ({
   return (
     <Modal state={viewModal} setState={restartModal} title="Reservation Data">
       <div className="my-3">
-        {<Button text={modifyButton} onclickFunction={e => {
-          modifyHandleClick();
-          if(modifyButton === "Save changes")
-            getServicesOptions();
-        }} />}
+        {
+          <Button
+            text={modifyButton}
+            onclickFunction={(e) => {
+              modifyHandleClick();
+              if (modifyButton === "Save changes") {
+                updatePersonData();
+                if (mainRecordInfo.Reservation_Type === "Camping")
+                  updateStartEndDates();
+              }
+            }}
+          />
+        }
       </div>
       <div className="mt-6">
         <InputButton

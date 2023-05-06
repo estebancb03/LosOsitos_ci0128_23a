@@ -7,7 +7,8 @@ import {
   getAllVehicles,
   getAllTickets,
   getAllServices,
-  updatePersonData
+  updatePersonData,
+  updateStartEndDates
  } from "../models/reservationListModel.js";
 
 const router = Router();
@@ -20,5 +21,6 @@ router.get("/getAllVehicles", getAllVehicles);
 router.get("/getAllTickets", getAllTickets);
 router.get("/getAllServices", getAllServices);
 router.put("/updatePersonData", updatePersonData);
+router.put("/updateStartEndDates", updateStartEndDates);
 
 export default router;
