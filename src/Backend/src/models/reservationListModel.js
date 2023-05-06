@@ -188,7 +188,7 @@ const updateVehicle = async (req, res) => {
   }
 };
 
-// Method that gets all the spots bt Reservation ID
+// Method that gets all the spots by Reservation ID
 const getSpotsByReservationID = async (req, res) => {
   try {
     const { ID, Reservation_Date } = req.params;
@@ -222,6 +222,24 @@ const updateSpot = async (req, res) => {
   }
 };
 
+// Method that gets the tickets by Reservation ID
+const getTicketsByReservationID = async (req, res) => {
+  try {
+    const { ID, Reservation_Date } = req.params;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT Age_Range, Demographic_Group, Reservation_Type, Amount FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      );
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -236,5 +254,6 @@ export {
   getVehiclesByReservationID,
   updateVehicle,
   getSpotsByReservationID,
-  updateSpot
+  updateSpot,
+  getTicketsByReservationID
 };
