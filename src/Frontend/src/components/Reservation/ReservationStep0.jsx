@@ -1,11 +1,26 @@
-import { useState } from "react"
+import { useState, useEffect, forceUpdate, useReducer } from "react"
 import Button from "../Buttons/Button";
 import DropDownSelect from "../Buttons/DropDownSelect"
 import InputButton from "../Buttons/InputButton";
 import DatePickerButton from "../Buttons/DatePickerButton";
+import axiosClient from "../../config/AxiosClient"
+
 
 function Validation() {
   
+}
+
+const matchGender = (gender) => {
+  switch (gender) {
+    case 0:
+      return "Male"
+    case 1:
+      return "Female"
+    case 2:
+      return "Non-Binary"
+    case 3:
+      return "Other"
+  }
 }
 
 
@@ -17,67 +32,155 @@ function ReservationStep0() {
   const [nationality, setNationality] = useState('');
   const [email, setEmail] = useState('');
   const [gender, setGender] = useState('');
+  const [dummy, setDummy] = useState(0)
+
+  useEffect(() => {
+
+  }, [dummy])
+
+  const getUserData = async () => {
+    try {
+      const {data} = await axiosClient.get(`/person/${idNumber}`)
+      const result = data[0]
+      if (data.length > 0) {
+        setName(result.Name)
+        setLastName(result.LastName1 + " " + result.LastName2)
+        setGender(matchGender(result.Gender))
+        setEmail(result.Email)
+        setNationality(result.Country_Name)
+        setDummy(dummy == 2 ? 3 : 2)
+      } else {
+        setDummy(1)
+      }
+    } catch (exception) {
+      console.error(exception)
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     //console.log(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
   }
 
+  const setValue = (type, value) => {
+    if (type == "idNumber") {
+      setIDNumber(value)
+    } else if (type == "firstName") {
+      setName(value)
+    } else if (type == "lastName") {
+      setLastName(value)
+    } else if (type == "age") {
+      setAge(value)
+    } else if (type == "nationality") {
+      setNationality(value)
+    } else if (type == "email") {
+      setEmail(value)
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="ID number">ID Number:</label>
-          <InputButton>
-            text="ID Number"
-            placeholderText="Enter your ID number"
-            disabled={false}
-            type="idNumber"
-          </InputButton>
-        </div>
+    <form onSubmit={handleSubmit}>        
       <div>
-        <label htmlFor="name">First name:</label>
-        <InputButton>
-          text="First name"
-          placeholderText="Enter your first name"
-          disabled={false}
-          type="firstName"
-        </InputButton>
+        <InputButton text="ID Number" placeholderText="Enter your ID number" disabled={false} type="idNumber" onChangeFunction={setValue}/>
+        <Button text="Search" onclickFunction={getUserData}/>
       </div>
-      <div>
-        <label htmlFor="email">Last name:</label>
-        <InputButton>
-          text="Last name"
-          placeholderText="Enter your last name"
-          disabled={false}
-          type="lastName"
-        </InputButton>
-      </div>
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+        {dummy == 2 &&
+        <>
+          <div>
+            <InputButton text="First name" placeholderText="Enter your first name" disabled={true} type="firstName" initValue={firstName}/>
+          </div>
+          <div>
+            <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
+          </div>
+          <div>
+              <InputButton text="Age" placeholderText="Enter your age" disabled={true} type="age" initValue={age}/>
+          </div>
+          <div>
+            <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
+          </div>
+          <div>
+            <InputButton text="Email" placeholderText="Email" disabled={true} type="email" initValue={email}/>
+          </div>
+          <div>
+            <DropDownSelect
+              text="Gender"
+              disabled={true}
+              type="gender"
+              options={[gender]}
+              typeChange={gender}
+              //onChangeFunction={setGender}
+            />
+          </div>
+            <DatePickerButton text="Date of arrival" typeClass="1" type="startDate" disabled={false}/>
+          <div>
+          <div>
+            <DatePickerButton text="Date of departure" typeClass="1" type="endDate" disabled={false}/>
+          </div>
+            
+          </div>
+          <div className="my-10">
+            <Button text="Submit" type="add" onclickFunction={() => {}}/>
+          </div>
+        </>
+        }
+
+        {dummy == 3 &&
+        <>
+          <div>
+            <InputButton text="First name" placeholderText="Enter your first name" disabled={true} type="firstName" initValue={firstName}/>
+          </div>
+          <div>
+            <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
+          </div>
+          <div>
+              <InputButton text="Age" placeholderText="Enter your age" disabled={true} type="age" initValue={age}/>
+          </div>
+          <div>
+            <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
+          </div>
+          <div>
+            <InputButton text="Email" placeholderText="Email" disabled={true} type="email" initValue={email}/>
+          </div>
+          <div>
+            <DropDownSelect
+              text="Gender"
+              disabled={true}
+              type="gender"
+              options={[gender]}
+              typeChange={gender}
+              //onChangeFunction={setGender}
+            />
+          </div>
+            <DatePickerButton text="Date of arrival" typeClass="1" type="startDate" disabled={false}/>
+          <div>
+          <div>
+            <DatePickerButton text="Date of departure" typeClass="1" type="endDate" disabled={false}/>
+          </div>
+            
+          </div>
+          <div className="my-10">
+            <Button text="Submit" type="add" onclickFunction={() => {}}/>
+          </div>
+        </>
+        }
+        
+        {dummy == 1 &&
+        <>
         <div>
-            <label htmlFor="age">Age:</label>
-            <InputButton>
-              text="Age"
-              placeholderText="Enter your age"
-              disabled={false}
-              type="age"
-            </InputButton>
+          <InputButton text="First name" placeholderText="Enter your first name" disabled={false} type="firstName" onChangeFunction={setValue}/>
         </div>
         <div>
-          <label htmlFor="nationality">Nationality:</label>
-          <InputButton>
-            text="Nationality"
-            placeholderText="Enter your nationality"
-            disabled={false}
-            type="nationality"
-          </InputButton>
+          <InputButton text="Last name" placeholderText="Enter your last name" disabled={false} type="lastName" onChangeFunction={setValue}/>
         </div>
         <div>
-          <label htmlFor="Email">Email:</label>
-          <InputButton>
-            text="Email"
-            placeholderText="Email"
-            disabled={false}
-            type="email"
-          </InputButton>
+            <InputButton text="Age" placeholderText="Enter your age" disabled={false} type="age" onChangeFunction={setValue}/>
+        </div>
+        <div>
+          <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={false} type="nationality" onChangeFunction={setValue}/>
+        </div>
+        <div>
+          <InputButton text="Email" placeholderText="Email" disabled={false} type="email" onChangeFunction={setValue}/>
         </div>
         <div>
           <DropDownSelect
@@ -89,28 +192,19 @@ function ReservationStep0() {
             //onChangeFunction={setGender}
           />
         </div>
-          <label htmlFor="Date of arrival">Date of arrival:</label>
-          <DatePickerButton>
-            text="Date of arrival"
-            typeClass="1"
-            type="startDate"
-            disabled={false}
-          </DatePickerButton>
+          <DatePickerButton text="Date of arrival" typeClass="1" type="startDate" disabled={false}/>
         <div>
         <div>
-          <label htmlFor="Date of departure">Date of departure:</label>
-          <DatePickerButton className = "w-20">
-            text="Date of departure"
-            typeClass="1"
-            type="endDate"
-            disabled={false}
-          </DatePickerButton>
+          <DatePickerButton text="Date of departure" typeClass="1" type="endDate" disabled={false}/>
         </div>
           
         </div>
         <div className="my-10">
           <Button text="Submit" type="add" onclickFunction={() => {}}/>
         </div>
+        </>
+        }
+      </div>
     </form>
   );
 }
