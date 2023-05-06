@@ -382,18 +382,10 @@ const ReservationListModal = ({
               <div className="bg-gray-100 w-[500px] rounded-sm my-2">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
                   <div className="mt-1 mb-1.5 sm:-mb-4">
-                    <DropDownSelect
-                      options={[
-                        "Foreign, Adult",
-                        "Foreign, Children",
-                        "National, Adult",
-                        "National, Children",
-                        "Special Visitor",
-                      ]}
-                      selectedOption={formatTicket(ticket)}
-                      disabled={disabledElements}
-                      typeChange={["tickets", "ticketType", index]}
-                      onChangeFunction={changeRecordInfo}
+                    <InputButton
+                      key={index}
+                      placeholderText={formatTicket(ticket)}
+                      disabled={true}
                     />
                   </div>
                   <div className="mt-1 mb-1.5 sm:mt-0">
@@ -442,7 +434,7 @@ const ReservationListModal = ({
                 {service.Name_Service}
               </label>
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
-                <span className="mr-2">
+                <span className="mr-2 sm:mr-7">
                   <DatePickerButton
                     text=""
                     typeClass="2"
@@ -452,7 +444,7 @@ const ReservationListModal = ({
                     onChangeFunction={changeRecordInfo}
                   />
                 </span>
-                <div className="mt-1">
+                <div className="mt- sm:-mt-4">
                   <DropDownSelect
                     options={createHoursWithIntervals(8, 16, 30)}
                     selectedOption={getHoursMinutesFromISOFormat(
