@@ -264,6 +264,24 @@ const updateTicket = async (req, res) => {
   }
 };
 
+// Method that gets the services by reservation ID
+const getServicesByReservationID = async (req, res) => {
+  try {
+    const { ID, Reservation_Date } = req.params;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT Name, Schedule FROM Service_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      );
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -280,5 +298,6 @@ export {
   getSpotsByReservationID,
   updateSpot,
   getTicketsByReservationID,
-  updateTicket
+  updateTicket,
+  getServicesByReservationID
 };
