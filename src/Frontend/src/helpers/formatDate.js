@@ -6,11 +6,6 @@ const formatDateDDMMYYYY = (date) => {
 
 // Method that formats tha date form DateTime format
 const formatDateDTDDMMYYYY = (unformatedDate) => {
-  // const date = new Date(unformatedDate);
-  // const day = date.getDate().toString().padStart(2, "0");
-  // const month = (date.getMonth() + 1).toString().padStart(2, "0");
-  // const year = date.getFullYear().toString();
-  // return `${day}/${month}/${year}`;
   const date = new Date(unformatedDate);
   const day = date.getUTCDate().toString().padStart(2, "0");
   const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
