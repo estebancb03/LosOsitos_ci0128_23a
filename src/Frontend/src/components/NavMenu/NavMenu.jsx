@@ -4,7 +4,7 @@ import img from "../../assets/images/3-asojunquillal-logo.png";
 
 const NavMenu = () => {
   return (
-    <div className="sticky top-0">
+    <div className="sticky top-0 z-10">
       <SideBarMenu />
       <nav className="h-20 p-5 bg-[#21295c] shadow flex items-center justify-between">
         <div className="flex justify-between items-center">

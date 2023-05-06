@@ -19,6 +19,22 @@ La aplicación web en cuestión debe de contar con las siguientes funcionalidade
 
 La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.
 
+## Ejecución del código
+
+Este proyecto está desarrollado como dos aplicaciones diferentes, una que maneja el frontend y otra el backend. Para ejecutar el frontend debde dirigirse a la carpeta ```Frontend``` y ejecutar el siguiente comando:
+
+```
+npm run dev
+```
+
+Con esto el frontend comenzará a correr en el siguiente en ```http://localhost:5173/``` .De la misma forma, para ejecutar la aplicación backend, diríjase a la carpera ```Backend``` y ejecute el siguiente comando:
+
+```
+npm run dev
+```
+
+Lo anterior hará que la aplicación del backend se empiece a ejecutar en ```http://localhost:3000/api``` . Es necesario recalcar que para que el sistema funcione correctamente ambas aplicaciones deben estar ejecutandose a la vez.
+
 ### Mockup
 
 Para más información, refierase al directorio [mockups](design/mockups/).
