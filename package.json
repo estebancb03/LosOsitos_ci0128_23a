@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "filepond": "^4.30.4",
+    "filepond-plugin-file-encode": "^2.1.10",
     "react-filepond": "^7.1.2"
   }
 }

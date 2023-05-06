@@ -1,15 +1,26 @@
 import { useState } from "react";
 import Title from "../Title";
-import ReactDOM from 'react-dom';
-// Import FilePond Drag&Drop
+// Import React FilePond
 import { FilePond, registerPlugin } from 'react-filepond';
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+
+// Import the plugin code
+import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+// Register the plugin
+registerPlugin(FilePondPluginFileEncode);
+
 // Import Checkbox
 import { Checkbox } from 'antd';
 
 const ReservationStep6Sinpe = () => {
   const [files, setFiles] = useState([])
+  const [filesBase64, setFilesBase64] = useState()
   const [checkbox, setCheckbox] = useState(false)
-  console.log(files)
+  if (files.length != 0){
+    setFilesBase64(files[0].getFileEncodeBase64String())
+}
   return (
     <>
         <Title name="Upload Payment Proof Picture" />
