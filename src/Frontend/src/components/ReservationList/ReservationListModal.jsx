@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
+import AxiosClient from "../../config/AxiosClient";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
@@ -11,6 +12,7 @@ import {
   changeDateInISOFormat,
   changeHourInISOFormat,
 } from "../../helpers/formatDate";
+import { string } from "prop-types";
 
 const ReservationListModal = ({
   mainRecordInfo,
@@ -22,6 +24,19 @@ const ReservationListModal = ({
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
+
+  const getServicesOptions = async () => {
+    try {
+      const {ID, Reservation_Date, Name, LastName1, LastName2, Email, Country_Name } = mainRecordInfo;
+      const url = `/reservation-list/updatePersonData`;
+      const result = await AxiosClient.put(url, {ID, Reservation_Date, Name, LastName1, LastName2, Email, Country_Name});
+      // const result = ["", ...options.data.map((service) => service.Name)];
+      // console.log(result);
+      // setServicesOptions(result);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -139,7 +154,11 @@ const ReservationListModal = ({
   return (
     <Modal state={viewModal} setState={restartModal} title="Reservation Data">
       <div className="my-3">
-        {<Button text={modifyButton} onclickFunction={modifyHandleClick} />}
+        {<Button text={modifyButton} onclickFunction={e => {
+          modifyHandleClick();
+          if(modifyButton === "Save changes")
+            getServicesOptions();
+        }} />}
       </div>
       <div className="mt-6">
         <InputButton

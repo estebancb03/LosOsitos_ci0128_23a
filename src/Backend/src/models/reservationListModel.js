@@ -1,4 +1,4 @@
-import { getConnection } from "../config/db.js";
+import { getConnection, sql } from "../config/db.js";
 
 // Method that returns reservation data
 const getReservations = async (req, res) => {
@@ -123,16 +123,14 @@ const getAllServices = async (req, res) => {
 };
 
 // Method that updates the Person table by ID
-const updatePersonInformation = async (req, res) => {
+const updatePersonData = async (req, res) => {
   try {
-    const { information } = req.params;
-    const { ID, Name, LastName1, LastName2, Email, Country_Name } = information;
+    const { ID, Name, LastName1, LastName2, Email, Country_Name } = req.body;
     const pool = await getConnection();
-    const result = await pool
-      .request()
-      .query(`UPDATE Person SET Person.Name = ${Name}, Person.LastName1 = ${LastName1}, Person.LastName2 = ${LastName2}, Person.Email = ${Email}, Person.Country_Name = ${Country_Name} WHERE Person.Id = ${ID}`);
-    console.log(result);
+    await pool
+      .query(`UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Email = '${Email}', Country_Name='${Country_Name}' WHERE ID = ${ID}`);
     res.status(200);
+    console.log(req.body);
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -148,5 +146,5 @@ export {
   getAllVehicles,
   getAllTickets,
   getAllServices,
-  updatePersonInformation
+  updatePersonData
 };
