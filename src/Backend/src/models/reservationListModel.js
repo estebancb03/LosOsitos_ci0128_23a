@@ -296,7 +296,7 @@ const updateService = async (req, res) => {
       `UPDATE Service_Reservation SET Schedule = '${Schedule}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
     );
     res.status(200);
-    console.log("The update to the Ticket_Reservation was successfull");
+    console.log("The update to the Service_Reservation was successfull");
   } catch (error) {
     res.status(500);
     res.send(error.message);

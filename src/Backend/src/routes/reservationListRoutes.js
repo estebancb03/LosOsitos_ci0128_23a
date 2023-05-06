@@ -37,6 +37,6 @@ router.put("/updateStartEndDates", updateStartEndDates);
 router.put("/updateVehicle", updateVehicle);
 router.put("/updateSpot", updateSpot);
 router.put("/updateTicket", updateTicket);
-router.put("/updateTicket", updateService);
+router.put("/updateService", updateService);
 
 export default router;
