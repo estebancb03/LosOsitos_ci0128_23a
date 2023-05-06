@@ -7,7 +7,7 @@ const getReservations = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        "SELECT Person.ID, Person.Name, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation FULL OUTER JOIN Client ON Reservation.ID_Client = Client.ID_Person FULL OUTER JOIN Person ON Person.ID = Client.ID_Person FULL OUTER JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client WHERE Reservation.Reservation_Date IS NOT NULL"
+        "SELECT DISTINCT Person.ID, Person.Name, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation JOIN Person ON Reservation.ID_Client = Person.ID JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client JOIN Camping ON Reservation.ID_Client = Camping.ID_Client"
       );
     console.log(result);
     res.json(result.recordset);
