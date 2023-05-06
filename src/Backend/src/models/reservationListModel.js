@@ -128,9 +128,24 @@ const updatePersonData = async (req, res) => {
     const { ID, Name, LastName1, LastName2, Email, Country_Name } = req.body;
     const pool = await getConnection();
     await pool
-      .query(`UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Email = '${Email}', Country_Name='${Country_Name}' WHERE ID = ${ID}`);
+      .query(`UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Email = '${Email}', Country_Name = '${Country_Name}' WHERE ID = ${ID}`);
     res.status(200);
-    console.log(req.body);
+    console.log('The update to the Person table was successful');
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+// Method that updates the Reservation dates by Reservation ID
+const updateStartEndDates = async (req, res) => {
+  try {
+    const { ID, Reservation_Date, Start_Date, End_Date } = req.body;
+    const pool = await getConnection();
+    await pool
+      .query(`UPDATE Camping SET Start_Date = '${Start_Date}', End_Date = '${End_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`);
+    res.status(200);
+    console.log('The update to the Reservation dates was successfull');
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -146,5 +161,6 @@ export {
   getAllVehicles,
   getAllTickets,
   getAllServices,
-  updatePersonData
+  updatePersonData,
+  updateStartEndDates
 };
