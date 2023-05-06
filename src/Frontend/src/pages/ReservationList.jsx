@@ -195,8 +195,8 @@ const ReservationList = () => {
                 record.Reservation_Type == 1 ? "Camping" : "Picnic",
                 record.Reservation_Method == 0 ? "Online" : "In site",
                 record.State == 0 ? "Pending" : "Approved", 
-                record.Start_Date !== null ? formatDateDTDDMMYYYY(record.Start_Date) : "No apply",
-                record.End_Date !== null ? formatDateDTDDMMYYYY(record.End_Date) : "No apply",
+                record.Start_Date !== null ? formatDateDTDDMMYYYY(record.Start_Date) : "N/A",
+                record.End_Date !== null ? formatDateDTDDMMYYYY(record.End_Date) : "N/A",
                 getServicesNames(
                   extractServiceByID(record.ID + record.Reservation_Date)
                 ),
