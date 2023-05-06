@@ -60,7 +60,7 @@ const ReservationListModal = ({
         ID,
         Reservation_Date,
         Start_Date,
-        End_Date
+        End_Date,
       });
     } catch (exception) {
       console.log(exception);
@@ -175,7 +175,7 @@ const ReservationListModal = ({
               modifyHandleClick();
               if (modifyButton === "Save changes") {
                 updatePersonData();
-                if (mainRecordInfo.Reservation_Type === "Camping")
+                if (mainRecordInfo.Reservation_Type == 1)
                   updateStartEndDates();
               }
             }}
