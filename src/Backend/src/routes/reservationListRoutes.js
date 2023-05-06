@@ -13,7 +13,8 @@ import {
   updateVehicle,
   getSpotsByReservationID,
   updateSpot,
-  getTicketsByReservationID
+  getTicketsByReservationID,
+  updateTicket
  } from "../models/reservationListModel.js";
 
 const router = Router();
@@ -32,5 +33,6 @@ router.put("/updatePersonData", updatePersonData);
 router.put("/updateStartEndDates", updateStartEndDates);
 router.put("/updateVehicle", updateVehicle);
 router.put("/updateSpot", updateSpot);
+router.put("/updateTicket", updateTicket);
 
 export default router;

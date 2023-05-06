@@ -175,7 +175,7 @@ const getVehiclesByReservationID = async (req, res) => {
 // Method that updates a vehicle
 const updateVehicle = async (req, res) => {
   try {
-    const {ID, Reservation_Date, oldID_Vehicle, newID_Vehicle} = req.body;
+    const { ID, Reservation_Date, oldID_Vehicle, newID_Vehicle } = req.body;
     const pool = await getConnection();
     await pool.query(
       `UPDATE Vehicle SET ID_Vehicle = '${newID_Vehicle}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND ID_Vehicle = '${oldID_Vehicle}'`
@@ -209,7 +209,8 @@ const getSpotsByReservationID = async (req, res) => {
 // Method that updates a spot
 const updateSpot = async (req, res) => {
   try {
-    const {ID, Reservation_Date, oldLocation_Spot, newLocation_Spot } = req.body;
+    const { ID, Reservation_Date, oldLocation_Spot, newLocation_Spot } =
+      req.body;
     const pool = await getConnection();
     await pool.query(
       `UPDATE Spot_Camping SET Location_Spot = ${newLocation_Spot} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Location_Spot = ${oldLocation_Spot}`
@@ -230,10 +231,33 @@ const getTicketsByReservationID = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        `SELECT Age_Range, Demographic_Group, Reservation_Type, Amount FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+        `SELECT Age_Range, Amount, Demographic_Group FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
       );
     console.log(result);
     res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+// Method that updates a spot
+const updateTicket = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      Age_Range,
+      Amount,
+      Demographic_Group,
+      newAmount,
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Ticket_Reservation SET Amount = ${newAmount} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount}`
+    );
+    res.status(200);
+    console.log("The update to the Ticket_Reservation was successfull");
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -255,5 +279,6 @@ export {
   updateVehicle,
   getSpotsByReservationID,
   updateSpot,
-  getTicketsByReservationID
+  getTicketsByReservationID,
+  updateTicket
 };

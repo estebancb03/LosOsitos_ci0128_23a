@@ -24,6 +24,38 @@ const ReservationListModal = ({
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
 
+  // Method that updates the tickets
+  const updateTickets = async () => {
+    try {
+      const { ID, Reservation_Date, Tickets } = mainRecordInfo;
+      const url = `/reservation-list/getTicketsByReservationID/${ID}/${Reservation_Date}`;
+      const { data } = await AxiosClient.get(url);
+      let parsedTickets = [];
+      Tickets.map((ticket) => {
+        ticket.Age_Range = parseInt(ticket.Age_Range);
+        ticket.Demographic_Group = parseInt(ticket.Demographic_Group);
+        ticket.Amount = parseInt(ticket.Amount);
+        parsedTickets.push(ticket);
+      });
+      const url2 = "/reservation-list/updateTicket";
+      await Promise.all(
+        data.map(async (ticket, index) => {
+          await AxiosClient.put(url2, {
+            ID,
+            Reservation_Date,
+            Age_Range: ticket.Age_Range,
+            Amount: ticket.Amount,
+            Demographic_Group: ticket.Demographic_Group,
+            newAmount: parsedTickets[index].Amount
+          });
+        })
+      );
+      console.log(ticketsToChange);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that updates the spots
   const updateSpots = async () => {
     try {
@@ -34,7 +66,8 @@ const ReservationListModal = ({
       let spotsToChange = [];
       data.map((spot, index) => oldSpots.push(spot.Location_Spot));
       Spots.map((spot, index) => {
-        if (!oldSpots.includes(parseInt(spot.Location_Spot))) spotsToChange.push(index);
+        if (!oldSpots.includes(parseInt(spot.Location_Spot)))
+          spotsToChange.push(index);
       });
       const url2 = "/reservation-list/updateSpot";
       await Promise.all(
@@ -43,7 +76,7 @@ const ReservationListModal = ({
             ID,
             Reservation_Date,
             oldLocation_Spot: oldSpots[spot],
-            newLocation_Spot: parseInt(Spots[spot].Location_Spot)
+            newLocation_Spot: parseInt(Spots[spot].Location_Spot),
           });
         })
       );
@@ -71,7 +104,7 @@ const ReservationListModal = ({
             ID,
             Reservation_Date,
             oldID_Vehicle: oldVehicles[vehicle],
-            newID_Vehicle: Vehicles[vehicle]
+            newID_Vehicle: Vehicles[vehicle],
           });
         })
       );
@@ -227,10 +260,11 @@ const ReservationListModal = ({
         {
           <Button
             text={modifyButton}
-            onclickFunction={(e) => {
+            onclickFunction={() => {
               modifyHandleClick();
               if (modifyButton === "Save changes") {
                 updatePersonData();
+                updateTickets();
                 if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
                 if (mainRecordInfo.Vehicles) updateVehicles();
                 if (mainRecordInfo.Spots) updateSpots();
