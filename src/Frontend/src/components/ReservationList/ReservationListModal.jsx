@@ -37,7 +37,7 @@ const ReservationListModal = ({
             ID,
             Reservation_Date,
             Name_Service: service.Name_Service,
-            Schedule: mainRecordInfo.Services[index].Schedule
+            Schedule: mainRecordInfo.Services[index].Schedule,
           });
         })
       );
@@ -270,6 +270,8 @@ const ReservationListModal = ({
         );
       } else if (type === "End_Date") {
         newRecord.End_Date = changeDateInISOFormat(value, newRecord.End_Date);
+      } else if (type === "State") {
+        newRecord.State = value === "Pending" ? 0 : 1;
       }
     }
     setMainRecordInfo(newRecord);
@@ -295,13 +297,21 @@ const ReservationListModal = ({
           />
         }
       </div>
-      <div className="mt-6">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-6 mb-8">
         <InputButton
           text="Reservation Date"
           placeholderText={formatDateDTDDMMYYYY(
             mainRecordInfo.Reservation_Date
           )}
           disabled={true}
+        />
+        <DropDownSelect
+          text="State"
+          options={["Pending", "Approved"]}
+          selectedOption={mainRecordInfo.State === 0 ? "Pending" : "Approved"}
+          disabled={disabledElements}
+          typeChange="State"
+          onChangeFunction={changeRecordInfo}
         />
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 my-7">
@@ -320,14 +330,15 @@ const ReservationListModal = ({
           disabled={true}
         />
       </div>
-      <InputButton
-        text="Customer ID"
-        type="ID"
-        placeholderText={mainRecordInfo.ID}
-        disabled={true}
-        onChangeFunction={changeRecordInfo}
-      />
-      <div className="mt-6">
+
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+        <InputButton
+          text="Customer ID"
+          type="ID"
+          placeholderText={mainRecordInfo.ID}
+          disabled={true}
+          onChangeFunction={changeRecordInfo}
+        />
         <InputButton
           text="Name"
           type="Name"
@@ -336,7 +347,7 @@ const ReservationListModal = ({
           onChangeFunction={changeRecordInfo}
         />
       </div>
-      <div className="mt-6">
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-6">
         <InputButton
           text="Lastname 1"
           type="Lastname1"
@@ -344,8 +355,6 @@ const ReservationListModal = ({
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
-      </div>
-      <div className="mt-6">
         <InputButton
           text="Lastname 2"
           type="Lastname2"
@@ -363,7 +372,7 @@ const ReservationListModal = ({
           onChangeFunction={changeRecordInfo}
         />
       </div>
-      <div className="mt-6">
+      <div className="mt-6 mb-8">
         <InputButton
           text="Nationality"
           type="Country_Name"
@@ -372,28 +381,32 @@ const ReservationListModal = ({
           onChangeFunction={changeRecordInfo}
         />
       </div>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-3 mb-8">
-        <span className="">
-          <DatePickerButton
-            text="Start Date"
-            typeClass="2"
-            type="Start_Date"
-            disabled={disabledElements}
-            selectedDate={new Date(mainRecordInfo.Start_Date)}
-            onChangeFunction={changeRecordInfo}
-          />
-        </span>
-        <span className="mr-2">
-          <DatePickerButton
-            text="End Date"
-            typeClass="2"
-            type="End_Date"
-            disabled={disabledElements}
-            selectedDate={new Date(mainRecordInfo.End_Date)}
-            onChangeFunction={changeRecordInfo}
-          />
-        </span>
-      </div>
+      {mainRecordInfo.Reservation_Type === 1 ? (
+        <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-8">
+          <span className="">
+            <DatePickerButton
+              text="Start Date"
+              typeClass="2"
+              type="Start_Date"
+              disabled={disabledElements}
+              selectedDate={new Date(mainRecordInfo.Start_Date)}
+              onChangeFunction={changeRecordInfo}
+            />
+          </span>
+          <span className="mr-2">
+            <DatePickerButton
+              text="End Date"
+              typeClass="2"
+              type="End_Date"
+              disabled={disabledElements}
+              selectedDate={new Date(mainRecordInfo.End_Date)}
+              onChangeFunction={changeRecordInfo}
+            />
+          </span>
+        </div>
+      ) : (
+        <div></div>
+      )}
       <label className="block text-xl font-semibold leading-6 text-gray-900">
         Tickets
       </label>
@@ -445,9 +458,15 @@ const ReservationListModal = ({
             </span>
           ))}
       </div>
-      <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
-        Services
-      </label>
+      {mainRecordInfo.Reservation_Type === 0 ? (
+        <label className="block text-xl font-semibold leading-6 text-gray-900">
+          Services
+        </label>
+      ) : (
+        <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
+          Services
+        </label>
+      )}
       {mainRecordInfo.Services &&
         mainRecordInfo.Services.map((service, index) => (
           <div key={index} className="flex">

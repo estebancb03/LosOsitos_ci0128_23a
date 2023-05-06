@@ -303,6 +303,44 @@ const updateService = async (req, res) => {
   }
 };
 
+// Method that gets the state by reservation ID
+const getStateByReservationID = async (req, res) => {
+  try {
+    const { ID, Reservation_Date } = req.params;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT State FROM Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      );
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+// Method that updates a service
+const updateState = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      State,
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Reservation SET State = '${State}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+    );
+    res.status(200);
+    console.log("The update to the State was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -321,5 +359,7 @@ export {
   getTicketsByReservationID,
   updateTicket,
   getServicesByReservationID,
-  updateService
+  updateService,
+  getStateByReservationID,
+  updateState
 };
