@@ -206,6 +206,22 @@ const getSpotsByReservationID = async (req, res) => {
   }
 };
 
+// Method that updates a spot
+const updateSpot = async (req, res) => {
+  try {
+    const {ID, Reservation_Date, oldLocation_Spot, newLocation_Spot } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Spot_Camping SET Location_Spot = ${newLocation_Spot} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Location_Spot = ${oldLocation_Spot}`
+    );
+    res.status(200);
+    console.log("The update to the Spot_Camping was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
