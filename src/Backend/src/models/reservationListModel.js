@@ -158,7 +158,6 @@ const updateStartEndDates = async (req, res) => {
 const getVehiclesByReservationID = async (req, res) => {
   try {
     const { ID, Reservation_Date } = req.params;
-    console.log(req.params);
     const pool = await getConnection();
     const result = await pool
       .request()
@@ -189,6 +188,24 @@ const updateVehicle = async (req, res) => {
   }
 };
 
+// Method that gets all the spots bt Reservation ID
+const getSpotsByReservationID = async (req, res) => {
+  try {
+    const { ID, Reservation_Date } = req.params;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT Location_Spot FROM Spot_Camping WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      );
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -201,5 +218,6 @@ export {
   updatePersonData,
   updateStartEndDates,
   getVehiclesByReservationID,
-  updateVehicle
+  updateVehicle,
+  getSpotsByReservationID
 };
