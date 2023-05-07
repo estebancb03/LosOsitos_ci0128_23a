@@ -5,6 +5,7 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import ReservationStep0 from "../components/Reservation/ReservationStep0";
 import ReservationStep2 from "../components/Reservation/ReservationStep2";
+import ReservationStep3 from "../components/Reservation/ReservationStep3";
 import ReservationStep5 from "../components/Reservation/ReservationStep5";
 
 const Reservation = () => {
@@ -35,6 +36,12 @@ const Reservation = () => {
               setReservationData={setReservationData}
             />
             <ReservationStep2
+              windows={windows}
+              setWindows={setWindows}
+              reservationData={reservationData}
+              setReservationData={setReservationData}
+            />
+            <ReservationStep3
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}

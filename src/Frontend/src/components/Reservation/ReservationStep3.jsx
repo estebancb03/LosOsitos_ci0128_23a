@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import Button from "../Button";
+import Button from "../Buttons/Button";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
 import axiosClient from "../../config/AxiosClient";
 
-const ReservationStep3 = () => {
+const ReservationStep3 = ({
+  windows,
+  setWindows,
+  reservationData,
+  setReservationData,
+}) => {
   const [availableSpots, setAvailableSpots] = useState([]);
   const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
   const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
@@ -51,9 +56,9 @@ const ReservationStep3 = () => {
       quantityMediumSpot != 0 ||
       quantityBigSpot != 0
     ) {
-      console.log("Success");
+      return true;
     } else {
-      alert("To proceed, please add at least one spot to your reservation");
+      return false;
     }
   };
 
@@ -114,17 +119,37 @@ const ReservationStep3 = () => {
     }
   };
 
+  const updateReservationData = () => {
+    if (checkParcelWasAdded()) {
+      const newReservationData = {...reservationData};
+      const newWindows = { ...windows };
+      newWindows.Step3 = false;
+      newWindows.Step5 = true;
+      let spots = [];
+      selectedSpots.map((spot) => spots.push({
+        Location_Spot: spot,
+        Price: 0.0
+      }));
+      newReservationData.Spots = spots;
+      setReservationData(newReservationData);
+      setWindows(newWindows);
+    } else {
+      alert("To proceed, please add at least one spot to your reservation");
+    }
+  };
+
   return (
     <>
-      {readyToLoad() && (
+      {windows.Step3 && readyToLoad() && (
         <div className="grid grid-cols-1 gap-2 content-center">
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">Spots selection</h2>
           <div className="align-center">
             <img
               src={CampingTentsMap}
               className=" h-auto w-auto rounded-lg rounded-bg border-4 border-black align-center"
             />
           </div>
-          <div className="ml-4">
+          <div className="">
             <Table colums={columns}>
               {availableSpots.map((item, index) => (
                 <TableItem
@@ -147,14 +172,24 @@ const ReservationStep3 = () => {
                 />
               ))}
             </Table>
-            <div className="w-1/3 mt-10 ml-[67%]">
-              <Button
-                text="Continue"
-                onclickFunction={(e) => {
-                  checkParcelWasAdded();
-                }}
-              />
-            </div>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
+            <Button
+              text="Back"
+              onclickFunction={(e) => {
+                const newWindows = { ...windows };
+                newWindows.Step2 = true;
+                newWindows.Step3 = false;
+                setWindows(newWindows);
+              }}
+            />
+            <Button
+              text="Next"
+              onclickFunction={() => {
+                updateReservationData();
+              }}
+            />
+            <div className="mb-1"></div>
+          </div>
           </div>
         </div>
       )}
@@ -162,4 +197,4 @@ const ReservationStep3 = () => {
   );
 };
 
-export default ReservationStep2;
+export default ReservationStep3;

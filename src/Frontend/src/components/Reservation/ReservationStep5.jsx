@@ -25,25 +25,25 @@ const ReservationStep5 = ({
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Choose your payment method
           </h2>
-          <div className="grid grid-cols-3">
-            <div className="h-20">
-              <div className="h-10">
+          <div className="grid grid-cols-3 sm:grid-cols-1">
+            <div className="mb-8 mt-1 sm:mb-0">
+              <div className="">
                 <Button
                   text="Credit Card"
                   onclickFunction={(e) => updateReservationData(0)}
                 />
               </div>
             </div>
-            <div className="h-20">
-              <div className="h-10 mx-5">
+            <div className="mb-8 mt-1 sm:my-5">
+              <div className="mx-5 sm:mx-0">
                 <Button
                   text="Sinpe"
                   onclickFunction={(e) => updateReservationData(1)}
                 />
               </div>
             </div>
-            <div className="h-20">
-              <div className="h-10">
+            <div className="mb-8 mt-1 sm:mt-0">
+              <div className="">
                 <Button
                   text="Cash"
                   onclickFunction={(e) => updateReservationData(2)}

@@ -22,23 +22,20 @@ const ReservationStep0 = ({
     <>
       {windows.Step0 && (
         <div>
-          <div className="grid grid-cols-2">
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">Choose the type</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-1">
             <div className="h-20">
-              <div className="h-10 mr-5 my-5">
+              <div className="h-10 mr-5 my-5 sm:mr-0 sm:my-0 sm:mt-4">
                 <Button
-                  className="mx-5 mr-5"
                   text="Camping"
-                  type="add"
                   onclickFunction={() => updateReservationData(1) }
                 />
               </div>
             </div>
             <div className="h-20">
-              <div className="h-10 ml-5 my-5">
+              <div className="h-10 ml-5 my-5 sm:ml-0 sm:my-0">
                 <Button
-                  className="mx-5 mr-5"
                   text="Picnic"
-                  type="add"
                   onclickFunction={() => updateReservationData(0)}
                 />
               </div>
