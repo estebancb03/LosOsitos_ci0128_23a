@@ -5,7 +5,7 @@ import { getConnection } from "./config/db.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import ticketPricesRoutes from "./routes/ticketPricesRoutes.js"
 import servicePricesRoutes from "./routes/servicePricesRoutes.js"
-import mailTestRoute from "./routes/qrCodeRoute.js";
+import mailQRCodeRoute from "./routes/mailQRCodeRoute.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 app.use('/api', countryRoutes);
 app.use('/api', ticketPricesRoutes);
 app.use('/api', servicePricesRoutes);
-app.use('/api', mailTestRoute);
+app.use('/api', mailQRCodeRoute);
 
 app.listen(port, () => {
   console.log(`LosOsitos Server running on port ${port}`);
