@@ -43,6 +43,8 @@ const Reservation = () => {
             <ReservationStep5
               windows={windows}
               setWindows={setWindows}
+              reservationData={reservationData}
+              setReservationData={setReservationData}
             />
           </Container>
         </div>
