@@ -341,6 +341,26 @@ const updateState = async (req, res) => {
   }
 };
 
+// Method that inserts a vehicle in a reservation
+const insertNewVehicle = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      ID_Vehicle,
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `INSERT INTO Vehicle VALUES (${ID}, '${Reservation_Date}', '${ID_Vehicle}')`
+    );
+    res.status(200);
+    console.log("The insert to the Vehicle was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   getReservations,
   getMainInfoByReservationID,
@@ -361,5 +381,6 @@ export {
   getServicesByReservationID,
   updateService,
   getStateByReservationID,
-  updateState
+  updateState,
+  insertNewVehicle
 };
