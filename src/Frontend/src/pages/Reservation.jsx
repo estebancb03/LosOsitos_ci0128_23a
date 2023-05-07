@@ -5,6 +5,7 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import ReservationStep0 from "../components/Reservation/ReservationStep0";
 import ReservationStep2 from "../components/Reservation/ReservationStep2";
+import ReservationStep5 from "../components/Reservation/ReservationStep5";
 
 const Reservation = () => {
   // State that controls the visibility of the windows
@@ -38,6 +39,10 @@ const Reservation = () => {
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
+            />
+            <ReservationStep5
+              windows={windows}
+              setWindows={setWindows}
             />
           </Container>
         </div>

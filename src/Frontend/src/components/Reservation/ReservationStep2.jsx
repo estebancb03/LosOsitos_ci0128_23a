@@ -282,7 +282,7 @@ const ReservationStep2 = ({
       const newReservationData = {...reservationData};
       const newWindows = { ...windows };
       newWindows.Step2 = false;
-      newWindows.Step3 = true;
+      newWindows.Step5 = true;
       let tickets = [];
       if (reservationData.Reservation_Type === 0) {
         if (quantityAdultPicnic !== 0) {
