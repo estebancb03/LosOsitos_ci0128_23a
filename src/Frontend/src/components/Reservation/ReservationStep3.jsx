@@ -70,7 +70,7 @@ const ReservationStep3 = ({
     return availableSpots && availableSpots.length > 0;
   };
 
-  const handleCheckboxClick = (e, typeOfSpot) => {
+  const handleCheckboxClick = (e, typeOfSpot, price) => {
     const locationPassed = e.target.value;
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -86,7 +86,10 @@ const ReservationStep3 = ({
             setQuantityBigSpot(quantityBigSpot + 1);
           }
           setQuantityAdded(quantityAdded + 1);
-          setSelectedSpots([...selectedSpots, parseInt(locationPassed)]);
+          setSelectedSpots([
+            ...selectedSpots,
+            { location: parseInt(locationPassed), price: price },
+          ]);
         }
       } else {
         alert("There aren't any spots left. Please continue");
@@ -112,7 +115,8 @@ const ReservationStep3 = ({
         setQuantityAdded(quantityAdded - 1);
         setSelectedSpots(
           selectedSpots.filter(
-            (location) => parseInt(location) !== parseInt(locationPassed)
+            (location) =>
+              parseInt(location.location) !== parseInt(locationPassed)
           )
         );
       }
@@ -121,15 +125,17 @@ const ReservationStep3 = ({
 
   const updateReservationData = () => {
     if (checkParcelWasAdded()) {
-      const newReservationData = {...reservationData};
+      const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step3 = false;
       newWindows.Step5 = true;
       let spots = [];
-      selectedSpots.map((spot) => spots.push({
-        Location_Spot: spot,
-        Price: 0.0
-      }));
+      selectedSpots.map((spot) =>
+        spots.push({
+          Location_Spot: spot,
+          Price: 0.0,
+        })
+      );
       newReservationData.Spots = spots;
       setReservationData(newReservationData);
       setWindows(newWindows);
@@ -142,7 +148,9 @@ const ReservationStep3 = ({
     <>
       {windows.Step3 && readyToLoad() && (
         <div className="grid grid-cols-1 gap-2 content-center">
-          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">Spots selection</h2>
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+            Spots selection
+          </h2>
           <div className="align-center">
             <img
               src={CampingTentsMap}
@@ -165,7 +173,11 @@ const ReservationStep3 = ({
                       type="checkbox"
                       value={item.Location}
                       onChange={(e) =>
-                        handleCheckboxClick(e, typeOfSpot(item.size))
+                        handleCheckboxClick(
+                          e,
+                          typeOfSpot(item.size),
+                          item.Price
+                        )
                       }
                     ></input>,
                   ]}
@@ -173,23 +185,23 @@ const ReservationStep3 = ({
               ))}
             </Table>
             <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
-            <Button
-              text="Back"
-              onclickFunction={(e) => {
-                const newWindows = { ...windows };
-                newWindows.Step2 = true;
-                newWindows.Step3 = false;
-                setWindows(newWindows);
-              }}
-            />
-            <Button
-              text="Next"
-              onclickFunction={() => {
-                updateReservationData();
-              }}
-            />
-            <div className="mb-1"></div>
-          </div>
+              <Button
+                text="Back"
+                onclickFunction={(e) => {
+                  const newWindows = { ...windows };
+                  newWindows.Step2 = true;
+                  newWindows.Step3 = false;
+                  setWindows(newWindows);
+                }}
+              />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
+            </div>
           </div>
         </div>
       )}
