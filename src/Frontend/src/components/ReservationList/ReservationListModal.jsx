@@ -5,6 +5,7 @@ import AxiosClient from "../../config/AxiosClient";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
+import ReservationListAddVehicles from "./ReservationListAddVehicles";
 import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
@@ -23,6 +24,25 @@ const ReservationListModal = ({
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
+
+  // Method that inserts a new vehicle
+  const insertNewVehicle = async () => {
+    try {
+      const { ID, Reservation_Date, NewVehicles } = mainRecordInfo;
+      const url = '/reservation-list/insertVehicle';
+      await Promise.all(
+        NewVehicles.map(async (vehicle, index) => {
+          await AxiosClient.post(url, {
+            ID,
+            Reservation_Date,
+            ID_Vehicle: mainRecordInfo.NewVehicles[index],
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
 
   // Method that updates the services
   const updateServices = async () => {
@@ -305,6 +325,7 @@ const ReservationListModal = ({
                 updateServices();
                 updateTickets();
                 updateState();
+                insertNewVehicle();
                 if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
                 if (mainRecordInfo.Vehicles) updateVehicles();
                 if (mainRecordInfo.Spots) updateSpots();
@@ -519,6 +540,11 @@ const ReservationListModal = ({
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Vehicles
       </label>
+      <ReservationListAddVehicles
+        disabledElements={disabledElements}
+        mainRecordInfo={mainRecordInfo}
+        setMainRecordInfo={setMainRecordInfo}
+      />
       <div className="grid grid-cols-2 mb-5">
         {mainRecordInfo.Vehicles &&
           mainRecordInfo.Vehicles.map((vehicle, index) => (
