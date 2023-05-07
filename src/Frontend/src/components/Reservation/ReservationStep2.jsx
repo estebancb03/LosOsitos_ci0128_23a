@@ -1,19 +1,17 @@
 import { useEffect, useState } from "react";
-import AxiosClient from "../../config/AxiosClient";
 import Button from "../Button";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
-import Reservation2Data from "./Reservation2Data";
 import axiosClient from "../../config/AxiosClient";
 
 const ReservationStep2 = () => {
   const [availableSpots, setAvailableSpots] = useState([]);
-  const [button, setButton] = useState([]);
   const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
   const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
   const [quantityBigSpot, setQuantityBigSpot] = useState(0);
   const [quantityAdded, setQuantityAdded] = useState(0);
+  const [selectedSpots, setSelectedSpots] = useState([]);
 
   const columns = [
     "Available Spots",
@@ -34,48 +32,6 @@ const ReservationStep2 = () => {
       setAvailableSpots(result.data);
     } catch (exception) {
       console.error(exception);
-    }
-  };
-
-  const handleClickAdd = (typeOfSpot, location, index) => {
-    setQuantityAdded(quantityAdded + 1);
-    const newButton = [...button];
-    newButton[index] = !button[index];
-    // Verify that the customer can't add more spots than
-    // the ones available
-    if (quantityAdded < availableSpots.length) {
-      typeOfSpot == "Small"
-        ? setQuantitySmallSpot(quantitySmallSpot + 1)
-        : typeOfSpot == "Medium"
-        ? setQuantityMediumSpot(quantityMediumSpot + 1)
-        : setQuantityBigSpot(quantityBigSpot + 1);
-      alert("Added the spot[" + location + "] to your reservation");
-      setButton(newButton);
-    } else {
-      alert("There aren't any spots left. Please continue");
-    }
-  };
-
-  const handleClickSubstract = (typeOfSpot, location, index) => {
-    if (quantityAdded > 0) {
-      if (typeOfSpot == "Small") {
-        if (quantitySmallSpot > 0) {
-          setQuantitySmallSpot(quantitySmallSpot - 1);
-          alert("Removed the spot[" + location + "] from your reservation");
-        }
-      } else {
-        if (typeOfSpot == "Medium") {
-          if (quantityMediumSpot > 0) {
-            setQuantityMediumSpot(quantityMediumSpot - 1);
-            alter("Removed the spot[" + location + "] from your reservation");
-          }
-        } else {
-          if (quantityBigSpot > 0) {
-            setQuantityBigSpot(quantityBigSpot - 1);
-            alter("Removed the spot[" + location + "] from your reservation");
-          }
-        }
-      }
     }
   };
 
@@ -109,6 +65,55 @@ const ReservationStep2 = () => {
     return availableSpots && availableSpots.length > 0;
   };
 
+  const handleCheckboxClick = (e, typeOfSpot) => {
+    const locationPassed = e.target.value;
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      // Verify that the customer can't add more spots than
+      // the ones available
+      if (quantityAdded < 3) {
+        if (typeOfSpot == "Small") {
+          setQuantitySmallSpot(quantitySmallSpot + 1);
+        } else {
+          if (typeOfSpot == "Medium") {
+            setQuantityMediumSpot(quantityMediumSpot + 1);
+          } else {
+            setQuantityBigSpot(quantityBigSpot + 1);
+          }
+          setQuantityAdded(quantityAdded + 1);
+          setSelectedSpots([...selectedSpots, parseInt(locationPassed)]);
+        }
+      } else {
+        alert("There aren't any spots left. Please continue");
+        e.target.checked = false;
+      }
+    } else {
+      if (quantityAdded > 0) {
+        if (typeOfSpot == "Small") {
+          if (quantitySmallSpot > 0) {
+            setQuantitySmallSpot(quantitySmallSpot - 1);
+          }
+        } else {
+          if (typeOfSpot == "Medium") {
+            if (quantityMediumSpot > 0) {
+              setQuantityMediumSpot(quantityMediumSpot - 1);
+            }
+          } else {
+            if (quantityBigSpot > 0) {
+              setQuantityBigSpot(quantityBigSpot - 1);
+            }
+          }
+        }
+        setQuantityAdded(quantityAdded - 1);
+        setSelectedSpots(
+          selectedSpots.filter(
+            (location) => parseInt(location) !== parseInt(locationPassed)
+          )
+        );
+      }
+    }
+  };
+
   return (
     <>
       {readyToLoad() && (
@@ -121,10 +126,7 @@ const ReservationStep2 = () => {
           </div>
           <div className="ml-4">
             <Table colums={columns}>
-              {availableSpots.map((item, index) => button.push(true))}
-              {console.log(availableSpots)}
               {availableSpots.map((item, index) => (
-                //button.push(true),
                 <TableItem
                   key={index}
                   number={index}
@@ -134,31 +136,13 @@ const ReservationStep2 = () => {
                     item.Size,
                     item.Currency,
                     item.Price,
-                    button ? (
-                      <Button
-                        text="+"
-                        type="add"
-                        onclickFunction={(e) => {
-                          handleClickAdd(
-                            typeOfSpot(item.Size),
-                            item.Location,
-                            index
-                          );
-                        }}
-                      />
-                    ) : (
-                      <Button
-                        text="-"
-                        type="delete"
-                        onclickFunction={(e) => {
-                          handleClickSubstract(
-                            typeOfSpot(item.Size),
-                            item.Location,
-                            index
-                          );
-                        }}
-                      />
-                    ),
+                    <input
+                      type="checkbox"
+                      value={item.Location}
+                      onChange={(e) =>
+                        handleCheckboxClick(e, typeOfSpot(item.size))
+                      }
+                    ></input>,
                   ]}
                 />
               ))}
