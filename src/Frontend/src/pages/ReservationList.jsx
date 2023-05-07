@@ -129,6 +129,7 @@ const ReservationList = () => {
     information[0].Vehicles = vehiclesSelected;
     information[0].Services = servicesSelected;
     information[0].Tickets = ticketsSelected;
+    information[0].NewVehicles = [];
     setRecordInfo(information[0]);
     setViewModal(true);
   };

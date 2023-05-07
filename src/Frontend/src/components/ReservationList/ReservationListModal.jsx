@@ -5,6 +5,7 @@ import AxiosClient from "../../config/AxiosClient";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
+import ReservationListAddVehicles from "./ReservationListAddVehicles";
 import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
@@ -23,7 +24,6 @@ const ReservationListModal = ({
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-
   // Method that updates the services
   const updateServices = async () => {
     try {
@@ -519,6 +519,11 @@ const ReservationListModal = ({
       <label className="block mt-7 text-xl font-semibold leading-6 text-gray-900">
         Vehicles
       </label>
+      <ReservationListAddVehicles
+        disabledElements={disabledElements}
+        mainRecordInfo={mainRecordInfo}
+        setMainRecordInfo={setMainRecordInfo}
+      />
       <div className="grid grid-cols-2 mb-5">
         {mainRecordInfo.Vehicles &&
           mainRecordInfo.Vehicles.map((vehicle, index) => (
