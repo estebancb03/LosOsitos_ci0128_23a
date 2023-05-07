@@ -5,7 +5,7 @@ import TableItem from "../Table/TableItem";
 import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
 import axiosClient from "../../config/AxiosClient";
 
-const ReservationStep2 = () => {
+const ReservationStep3 = () => {
   const [availableSpots, setAvailableSpots] = useState([]);
   const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
   const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
