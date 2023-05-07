@@ -80,9 +80,11 @@ function ReservationStep0() {
 
   return (
     <form onSubmit={handleSubmit}>        
-      <div>
+      <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
         <InputButton text="ID Number" placeholderText="Enter your ID number" disabled={false} type="idNumber" onChangeFunction={setValue}/>
-        <Button text="Search" onclickFunction={getUserData}/>
+        <div className="mt-[46px]">
+          <Button text="Search" onclickFunction={getUserData}/>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
         {dummy == 2 &&
@@ -102,7 +104,7 @@ function ReservationStep0() {
           <div>
             <InputButton text="Email" placeholderText="Email" disabled={true} type="email" initValue={email}/>
           </div>
-          <div>
+          <div className="mt-[17px]">
             <DropDownSelect
               text="Gender"
               disabled={true}
@@ -114,7 +116,7 @@ function ReservationStep0() {
           </div>
             <DatePickerButton text="Date of arrival" typeClass="1" type="startDate" disabled={false}/>
           <div>
-          <div>
+          <div className="sm:-mt-6">
             <DatePickerButton text="Date of departure" typeClass="1" type="endDate" disabled={false}/>
           </div>
             
