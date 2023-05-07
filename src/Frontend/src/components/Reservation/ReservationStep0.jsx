@@ -61,20 +61,26 @@ function ReservationStep0() {
     e.preventDefault();
     //console.log(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
   }
+  //regex to verify if email is valid
+  const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
+  const regexNombre = /^[A-Za-z\s]+$/;
 
   const setValue = (type, value) => {
     if (type == "idNumber") {
       setIDNumber(value)
-    } else if (type == "firstName") {
+    } else if (type == "firstName" && regexNombre.test(value)) {
       setName(value)
-    } else if (type == "lastName") {
+    } else if (type == "lastName" && regexNombre.test(value)) {
       setLastName(value)
     } else if (type == "age") {
       setAge(value)
     } else if (type == "nationality") {
       setNationality(value)
-    } else if (type == "email") {
+    } else if (type == "email" && regexEmail.test(value)) {
       setEmail(value)
+    }
+    else {
+      console.log("Error")
     }
   }
 
