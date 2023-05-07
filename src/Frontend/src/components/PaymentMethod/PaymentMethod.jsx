@@ -21,18 +21,18 @@ const PaymentMethod = () => {
         <Title name="Payment Method" />
         <div className="grid grid-cols-3">
             <div className="h-20">
-                <div className="h-10 mr-5 my-5">
-                    <Button className="mx-5 mr-5" text="Credit Card" type="add" onclickFunction={() => setPaymentMethod("creditCard")} />
+                <div className="h-10">
+                    <Button  text="Credit Card"  onclickFunction={() => setPaymentMethod("creditCard")} />
                 </div>
             </div>
             <div className="h-20">
-                <div className="h-10 ml-5 my-5">
-                    <Button className="mx-5 mr-5" text="Sinpe" type="add" onclickFunction={() => setPaymentMethod("Sinpe")} />
+                <div className="h-10 mx-5">
+                    <Button text="Sinpe"  onclickFunction={() => setPaymentMethod("Sinpe")} />
                 </div>
             </div>
             <div className="h-20">
-                <div className="h-10 ml-5 my-5">
-                    <Button className="mx-5 mr-5" text="Cash" type="add" onclickFunction={() => setPaymentMethod("Cash")} /> 
+                <div className="h-10">
+                    <Button  text="Cash"  onclickFunction={() => setPaymentMethod("Cash")} /> 
                 </div>
             </div>
         </div>
