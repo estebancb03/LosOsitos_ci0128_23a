@@ -4,6 +4,7 @@ import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import ReservationStep0 from "../components/Reservation/ReservationStep0";
+import ReservationStep2 from "../components/Reservation/ReservationStep2";
 
 const Reservation = () => {
   // State that controls the visibility of the windows
@@ -24,9 +25,15 @@ const Reservation = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation" />
-        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6">
+        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-16">
           <Container>
             <ReservationStep0
+              windows={windows}
+              setWindows={setWindows}
+              reservationData={reservationData}
+              setReservationData={setReservationData}
+            />
+            <ReservationStep2
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
