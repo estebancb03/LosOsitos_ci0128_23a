@@ -4,8 +4,7 @@ import DropDownSelect from "../Buttons/DropDownSelect"
 import InputButton from "../Buttons/InputButton";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import axiosClient from "../../config/AxiosClient"
-import {formatDateFromDataTime} from "../../helpers/formatDate";
-
+import {formatDateDTDDMMYYYY} from "../../helpers/formatDate";
 
 function Validation() {
   
@@ -123,7 +122,7 @@ function ReservationStep10() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateFromDataTime(age)}/>
+            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateDTDDMMYYYY(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
@@ -163,7 +162,7 @@ function ReservationStep10() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateFromDataTime(age)}/>
+            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateDTDDMMYYYY(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
