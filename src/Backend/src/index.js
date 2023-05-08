@@ -6,6 +6,7 @@ import countryRoutes from "./routes/countryRoutes.js";
 import ticketPricesRoutes from "./routes/ticketPricesRoutes.js";
 import servicePricesRoutes from "./routes/servicePricesRoutes.js";
 import reservationListRoutes from "./routes/reservationListRoutes.js";
+import personRoutes from "./routes/personRoutes.js"
 import spotsRoutes from "./routes/spotsRoutes.js";
 
 const app = express();
@@ -23,6 +24,8 @@ app.use(cors(corsOptions));
 app.use('/api', countryRoutes);
 app.use('/api', ticketPricesRoutes);
 app.use('/api', servicePricesRoutes);
+app.use('/api', reservationListRoutes);
+app.use('/api', personRoutes);
 app.use('/api', spotsRoutes);
 app.use('/api/reservation-list', reservationListRoutes);
 
