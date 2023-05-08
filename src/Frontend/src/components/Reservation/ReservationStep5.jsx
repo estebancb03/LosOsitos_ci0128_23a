@@ -1,4 +1,5 @@
 import Button from "../Buttons/Button";
+import AxiosClient from "../../config/AxiosClient";
 
 const ReservationStep5 = ({
   windows,
@@ -6,17 +7,53 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
+  const insertPerson = async () => {
+    try {
+      const {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+      } = reservationData;
+      let lastName2 = LastName2 == undefined ? "" : LastName2;
+      const url2 = "/person";
+      await AxiosClient.post(url2, {
+        ID,
+        Name,
+        LastName1,
+        lastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const updateReservationData = (method) => {
     const newReservationData = { ...reservationData };
     const newWindows = { ...windows };
     newReservationData.Payment_Method = method;
-    if (newReservationData.Payment_Method !== 0 && newReservationData.Payment_Method === 1) {
+    if (
+      newReservationData.Payment_Method !== 0 &&
+      newReservationData.Payment_Method === 1
+    ) {
       newWindows.Step5 = false;
       newWindows.Step6 = true;
-    } else if (newReservationData.Payment_Method !== 0 && newReservationData.Payment_Method === 2) {
+    } else if (
+      newReservationData.Payment_Method !== 0 &&
+      newReservationData.Payment_Method === 2
+    ) {
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
+    insertPerson();
     setWindows(newWindows);
     setReservationData(newReservationData);
   };
@@ -58,7 +95,9 @@ const ReservationStep5 = ({
                 text="Back"
                 onclickFunction={(e) => {
                   const newWindows = { ...windows };
-                  reservationData.Reservation_Type == 0 ? newWindows.Step2 = true : newWindows.Step3 = true;
+                  reservationData.Reservation_Type == 0
+                    ? (newWindows.Step2 = true)
+                    : (newWindows.Step3 = true);
                   newWindows.Step5 = false;
                   setWindows(newWindows);
                 }}
