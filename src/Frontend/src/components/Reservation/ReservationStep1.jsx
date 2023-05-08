@@ -4,6 +4,7 @@ import DropDownSelect from "../Buttons/DropDownSelect"
 import InputButton from "../Buttons/InputButton";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import axiosClient from "../../config/AxiosClient"
+import {formatDateFromDataTime} from "../../helpers/formatDate";
 
 
 function Validation() {
@@ -24,7 +25,7 @@ const matchGender = (gender) => {
 }
 
 
-function ReservationStep0() {
+function ReservationStep1() {
   const [firstName, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
@@ -122,7 +123,7 @@ function ReservationStep0() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-            <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={true} selectedDate={new Date(age)}/>
+            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateFromDataTime(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
@@ -162,7 +163,7 @@ function ReservationStep0() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-            <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={true} selectedDate={new Date(age)}/>
+            <InputButton text="Date of birth" placeholderText="Email" disabled={true} type="age" initValue={formatDateFromDataTime(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
@@ -202,7 +203,7 @@ function ReservationStep0() {
           <InputButton text="Last name" placeholderText="Enter your last name" disabled={false} type="lastName" onChangeFunction={setValue}/>
         </div>
         <div>
-        <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={false} selectedDate={new Date(age)}/>
+          <InputButton text="Date of birth" placeholderText="Email" disabled={false} type="age" initValue={formatDateFromDataTime(age)}/>
         </div>
         <div>
           <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={false} type="nationality" onChangeFunction={setValue}/>
@@ -237,5 +238,5 @@ function ReservationStep0() {
   );
 }
 
-export default ReservationStep0;
+export default ReservationStep1;
 
