@@ -3,13 +3,14 @@ import QRCode from 'qrcode'
 import {transporter} from '../config/mailer.js'
 
 export const mailQRCodeSender = async (req, res) => {
-    const value = req.body
-    console.log(value)
-    let img = await QRCode.toDataURL(value.data)  // aquí va el id de la reserva (id cliente y fecha)
+    const {data} = req.body;
+    console.log(data)
+    //console.log(mail)
+    let img = await QRCode.toDataURL(data.data)  // aquí va el id de la reserva (id cliente y fecha)
 
     const message = {
         from: '"Los Ositos 🐻" <ositosdelacueva@gmail.com>', // sender address
-        to: "dylantr2001@gmail.com, isra2002lova@gmail.com", // list of receivers
+        to: data.mail, // list of receivers
         subject: "QR Test", // Subject line, 
         attachDataUrls: true,
         html: `<h1>Thanks for your purchase!</h1></br><img src="${img}">`, // html body

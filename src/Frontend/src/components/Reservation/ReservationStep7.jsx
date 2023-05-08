@@ -1,9 +1,10 @@
 import { useState, useEffect} from "react";
 import Title from "../Title";
+import Button from "../Button";
 import AxiosClient from "../../config/AxiosClient";
 import { QRCode } from 'antd';
 
-// Method that updates the data of a camping dates
+// Method to send data to be emailed
 const sendQRData = async (value) => {
 try {
     console.log("isra es furro")
@@ -19,10 +20,10 @@ try {
           
 
 const ReservationStep7 = () => {
-    const [value, setValue] = useState('Test, 123 abc')
-    /* {useEffect(() => {
-        sendQRData(value)
-    }, [])} */
+    const [value, setValue] = useState({
+        data: 'test, 123 abc',
+        mail: 'dylantr2001@gmail.com'
+    })
 
     return (
         <>
