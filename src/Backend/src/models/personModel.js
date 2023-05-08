@@ -2,7 +2,6 @@ import { getConnection, sql } from "../config/db.js";
 
 export const getPerson = async (req, res) => {
   try {
-    console.log("aaaaaaaa")
     const {id} = req.params
     console.log(id);
     const pool = await getConnection();

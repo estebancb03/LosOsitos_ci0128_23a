@@ -134,7 +134,8 @@ function ReservationStep1({
       newReservationData.Gender = gender === "Male" ? 0 : gender === "Female" ? 1 : gender === "Non-Binary" ? 2 : 3;
       newReservationData.Birth_Date = age;
       newReservationData.Start_Date = startDate;
-      newReservationData.endDate = endDate;
+      newReservationData.End_Date = endDate;
+      newReservationData.Reservation_Date = new Date().toISOString();
       setName("");
       setLastName("");
       setAge(undefined);
