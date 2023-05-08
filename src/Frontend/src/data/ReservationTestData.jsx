@@ -1,570 +1,705 @@
 const ReservationTestData = [
   {
-    reservationId: 1,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 11,
+    Reservation_Method: 0,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "4-20-2023",
+    Start_Date: "1-4-2023",
+    End_Date: "1-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 2,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 21,
+    Reservation_Method: 0,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "2-4-2023",
+    End_Date: "2-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
-        name: "Bicycle",
-        price: "5",
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 3,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 31,
+    Reservation_Method: 1,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "3-4-2023",
+    End_Date: "3-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "2-3-2023",
+        hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
+      },
+      {
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 4,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 41,
+    Reservation_Method: 1,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "4-4-2023",
+    End_Date: "4-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
-        price: "5",
-      },
-      {
-        name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 5,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 51,
+    Reservation_Method: 0,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "5-4-2023",
+    End_Date: "5-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
+    services: [
       {
-        name: "Camping",
-        price: "15",
-      },
-      {
-        name: "Kayak",
-        price: "5",
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 6,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 61,
+    Reservation_Method: 0,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "6-4-2023",
+    End_Date: "6-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
+    services: [
       {
-        name: "Camping",
-        price: "15",
-      },
-      {
-        name: "Kayak",
-        price: "5",
-      },
-      {
-        name: "Bicycle",
-        price: "5",
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 7,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 71,
+    Reservation_Method: 1,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "7-4-2023",
+    End_Date: "7-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
-      {
-        name: "Kayak",
-        price: "5",
-      },
+    services: [
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
+      },
+      {
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 8,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 81,
+    Reservation_Method: 1,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "8-4-2023",
+    End_Date: "8-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
+    services: [
       {
-        name: "Camping",
-        price: "15",
-      },
-      {
-        name: "Kayak",
-        price: "5",
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 9,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 91,
+    Reservation_Method: 0,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "9-4-2023",
+    End_Date: "9-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
-        name: "Bicycle",
-        price: "5",
+        name: "Hiking",
+        date: "4-03-2023",
+        hour: "14:45",
+        price: "10",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 10,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 101,
+    Reservation_Method: 1,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "1-4-2023",
+    End_Date: "1-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [],
     totalPrice: "100",
   },
   {
-    reservationId: 11,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 111,
+    Reservation_Method: 0,
+    Reservation_Type: 0,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "2-4-2023",
+    Start_Date: "1-4-2023",
+    End_Date: "1-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 0,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 0,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
     plateNumbers: ["CDI-017", "BVI-193", "FQP-500"],
-    parcel: {
-      number: "7",
-      price: "20",
-    },
+    spots: [
+      {
+        location: 7,
+        size: 0,
+      },
+      {
+        location: 10,
+        size: 2,
+      }
+    ],
     totalPrice: "100",
   },
   {
-    reservationId: 12,
-    id: 234324589,
-    customer: "Esteban",
-    nationality: 'Costa Rica',
-    reservationDate: "20/04/2023",
-    startDate: "23/04/2023",
-    endDate: "25/04/2023",
-    peopleQuantity: 4,
-    peopleType: [
+    ID: 121,
+    Reservation_Method: 1,
+    Reservation_Type: 1,
+    Name: "Esteban",
+    nationality: "Costa Rica",
+    Reservation_Date: "20-04-2023",
+    Start_Date: "1-4-2023",
+    End_Date: "2-4-2023",
+    peopleQuantity: 5,
+    tickets: [
       {
-        adult: true,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: false,
-        costarican: false,
+        type: 1,
+        ageRange: 0,
+        demographicGroup: 1
       },
       {
-        adult: true,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
       {
-        adult: false,
-        costarican: true,
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 0
       },
+      {
+        type: 1,
+        ageRange: 1,
+        demographicGroup: 2
+      }
     ],
-    products: [
-      {
-        name: "Camping",
-        price: "15",
-      },
+    services: [
       {
         name: "Kayak",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
       {
         name: "Bicycle",
+        date: "4-03-2023",
+        hour: "9:30",
         price: "5",
       },
     ],
@@ -573,6 +708,7 @@ const ReservationTestData = [
       number: "7",
       price: "20",
     },
+    spots: [],
     totalPrice: "100",
   },
 ];
