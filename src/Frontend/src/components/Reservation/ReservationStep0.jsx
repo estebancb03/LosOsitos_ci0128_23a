@@ -13,7 +13,7 @@ const ReservationStep0 = ({
     const newWindows = {...windows};
     newReservationData.Reservation_Type = Reservation_Type;
     newWindows.Step0 = false;
-    newWindows.Step2 = true;
+    newWindows.Step1 = true;
     setReservationData(newReservationData);
     setWindows(newWindows);
   };

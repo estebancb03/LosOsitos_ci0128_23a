@@ -33,7 +33,6 @@ const ReservationStep3 = ({
       let endDate = "2023-02-02T16:00:00.000";
       const url = `/getAvailableSpotsByDates/${startDate}/${endDate}`;
       const result = await axiosClient.get(url);
-      console.log(result.data);
       setAvailableSpots(result.data);
     } catch (exception) {
       console.error(exception);

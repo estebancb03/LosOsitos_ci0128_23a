@@ -575,7 +575,7 @@ const ReservationStep2 = ({
               text="Back"
               onclickFunction={(e) => {
                 const newWindows = { ...windows };
-                newWindows.Step0 = true;
+                newWindows.Step1 = true;
                 newWindows.Step2 = false;
                 setWindows(newWindows);
               }}
