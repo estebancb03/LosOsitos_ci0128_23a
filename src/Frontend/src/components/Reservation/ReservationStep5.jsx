@@ -42,13 +42,24 @@ const ReservationStep5 = ({
                 />
               </div>
             </div>
-            <div className="mb-8 mt-1 sm:mt-0">
+            <div className="mt-1 sm:mt-0">
               <div className="">
                 <Button
                   text="Cash"
                   onclickFunction={(e) => updateReservationData(2)}
                 />
               </div>
+            </div>
+            <div className="mb-8 sm:mt-5">
+              <Button
+                text="Back"
+                onclickFunction={(e) => {
+                  const newWindows = { ...windows };
+                  reservationData.Reservation_Type == 0 ? newWindows.Step2 = true : newWindows.Step3 = true;
+                  newWindows.Step5 = false;
+                  setWindows(newWindows);
+                }}
+              />
             </div>
           </div>
         </div>

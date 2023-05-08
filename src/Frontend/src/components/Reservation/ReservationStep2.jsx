@@ -269,7 +269,6 @@ const ReservationStep2 = ({
       quantityForeignAdultCamping != 0 ||
       quantityForeignChildCamping != 0
     ) {
-      // console.log("Success");
       return true;
     } else {
       return false;
@@ -282,7 +281,7 @@ const ReservationStep2 = ({
       const newReservationData = {...reservationData};
       const newWindows = { ...windows };
       newWindows.Step2 = false;
-      newWindows.Step3 = true;
+      reservationData.Reservation_Type == 0 ? newWindows.Step5 = true : newWindows.Step3 = true;
       let tickets = [];
       if (reservationData.Reservation_Type === 0) {
         if (quantityAdultPicnic !== 0) {

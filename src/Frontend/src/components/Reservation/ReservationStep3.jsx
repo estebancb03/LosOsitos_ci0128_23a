@@ -132,13 +132,15 @@ const ReservationStep3 = ({
       let spots = [];
       selectedSpots.map((spot) =>
         spots.push({
-          Location_Spot: spot,
-          Price: 0.0,
+          Location_Spot: spot.location,
+          Price: spot.price
         })
       );
       newReservationData.Spots = spots;
       setReservationData(newReservationData);
       setWindows(newWindows);
+      setQuantityAdded(0);
+      setSelectedSpots([]);
     } else {
       alert("To proceed, please add at least one spot to your reservation");
     }
