@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const InputButton = ({ text, placeholderText, disabled, type, onChangeFunction }) => {
-  const [value, setValue] = useState(placeholderText)
+const InputButton = ({ text, placeholderText, disabled, type, onChangeFunction, initValue }) => {
+  const [value, setValue] = useState(initValue ? initValue : "")
   return (
     <>
       {text ? (
