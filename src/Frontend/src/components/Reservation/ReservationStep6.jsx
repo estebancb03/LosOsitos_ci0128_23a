@@ -15,17 +15,6 @@ registerPlugin(FilePondPluginFileEncode);
 // Import Checkbox
 import { Checkbox } from "antd";
 
-const saveBase64 = (setFilesBase64, files, filesBase64) => {
-  if (files.length != 0) {
-    setFilesBase64(files[0].getFileEncodeBase64String());
-    console.log(filesBase64);
-  }
-};
-
-const updateReservationData = () => {
-  console.log("a");
-};
-
 const ReservationStep6Sinpe = ({
   windows,
   setWindows,
@@ -35,6 +24,28 @@ const ReservationStep6Sinpe = ({
   const [files, setFiles] = useState([]);
   const [filesBase64, setFilesBase64] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+
+  const saveBase64 = (setFilesBase64, files, filesBase64) => {
+    if (files.length != 0) {
+      setFilesBase64(files[0].getFileEncodeBase64String());
+    }
+  };
+  
+  const updateReservationData = () => {
+    if (checkbox && filesBase64 != "") {
+      const newReservationData = { ...reservationData };
+      const newWindows = { ...windows };
+      newWindows.Step6 = false;
+      newWindows.Step7 = true;
+      newReservationData.Payment_Proof = filesBase64;
+      setReservationData(newReservationData);
+      setWindows(newWindows);
+      console.log(newReservationData.Payment_Proof);
+    } else {
+      alert("Check if you uploaded the payment proof or if you have already accepter the terms and conditions");
+    }
+  };
+
   useEffect(() => {
     saveBase64(setFilesBase64, files, filesBase64);
   });
@@ -55,7 +66,6 @@ const ReservationStep6Sinpe = ({
           <Checkbox
             onChange={() => {
               setCheckbox(!checkbox);
-              console.log(checkbox);
             }}
           >
             Agree with <a href="./termsconditions.jpeg" target="_blank">terms and conditions</a>
@@ -65,15 +75,15 @@ const ReservationStep6Sinpe = ({
                 text="Back"
                 onclickFunction={(e) => {
                   const newWindows = { ...windows };
-                  newWindows.Step2 = true;
-                  newWindows.Step3 = false;
+                  newWindows.Step5 = true;
+                  newWindows.Step6 = false;
                   setWindows(newWindows);
                 }}
               />
               <Button
                 text="Next"
                 onclickFunction={() => {
-                  updateReservationData();
+                    updateReservationData();
                 }}
               />
               <div className="mb-1"></div>
