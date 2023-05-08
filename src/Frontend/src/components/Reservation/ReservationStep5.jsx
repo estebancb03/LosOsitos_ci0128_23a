@@ -10,9 +10,12 @@ const ReservationStep5 = ({
     const newReservationData = { ...reservationData };
     const newWindows = { ...windows };
     newReservationData.Payment_Method = method;
-    if (newReservationData.Payment_Method !== 0) {
+    if (newReservationData.Payment_Method !== 0 && newReservationData.Payment_Method === 1) {
       newWindows.Step5 = false;
       newWindows.Step6 = true;
+    } else if (newReservationData.Payment_Method !== 0 && newReservationData.Payment_Method === 2) {
+      newWindows.Step5 = false;
+      newWindows.Step7 = true;
     }
     setWindows(newWindows);
     setReservationData(newReservationData);
