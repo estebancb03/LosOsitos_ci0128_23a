@@ -6,11 +6,13 @@ const formatDateDDMMYYYY = (date) => {
 
 // Method that formats tha date form DateTime format
 const formatDateDTDDMMYYYY = (unformatedDate) => {
-  const date = new Date(unformatedDate);
-  const day = date.getUTCDate().toString().padStart(2, "0");
-  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
-  const year = date.getUTCFullYear();
-  return `${day}/${month}/${year}`;
+  if (unformatedDate !== null && unformatedDate !== undefined) {
+    const date = new Date(unformatedDate);
+    const day = date.getUTCDate().toString().padStart(2, "0");
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+    const year = date.getUTCFullYear();
+    return `${day}/${month}/${year}`;
+  }
 };
 
 // Method that formats tha date form DateTime format
@@ -101,6 +103,13 @@ const changeHourInISOFormat = (hours, ISODate) => {
   return newDateTime.toISOString();
 };
 
+// Method that checks the difference between two dates
+const isDateAfterISO8601 = (date1, date2) => {
+  const parsedDate1 = new Date(date1);
+  const parsedDate2 = new Date(date2);
+  return parsedDate1 < parsedDate2;
+};
+
 export {
   formatDateDDMMYYYY,
   formatDateMMDDYYYY,
@@ -111,5 +120,6 @@ export {
   createHoursWithIntervals,
   changeDateInISOFormat,
   changeHourInISOFormat,
-  changeDateInISOFormat2
+  changeDateInISOFormat2,
+  isDateAfterISO8601,
 };
