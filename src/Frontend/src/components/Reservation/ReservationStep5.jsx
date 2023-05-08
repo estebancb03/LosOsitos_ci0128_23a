@@ -7,6 +7,7 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
+  // Method thah inserts a person
   const insertPerson = async () => {
     try {
       const {
@@ -19,17 +20,45 @@ const ReservationStep5 = ({
         Email,
         Country_Name,
       } = reservationData;
-      let lastName2 = LastName2 == undefined ? "" : LastName2;
-      const url2 = "/person";
-      await AxiosClient.post(url2, {
+      const url = "/person";
+      await AxiosClient.post(url, {
         ID,
         Name,
         LastName1,
-        lastName2,
+        LastName2,
         Gender,
         Birth_Date,
         Email,
         Country_Name,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const insertClient = async () => {
+    try {
+      const { ID } = reservationData;
+      const url2 = "/client";
+      await AxiosClient.post(url2, {
+        ID_Person: ID,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method tha inserts a reservation
+  const insertReservation = async () => {
+    try {
+      const { ID, Reservation_Date } = reservationData;
+      const url = "/reservation";
+      await AxiosClient.post(url, {
+        ID_Client: ID,
+        Reservation_Date,
+        Payment_Method: 2,
+        Payment_Proof: null,
+        State: 1,
       });
     } catch (exception) {
       console.log(exception);
@@ -50,10 +79,12 @@ const ReservationStep5 = ({
       newReservationData.Payment_Method !== 0 &&
       newReservationData.Payment_Method === 2
     ) {
+      insertPerson();
+      insertClient();
+      insertReservation();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
-    insertPerson();
     setWindows(newWindows);
     setReservationData(newReservationData);
   };

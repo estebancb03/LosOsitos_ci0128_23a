@@ -7,6 +7,7 @@ import mailQRCodeRoute from "./routes/mailQRCodeRoute.js";
 import ticketPricesRoutes from "./routes/ticketPricesRoutes.js";
 import servicePricesRoutes from "./routes/servicePricesRoutes.js";
 import reservationListRoutes from "./routes/reservationListRoutes.js";
+import reservationRoutes from "./routes/reservationRoutes.js";
 import personRoutes from "./routes/personRoutes.js"
 import spotsRoutes from "./routes/spotsRoutes.js";
 
@@ -29,6 +30,7 @@ app.use('/api', mailQRCodeRoute);
 app.use('/api', reservationListRoutes);
 app.use('/api', personRoutes);
 app.use('/api', spotsRoutes);
+app.use('/api', reservationRoutes);
 app.use('/api/reservation-list', reservationListRoutes);
 
 app.listen(port, () => {
