@@ -46,9 +46,11 @@ function ReservationStep0() {
         setName(result.Name)
         setLastName(result.LastName1 + " " + result.LastName2)
         setGender(matchGender(result.Gender))
+        setAge(result.Birth_Date)
         setEmail(result.Email)
         setNationality(result.Country_Name)
         setDummy(dummy == 2 ? 3 : 2)
+        console.log(result.Birth_Date);
       } else {
         setDummy(1)
       }
@@ -57,14 +59,32 @@ function ReservationStep0() {
     }
   }
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     //console.log(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
   }
   //regex to verify if email is valid
   const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
-  const regexNombre = /^[A-Za-z\s]+$/;
+  const regexNombre = /^[\w ]+$/;
 
+  // const setValue = (type, value) => {
+  //   if(type == "idNumber") {
+  //     setIDNumber(value);
+  //   } else {
+  //     let testReturnValue = regexNombre.test(value)
+  //     console.log("**** Test return value is: " + testReturnValue)
+  //     if(testReturnValue) {
+  //       type == "firstName" ? 
+  //       setName(value) : type == "lastName" ? 
+  //       setLastName(value) : type == "age" ? 
+  //       setAge(value) : type == "nationality" ? 
+  //       setNationality(value) : type == "email" && regexEmail.test(value) ? 
+  //       setEmail(value) : alert("Entered an invalid email. Please correct it.")
+  //     }
+  //     alert("Entered a name with invalid characters. Please correct it.")
+  //   }
+  // }
   const setValue = (type, value) => {
     if (type == "idNumber") {
       setIDNumber(value)
@@ -102,7 +122,7 @@ function ReservationStep0() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-              <InputButton text="Age" placeholderText="Enter your age" disabled={true} type="age" initValue={age}/>
+            <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={true} selectedDate={new Date(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
@@ -142,7 +162,7 @@ function ReservationStep0() {
             <InputButton text="Last name" placeholderText="Enter your last name" disabled={true} type="lastName" initValue={lastName}/>
           </div>
           <div>
-              <InputButton text="Age" placeholderText="Enter your age" disabled={true} type="age" initValue={age}/>
+            <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={true} selectedDate={new Date(age)}/>
           </div>
           <div>
             <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={true} type="nationality" initValue={nationality}/>
@@ -182,7 +202,7 @@ function ReservationStep0() {
           <InputButton text="Last name" placeholderText="Enter your last name" disabled={false} type="lastName" onChangeFunction={setValue}/>
         </div>
         <div>
-            <InputButton text="Age" placeholderText="Enter your age" disabled={false} type="age" onChangeFunction={setValue}/>
+        <DatePickerButton text="Pick your day of birth" typeClass="1" type="age" disabled={false} selectedDate={new Date(age)}/>
         </div>
         <div>
           <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={false} type="nationality" onChangeFunction={setValue}/>

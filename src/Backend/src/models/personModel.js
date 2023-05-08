@@ -6,7 +6,7 @@ export const getPerson = async (req, res) => {
     const {id} = req.params
     console.log(id);
     const pool = await getConnection();
-    const result = await pool.request().query(`SELECT Name, LastName1, LastName2, Gender, Email, Country_Name FROM Person WHERE ID = ${id}`);
+    const result = await pool.request().query(`SELECT Name, LastName1, LastName2, Gender, Email, Country_Name, Birth_Date FROM Person WHERE ID = ${id}`);
     console.log(result);
     res.json(result.recordset);
   } catch (error) {
