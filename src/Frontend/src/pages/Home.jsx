@@ -1,14 +1,14 @@
 import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
-import ReservationStep1 from "../components/Reservation/ReservationStep1";
+import ReservationStep10 from "../components/Reservation/ReservationStep10";
 
 const Home = () => {
   return (
     <>
       <NavMenu />
       <Container>
-        <ReservationStep1 />
+        <ReservationStep10/>
       </Container>
       <Footer />
     </>

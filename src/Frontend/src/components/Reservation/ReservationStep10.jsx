@@ -25,7 +25,7 @@ const matchGender = (gender) => {
 }
 
 
-function ReservationStep1() {
+function ReservationStep10() {
   const [firstName, setName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
@@ -238,5 +238,5 @@ function ReservationStep1() {
   );
 }
 
-export default ReservationStep1;
+export default ReservationStep10;
 
