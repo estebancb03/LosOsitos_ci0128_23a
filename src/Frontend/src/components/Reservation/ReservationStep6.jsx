@@ -16,7 +16,7 @@ registerPlugin(FilePondPluginFileEncode);
 // Import Checkbox
 import { Checkbox } from "antd";
 
-const ReservationStep6Sinpe = ({
+const ReservationStep6 = ({
   windows,
   setWindows,
   reservationData,
@@ -122,4 +122,4 @@ const ReservationStep6Sinpe = ({
   );
 };
 
-export default ReservationStep6Sinpe;
+export default ReservationStep6;
