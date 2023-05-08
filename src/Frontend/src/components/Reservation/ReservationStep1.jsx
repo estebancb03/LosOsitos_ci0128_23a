@@ -171,7 +171,7 @@ function ReservationStep1() {
           <div>
             <InputButton text="Email" placeholderText="Email" disabled={true} type="email" initValue={email}/>
           </div>
-          <div>
+          <div className="mt-[17px]">
             <DropDownSelect
               text="Gender"
               disabled={true}
@@ -203,7 +203,7 @@ function ReservationStep1() {
           <InputButton text="Last name" placeholderText="Enter your last name" disabled={false} type="lastName" onChangeFunction={setValue}/>
         </div>
         <div>
-          <InputButton text="Date of birth" placeholderText="Email" disabled={false} type="age" initValue={formatDateFromDataTime(age)}/>
+          <DatePickerButton text="Date of birth" placeholderText="Email" disabled={false} type="age"/>
         </div>
         <div>
           <InputButton text="Nationality" placeholderText="Enter your nationality" disabled={false} type="nationality" onChangeFunction={setValue}/>
@@ -211,7 +211,7 @@ function ReservationStep1() {
         <div>
           <InputButton text="Email" placeholderText="Email" disabled={false} type="email" onChangeFunction={setValue}/>
         </div>
-        <div>
+        <div className="mt-[17px]">
           <DropDownSelect
             text="Gender"
             disabled={false}
