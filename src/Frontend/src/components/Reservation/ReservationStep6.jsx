@@ -84,7 +84,7 @@ const ReservationStep6 = ({
         Reservation_Date,
         Payment_Method: 2,
         Payment_Proof: null,
-        State: 1,
+        State: 0,
       });
     } catch (exception) {
       console.log(exception);
@@ -135,7 +135,7 @@ const ReservationStep6 = ({
           Reservation_Date,
           Start_Date,
           End_Date,
-          Reservation_Method: 1
+          Reservation_Method: 0
         });
       }
     } catch (exception) {
@@ -167,17 +167,6 @@ const ReservationStep6 = ({
 
   const updateReservationData = async (method) => {
     if (checkbox && filesBase64 != "") {
-      // insertPerson().then(
-      //   insertClient()
-      // ).then(
-      //   insertReservation()
-      // ).then(
-      //   insertReservationTicket()    
-      // ).then(
-      //   insertReservationType()
-      // ).then(
-      //   insertSpotsCamping()
-      // )
       await insertPerson();
       await insertClient();
       await insertReservation();
