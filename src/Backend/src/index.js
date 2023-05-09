@@ -12,6 +12,8 @@ import personRoutes from "./routes/personRoutes.js"
 import spotsRoutes from "./routes/spotsRoutes.js";
 import ticketRoutes from "./routes/ticketRoutes.js";
 import ticketReservationRoutes from "./routes/ticketReservationRoutes.js";
+import campingRoutes from "./routes/campingRoutes.js";
+import picnicRoutes from "./routes/picnicRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -34,6 +36,8 @@ app.use('/api', personRoutes);
 app.use('/api', spotsRoutes);
 app.use('/api', reservationRoutes);
 app.use('/api', ticketRoutes);
+app.use('/api', campingRoutes);
+app.use('/api', picnicRoutes);
 app.use('/api', ticketReservationRoutes);
 app.use('/api/reservation-list', reservationListRoutes);
 
