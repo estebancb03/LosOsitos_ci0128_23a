@@ -10,6 +10,7 @@ const ReservationStep5 = ({
   // Method thah inserts a person
   const insertPerson = async () => {
     try {
+      console.log("Try");
       const {
         ID,
         Name,
@@ -38,6 +39,7 @@ const ReservationStep5 = ({
 
   const insertClient = async () => {
     try {
+      console.log("Try");
       const { ID } = reservationData;
       const url2 = "/client";
       await AxiosClient.post(url2, {
@@ -51,6 +53,7 @@ const ReservationStep5 = ({
   // Method tha inserts a reservation
   const insertReservation = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
       await AxiosClient.post(url, {
@@ -68,6 +71,7 @@ const ReservationStep5 = ({
   // Method that inserts a reservation ticket
   const insertReservationTicket = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
@@ -91,6 +95,7 @@ const ReservationStep5 = ({
   // Method that inserts a spot camping
   const insertSpotsCamping = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Spots } = reservationData;
       const url = "/spots";
       await Promise.all(
@@ -111,6 +116,7 @@ const ReservationStep5 = ({
   // Method that inserts a camping or a picnic
   const insertReservationType = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
@@ -148,17 +154,23 @@ const ReservationStep5 = ({
       newReservationData.Payment_Method !== 0 &&
       newReservationData.Payment_Method === 2
     ) {
-      insertPerson().then(
-        insertClient()
-      ).then(
-        insertReservation()
-      ).then(
-        insertReservationTicket()    
-      ).then(
-        insertReservationType()
-      ).then(
-        insertSpotsCamping()
-      )
+      // insertPerson().then(
+      //   insertClient()
+      // ).then(
+      //   insertReservation()
+      // ).then(
+      //   insertReservationTicket()    
+      // ).then(
+      //   insertReservationType()
+      // ).then(
+      //   insertSpotsCamping()
+      // )
+      insertPerson();
+      insertClient();
+      insertReservation();
+      insertReservationTicket();
+      insertReservationType();
+      insertSpotsCamping();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }

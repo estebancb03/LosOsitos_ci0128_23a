@@ -35,6 +35,7 @@ const ReservationStep6 = ({
    // Method thah inserts a person
    const insertPerson = async () => {
     try {
+      console.log("Try");
       const {
         ID,
         Name,
@@ -63,6 +64,7 @@ const ReservationStep6 = ({
 
   const insertClient = async () => {
     try {
+      console.log("Try");
       const { ID } = reservationData;
       const url2 = "/client";
       await AxiosClient.post(url2, {
@@ -76,6 +78,7 @@ const ReservationStep6 = ({
   // Method tha inserts a reservation
   const insertReservation = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
       await AxiosClient.post(url, {
@@ -93,6 +96,7 @@ const ReservationStep6 = ({
   // Method that inserts a reservation ticket
   const insertReservationTicket = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
@@ -116,10 +120,12 @@ const ReservationStep6 = ({
   // Method that inserts a spot camping
   const insertSpotsCamping = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Spots } = reservationData;
       const url = "/spots";
       await Promise.all(
         Spots.map(async (spot) => {
+          console.log("Try");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -136,6 +142,7 @@ const ReservationStep6 = ({
   // Method that inserts a camping or a picnic
   const insertReservationType = async () => {
     try {
+      console.log("Try");
       const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
@@ -145,7 +152,6 @@ const ReservationStep6 = ({
           Reservation_Date,
         });
       } else {
-        //console.log('Camping!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         const url = "/camping";
         await AxiosClient.post(url, {
           ID_Client: ID,
@@ -160,19 +166,25 @@ const ReservationStep6 = ({
     }
   };
 
-  const updateReservationData = () => {
+  const updateReservationData = (method) => {
     if (checkbox && filesBase64 != "") {
-      insertPerson().then(
-        insertClient()
-      ).then(
-        insertReservation()
-      ).then(
-        insertReservationTicket()    
-      ).then(
-        insertReservationType()
-      ).then(
-        insertSpotsCamping()
-      )
+      // insertPerson().then(
+      //   insertClient()
+      // ).then(
+      //   insertReservation()
+      // ).then(
+      //   insertReservationTicket()    
+      // ).then(
+      //   insertReservationType()
+      // ).then(
+      //   insertSpotsCamping()
+      // )
+      insertPerson();
+      insertClient();
+      insertReservation();
+      insertReservationTicket();
+      insertReservationType();
+      insertSpotsCamping();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step6 = false;
