@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import bodyParser from "body-parser";
 import { getConnection } from "./config/db.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import mailQRCodeRoute from "./routes/mailQRCodeRoute.js";
@@ -16,8 +17,11 @@ import campingRoutes from "./routes/campingRoutes.js";
 import picnicRoutes from "./routes/picnicRoutes.js";
 
 const app = express();
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 const port = process.env.PORT || 3000;
 
+app.use(express.json({ limit: '50mb' }));
 dotenv.config();
 getConnection();
 const corsOptions = {};
