@@ -10,6 +10,7 @@ const insertCamping = async (req, res) => {
       End_Date,
       Reservation_Method
     } = req.body;
+    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
       `INSERT INTO Camping VALUES (${ID_Client}, '${Reservation_Date}', '${Start_Date}', '${End_Date}', ${Reservation_Method})`

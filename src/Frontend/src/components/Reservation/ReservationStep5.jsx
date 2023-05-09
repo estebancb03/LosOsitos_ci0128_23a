@@ -68,11 +68,7 @@ const ReservationStep5 = ({
   // Method that inserts a reservation ticket
   const insertReservationTicket = async () => {
     try {
-      const { 
-        ID, 
-        Reservation_Date,
-        Tickets 
-      } = reservationData;
+      const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
@@ -83,10 +79,36 @@ const ReservationStep5 = ({
             Demographic_Group: ticket.Demographic_Group,
             Reservation_Type: ticket.Reservation_Type,
             Price: ticket.Price,
-            Amount: ticket.Amount
+            Amount: ticket.Amount,
           });
         })
       );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a camping or a picnic
+  const insertReservationType = async () => {
+    try {
+      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
+        reservationData;
+      if (reservationData.Reservation_Type === 0) {
+        const url = "/picnic";
+        await AxiosClient.post(url, {
+          ID_Client: ID,
+          Reservation_Date,
+        });
+      } else {
+        const url = "/camping";
+        await AxiosClient.post(url, {
+          ID_Client: ID,
+          Reservation_Date,
+          Start_Date,
+          End_Date,
+          Reservation_Method: 1
+        });
+      }
     } catch (exception) {
       console.log(exception);
     }
@@ -110,6 +132,7 @@ const ReservationStep5 = ({
       insertClient();
       insertReservation();
       insertReservationTicket();
+      insertReservationType();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
