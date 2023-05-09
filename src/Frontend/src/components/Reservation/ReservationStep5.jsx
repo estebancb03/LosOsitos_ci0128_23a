@@ -134,7 +134,7 @@ const ReservationStep5 = ({
     }
   };
 
-  const updateReservationData = async (method) => {
+  const updateReservationData = (method) => {
     const newReservationData = { ...reservationData };
     const newWindows = { ...windows };
     newReservationData.Payment_Method = method;
@@ -148,12 +148,17 @@ const ReservationStep5 = ({
       newReservationData.Payment_Method !== 0 &&
       newReservationData.Payment_Method === 2
     ) {
-      await insertPerson();
-      await insertClient();
-      await insertReservation();
-      await insertReservationTicket();
-      await insertReservationType();
-      await insertSpotsCamping();
+      insertPerson().then(
+        insertClient()
+      ).then(
+        insertReservation()
+      ).then(
+        insertReservationTicket()    
+      ).then(
+        insertReservationType()
+      ).then(
+        insertSpotsCamping()
+      )
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }

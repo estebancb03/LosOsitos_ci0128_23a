@@ -160,14 +160,19 @@ const ReservationStep6 = ({
     }
   };
 
-  const updateReservationData = async () => {
+  const updateReservationData = () => {
     if (checkbox && filesBase64 != "") {
-      await insertPerson();
-      await insertClient();
-      await insertReservation();
-      await insertReservationTicket();
-      await insertReservationType();
-      await insertSpotsCamping();
+      insertPerson().then(
+        insertClient()
+      ).then(
+        insertReservation()
+      ).then(
+        insertReservationTicket()    
+      ).then(
+        insertReservationType()
+      ).then(
+        insertSpotsCamping()
+      )
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step6 = false;
