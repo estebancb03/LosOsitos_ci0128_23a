@@ -91,7 +91,6 @@ const ReservationStep5 = ({
   // Method that inserts a spot camping
   const insertSpotsCamping = async () => {
     try {
-      console.log('spots');
       const { ID, Reservation_Date, Spots } = reservationData;
       const url = "/spots";
       await Promise.all(
@@ -121,7 +120,6 @@ const ReservationStep5 = ({
           Reservation_Date,
         });
       } else {
-        //console.log('Camping!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         const url = "/camping";
         await AxiosClient.post(url, {
           ID_Client: ID,
@@ -136,7 +134,7 @@ const ReservationStep5 = ({
     }
   };
 
-  const updateReservationData = (method) => {
+  const updateReservationData = async (method) => {
     const newReservationData = { ...reservationData };
     const newWindows = { ...windows };
     newReservationData.Payment_Method = method;
@@ -150,12 +148,12 @@ const ReservationStep5 = ({
       newReservationData.Payment_Method !== 0 &&
       newReservationData.Payment_Method === 2
     ) {
-      insertPerson();
-      insertClient();
-      insertReservation();
-      insertReservationTicket();
-      insertReservationType();
-      insertSpotsCamping();
+      await insertPerson();
+      await insertClient();
+      await insertReservation();
+      await insertReservationTicket();
+      await insertReservationType();
+      await insertSpotsCamping();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }

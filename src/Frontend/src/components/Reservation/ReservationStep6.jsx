@@ -116,7 +116,6 @@ const ReservationStep6 = ({
   // Method that inserts a spot camping
   const insertSpotsCamping = async () => {
     try {
-      console.log('spots');
       const { ID, Reservation_Date, Spots } = reservationData;
       const url = "/spots";
       await Promise.all(
@@ -161,14 +160,14 @@ const ReservationStep6 = ({
     }
   };
 
-  const updateReservationData = () => {
+  const updateReservationData = async () => {
     if (checkbox && filesBase64 != "") {
-      insertPerson();
-      insertClient();
-      insertReservation();
-      insertReservationTicket();
-      insertReservationType();
-      insertSpotsCamping();
+      await insertPerson();
+      await insertClient();
+      await insertReservation();
+      await insertReservationTicket();
+      await insertReservationType();
+      await insertSpotsCamping();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step6 = false;
