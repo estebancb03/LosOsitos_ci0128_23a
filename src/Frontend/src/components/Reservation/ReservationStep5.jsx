@@ -91,6 +91,7 @@ const ReservationStep5 = ({
   // Method that inserts a spot camping
   const insertSpotsCamping = async () => {
     try {
+      console.log('spots');
       const { ID, Reservation_Date, Spots } = reservationData;
       const url = "/spots";
       await Promise.all(
