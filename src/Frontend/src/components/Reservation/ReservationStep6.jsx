@@ -32,8 +32,143 @@ const ReservationStep6 = ({
     }
   };
 
+   // Method thah inserts a person
+   const insertPerson = async () => {
+    try {
+      const {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+      } = reservationData;
+      const url = "/person";
+      await AxiosClient.post(url, {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const insertClient = async () => {
+    try {
+      const { ID } = reservationData;
+      const url2 = "/client";
+      await AxiosClient.post(url2, {
+        ID_Person: ID,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method tha inserts a reservation
+  const insertReservation = async () => {
+    try {
+      const { ID, Reservation_Date } = reservationData;
+      const url = "/reservation";
+      await AxiosClient.post(url, {
+        ID_Client: ID,
+        Reservation_Date,
+        Payment_Method: reservationData.Payment_Method,
+        Payment_Proof: filesBase64,
+        State: 0,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a reservation ticket
+  const insertReservationTicket = async () => {
+    try {
+      const { ID, Reservation_Date, Tickets } = reservationData;
+      const url = "/reservationTicket";
+      await Promise.all(
+        Tickets.map(async (ticket) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Age_Range: ticket.Age_Range,
+            Demographic_Group: ticket.Demographic_Group,
+            Reservation_Type: ticket.Reservation_Type,
+            Price: ticket.Price,
+            Amount: ticket.Amount,
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a spot camping
+  const insertSpotsCamping = async () => {
+    try {
+      console.log('spots');
+      const { ID, Reservation_Date, Spots } = reservationData;
+      const url = "/spots";
+      await Promise.all(
+        Spots.map(async (spot) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Location_Spot: spot.Location_Spot,
+            Price: spot.Price
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a camping or a picnic
+  const insertReservationType = async () => {
+    try {
+      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
+        reservationData;
+      if (reservationData.Reservation_Type === 0) {
+        const url = "/picnic";
+        await AxiosClient.post(url, {
+          ID_Client: ID,
+          Reservation_Date,
+        });
+      } else {
+        //console.log('Camping!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        const url = "/camping";
+        await AxiosClient.post(url, {
+          ID_Client: ID,
+          Reservation_Date,
+          Start_Date,
+          End_Date,
+          Reservation_Method: 0
+        });
+      }
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const updateReservationData = () => {
     if (checkbox && filesBase64 != "") {
+      insertPerson();
+      insertClient();
+      insertReservation();
+      insertReservationTicket();
+      insertReservationType();
+      insertSpotsCamping();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step6 = false;
