@@ -13,7 +13,8 @@ const insertTicket = async (req, res) => {
       `INSERT INTO Ticket VALUES (${Age_Range}, ${Demographic_Group}, ${Reservation_Type})`
     );
     res.status(200);
-    console.log("The insert to the Reservatiom was successfull");
+    console.log("The insert to the ticket was successfull");
+    res.send('The insert to the ticket was successful');
   } catch (error) {
     res.status(500);
     res.send(error.message);

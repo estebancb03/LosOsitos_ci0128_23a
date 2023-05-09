@@ -13,6 +13,7 @@ const insertPicnic = async (req, res) => {
     );
     res.status(200);
     console.log("The insert to the Picnic was successfull");
+    res.send("The insert to the Picnic was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);

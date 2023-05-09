@@ -33,6 +33,7 @@ const insertPerson = async (req, res) => {
     );
     res.status(200);
     console.log("The insert to the Person was successfull");
+    res.send("The insert to the Person was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -51,6 +52,7 @@ const insertClient = async (req, res) => {
     );
     res.status(200);
     console.log("The insert to the Client was successfull");
+    res.send("The insert to the Client was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);

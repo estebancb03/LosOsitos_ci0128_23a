@@ -31,11 +31,9 @@ const ReservationStep6 = ({
       setFilesBase64(files[0].getFileEncodeBase64String());
     }
   };
-
-   // Method thah inserts a person
-   const insertPerson = async () => {
+  const insertPerson = async () => {
     try {
-      console.log("Try");
+      console.log("person");
       const {
         ID,
         Name,
@@ -64,7 +62,7 @@ const ReservationStep6 = ({
 
   const insertClient = async () => {
     try {
-      console.log("Try");
+      console.log("client");
       const { ID } = reservationData;
       const url2 = "/client";
       await AxiosClient.post(url2, {
@@ -78,15 +76,15 @@ const ReservationStep6 = ({
   // Method tha inserts a reservation
   const insertReservation = async () => {
     try {
-      console.log("Try");
+      console.log("reservation");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
       await AxiosClient.post(url, {
         ID_Client: ID,
         Reservation_Date,
-        Payment_Method: reservationData.Payment_Method,
-        Payment_Proof: filesBase64,
-        State: 0,
+        Payment_Method: 2,
+        Payment_Proof: null,
+        State: 1,
       });
     } catch (exception) {
       console.log(exception);
@@ -96,11 +94,12 @@ const ReservationStep6 = ({
   // Method that inserts a reservation ticket
   const insertReservationTicket = async () => {
     try {
-      console.log("Try");
+      console.log("tickets");
       const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
+          console.log('tickets map')
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -117,32 +116,10 @@ const ReservationStep6 = ({
     }
   };
 
-  // Method that inserts a spot camping
-  const insertSpotsCamping = async () => {
-    try {
-      console.log("Try");
-      const { ID, Reservation_Date, Spots } = reservationData;
-      const url = "/spots";
-      await Promise.all(
-        Spots.map(async (spot) => {
-          console.log("Try");
-          await AxiosClient.post(url, {
-            ID_Client: ID,
-            Reservation_Date,
-            Location_Spot: spot.Location_Spot,
-            Price: spot.Price
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
   // Method that inserts a camping or a picnic
   const insertReservationType = async () => {
     try {
-      console.log("Try");
+      console.log("reservation type");
       const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
@@ -158,7 +135,7 @@ const ReservationStep6 = ({
           Reservation_Date,
           Start_Date,
           End_Date,
-          Reservation_Method: 0
+          Reservation_Method: 1
         });
       }
     } catch (exception) {
@@ -166,7 +143,29 @@ const ReservationStep6 = ({
     }
   };
 
-  const updateReservationData = (method) => {
+  // Method that inserts a spot camping
+  const insertSpotsCamping = async () => {
+    try {
+      console.log("spots");
+      const { ID, Reservation_Date, Spots } = reservationData;
+      const url = "/spots";
+      await Promise.all(
+        Spots.map(async (spot) => {
+          console.log(Spots)
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Location_Spot: spot.Location_Spot,
+            Price: spot.Price
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const updateReservationData = async (method) => {
     if (checkbox && filesBase64 != "") {
       // insertPerson().then(
       //   insertClient()
@@ -179,12 +178,12 @@ const ReservationStep6 = ({
       // ).then(
       //   insertSpotsCamping()
       // )
-      insertPerson();
-      insertClient();
-      insertReservation();
-      insertReservationTicket();
-      insertReservationType();
-      insertSpotsCamping();
+      await insertPerson();
+      await insertClient();
+      await insertReservation();
+      await insertReservationTicket();
+      await insertReservationType();
+      await insertSpotsCamping();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step6 = false;

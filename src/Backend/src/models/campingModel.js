@@ -17,6 +17,7 @@ const insertCamping = async (req, res) => {
     );
     res.status(200);
     console.log("The insert to the Camping was successfull");
+    res.send('The insert to the Camping was successful');
   } catch (error) {
     res.status(500);
     res.send(error.message);

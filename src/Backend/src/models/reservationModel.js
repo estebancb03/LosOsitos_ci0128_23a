@@ -15,7 +15,8 @@ const insertReservation = async (req, res) => {
       `INSERT INTO Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Payment_Method}, ${State}, '${Payment_Prof}')`
     );
     res.status(200);
-    console.log("The insert to the Reservatiom was successfull");
+    res.send('The insert to the Reservation was successful');
+    console.log("The insert to the Reservation was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);
