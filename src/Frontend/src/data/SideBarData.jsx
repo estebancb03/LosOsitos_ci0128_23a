@@ -29,8 +29,8 @@ const SideBarData = [
     icon: <MdIcons.MdSettings />,
   },
   {
-    title: "Availability",
-    path: "/availability",
+    title: "Reservation List",
+    path: "/admin/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
   },
   {

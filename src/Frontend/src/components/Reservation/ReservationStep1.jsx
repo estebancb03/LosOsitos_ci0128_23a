@@ -1,529 +1,501 @@
-import { useState, useEffect } from "react";
-import { getTicketPrices } from "../../Queries";
-import Table from "../Table/Table";
-import TableItem from "../Table/TableItem";
-import Button from "../Button";
+import { useState, useEffect, forceUpdate, useReducer } from "react";
+import Button from "../Buttons/Button";
+import DropDownSelect from "../Buttons/DropDownSelect";
+import InputButton from "../Buttons/InputButton";
+import DatePickerButton from "../Buttons/DatePickerButton";
+import axiosClient from "../../config/AxiosClient";
+import {
+  formatDateDTDDMMYYYY,
+  changeDateInISOFormat,
+  isDateAfterISO8601,
+} from "../../helpers/formatDate";
 
-const ReservationStep1 = () => {
-  const [ticketsPrices, setTicketsPrices] = useState([]);
-  const [prices, setPrices] = useState({
-    PicnicNationalAdultCRC: null,
-    PicnicNationalChildCRC: null,
-    PicnicInternationalAdultUSD: null,
-    PicnicInternationalChildUSD: null,
-    CampingNationalAdultCRC: null,
-    CampingNationalChildCRC: null,
-    CampingInternationalAdultUSD: null,
-    CampingInternationalChildUSD: null,
-  });
-  const [quantityAdultPicnic, setQuantityAdultPicnic] = useState(0);
-  const [quantityChildPicnic, setQuantityChildPicnic] = useState(0);
-  const [quantityForeignAdultPicnic, setQuantityForeignAdultPicnic] =
-    useState(0);
-  const [quantityForeignChildPicnic, setQuantityForeignChildPicnic] =
-    useState(0);
-  const [quantityAdultCamping, setQuantityAdultCamping] = useState(0);
-  const [quantityChildCamping, setQuantityChildCamping] = useState(0);
-  const [quantityForeignAdultCamping, setQuantityForeignAdultCamping] =
-    useState(0);
-  const [quantityForeignChildCamping, setQuantityForeignChildCamping] =
-    useState(0);
+function ReservationStep1({
+  windows,
+  setWindows,
+  reservationData,
+  setReservationData,
+}) {
+  const [name, setName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [idNumber, setIDNumber] = useState("");
+  const [nationality, setNationality] = useState("");
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState(0);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [dummy, setDummy] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
-  const waitForTicketPrices = async () => {
+  const validation = () => {
+    let result = false;
+    if (reservationData.Reservation_Type === 1) {
+      if (
+        name != "" &&
+        regexName.test(name) &&
+        lastName != "" &&
+        age != "" &&
+        idNumber != "" &&
+        regexId.test(idNumber) &&
+        nationality != "" &&
+        regexName.test(nationality) &&
+        email != "" &&
+        regexEmail.test(email) &&
+        startDate != "" &&
+        endDate != "" &&
+        isDateAfterISO8601(startDate, endDate)
+      ) result = true;
+    } else {  
+      if (
+        name != "" &&
+        regexName.test(name) &&
+        lastName != "" &&
+        age != "" &&
+        idNumber != "" &&
+        regexId.test(idNumber) &&
+        nationality != "" &&
+        regexName.test(nationality) &&
+        email != "" &&
+        regexEmail.test(email)
+      ) result = true;
+    }
+    return result;
+  };
+
+  const matchGender = (gender) => {
+    switch (gender) {
+      case 0:
+        return "Male";
+      case 1:
+        return "Female";
+      case 2:
+        return "Non-Binary";
+      case 3:
+        return "Other";
+    }
+  };
+
+  useEffect(() => {}, [dummy]);
+
+  const getUserData = async () => {
     try {
-      const result = await getTicketPrices();
-      setTicketsPrices(result);
+      const { data } = await axiosClient.get(`/person/${idNumber}`);
+      const result = data[0];
+      if (data.length > 0) {
+        setName(result.Name);
+        setLastName(result.LastName1 + " " + result.LastName2);
+        setGender(matchGender(result.Gender));
+        setAge(result.Birth_Date);
+        setEmail(result.Email);
+        setNationality(result.Country_Name);
+        setDummy(dummy == 2 ? 3 : 2);
+      } else {
+        setDummy(1);
+      }
     } catch (exception) {
       console.error(exception);
     }
   };
 
-  const columnsNamesNames = ["Type", "Currency", "Price", "Quantity", "", ""];
-  const rowsNames = [
-    "Domestic Adult",
-    "Domestic Child*",
-    "Foreign Adult",
-    "Foreign Child*",
-  ];
+  //regex to verify if email is valid
+  const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+  const regexName = /^[\w ]+$/;
+  const regexId = /^\d+$/;
+  const regexLastName = /^[a-zA-Z\s]+$/;
 
-  const filterPrices = () => {
-    const newPrices = { ...ticketsPrices };
-    // Filter prices for Picnic
-
-    // Filter Picnic ticket prices for national adults
-    let filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 1 &&
-        ticketPrice.Currency == "CRC" &&
-        ticketPrice.Reservation_Type == 0
-    );
-    newPrices.PicnicNationalAdultCRC = filteredArray;
-
-    // Filter Picnic ticket prices for national children
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 0 &&
-        ticketPrice.Currency == "CRC" &&
-        ticketPrice.Reservation_Type == 0
-    );
-    newPrices.PicnicNationalChildCRC = filteredArray;
-
-    // Filter Picnic ticket prices for international adults
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 1 &&
-        ticketPrice.Currency == "USD" &&
-        ticketPrice.Reservation_Type == 0
-    );
-    newPrices.PicnicInternationalAdultUSD = filteredArray;
-
-    // Filter Picnic ticket prices for international children
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 0 &&
-        ticketPrice.Currency == "USD" &&
-        ticketPrice.Reservation_Type == 0
-    );
-    newPrices.PicnicInternationalChildUSD = filteredArray;
-
-    // Filter prices for Camping
-
-    // Filter Camping ticket prices for national adults
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 1 &&
-        ticketPrice.Currency == "CRC" &&
-        ticketPrice.Reservation_Type == 1
-    );
-    newPrices.CampingNationalAdultCRC = filteredArray;
-
-    // Filter Camping ticket prices for national children
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 0 &&
-        ticketPrice.Currency == "CRC" &&
-        ticketPrice.Reservation_Type == 1
-    );
-    newPrices.CampingNationalChildCRC = filteredArray;
-
-    // Filter Camping ticket prices for international adults
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 1 &&
-        ticketPrice.Currency == "USD" &&
-        ticketPrice.Reservation_Type == 1
-    );
-    newPrices.CampingInternationalAdultUSD = filteredArray;
-
-    // Filter Camping ticket prices for international children
-    filteredArray = ticketsPrices.filter(
-      (ticketPrice) =>
-        ticketPrice.Age_Range == 0 &&
-        ticketPrice.Currency == "USD" &&
-        ticketPrice.Reservation_Type == 1
-    );
-    newPrices.CampingInternationalChildUSD = filteredArray;
-    setPrices(newPrices);
-  };
-
-  const handleClickAdd = (e, quantityType) => {
-    console.log(quantityType);
-    switch (quantityType) {
-      case 1:
-        if (quantityAdultCamping == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityAdultCamping(quantityAdultCamping + 1);
-        }
-        console.log(quantityAdultCamping);
-        break;
-
-      case 2:
-        if (quantityChildCamping == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityChildCamping(quantityChildCamping + 1);
-        }
-        break;
-
-      case 3:
-        if (quantityForeignAdultCamping == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityForeignAdultCamping(quantityForeignAdultCamping + 1);
-        }
-        break;
-
-      case 4:
-        if (quantityForeignChildCamping == 10) {
-          alert("You can only buy 10 tickets per person.");
-        } else {
-          setQuantityForeignChildCamping(quantityForeignChildCamping + 1);
-        }
-        break;
-
-      case 5:
-        if (quantityAdultPicnic == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityAdultPicnic(quantityAdultPicnic + 1);
-        }
-        break;
-
-      case 6:
-        if (quantityChildPicnic == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityChildPicnic(quantityChildPicnic + 1);
-        }
-        break;
-
-      case 7:
-        if (quantityForeignAdultPicnic == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic + 1);
-        }
-        break;
-
-      case 8:
-        if (quantityForeignChildPicnic == 10) {
-          alert("You can only buy 10 tickets per person type.");
-        } else {
-          setQuantityForeignChildPicnic(quantityForeignChildPicnic + 1);
-        }
-        break;
+  const setValue = (type, value) => {
+    const date = new Date();
+    date.toISOString();
+    if (type == "idNumber" && regexId.test(value)) {
+      setIDNumber(value);
+    } else if (type == "firstName" && regexName.test(value)) {
+      setName(value);
+    } else if (type == "lastName" && regexLastName.test(value)) {
+      setLastName(value);
+    } else if (type == "age") {
+      setAge(value);
+    } else if (type == "nationality") {
+      setNationality(value);
+    } else if (type == "email" && regexEmail.test(value)) {
+      setEmail(value);
+    } else if (type == "gender") {
+      if (value === "Male") {
+        setGender(0);
+      } else if (value == "Female") {
+        setGender(1);
+      } else if (value == "Non-Binary") {
+        setGender(2);
+      } else {
+        setGender(3);
+      }
+    } else if (type === "startDate") {
+      setStartDate(changeDateInISOFormat(value, date));
+    } else if (type === "endDate") {
+      setEndDate(changeDateInISOFormat(value, date));
     }
   };
 
-  const handleClickSubstract = (e, quantityType) => {
-    console.log(quantityType);
-    switch (quantityType) {
-      case 1:
-        if (quantityAdultCamping != 0) {
-          setQuantityAdultCamping(quantityAdultCamping - 1);
-        }
-        console.log(quantityAdultCamping);
-        break;
-
-      case 2:
-        if (quantityChildCamping != 0) {
-          setQuantityChildCamping(quantityChildCamping - 1);
-        }
-        break;
-
-      case 3:
-        if (quantityForeignAdultCamping != 0) {
-          setQuantityForeignAdultCamping(quantityForeignAdultCamping - 1);
-        }
-        break;
-
-      case 4:
-        if (quantityForeignChildCamping != 0) {
-          setQuantityForeignChildCamping(quantityForeignChildCamping - 1);
-        }
-        break;
-
-      case 5:
-        if (quantityAdultPicnic != 0) {
-          setQuantityAdultPicnic(quantityAdultPicnic - 1);
-        }
-        break;
-
-      case 6:
-        if (quantityChildPicnic != 0) {
-          setQuantityChildPicnic(quantityChildPicnic - 1);
-        }
-        break;
-
-      case 7:
-        if (quantityForeignAdultPicnic != 0) {
-          setQuantityForeignAdultPicnic(quantityForeignAdultPicnic - 1);
-        }
-        break;
-
-      case 8:
-        if (quantityForeignChildPicnic != 0) {
-          setQuantityForeignChildPicnic(quantityForeignChildPicnic - 1);
-        }
-        break;
-    }
-  };
-
-  const checkTickets = (e) => {
-    if (
-      quantityAdultPicnic != 0 ||
-      quantityChildPicnic != 0 ||
-      quantityForeignAdultPicnic != 0 ||
-      quantityForeignChildPicnic != 0 ||
-      quantityAdultCamping != 0 ||
-      quantityChildCamping != 0 ||
-      quantityForeignAdultCamping != 0 ||
-      quantityForeignChildCamping != 0
-    ) {
-      console.log("Success");
+  const updateReservationData = () => {
+    if (validation()) {
+      const newReservationData = { ...reservationData };
+      const newWindows = { ...windows };
+      newWindows.Step1 = false;
+      newWindows.Step2 = true;
+      const [lastName1, lastName2] = lastName.split(" ");
+      newReservationData.Name = name;
+      newReservationData.ID = idNumber;
+      newReservationData.LastName1 = lastName1;
+      newReservationData.LastName2 = lastName2;
+      newReservationData.Country_Name = nationality;
+      newReservationData.Email = email;
+      newReservationData.Gender =
+        gender === "Male"
+          ? 0
+          : gender === "Female"
+          ? 1
+          : gender === "Non-Binary"
+          ? 2
+          : 3;
+      newReservationData.Birth_Date = age;
+      newReservationData.Start_Date = startDate;
+      newReservationData.End_Date = endDate;
+      newReservationData.Reservation_Date = new Date().toISOString();
+      setName("");
+      setLastName("");
+      setAge(undefined);
+      setIDNumber("");
+      setNationality("");
+      setEmail("");
+      setGender("");
+      setStartDate("");
+      setEndDate("");
+      setReservationData(newReservationData);
+      setWindows(newWindows);
     } else {
-      alert("To proceed, please buy at least one ticket");
+      alert("Incorrect data, check the information entered");
     }
   };
-
-  useEffect(() => {
-    waitForTicketPrices();
-  }, []);
-
-  useEffect(() => {
-    if (ticketsPrices) {
-      filterPrices();
-    }
-  }, [ticketsPrices]);
-
-  // Verify that the arrays aren't empty before loading the page
-  const readyToLoad = () => {
-    return (
-      ticketsPrices &&
-      prices.PicnicNationalAdultCRC.length > 0 &&
-      prices.PicnicNationalChildCRC.length > 0 &&
-      prices.PicnicInternationalAdultUSD.length > 0 &&
-      prices.PicnicInternationalChildUSD.length > 0 &&
-      prices.CampingNationalAdultCRC.length > 0 &&
-      prices.CampingNationalChildCRC.length > 0 &&
-      prices.CampingInternationalAdultUSD.length > 0 &&
-      prices.CampingInternationalChildUSD.length > 0
-    );
-  };
-
-  if (
-    !ticketsPrices ||
-    !prices.PicnicNationalAdultCRC ||
-    !prices.PicnicNationalChildCRC ||
-    !prices.PicnicInternationalAdultUSD ||
-    !prices.PicnicInternationalChildUSD ||
-    !prices.CampingNationalAdultCRC ||
-    !prices.CampingNationalChildCRC ||
-    !prices.CampingInternationalAdultUSD ||
-    !prices.CampingInternationalChildUSD
-  ) {
-    return <div>Loading....</div>;
-  }
 
   return (
     <>
-      {readyToLoad() && (
-        <div>
-          <h2 className="pt-8 pb-4 pl-2">Camping</h2>
-          <Table colums={columnsNamesNames}>
-            <TableItem
-              key={0}
-              number={0}
-              data={[
-                rowsNames[0],
-                prices.CampingNationalAdultCRC[0].Currency,
-                prices.CampingNationalAdultCRC[0].Price,
-                quantityAdultCamping,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 1);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 1);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={1}
-              number={1}
-              data={[
-                rowsNames[1],
-                prices.CampingNationalChildCRC[0].Currency,
-                prices.CampingNationalChildCRC[0].Price,
-                quantityChildCamping,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 2);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 2);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={2}
-              number={2}
-              data={[
-                rowsNames[2],
-                prices.CampingInternationalAdultUSD[0].Currency,
-                prices.CampingInternationalAdultUSD[0].Price,
-                quantityForeignAdultCamping,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 3);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 3);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={3}
-              number={3}
-              data={[
-                rowsNames[3],
-                prices.CampingInternationalChildUSD[0].Currency,
-                prices.CampingInternationalChildUSD[0].Price,
-                quantityForeignChildCamping,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 4);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 4);
-                  }}
-                />,
-              ]}
-            />
-          </Table>
-          <p className="pt-4 pl-2">
-            * Note: Child between the ages 6 and 12. If they are older, choose
-            an Adult ticket.
-          </p>
-          <h2 className="pt-8 pb-4 pl-2">Picnic</h2>
-          <Table colums={columnsNamesNames}>
-            <TableItem
-              key={4}
-              number={4}
-              data={[
-                rowsNames[0],
-                prices.PicnicNationalAdultCRC[0].Currency,
-                prices.PicnicNationalAdultCRC[0].Price,
-                quantityAdultPicnic,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 5);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 5);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={5}
-              number={5}
-              data={[
-                rowsNames[1],
-                prices.PicnicNationalChildCRC[0].Currency,
-                prices.PicnicNationalChildCRC[0].Price,
-                quantityChildPicnic,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 6);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 6);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={6}
-              number={6}
-              data={[
-                rowsNames[2],
-                prices.PicnicInternationalAdultUSD[0].Currency,
-                prices.PicnicInternationalAdultUSD[0].Price,
-                quantityForeignAdultPicnic,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 7);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 7);
-                  }}
-                />,
-              ]}
-            />
-            <TableItem
-              key={7}
-              number={7}
-              data={[
-                rowsNames[3],
-                prices.PicnicInternationalChildUSD[0].Currency,
-                prices.PicnicInternationalChildUSD[0].Price,
-                quantityForeignChildPicnic,
-                <Button
-                  text="+"
-                  type="add"
-                  onclickFunction={(e) => {
-                    handleClickAdd("", 8);
-                  }}
-                />,
-                <Button
-                  text="-"
-                  type="delete"
-                  onclickFunction={(e) => {
-                    handleClickSubstract("", 8);
-                  }}
-                />,
-              ]}
-            />
-          </Table>
-          <div className="w-1/3 mt-10 ml-[67%]">
-            <Button
-              text="Continue"
-              onclickFunction={(e) => {
-                checkTickets();
-              }}
-            />
+      {windows.Step1 && (
+        <div className="mb-10">
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+            Personal information
+          </h2>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2s">
+            <div className="mt-4 mb-8 sm:mt-8">
+              <InputButton
+                text="ID Number"
+                placeholderText=""
+                disabled={false}
+                type="idNumber"
+                onChangeFunction={setValue}
+              />
+            </div>
+            <div className="mt-12 sm:mt-[77px]">
+              <Button text="Search" onclickFunction={getUserData} />
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2">
+            {dummy == 2 && (
+              <>
+                <div className="">
+                  <InputButton
+                    text="First name"
+                    placeholderText={name}
+                    disabled={true}
+                    type="firstName"
+                  />
+                </div>
+                <div className="">
+                  <InputButton
+                    text="Last name"
+                    placeholderText={lastName}
+                    disabled={true}
+                    type="lastName"
+                  />
+                </div>
+                <div>
+                  <InputButton
+                    text="Date of birth"
+                    placeholderText={formatDateDTDDMMYYYY(age)}
+                    disabled={true}
+                    type="age"
+                  />
+                </div>
+                <div className="sm:mt-6">
+                  <InputButton
+                    text="Nationality"
+                    placeholderText={nationality}
+                    disabled={true}
+                    type="nationality"
+                  />
+                </div>
+                <div>
+                  <InputButton
+                    text="Email"
+                    placeholderText={email}
+                    disabled={true}
+                    type="email"
+                  />
+                </div>
+                <div className="mt-[4px] sm:mt-[17px] sm:mr-1">
+                  <DropDownSelect
+                    text="Gender"
+                    disabled={true}
+                    options={[gender]}
+                    typeChange="gender"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                <div className="mb-8">
+                  <Button
+                    text="Back"
+                    onclickFunction={(e) => {
+                      const newWindows = { ...windows };
+                      newWindows.Step0 = true;
+                      newWindows.Step1 = false;
+                      setWindows(newWindows);
+                    }}
+                  />
+                </div>
+                <div className="mb-8">
+                  <Button
+                    text="Next"
+                    disabled={disabled}
+                    onclickFunction={() => {
+                      updateReservationData();
+                    }}
+                  />
+                </div>
+              </>
+            )}
+
+            {dummy == 3 && (
+              <>
+                <div className="">
+                  <InputButton
+                    text="First name"
+                    placeholderText={name}
+                    disabled={true}
+                    type="firstName"
+                  />
+                </div>
+                <div className="">
+                  <InputButton
+                    text="Last name"
+                    placeholderText={lastName}
+                    disabled={true}
+                    type="lastName"
+                  />
+                </div>
+                <div>
+                  <InputButton
+                    text="Date of birth"
+                    placeholderText={formatDateDTDDMMYYYY(age)}
+                    disabled={true}
+                    type="age"
+                  />
+                </div>
+                <div className="sm:mt-6">
+                  <InputButton
+                    text="Nationality"
+                    placeholderText={nationality}
+                    disabled={true}
+                    type="nationality"
+                  />
+                </div>
+                <div>
+                  <InputButton
+                    text="Email"
+                    placeholderText={email}
+                    disabled={true}
+                    type="email"
+                  />
+                </div>
+                <div className="mt-[4px] sm:mt-[17px] sm:mr-1">
+                  <DropDownSelect
+                    text="Gender"
+                    disabled={true}
+                    options={[gender]}
+                    typeChange="gender"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                <div className="mb-8">
+                  <Button
+                    text="Back"
+                    onclickFunction={(e) => {
+                      const newWindows = { ...windows };
+                      newWindows.Step0 = true;
+                      newWindows.Step1 = false;
+                      setWindows(newWindows);
+                    }}
+                  />
+                </div>
+                <div className="mb-8">
+                  <Button
+                    text="Next"
+                    disabled={disabled}
+                    onclickFunction={() => {
+                      updateReservationData();
+                    }}
+                  />
+                </div>
+              </>
+            )}
+
+            {dummy == 1 && (
+              <>
+                <div className="">
+                  <InputButton
+                    text="First name"
+                    placeholderText=""
+                    disabled={false}
+                    type="firstName"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                <div className="">
+                  <InputButton
+                    text="Last name"
+                    placeholderText=""
+                    disabled={false}
+                    type="lastName"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                <div>
+                  <DatePickerButton
+                    text="Date of birth"
+                    placeholderText=""
+                    disabled={false}
+                    type="age"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                <div className="sm:mt-2">
+                  <InputButton
+                    text="Nationality"
+                    placeholderText=""
+                    disabled={false}
+                    type="nationality"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                <div>
+                  <InputButton
+                    text="Email"
+                    placeholderText=""
+                    disabled={false}
+                    type="email"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                <div className="mt-[4px] sm:mt-[17px] sm:mr-1">
+                  <DropDownSelect
+                    text="Gender"
+                    disabled={false}
+                    options={["Male", "Female", "Non-Binary", "Other"]}
+                    typeChange="gender"
+                    onChangeFunction={setValue}
+                  />
+                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                <div className="mb-8">
+                  <Button
+                    text="Back"
+                    onclickFunction={(e) => {
+                      const newWindows = { ...windows };
+                      newWindows.Step0 = true;
+                      newWindows.Step1 = false;
+                      setWindows(newWindows);
+                    }}
+                  />
+                </div>
+                <div className="mb-8">
+                  <Button
+                    text="Next"
+                    disabled={disabled}
+                    onclickFunction={() => {
+                      updateReservationData();
+                    }}
+                  />
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}
     </>
   );
-};
+}
 
 export default ReservationStep1;

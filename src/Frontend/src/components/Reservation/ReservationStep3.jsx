@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
-import Button from "../Button";
+import Button from "../Buttons/Button";
 import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
 import axiosClient from "../../config/AxiosClient";
 
-const ReservationStep3 = () => {
+const ReservationStep3 = ({
+  windows,
+  setWindows,
+  reservationData,
+  setReservationData,
+}) => {
   const [availableSpots, setAvailableSpots] = useState([]);
   const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
   const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
@@ -28,7 +33,6 @@ const ReservationStep3 = () => {
       let endDate = "2023-02-02T16:00:00.000";
       const url = `/getAvailableSpotsByDates/${startDate}/${endDate}`;
       const result = await axiosClient.get(url);
-      console.log(result.data);
       setAvailableSpots(result.data);
     } catch (exception) {
       console.error(exception);
@@ -51,9 +55,9 @@ const ReservationStep3 = () => {
       quantityMediumSpot != 0 ||
       quantityBigSpot != 0
     ) {
-      console.log("Success");
+      return true;
     } else {
-      alert("To proceed, please add at least one spot to your reservation");
+      return false;
     }
   };
 
@@ -65,7 +69,7 @@ const ReservationStep3 = () => {
     return availableSpots && availableSpots.length > 0;
   };
 
-  const handleCheckboxClick = (e, typeOfSpot) => {
+  const handleCheckboxClick = (e, typeOfSpot, price) => {
     const locationPassed = e.target.value;
     const isChecked = e.target.checked;
     if (isChecked) {
@@ -81,7 +85,10 @@ const ReservationStep3 = () => {
             setQuantityBigSpot(quantityBigSpot + 1);
           }
           setQuantityAdded(quantityAdded + 1);
-          setSelectedSpots([...selectedSpots, parseInt(locationPassed)]);
+          setSelectedSpots([
+            ...selectedSpots,
+            { location: parseInt(locationPassed), price: price },
+          ]);
         }
       } else {
         alert("There aren't any spots left. Please continue");
@@ -107,24 +114,51 @@ const ReservationStep3 = () => {
         setQuantityAdded(quantityAdded - 1);
         setSelectedSpots(
           selectedSpots.filter(
-            (location) => parseInt(location) !== parseInt(locationPassed)
+            (location) =>
+              parseInt(location.location) !== parseInt(locationPassed)
           )
         );
       }
     }
   };
 
+  const updateReservationData = () => {
+    if (checkParcelWasAdded()) {
+      const newReservationData = { ...reservationData };
+      const newWindows = { ...windows };
+      newWindows.Step3 = false;
+      newWindows.Step5 = true;
+      let spots = [];
+      selectedSpots.map((spot) =>
+        spots.push({
+          Location_Spot: spot.location,
+          Price: spot.price
+        })
+      );
+      newReservationData.Spots = spots;
+      setReservationData(newReservationData);
+      setWindows(newWindows);
+      setQuantityAdded(0);
+      setSelectedSpots([]);
+    } else {
+      alert("To proceed, please add at least one spot to your reservation");
+    }
+  };
+
   return (
     <>
-      {readyToLoad() && (
+      {windows.Step3 && readyToLoad() && (
         <div className="grid grid-cols-1 gap-2 content-center">
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+            Spots selection
+          </h2>
           <div className="align-center">
             <img
               src={CampingTentsMap}
               className=" h-auto w-auto rounded-lg rounded-bg border-4 border-black align-center"
             />
           </div>
-          <div className="ml-4">
+          <div className="">
             <Table colums={columns}>
               {availableSpots.map((item, index) => (
                 <TableItem
@@ -140,20 +174,34 @@ const ReservationStep3 = () => {
                       type="checkbox"
                       value={item.Location}
                       onChange={(e) =>
-                        handleCheckboxClick(e, typeOfSpot(item.size))
+                        handleCheckboxClick(
+                          e,
+                          typeOfSpot(item.size),
+                          item.Price
+                        )
                       }
                     ></input>,
                   ]}
                 />
               ))}
             </Table>
-            <div className="w-1/3 mt-10 ml-[67%]">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
               <Button
-                text="Continue"
+                text="Back"
                 onclickFunction={(e) => {
-                  checkParcelWasAdded();
+                  const newWindows = { ...windows };
+                  newWindows.Step2 = true;
+                  newWindows.Step3 = false;
+                  setWindows(newWindows);
                 }}
               />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
             </div>
           </div>
         </div>
@@ -162,4 +210,4 @@ const ReservationStep3 = () => {
   );
 };
 
-export default ReservationStep2;
+export default ReservationStep3;

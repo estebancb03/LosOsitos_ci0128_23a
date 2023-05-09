@@ -6,29 +6,32 @@ const formatDateDDMMYYYY = (date) => {
 
 // Method that formats tha date form DateTime format
 const formatDateDTDDMMYYYY = (unformatedDate) => {
-  const date = new Date(unformatedDate);
-  const day = date.getUTCDate().toString().padStart(2, "0");
-  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
-  const year = date.getUTCFullYear();
-  return `${day}/${month}/${year}`;
+  if (unformatedDate !== null && unformatedDate !== undefined) {
+    const date = new Date(unformatedDate);
+    const day = date.getUTCDate().toString().padStart(2, "0");
+    const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+    const year = date.getUTCFullYear();
+    return `${day}/${month}/${year}`;
+  }
 };
 
 // Method that formats tha date form DateTime format
 const formatDateDTMMDDYYYY = (unformatedDate) => {
-  const date = new Date(unformatedDate);
-  let day = date.getDate().toString().padStart(2, "0");
-  let month = (date.getMonth() + 1).toString().padStart(2, "0");
-  const year = date.getFullYear().toString();
-  const formatedDate = `${month}-${day}-${year}`;
-  return formatedDate;
+  const date = new Date(unformatedDate); // Crea un objeto Date con la fecha y hora
+  const day = date.getUTCDate().toString().padStart(2, "0");
+  const month = (date.getUTCMonth() + 1).toString().padStart(2, "0");
+  const year = date.getUTCFullYear();
+
+  return `${month}-${day}-${year}`; // Devuelve la fecha en el nuevo formato
 };
 
 // Method that formats a date adding zeros
 const addZerosToDate = (date) => {
-  const parts = date.split("-");
-  const day = !Array.isArray(parts[1]) ? "0" + parts[1] : parts[1];
-  const month = !Array.isArray(parts[0]) ? "0" + parts[0] : parts[0];
-  return month + "-" + day + "-" + parts[2];
+  const parts = date.split('-'); // Divide la fecha en partes separadas por "-"
+  const month = parts[0].padStart(2, '0'); // Asegura que el mes tenga 2 dígitos
+  const day = parts[1]; // Conserva el día sin cambios
+  const year = parts[2]; // Conserva el año sin cambios
+  return `${month}-${day}-${year}`; // Devuelve la fecha en el nuevo formato
 };
 
 // Method that formats the date
@@ -101,6 +104,13 @@ const changeHourInISOFormat = (hours, ISODate) => {
   return newDateTime.toISOString();
 };
 
+// Method that checks the difference between two dates
+const isDateAfterISO8601 = (date1, date2) => {
+  const parsedDate1 = new Date(date1);
+  const parsedDate2 = new Date(date2);
+  return parsedDate1 < parsedDate2;
+};
+
 export {
   formatDateDDMMYYYY,
   formatDateMMDDYYYY,
@@ -111,5 +121,6 @@ export {
   createHoursWithIntervals,
   changeDateInISOFormat,
   changeHourInISOFormat,
-  changeDateInISOFormat2
+  changeDateInISOFormat2,
+  isDateAfterISO8601,
 };
