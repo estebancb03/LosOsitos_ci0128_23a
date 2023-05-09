@@ -88,6 +88,26 @@ const ReservationStep5 = ({
     }
   };
 
+  // Method that inserts a spot camping
+  const insertSpotsCamping = async () => {
+    try {
+      const { ID, Reservation_Date, Spots } = reservationData;
+      const url = "/spots";
+      await Promise.all(
+        Spots.map(async (spot) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Location_Spot: spot.Location_Spot,
+            Price: spot.Price
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that inserts a camping or a picnic
   const insertReservationType = async () => {
     try {
@@ -134,6 +154,7 @@ const ReservationStep5 = ({
       insertReservation();
       insertReservationTicket();
       insertReservationType();
+      insertSpotsCamping();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
