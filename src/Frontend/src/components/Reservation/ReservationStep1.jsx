@@ -185,7 +185,7 @@ function ReservationStep1({
             Personal information
           </h2>
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2s">
-            <div className="mt-4 mb-8">
+            <div className="mt-4 mb-8 sm:mt-8">
               <InputButton
                 text="ID Number"
                 placeholderText=""

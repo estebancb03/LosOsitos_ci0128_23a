@@ -30,7 +30,7 @@ const Reservation = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation" />
-        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-16">
+        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10">
           <Container>
             <ReservationStep0
               windows={windows}
