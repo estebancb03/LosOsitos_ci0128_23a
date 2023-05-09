@@ -7,7 +7,7 @@ import axiosClient from "../../config/AxiosClient";
 import {
   formatDateDTDDMMYYYY,
   changeDateInISOFormat,
-  isDateAfterISO8601
+  isDateAfterISO8601,
 } from "../../helpers/formatDate";
 
 function ReservationStep1({
@@ -29,22 +29,41 @@ function ReservationStep1({
   const [disabled, setDisabled] = useState(false);
 
   const validation = () => {
-    if (
-      name != "" && regexName.test(name) &&
-      lastName != "" &&
-      age != "" &&
-      idNumber != "" && regexId.test(idNumber) &&
-      nationality != "" && regexName.test(nationality) &&
-      email != "" && regexEmail.test(email) &&
-      gender != "" &&
-      startDate != "" &&
-      endDate != "" &&
-      isDateAfterISO8601(startDate, endDate)
-    )
-      return true;
-    else return false;
+    const result = false;
+    if (reservationData.Reservation_Type == 1) {
+      if (
+        name != "" &&
+        regexName.test(name) &&
+        lastName != "" &&
+        age != "" &&
+        idNumber != "" &&
+        regexId.test(idNumber) &&
+        nationality != "" &&
+        regexName.test(nationality) &&
+        email != "" &&
+        regexEmail.test(email) &&
+        startDate != "" &&
+        endDate != "" &&
+        isDateAfterISO8601(startDate, endDate)
+      ) result = true;
+    } else {
+      if (
+        name != "" &&
+        regexName.test(name) &&
+        lastName != "" &&
+        age != "" &&
+        idNumber != "" &&
+        regexId.test(idNumber) &&
+        nationality != "" &&
+        regexName.test(nationality) &&
+        email != "" &&
+        regexEmail.test(email) &&
+        isDateAfterISO8601(startDate, endDate)
+      ) result = true;
+    }
+    return result;
   };
-  
+
   const matchGender = (gender) => {
     switch (gender) {
       case 0:
@@ -119,8 +138,9 @@ function ReservationStep1({
   };
 
   const updateReservationData = () => {
+    console.log(validation());
     if (validation()) {
-      const newReservationData = {...reservationData};
+      const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step1 = false;
       newWindows.Step2 = true;
@@ -131,7 +151,14 @@ function ReservationStep1({
       newReservationData.LastName2 = lastName2;
       newReservationData.Country_Name = nationality;
       newReservationData.Email = email;
-      newReservationData.Gender = gender === "Male" ? 0 : gender === "Female" ? 1 : gender === "Non-Binary" ? 2 : 3;
+      newReservationData.Gender =
+        gender === "Male"
+          ? 0
+          : gender === "Female"
+          ? 1
+          : gender === "Non-Binary"
+          ? 2
+          : 3;
       newReservationData.Birth_Date = age;
       newReservationData.Start_Date = startDate;
       newReservationData.End_Date = endDate;
@@ -150,7 +177,7 @@ function ReservationStep1({
     } else {
       alert("Incorrect data, check the information entered");
     }
-  }
+  };
 
   return (
     <>
@@ -225,24 +252,28 @@ function ReservationStep1({
                     onChangeFunction={setValue}
                   />
                 </div>
-                <div className="sm:-ml-2 -mt-4">
-                  <DatePickerButton
-                    text="Date of arrival"
-                    typeClass="1"
-                    type="startDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
-                <div className="sm:-ml-2 sm:mr-1 -mt-4">
-                  <DatePickerButton
-                    text="Date of departure"
-                    typeClass="1"
-                    type="endDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
                 <div className="mb-8">
                   <Button
                     text="Back"
@@ -317,24 +348,28 @@ function ReservationStep1({
                     onChangeFunction={setValue}
                   />
                 </div>
-                <div className="sm:-ml-2 -mt-4">
-                  <DatePickerButton
-                    text="Date of arrival"
-                    typeClass="1"
-                    type="startDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
-                <div className="sm:-ml-2 sm:mr-1 -mt-4">
-                  <DatePickerButton
-                    text="Date of departure"
-                    typeClass="1"
-                    type="endDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
                 <div className="mb-8">
                   <Button
                     text="Back"
@@ -414,24 +449,28 @@ function ReservationStep1({
                     onChangeFunction={setValue}
                   />
                 </div>
-                <div className="sm:-ml-2 -mt-4">
-                  <DatePickerButton
-                    text="Date of arrival"
-                    typeClass="1"
-                    type="startDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
-                <div className="sm:-ml-2 sm:mr-1 -mt-4">
-                  <DatePickerButton
-                    text="Date of departure"
-                    typeClass="1"
-                    type="endDate"
-                    disabled={false}
-                    onChangeFunction={setValue}
-                  />
-                </div>
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 -mt-4">
+                    <DatePickerButton
+                      text="Date of arrival"
+                      typeClass="1"
+                      type="startDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
+                {reservationData.Reservation_Type === 1 && (
+                  <div className="sm:-ml-2 sm:mr-1 -mt-4">
+                    <DatePickerButton
+                      text="Date of departure"
+                      typeClass="1"
+                      type="endDate"
+                      disabled={false}
+                      onChangeFunction={setValue}
+                    />
+                  </div>
+                )}
                 <div className="mb-8">
                   <Button
                     text="Back"

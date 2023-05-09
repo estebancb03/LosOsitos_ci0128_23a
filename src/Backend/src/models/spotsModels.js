@@ -22,4 +22,28 @@ const getAvailableSpotsByDates = async (req, res) => {
   }
 };
 
-export { getAvailableSpotsByDates };
+// Method that inserts a spot camping
+const insertSpotCamping = async (req, res) => {
+  try {
+    const {
+      ID_Client,
+      Reservation_Date,
+      Location_Spot,
+      Price
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price})`
+    );
+    res.status(200);
+    console.log("The insert to the Spot_Camping was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export { 
+  getAvailableSpotsByDates,
+  insertSpotCamping
+};
