@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
 
-import SideBarData from "../data/SideBarData";
+import SideBarData from "../../data/SideBarData";
 import SubMenu from "./SubMenu";
 
 const SideBarMenu = () => {
@@ -14,29 +14,27 @@ const SideBarMenu = () => {
 
   return (
     <div>
-      {
-        !sideBar ? (
-          <div className="top-0 right-0 fixed p-5">
-            <Link
-              to="#"
-              className="text-stone-50 text-3xl h-10 flex justify-end items-center"
-              onClick={showSideBar}
-            >
-              <FaIcons.FaBars />
-            </Link>
-          </div>
-        ) : (
+      {!sideBar ? (
+        <div className="top-0 right-0 absolute p-5">
           <Link
             to="#"
-            className="text-stone-50 mt-6 text-3xl h-10 fixed right-5 z-10"
+            className="text-stone-50 text-3xl h-10 flex justify-end items-center"
             onClick={showSideBar}
           >
-            <IoIcons.IoMdClose />
+            <FaIcons.FaBars />
           </Link>
-          )
-      }
+        </div>
+      ) : (
+        <Link
+          to="#"
+          className="text-stone-50 mt-6 text-3xl h-10 fixed right-5 z-10"
+          onClick={showSideBar}
+        >
+          <IoIcons.IoMdClose />
+        </Link>
+      )}
       <div
-        className={`bg-[#21295c] top-0 right-0 fixed w-96 h-full p-5 ${
+        className={`bg-[#21295c] top-0 right-0 fixed w-96 sm:w-60 h-full p-5 ${
           sideBar ? "translate-x-0" : "translate-x-full"
         } ease-in-out duration-300`}
       >
