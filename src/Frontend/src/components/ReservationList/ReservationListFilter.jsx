@@ -39,8 +39,12 @@ const ReservationListFilter = ({
 
   // Method that search if the reservation have x service
   const findServiceInReservation = (reservationID, serviceName) => {
-    const filteredByReservationID = services.filter((service) => (service.ID_Client + service.Reservation_Date) == reservationID);
-    const filtered = filteredByReservationID.filter((service) => service.Name_Service == serviceName);
+    const filteredByReservationID = services.filter(
+      (service) => service.ID_Client + service.Reservation_Date == reservationID
+    );
+    const filtered = filteredByReservationID.filter(
+      (service) => service.Name_Service == serviceName
+    );
     return filtered.length > 0 ? true : false;
   };
 
@@ -112,8 +116,12 @@ const ReservationListFilter = ({
     // Filter by service
     const serviceFilterResults =
       filters.service !== null
-        ? reservationData.filter((record) =>
-            findServiceInReservation((record.ID + record.Reservation_Date), filters.service) == true
+        ? reservationData.filter(
+            (record) =>
+              findServiceInReservation(
+                record.ID + record.Reservation_Date,
+                filters.service
+              ) == true
           )
         : reservationData;
     // Filter by start date
