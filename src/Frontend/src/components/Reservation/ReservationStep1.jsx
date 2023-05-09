@@ -29,8 +29,8 @@ function ReservationStep1({
   const [disabled, setDisabled] = useState(false);
 
   const validation = () => {
-    const result = false;
-    if (reservationData.Reservation_Type == 1) {
+    let result = false;
+    if (reservationData.Reservation_Type === 1) {
       if (
         name != "" &&
         regexName.test(name) &&
@@ -46,7 +46,7 @@ function ReservationStep1({
         endDate != "" &&
         isDateAfterISO8601(startDate, endDate)
       ) result = true;
-    } else {
+    } else {  
       if (
         name != "" &&
         regexName.test(name) &&
@@ -57,8 +57,7 @@ function ReservationStep1({
         nationality != "" &&
         regexName.test(nationality) &&
         email != "" &&
-        regexEmail.test(email) &&
-        isDateAfterISO8601(startDate, endDate)
+        regexEmail.test(email)
       ) result = true;
     }
     return result;
@@ -138,7 +137,6 @@ function ReservationStep1({
   };
 
   const updateReservationData = () => {
-    console.log(validation());
     if (validation()) {
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
