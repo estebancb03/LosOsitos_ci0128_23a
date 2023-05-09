@@ -120,6 +120,7 @@ const ReservationStep5 = ({
           Reservation_Date,
         });
       } else {
+        //console.log('Camping!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         const url = "/camping";
         await AxiosClient.post(url, {
           ID_Client: ID,
@@ -157,9 +158,33 @@ const ReservationStep5 = ({
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
+    newReservationData.QRData = {
+      data: newReservationData.ID + newReservationData.Reservation_Date,
+      mail: newReservationData.Email,
+      text: reservationData
+    };
     setWindows(newWindows);
     setReservationData(newReservationData);
+    console.log('correo');
+    sendQRData(newReservationData.QRData);
   };
+
+
+
+  // Method to send data to be emailed
+  const sendQRData = async (value) => {
+    try {
+      console.log(value);
+      const data = value;
+      const url = "/mail";
+      await AxiosClient.post(url, {
+        data,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
 
   return (
     <>
