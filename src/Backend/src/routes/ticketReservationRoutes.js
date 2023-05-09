@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { insertReservationTicket } from "../models/ticketReservationModel";
+import { insertReservationTicket } from "../models/ticketReservationModel.js";
 
 const router = Router();
 

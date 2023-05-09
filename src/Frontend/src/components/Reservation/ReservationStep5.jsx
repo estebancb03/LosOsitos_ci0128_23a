@@ -65,6 +65,33 @@ const ReservationStep5 = ({
     }
   };
 
+  // Method that inserts a reservation ticket
+  const insertReservationTicket = async () => {
+    try {
+      const { 
+        ID, 
+        Reservation_Date,
+        Tickets 
+      } = reservationData;
+      const url = "/reservationTicket";
+      await Promise.all(
+        Tickets.map(async (ticket) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Age_Range: ticket.Age_Range,
+            Demographic_Group: ticket.Demographic_Group,
+            Reservation_Type: ticket.Reservation_Type,
+            Price: ticket.Price,
+            Amount: ticket.Amount
+          });
+        })
+      );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const updateReservationData = (method) => {
     const newReservationData = { ...reservationData };
     const newWindows = { ...windows };
@@ -82,6 +109,7 @@ const ReservationStep5 = ({
       insertPerson();
       insertClient();
       insertReservation();
+      insertReservationTicket();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
