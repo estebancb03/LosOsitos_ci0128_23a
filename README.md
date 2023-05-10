@@ -15,25 +15,37 @@ La aplicación web en cuestión debe de contar con las siguientes funcionalidade
 * Mapa de ocupación: entradas programadas y realizadas en los espacios de la zona de camping y camper
 * Módulo de filtros o reporte de datos: estadísticas y gráficos respecto a las distintas variables de interés
 
+## Manual de usuario
+
+### Instalación de dependencias
+
+Dentro de los directorios ```src/Frontend``` y ```src/Backend``` ejecute el siguiente comando, con la finalidad de instalar los paquetes necesarios para la ejecución de las aplicaciones:
+
+```
+npm install
+```
+
+### Ejecución del código
+
+Este proyecto está desarrollado como dos aplicaciones diferentes, una que maneja el frontend y otra el backend. Para ejecutar el frontend debde dirigirse a la carpeta **Frontend** y ejecutar el siguiente comando:
+
+```
+npm run dev
+```
+
+Con esto el frontend comenzará a correr en el siguiente en ```http://localhost:5173/```.
+
+De la misma forma, para ejecutar la aplicación backend, diríjase a la carpera **Backend** y ejecute el siguiente comando:
+
+```
+npm run dev
+```
+
+Lo anterior hará que la aplicación del backend se empiece a ejecutar en ```http://localhost:3000/```. Es necesario recalcar que para que el sistema funcione correctamente ambas aplicaciones deben estar ejecutandose a la vez.
+
 ## Diseño de la aplicación
 
 La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.
-
-## Ejecución del código
-
-Este proyecto está desarrollado como dos aplicaciones diferentes, una que maneja el frontend y otra el backend. Para ejecutar el frontend debde dirigirse a la carpeta ```Frontend``` y ejecutar el siguiente comando:
-
-```
-npm run dev
-```
-
-Con esto el frontend comenzará a correr en el siguiente en ```http://localhost:5173/``` .De la misma forma, para ejecutar la aplicación backend, diríjase a la carpera ```Backend``` y ejecute el siguiente comando:
-
-```
-npm run dev
-```
-
-Lo anterior hará que la aplicación del backend se empiece a ejecutar en ```http://localhost:3000/api``` . Es necesario recalcar que para que el sistema funcione correctamente ambas aplicaciones deben estar ejecutandose a la vez.
 
 ### Mockup
 
@@ -55,4 +67,10 @@ Para más información, refierase al directorio [database](design/database/).
 
 ### Terceros
 
+* [Axios](https://axios-http.com/)
+* [ExpressJS](https://expressjs.com)
 * [Figma](https://www.figma.com/)
+* [NodeMailer](https://nodemailer.com/about/)
+* [Node-QRCode](https://github.com/soldair/node-qrcode)
+* [Tailwind](https://tailwindcss.com/)
+* [Vite](https://vitejs.dev/)
