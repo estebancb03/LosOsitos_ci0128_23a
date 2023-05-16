@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Reservation from "./pages/Reservation";
+import ReservationList2 from "./pages/ReservationList2";
 
 import 'filepond/dist/filepond.min.css';
 
@@ -20,13 +21,13 @@ const App = () => {
         //Private access operator routes
         <Route path="/operator">
           <Route index element={<Home />} />
-          <Route path="reservation-list" element={<ReservationList />} />
+          <Route path="reservation-list" element={<ReservationList2 />} />
           <Route path="reservation" element={<Reservation />} />
         </Route>
         //Private access admin routes
         <Route path="/admin">
           <Route index element={<Home />} />
-          <Route path="reservation-list" element={<ReservationList />} />
+          <Route path="reservation-list" element={<ReservationList2 />} />
           <Route path="reservation" element={<Reservation />} />
         </Route>
       </Routes>
