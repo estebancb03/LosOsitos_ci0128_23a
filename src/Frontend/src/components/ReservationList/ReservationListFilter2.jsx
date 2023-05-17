@@ -68,11 +68,16 @@ const ReservationListFilter2 = (props) => {
     setCurrentReservations(filteredReservations);
   };
 
+  // Method that reset the page
+  const reset = () => {
+    window.location.reload(true);
+  };
+
   return (
     <>
       <FiltersContainer
         applyFunction={apply}
-        restartFunction={() => {}}
+        restartFunction={reset}
       >
         <span className="sm:mr-3">
           <DropDownSelect
