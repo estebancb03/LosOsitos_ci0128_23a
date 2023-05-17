@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
-import AxiosClient from "../../config/AxiosClient";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
+import useUpdateReservation from "../../hooks/useUpdateReservation";
 import ReservationListAddVehicles from "./ReservationListAddVehicles";
 import {
   formatDateDTDDMMYYYY,
@@ -14,203 +14,20 @@ import {
   changeHourInISOFormat,
 } from "../../helpers/formatDate";
 
-const ReservationListModal = ({
-  currentRecord,
-  setCurrentRecord,
-  viewModal,
-  setViewModal,
-}) => {
+const ReservationListModal = (props) => {
+  // Props
+  const {
+    currentRecord,
+    setCurrentRecord,
+    viewModal,
+    setViewModal,
+  } = props;
   // State that controls the modify button in the popup
   const [modifyButton, setModifyButton] = useState("Modify");
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-
-  // Method that inserts a new vehicle
-  const insertNewVehicle = async () => {
-    try {
-      const { ID, Reservation_Date, NewVehicles } = currentRecord;
-      const url = '/reservation-list/insertVehicle';
-      await Promise.all(
-        NewVehicles.map(async (vehicle, index) => {
-          await AxiosClient.post(url, {
-            ID,
-            Reservation_Date,
-            ID_Vehicle: currentRecord.NewVehicles[index],
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the services
-  const updateServices = async () => {
-    try {
-      const { ID, Reservation_Date, Services } = currentRecord;
-      const url = `/reservation-list/getServicesByReservationID/${ID}/${Reservation_Date}`;
-      const { data } = await AxiosClient.get(url);
-      const url2 = "/reservation-list/updateService";
-      await Promise.all(
-        data.map(async (service, index) => {
-          await AxiosClient.put(url2, {
-            ID,
-            Reservation_Date,
-            Name_Service: service.Name_Service,
-            Schedule: currentRecord.Services[index].Schedule,
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the tickets
-  const updateTickets = async () => {
-    try {
-      const { ID, Reservation_Date, Tickets } = currentRecord;
-      const url = `/reservation-list/getTicketsByReservationID/${ID}/${Reservation_Date}`;
-      const { data } = await AxiosClient.get(url);
-      let parsedTickets = [];
-      Tickets.map((ticket) => {
-        ticket.Age_Range = parseInt(ticket.Age_Range);
-        ticket.Demographic_Group = parseInt(ticket.Demographic_Group);
-        ticket.Amount = parseInt(ticket.Amount);
-        parsedTickets.push(ticket);
-      });
-      const url2 = "/reservation-list/updateTicket";
-      await Promise.all(
-        data.map(async (ticket, index) => {
-          await AxiosClient.put(url2, {
-            ID,
-            Reservation_Date,
-            Age_Range: ticket.Age_Range,
-            Amount: ticket.Amount,
-            Demographic_Group: ticket.Demographic_Group,
-            newAmount: parsedTickets[index].Amount,
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the spots
-  const updateSpots = async () => {
-    try {
-      const { ID, Reservation_Date, Spots } = currentRecord;
-      const url = `/reservation-list/getSpotsByReservationID/${ID}/${Reservation_Date}`;
-      const { data } = await AxiosClient.get(url);
-      let oldSpots = [];
-      let spotsToChange = [];
-      data.map((spot, index) => oldSpots.push(spot.Location_Spot));
-      Spots.map((spot, index) => {
-        if (!oldSpots.includes(parseInt(spot.Location_Spot)))
-          spotsToChange.push(index);
-      });
-      const url2 = "/reservation-list/updateSpot";
-      await Promise.all(
-        spotsToChange.map(async (spot) => {
-          await AxiosClient.put(url2, {
-            ID,
-            Reservation_Date,
-            oldLocation_Spot: oldSpots[spot],
-            newLocation_Spot: parseInt(Spots[spot].Location_Spot),
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the vehicles
-  const updateVehicles = async () => {
-    try {
-      const { ID, Reservation_Date, Vehicles } = currentRecord;
-      const url = `/reservation-list/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
-      const { data } = await AxiosClient.get(url);
-      let oldVehicles = [];
-      let vehiclesToChange = [];
-      data.map((vehicle, index) => oldVehicles.push(vehicle.ID_Vehicle));
-      Vehicles.map((vehicle, index) => {
-        if (!oldVehicles.includes(vehicle)) vehiclesToChange.push(index);
-      });
-      const url2 = "/reservation-list/updateVehicle";
-      await Promise.all(
-        vehiclesToChange.map(async (vehicle) => {
-          await AxiosClient.put(url2, {
-            ID,
-            Reservation_Date,
-            oldID_Vehicle: oldVehicles[vehicle],
-            newID_Vehicle: Vehicles[vehicle],
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the costumer data
-  const updatePersonData = async () => {
-    try {
-      const {
-        ID,
-        Reservation_Date,
-        Name,
-        LastName1,
-        LastName2,
-        Email,
-        Country_Name,
-      } = currentRecord;
-      const url = "/reservation-list/updatePersonData";
-      await AxiosClient.put(url, {
-        ID,
-        Reservation_Date,
-        Name,
-        LastName1,
-        LastName2,
-        Email,
-        Country_Name,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the data of a camping dates
-  const updateStartEndDates = async () => {
-    try {
-      const { ID, Reservation_Date, Start_Date, End_Date } = currentRecord;
-      const url = "/reservation-list/updateStartEndDates";
-      await AxiosClient.put(url, {
-        ID,
-        Reservation_Date,
-        Start_Date,
-        End_Date,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that updates the data of a camping dates
-  const updateState = async () => {
-    try {
-      const { ID, Reservation_Date, State } = currentRecord;
-      const url = "/reservation-list/updateState";
-      await AxiosClient.put(url, {
-        ID,
-        Reservation_Date,
-        State,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  // Hook that updates the reservation
+  const { updateReservation } = useUpdateReservation(currentRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -239,7 +56,7 @@ const ReservationListModal = ({
   };
 
   // Method that validates what part of the state to modify
-  const changeRecordInfo = (type, value) => {
+  const changeCurrentRecordData = (type, value) => {
     const newRecord = { ...currentRecord };
     if (Array.isArray(type)) {
       if (type[0] === "vehicles") {
@@ -318,18 +135,10 @@ const ReservationListModal = ({
         {
           <Button
             text={modifyButton}
-            onclickFunction={() => {
+            onclickFunction={ () => {
               modifyHandleClick();
-              if (modifyButton === "Save changes") {
-                updatePersonData();
-                updateServices();
-                updateTickets();
-                updateState();
-                insertNewVehicle();
-                if (currentRecord.Reservation_Type == 1) updateStartEndDates();
-                if (currentRecord.Vehicles) updateVehicles();
-                if (currentRecord.Spots) updateSpots();
-              }
+              if (modifyButton === "Save changes")
+                updateReservation();
             }}
           />
         }
@@ -348,7 +157,7 @@ const ReservationListModal = ({
           selectedOption={currentRecord.State === 0 ? "Pending" : "Approved"}
           disabled={disabledElements}
           typeChange="State"
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 my-7">
@@ -374,14 +183,14 @@ const ReservationListModal = ({
           type="ID"
           placeholderText={currentRecord.ID}
           disabled={true}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
         <InputButton
           text="Name"
           type="Name"
           placeholderText={currentRecord.Name}
           disabled={disabledElements}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
       </div>
       <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-6">
@@ -390,14 +199,14 @@ const ReservationListModal = ({
           type="Lastname1"
           placeholderText={currentRecord.LastName1}
           disabled={disabledElements}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
         <InputButton
           text="Lastname 2"
           type="Lastname2"
           placeholderText={currentRecord.LastName2}
           disabled={disabledElements}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
       </div>
       <div className="mt-6">
@@ -406,7 +215,7 @@ const ReservationListModal = ({
           type="Email"
           placeholderText={currentRecord.Email}
           disabled={disabledElements}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
       </div>
       <div className="mt-6 mb-8">
@@ -415,7 +224,7 @@ const ReservationListModal = ({
           type="Country_Name"
           placeholderText={currentRecord.Country_Name}
           disabled={disabledElements}
-          onChangeFunction={changeRecordInfo}
+          onChangeFunction={changeCurrentRecordData}
         />
       </div>
       {currentRecord.Reservation_Type === 1 ? (
@@ -427,7 +236,7 @@ const ReservationListModal = ({
               type="Start_Date"
               disabled={disabledElements}
               selectedDate={new Date(currentRecord.Start_Date)}
-              onChangeFunction={changeRecordInfo}
+              onChangeFunction={changeCurrentRecordData}
             />
           </span>
           <span className="mr-2">
@@ -437,7 +246,7 @@ const ReservationListModal = ({
               type="End_Date"
               disabled={disabledElements}
               selectedDate={new Date(currentRecord.End_Date)}
-              onChangeFunction={changeRecordInfo}
+              onChangeFunction={changeCurrentRecordData}
             />
           </span>
         </div>
@@ -466,7 +275,7 @@ const ReservationListModal = ({
                       type={["tickets", "amount", index]}
                       placeholderText={ticket.Amount}
                       disabled={disabledElements}
-                      onChangeFunction={changeRecordInfo}
+                      onChangeFunction={changeCurrentRecordData}
                     />
                   </div>
                 </div>
@@ -490,7 +299,7 @@ const ReservationListModal = ({
                 type={["spots", index]}
                 placeholderText={spot.Location_Spot}
                 disabled={disabledElements}
-                onChangeFunction={changeRecordInfo}
+                onChangeFunction={changeCurrentRecordData}
               />
             </span>
           ))}
@@ -519,7 +328,7 @@ const ReservationListModal = ({
                     disabled={disabledElements}
                     type={["services", "date", index]}
                     selectedDate={new Date(service.Schedule)}
-                    onChangeFunction={changeRecordInfo}
+                    onChangeFunction={changeCurrentRecordData}
                   />
                 </span>
                 <div className="mt- sm:-mt-4">
@@ -530,7 +339,7 @@ const ReservationListModal = ({
                     )}
                     disabled={disabledElements}
                     typeChange={["services", "hour", index]}
-                    onChangeFunction={changeRecordInfo}
+                    onChangeFunction={changeCurrentRecordData}
                   />
                 </div>
               </div>
@@ -551,9 +360,9 @@ const ReservationListModal = ({
             <InputButton
               key={index}
               type={["vehicles", index]}
-              placeholderText={vehicle}
+              placeholderText={vehicle.ID_Vehicle}
               disabled={disabledElements}
-              onChangeFunction={changeRecordInfo}
+              onChangeFunction={changeCurrentRecordData}
             />
           ))}
       </div>

@@ -40,7 +40,7 @@ const ReservationList = () => {
     const result = currentReservations.filter((reservation) =>
       reservation.ID === ID && reservation.Reservation_Date === Reservation_Date
     );
-    setSelectedReservation(result);
+    setSelectedReservation(result[0]);
     setViewModal(true);
   };
 
