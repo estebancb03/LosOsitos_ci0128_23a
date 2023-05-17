@@ -15,8 +15,8 @@ import {
 } from "../../helpers/formatDate";
 
 const ReservationListModal = ({
-  mainRecordInfo,
-  setMainRecordInfo,
+  currentRecord,
+  setCurrentRecord,
   viewModal,
   setViewModal,
 }) => {
@@ -28,14 +28,14 @@ const ReservationListModal = ({
   // Method that inserts a new vehicle
   const insertNewVehicle = async () => {
     try {
-      const { ID, Reservation_Date, NewVehicles } = mainRecordInfo;
+      const { ID, Reservation_Date, NewVehicles } = currentRecord;
       const url = '/reservation-list/insertVehicle';
       await Promise.all(
         NewVehicles.map(async (vehicle, index) => {
           await AxiosClient.post(url, {
             ID,
             Reservation_Date,
-            ID_Vehicle: mainRecordInfo.NewVehicles[index],
+            ID_Vehicle: currentRecord.NewVehicles[index],
           });
         })
       );
@@ -47,7 +47,7 @@ const ReservationListModal = ({
   // Method that updates the services
   const updateServices = async () => {
     try {
-      const { ID, Reservation_Date, Services } = mainRecordInfo;
+      const { ID, Reservation_Date, Services } = currentRecord;
       const url = `/reservation-list/getServicesByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       const url2 = "/reservation-list/updateService";
@@ -57,7 +57,7 @@ const ReservationListModal = ({
             ID,
             Reservation_Date,
             Name_Service: service.Name_Service,
-            Schedule: mainRecordInfo.Services[index].Schedule,
+            Schedule: currentRecord.Services[index].Schedule,
           });
         })
       );
@@ -69,7 +69,7 @@ const ReservationListModal = ({
   // Method that updates the tickets
   const updateTickets = async () => {
     try {
-      const { ID, Reservation_Date, Tickets } = mainRecordInfo;
+      const { ID, Reservation_Date, Tickets } = currentRecord;
       const url = `/reservation-list/getTicketsByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let parsedTickets = [];
@@ -100,7 +100,7 @@ const ReservationListModal = ({
   // Method that updates the spots
   const updateSpots = async () => {
     try {
-      const { ID, Reservation_Date, Spots } = mainRecordInfo;
+      const { ID, Reservation_Date, Spots } = currentRecord;
       const url = `/reservation-list/getSpotsByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let oldSpots = [];
@@ -129,7 +129,7 @@ const ReservationListModal = ({
   // Method that updates the vehicles
   const updateVehicles = async () => {
     try {
-      const { ID, Reservation_Date, Vehicles } = mainRecordInfo;
+      const { ID, Reservation_Date, Vehicles } = currentRecord;
       const url = `/reservation-list/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let oldVehicles = [];
@@ -165,7 +165,7 @@ const ReservationListModal = ({
         LastName2,
         Email,
         Country_Name,
-      } = mainRecordInfo;
+      } = currentRecord;
       const url = "/reservation-list/updatePersonData";
       await AxiosClient.put(url, {
         ID,
@@ -184,7 +184,7 @@ const ReservationListModal = ({
   // Method that updates the data of a camping dates
   const updateStartEndDates = async () => {
     try {
-      const { ID, Reservation_Date, Start_Date, End_Date } = mainRecordInfo;
+      const { ID, Reservation_Date, Start_Date, End_Date } = currentRecord;
       const url = "/reservation-list/updateStartEndDates";
       await AxiosClient.put(url, {
         ID,
@@ -200,7 +200,7 @@ const ReservationListModal = ({
   // Method that updates the data of a camping dates
   const updateState = async () => {
     try {
-      const { ID, Reservation_Date, State } = mainRecordInfo;
+      const { ID, Reservation_Date, State } = currentRecord;
       const url = "/reservation-list/updateState";
       await AxiosClient.put(url, {
         ID,
@@ -240,7 +240,7 @@ const ReservationListModal = ({
 
   // Method that validates what part of the state to modify
   const changeRecordInfo = (type, value) => {
-    const newRecord = { ...mainRecordInfo };
+    const newRecord = { ...currentRecord };
     if (Array.isArray(type)) {
       if (type[0] === "vehicles") {
         const newVehicles = [...newRecord.Vehicles];
@@ -309,7 +309,7 @@ const ReservationListModal = ({
         newRecord.State = value === "Pending" ? 0 : 1;
       }
     }
-    setMainRecordInfo(newRecord);
+    setCurrentRecord(newRecord);
   };
 
   return (
@@ -326,9 +326,9 @@ const ReservationListModal = ({
                 updateTickets();
                 updateState();
                 insertNewVehicle();
-                if (mainRecordInfo.Reservation_Type == 1) updateStartEndDates();
-                if (mainRecordInfo.Vehicles) updateVehicles();
-                if (mainRecordInfo.Spots) updateSpots();
+                if (currentRecord.Reservation_Type == 1) updateStartEndDates();
+                if (currentRecord.Vehicles) updateVehicles();
+                if (currentRecord.Spots) updateSpots();
               }
             }}
           />
@@ -338,14 +338,14 @@ const ReservationListModal = ({
         <InputButton
           text="Reservation Date"
           placeholderText={formatDateDTDDMMYYYY(
-            mainRecordInfo.Reservation_Date
+            currentRecord.Reservation_Date
           )}
           disabled={true}
         />
         <DropDownSelect
           text="State"
           options={["Pending", "Approved"]}
-          selectedOption={mainRecordInfo.State === 0 ? "Pending" : "Approved"}
+          selectedOption={currentRecord.State === 0 ? "Pending" : "Approved"}
           disabled={disabledElements}
           typeChange="State"
           onChangeFunction={changeRecordInfo}
@@ -355,14 +355,14 @@ const ReservationListModal = ({
         <InputButton
           text="Type"
           placeholderText={
-            mainRecordInfo.Reservation_Type == 0 ? "Picnic" : "Camping"
+            currentRecord.Reservation_Type == 0 ? "Picnic" : "Camping"
           }
           disabled={true}
         />
         <InputButton
           text="Method"
           placeholderText={
-            mainRecordInfo.Reservation_Method == 0 ? "Online" : "In site"
+            currentRecord.Reservation_Method == 0 ? "Online" : "In site"
           }
           disabled={true}
         />
@@ -372,14 +372,14 @@ const ReservationListModal = ({
         <InputButton
           text="Customer ID"
           type="ID"
-          placeholderText={mainRecordInfo.ID}
+          placeholderText={currentRecord.ID}
           disabled={true}
           onChangeFunction={changeRecordInfo}
         />
         <InputButton
           text="Name"
           type="Name"
-          placeholderText={mainRecordInfo.Name}
+          placeholderText={currentRecord.Name}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -388,14 +388,14 @@ const ReservationListModal = ({
         <InputButton
           text="Lastname 1"
           type="Lastname1"
-          placeholderText={mainRecordInfo.LastName1}
+          placeholderText={currentRecord.LastName1}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
         <InputButton
           text="Lastname 2"
           type="Lastname2"
-          placeholderText={mainRecordInfo.LastName2}
+          placeholderText={currentRecord.LastName2}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -404,7 +404,7 @@ const ReservationListModal = ({
         <InputButton
           text="Email"
           type="Email"
-          placeholderText={mainRecordInfo.Email}
+          placeholderText={currentRecord.Email}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
@@ -413,12 +413,12 @@ const ReservationListModal = ({
         <InputButton
           text="Nationality"
           type="Country_Name"
-          placeholderText={mainRecordInfo.Country_Name}
+          placeholderText={currentRecord.Country_Name}
           disabled={disabledElements}
           onChangeFunction={changeRecordInfo}
         />
       </div>
-      {mainRecordInfo.Reservation_Type === 1 ? (
+      {currentRecord.Reservation_Type === 1 ? (
         <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mb-8">
           <span className="">
             <DatePickerButton
@@ -426,7 +426,7 @@ const ReservationListModal = ({
               typeClass="2"
               type="Start_Date"
               disabled={disabledElements}
-              selectedDate={new Date(mainRecordInfo.Start_Date)}
+              selectedDate={new Date(currentRecord.Start_Date)}
               onChangeFunction={changeRecordInfo}
             />
           </span>
@@ -436,7 +436,7 @@ const ReservationListModal = ({
               typeClass="2"
               type="End_Date"
               disabled={disabledElements}
-              selectedDate={new Date(mainRecordInfo.End_Date)}
+              selectedDate={new Date(currentRecord.End_Date)}
               onChangeFunction={changeRecordInfo}
             />
           </span>
@@ -448,8 +448,8 @@ const ReservationListModal = ({
         Tickets
       </label>
       <div className="grid grid-cols-1 mt-2">
-        {mainRecordInfo.Tickets &&
-          mainRecordInfo.Tickets.map((ticket, index) => (
+        {currentRecord.Tickets &&
+          currentRecord.Tickets.map((ticket, index) => (
             <div key={index} className="flex">
               <div className="bg-gray-100 w-[500px] rounded-sm my-2">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
@@ -474,7 +474,7 @@ const ReservationListModal = ({
             </div>
           ))}
       </div>
-      {mainRecordInfo.Spots && mainRecordInfo.Spots.length != 0 ? (
+      {currentRecord.Spots && currentRecord.Spots.length != 0 ? (
         <label className="block text-xl font-semibold leading-6 text-gray-900 mt-5">
           Spots
         </label>
@@ -482,8 +482,8 @@ const ReservationListModal = ({
         <label className="block text-xl font-semibold leading-6 text-gray-900 mt-5"></label>
       )}
       <div className="grid grid-cols-2 mt-2 mb-3">
-        {mainRecordInfo.Spots &&
-          mainRecordInfo.Spots.map((spot, index) => (
+        {currentRecord.Spots &&
+          currentRecord.Spots.map((spot, index) => (
             <span key={index} className="mx-1">
               <InputButton
                 key={index}
@@ -495,7 +495,7 @@ const ReservationListModal = ({
             </span>
           ))}
       </div>
-      {mainRecordInfo.Reservation_Type === 0 ? (
+      {currentRecord.Reservation_Type === 0 ? (
         <label className="block text-xl font-semibold leading-6 text-gray-900">
           Services
         </label>
@@ -504,8 +504,8 @@ const ReservationListModal = ({
           Services
         </label>
       )}
-      {mainRecordInfo.Services &&
-        mainRecordInfo.Services.map((service, index) => (
+      {currentRecord.Services &&
+        currentRecord.Services.map((service, index) => (
           <div key={index} className="flex">
             <div className="bg-gray-100 w-full rounded-sm my-2">
               <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
@@ -542,12 +542,12 @@ const ReservationListModal = ({
       </label>
       <ReservationListAddVehicles
         disabledElements={disabledElements}
-        mainRecordInfo={mainRecordInfo}
-        setMainRecordInfo={setMainRecordInfo}
+        currentRecord={currentRecord}
+        setCurrentRecord={setCurrentRecord}
       />
       <div className="grid grid-cols-2 mb-5">
-        {mainRecordInfo.Vehicles &&
-          mainRecordInfo.Vehicles.map((vehicle, index) => (
+        {currentRecord.Vehicles &&
+          currentRecord.Vehicles.map((vehicle, index) => (
             <InputButton
               key={index}
               type={["vehicles", index]}

@@ -3,27 +3,27 @@ import InputButton from "../Buttons/InputButton";
 
 const ReservationListAddVehicles = ({
   disabledElements,
-  mainRecordInfo,
-  setMainRecordInfo,
+  currentRecord,
+  setCurrentRecord,
 }) => {
   // Method that adds a input and a "" to the array
   const addVehicle = () => {
-    const newMainRecordInfo = { ...mainRecordInfo };
-    let vehicles = [...mainRecordInfo.NewVehicles];
+    const newMainRecordInfo = { ...currentRecord };
+    let vehicles = [...currentRecord.NewVehicles];
     vehicles = [...vehicles, ""];
     newMainRecordInfo.NewVehicles = vehicles;
-    setMainRecordInfo(newMainRecordInfo);
+    setCurrentRecord(newMainRecordInfo);
   };
 
   // Method that modify the mainRecordInfo
   const modifyVehicle = (type, value) => {
-    const newRecord = { ...mainRecordInfo };
+    const newRecord = { ...currentRecord };
     if (type[0] === "newVehicles") {
       const newVehicles = [...newRecord.NewVehicles];
       newVehicles[type[1]] = value;
       newRecord.NewVehicles = newVehicles;
     }
-    setMainRecordInfo(newRecord);
+    setCurrentRecord(newRecord);
   };
 
   return (
@@ -37,8 +37,8 @@ const ReservationListAddVehicles = ({
         />
       </div>
       <div className="grid grid-cols-2">
-        {mainRecordInfo.NewVehicles &&
-          mainRecordInfo.NewVehicles.map((vehicle, index) => (
+        {currentRecord.NewVehicles &&
+          currentRecord.NewVehicles.map((vehicle, index) => (
             <InputButton
               key={index}
               type={["newVehicles", index]}
