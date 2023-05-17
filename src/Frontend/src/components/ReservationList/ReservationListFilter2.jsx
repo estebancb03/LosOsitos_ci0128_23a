@@ -64,13 +64,12 @@ const ReservationListFilter2 = (props) => {
   // Method that apply the filters
   const apply = () => {
     const filteredReservations = handleFilter(filters);
-    console.log(filteredReservations);
     setCurrentReservations(filteredReservations);
   };
 
   // Method that reset the page
   const reset = () => {
-    window.location.reload(true);
+    window.location.reload();
   };
 
   return (

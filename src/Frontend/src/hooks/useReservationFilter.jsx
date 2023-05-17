@@ -14,7 +14,7 @@ const useReservationFilter = (reservations) => {
       return filter1.reduce((acc, curr) => {
         const match = filter2.find(
           (record) =>
-            record.ID + record.Reservation_Date ==
+            record.ID + record.Reservation_Date ===
             curr.ID + curr.Reservation_Date
         );
         if (match) acc.push(curr);
@@ -25,30 +25,28 @@ const useReservationFilter = (reservations) => {
 
   // Method that search if the reservation have x service
   const findServiceInReservation = (services, reservationID, serviceName) => {
-    const filteredByReservationID = services.filter(
-      (service) => service.ID_Client + service.Reservation_Date == reservationID
-    );
-    const filtered = filteredByReservationID.filter(
-      (service) => service.Name_Service == serviceName
-    );
-    return filtered.length > 0 ? true : false;
+    if (services !== null) {
+      const filtered = services.filter(
+        (service) => service.Name_Service === serviceName
+      );
+      return filtered.length > 0;
+    }
   };
 
   const handleFilter = (filters) => {
-    console.log(filters);
     // Filter by type
     const typeFilterResults =
       filters.Reservation_Type !== null &&
       filters.Reservation_Type !== undefined
         ? reservations.filter(
-            (record) => record.Reservation_Type == filters.Reservation_Type
+            (record) => record.Reservation_Type === filters.Reservation_Type
           )
         : reservations;
     // Filter by method
     const methodFilterResults =
       filters.Reservation_Method !== null
         ? reservations.filter(
-            (record) => record.Reservation_Method == filters.Reservation_Method
+            (record) => record.Reservation_Method === filters.Reservation_Method
           )
         : reservations;
     // Filter by service
@@ -57,10 +55,10 @@ const useReservationFilter = (reservations) => {
         ? reservations.filter(
             (record) =>
               findServiceInReservation(
-                reservations.Services,
+                record.Services,
                 record.ID + record.Reservation_Date,
                 filters.Service
-              ) == true
+              )
           )
         : reservations;
     // Filter by start date
@@ -68,7 +66,7 @@ const useReservationFilter = (reservations) => {
       filters.Start_Date !== null && filters.Start_Date !== undefined
         ? reservations.filter(
             (record) =>
-              formatDateDTMMDDYYYY(record.Start_Date) ==
+              formatDateDTMMDDYYYY(record.Start_Date) ===
               addZerosToDate(filters.Start_Date)
           )
         : reservations;
@@ -77,14 +75,14 @@ const useReservationFilter = (reservations) => {
       filters.End_Date !== null && filters.End_Date !== undefined
         ? reservations.filter(
             (record) =>
-              formatDateDTMMDDYYYY(record.End_Date) ==
+              formatDateDTMMDDYYYY(record.End_Date) ===
               addZerosToDate(filters.End_Date)
           )
         : reservations;
     // Filter by customer id
     const customerIdFilterResults =
       filters.ID !== null && filters.ID !== undefined
-        ? reservations.filter((record) => record.ID.trim() == filters.ID)
+        ? reservations.filter((record) => record.ID.trim() === filters.ID)
         : reservations;
 
     // Intersections between the filters results
@@ -98,12 +96,8 @@ const useReservationFilter = (reservations) => {
       endDateFilterResult
     );
     const intersectionTMSC = intersection(intersectionTM, intersectionSC);
-    const intersectionTMSCSdEd = intersection(
-      intersectionTMSC,
-      intersectionSdEd
-    );
     // The table items are updated
-    return intersectionTMSCSdEd;
+    return intersection(intersectionTMSC, intersectionSdEd);
   };
 
   return { handleFilter };
