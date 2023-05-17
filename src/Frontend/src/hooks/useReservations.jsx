@@ -83,6 +83,7 @@ const useReservations = () => {
       reservation.Tickets = Tickets.length !== 0 ? Tickets : null;
       reservation.Services = Services.length !== 0 ? Services : null;
       reservation.Vehicles = Vehicles.length !== 0 ? Vehicles : null;
+      reservation.NewVehicles = [];
     });
     setReservations(formattedReservations);
   };
