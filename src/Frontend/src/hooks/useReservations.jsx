@@ -18,7 +18,7 @@ const useReservations = () => {
   // Method that gets the records
   const fetchReservations = async () => {
     try {
-      const url = "/reservation-list/getAllRecords";
+      const url = "/getAllRecords";
       const records = await AxiosClient.get(url);
       setReservations(records.data);
     } catch (exception) {
@@ -29,7 +29,7 @@ const useReservations = () => {
   // Method that gets the spots of all records
   const fetchSpots = async () => {
     try {
-      const url = "/reservation-list/getAllSpots";
+      const url = "/getAllSpots";
       const result = await AxiosClient.get(url);
       setSpots(result.data);
     } catch (exception) {
@@ -40,7 +40,7 @@ const useReservations = () => {
   // Method that gets the vehicles of all records
   const fetchVehicles = async () => {
     try {
-      const url = "/reservation-list/getAllVehicles";
+      const url = "/getAllVehicles";
       const result = await AxiosClient.get(url);
       setVehicles(result.data);
     } catch (exception) {
@@ -51,7 +51,7 @@ const useReservations = () => {
   // Method that gets the tickets of all records
   const fetchTickets = async () => {
     try {
-      const url = "/reservation-list/getAllTickets";
+      const url = "/getAllTickets";
       const result = await AxiosClient.get(url);
       setTickets(result.data);
     } catch (exception) {
@@ -62,7 +62,7 @@ const useReservations = () => {
   // Method that gets the services of all records
   const fetchServices = async () => {
     try {
-      const url = "/reservation-list/getAllServices";
+      const url = "/getAllServices";
       const result = await AxiosClient.get(url);
       setServices(result.data);
     } catch (exception) {
@@ -75,10 +75,20 @@ const useReservations = () => {
     let formattedReservations = [...reservations];
     formattedReservations.map((reservation) => {
       const reservationID = reservation.ID + reservation.Reservation_Date;
-      const Spots = spots.filter((spot) => spot.ID_Client + spot.Reservation_Date == reservationID);
-      const Tickets = tickets.filter((ticket) => ticket.ID_Client + ticket.Reservation_Date == reservationID);
-      const Services = services.filter((service) => service.ID_Client + service.Reservation_Date == reservationID);
-      const Vehicles = vehicles.filter((vehicle) => vehicle.ID_Client + vehicle.Reservation_Date == reservationID);
+      const Spots = spots.filter(
+        (spot) => spot.ID_Client + spot.Reservation_Date == reservationID
+      );
+      const Tickets = tickets.filter(
+        (ticket) => ticket.ID_Client + ticket.Reservation_Date == reservationID
+      );
+      const Services = services.filter(
+        (service) =>
+          service.ID_Client + service.Reservation_Date == reservationID
+      );
+      const Vehicles = vehicles.filter(
+        (vehicle) =>
+          vehicle.ID_Client + vehicle.Reservation_Date == reservationID
+      );
       reservation.Spots = Spots.length !== 0 ? Spots : null;
       reservation.Tickets = Tickets.length !== 0 ? Tickets : null;
       reservation.Services = Services.length !== 0 ? Services : null;
