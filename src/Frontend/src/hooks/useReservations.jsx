@@ -51,7 +51,7 @@ const useReservations = () => {
   // Method that gets the tickets of all records
   const fetchTickets = async () => {
     try {
-      const url = "/reservation-list/getAllTickets";
+      const url = "/getAllTickets";
       const result = await AxiosClient.get(url);
       setTickets(result.data);
     } catch (exception) {
@@ -62,7 +62,7 @@ const useReservations = () => {
   // Method that gets the services of all records
   const fetchServices = async () => {
     try {
-      const url = "/reservation-list/getAllServices";
+      const url = "/getAllServices";
       const result = await AxiosClient.get(url);
       setServices(result.data);
     } catch (exception) {

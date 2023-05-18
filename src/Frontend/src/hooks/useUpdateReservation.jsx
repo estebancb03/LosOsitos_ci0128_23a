@@ -7,7 +7,7 @@ const useUpdateReservation = (reservation) => {
   const insertNewVehicle = async () => {
     try {
       const { ID, Reservation_Date, NewVehicles } = reservation;
-      const url = '/reservation-list/insertVehicle';
+      const url = "/insertVehicle";
       await Promise.all(
         NewVehicles.map(async (vehicle, index) => {
           await AxiosClient.post(url, {
@@ -16,19 +16,19 @@ const useUpdateReservation = (reservation) => {
             ID_Vehicle: reservation.NewVehicles[index],
           });
         })
-        );
+      );
     } catch (exception) {
       console.log(exception);
     }
   };
-  
+
   // Method that updates the services
   const updateServices = async () => {
     try {
       const { ID, Reservation_Date, Services } = reservation;
       const url = `/reservation-list/getServicesByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
-      const url2 = "/reservation-list/updateService";
+      const url2 = "/updateService";
       await Promise.all(
         data.map(async (service, index) => {
           await AxiosClient.put(url2, {
@@ -43,12 +43,12 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-    
+
   // Method that updates the tickets
   const updateTickets = async () => {
     try {
       const { ID, Reservation_Date, Tickets } = reservation;
-      const url = `/reservation-list/getTicketsByReservationID/${ID}/${Reservation_Date}`;
+      const url = `/getTicketsByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let parsedTickets = [];
       Tickets.map((ticket) => {
@@ -57,7 +57,7 @@ const useUpdateReservation = (reservation) => {
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
-      const url2 = "/reservation-list/updateTicket";
+      const url2 = "/updateTicket";
       await Promise.all(
         data.map(async (ticket, index) => {
           await AxiosClient.put(url2, {
@@ -74,12 +74,12 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-    
+
   // Method that updates the spots
   const updateSpots = async () => {
     try {
       const { ID, Reservation_Date, Spots } = reservation;
-      const url = `/reservation-list/getSpotsByReservationID/${ID}/${Reservation_Date}`;
+      const url = `/getSpotsByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let oldSpots = [];
       let spotsToChange = [];
@@ -88,7 +88,7 @@ const useUpdateReservation = (reservation) => {
         if (!oldSpots.includes(parseInt(spot.Location_Spot)))
           spotsToChange.push(index);
       });
-      const url2 = "/reservation-list/updateSpot";
+      const url2 = "/updateSpot";
       await Promise.all(
         spotsToChange.map(async (spot) => {
           await AxiosClient.put(url2, {
@@ -98,17 +98,17 @@ const useUpdateReservation = (reservation) => {
             newLocation_Spot: parseInt(Spots[spot].Location_Spot),
           });
         })
-        );
+      );
     } catch (exception) {
       console.log(exception);
     }
   };
-  
+
   // Method that updates the vehicles
   const updateVehicles = async () => {
     try {
       const { ID, Reservation_Date, Vehicles } = reservation;
-      const url = `/reservation-list/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
+      const url = `/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       let oldVehicles = [];
       let vehiclesToChange = [];
@@ -116,7 +116,7 @@ const useUpdateReservation = (reservation) => {
       Vehicles.map((vehicle, index) => {
         if (!oldVehicles.includes(vehicle)) vehiclesToChange.push(index);
       });
-      const url2 = "/reservation-list/updateVehicle";
+      const url2 = "/updateVehicle";
       await Promise.all(
         vehiclesToChange.map(async (vehicle) => {
           await AxiosClient.put(url2, {
@@ -131,7 +131,7 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-  
+
   // Method that updates the customer data
   const updatePersonData = async () => {
     try {
@@ -144,7 +144,7 @@ const useUpdateReservation = (reservation) => {
         Email,
         Country_Name,
       } = reservation;
-      const url = "/reservation-list/updatePersonData";
+      const url = "/updatePersonData";
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
@@ -158,12 +158,12 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-  
+
   // Method that updates the data of a camping dates
   const updateStartEndDates = async () => {
     try {
       const { ID, Reservation_Date, Start_Date, End_Date } = reservation;
-      const url = "/reservation-list/updateStartEndDates";
+      const url = "/updateStartEndDates";
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
@@ -174,12 +174,12 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-  
+
   // Method that updates the state
   const updateState = async () => {
     try {
       const { ID, Reservation_Date, State } = reservation;
-      const url = "/reservation-list/updateState";
+      const url = "/updateState";
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
@@ -189,7 +189,7 @@ const useUpdateReservation = (reservation) => {
       console.log(exception);
     }
   };
-  
+
   // Method that update all about the reservation
   const updateReservation = () => {
     updateVehicles();
@@ -201,8 +201,8 @@ const useUpdateReservation = (reservation) => {
     updateSpots();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
   };
-  
+
   return { updateReservation };
 };
 
-export default  useUpdateReservation;
+export default useUpdateReservation;

@@ -9,7 +9,7 @@ const useServicesNames = () => {
   // Method that gets the services names
   const fetchServicesNames = async () => {
     try {
-      const url = "/reservation-list/getServicesOptions";
+      const url = "/getServicesOptions";
       const options = await AxiosClient.get(url);
       const result = ["", ...options.data.map((service) => service.Name)];
       setServicesNames(result);
