@@ -54,6 +54,8 @@ app.use('/api', servicePricesRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', spotsCampingRoutes);
 
+//app.use('/api', reservationListRoutes);
+
 app.listen(port, () => {
   console.log(`LosOsitos Server running on port ${port}`);
 });

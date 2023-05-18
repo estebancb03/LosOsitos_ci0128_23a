@@ -1,4 +1,4 @@
-import { getConnection, sql } from "../config/db.js";
+import { getConnection } from "../config/db.js";
 
 // Method that inserts a reservation
 const insertReservation = async (req, res) => {
