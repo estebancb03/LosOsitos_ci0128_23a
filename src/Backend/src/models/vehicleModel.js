@@ -71,9 +71,9 @@ const insertNewVehicle = async (req, res) => {
   };
 
   export {
-    getAllVehicles
-    getVehiclesByReservationID
-    updateVehicle
+    getAllVehicles,
+    getVehiclesByReservationID,
+    updateVehicle,
     insertNewVehicle
   }
 

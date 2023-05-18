@@ -15,6 +15,11 @@ import ticketRoutes from "./routes/ticketRoutes.js";
 import ticketReservationRoutes from "./routes/ticketReservationRoutes.js";
 import campingRoutes from "./routes/campingRoutes.js";
 import picnicRoutes from "./routes/picnicRoutes.js";
+import vehicleRoutes from "./routes/vehicleRoutes.js"
+import clientRoutes from "./routes/clientRoutes.js"
+import servicePricesRoutes from "./routes/serviceReservationRoutes.js"
+import serviceRoutes from "./routes/serviceRoutes.js"
+import spotsCampingRoutes from "./routes/spotsCampingRoutes.js"
 
 const app = express();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -43,7 +48,11 @@ app.use('/api', ticketRoutes);
 app.use('/api', campingRoutes);
 app.use('/api', picnicRoutes);
 app.use('/api', ticketReservationRoutes);
-app.use('/api/reservation-list', reservationListRoutes);
+app.use('/api', vehicleRoutes);
+app.use('/api', clientRoutes);
+app.use('/api', servicePricesRoutes);
+app.use('/api', serviceRoutes);
+app.use('/api', spotsCampingRoutes);
 
 app.listen(port, () => {
   console.log(`LosOsitos Server running on port ${port}`);
