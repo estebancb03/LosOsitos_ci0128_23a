@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { insertReservationTicket } from "../models/ticketReservationModel.js";
+import { getAllTickets, insertReservationTicket, updateTicket } from "../models/ticketReservationModel.js";
 
 const router = Router();
 
+router.get("/getAllTickets", getAllTickets);
+
 router.post("/reservationTicket", insertReservationTicket);
+
+router.put("/updateTicket", updateTicket);
 
 export default router;

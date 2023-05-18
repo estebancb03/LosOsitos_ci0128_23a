@@ -1,5 +1,22 @@
 import { getConnection } from "../config/db.js";
 
+
+//Method that gets the tickets of all reservations
+const getAllTickets = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query("SELECT * FROM Ticket_Reservation");
+    console.log(result);
+    res.status(200);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 // Method that inserts a ticket price
 const insertReservationTicket = async (req, res) => {
   try {
@@ -25,4 +42,27 @@ const insertReservationTicket = async (req, res) => {
   }
 };
 
-export { insertReservationTicket };
+// Method that updates a spot
+const updateTicket = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      Age_Range,
+      Amount,
+      Demographic_Group,
+      newAmount,
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Ticket_Reservation SET Amount = ${newAmount} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount}`
+    );
+    res.status(200);
+    console.log("The update to the Ticket_Reservation was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export { getAllTickets, insertReservationTicket, updateTicket };

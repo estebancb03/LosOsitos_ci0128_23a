@@ -24,4 +24,20 @@ const insertCamping = async (req, res) => {
   }
 };
 
-export { insertCamping };
+// Method that updates the Reservation dates by Reservation ID
+const updateStartEndDates = async (req, res) => {
+  try {
+    const { ID, Reservation_Date, Start_Date, End_Date } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Camping SET Start_Date = '${Start_Date}', End_Date = '${End_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+    );
+    res.status(200);
+    console.log("The update to the Reservation dates was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export { insertCamping, updateStartEndDates };
