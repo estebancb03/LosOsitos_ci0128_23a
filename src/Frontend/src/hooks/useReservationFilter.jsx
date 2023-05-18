@@ -1,5 +1,4 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { formatDateDTMMDDYYYY, addZerosToDate } from "../helpers/formatDate";
 
 const useReservationFilter = (reservations) => {

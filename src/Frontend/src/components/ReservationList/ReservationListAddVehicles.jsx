@@ -1,11 +1,14 @@
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 
-const ReservationListAddVehicles = ({
-  disabledElements,
-  currentRecord,
-  setCurrentRecord,
-}) => {
+const ReservationListAddVehicles = (props) => {
+  // Props
+  const {
+    disabledElements,
+    currentRecord,
+    setCurrentRecord
+  } = props;
+
   // Method that adds a input and a "" to the array
   const addVehicle = () => {
     const newMainRecordInfo = { ...currentRecord };

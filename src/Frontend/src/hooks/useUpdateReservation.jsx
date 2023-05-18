@@ -116,10 +116,6 @@ const useUpdateReservation = (reservation) => {
       Vehicles.map((vehicle, index) => {
         if (!oldVehicles.includes(vehicle)) vehiclesToChange.push(index);
       });
-      
-      console.log(oldVehicles);
-      console.log(Vehicles);
-      
       const url2 = "/reservation-list/updateVehicle";
       await Promise.all(
         vehiclesToChange.map(async (vehicle) => {
