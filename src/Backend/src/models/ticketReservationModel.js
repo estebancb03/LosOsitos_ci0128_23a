@@ -17,6 +17,24 @@ const getAllTickets = async (req, res) => {
   }
 };
 
+const getTicketsByReservationID = async (req, res) => {
+  try {
+    const { ID, Reservation_Date } = req.params;
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(
+        `SELECT Age_Range, Amount, Demographic_Group FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+        );
+    console.log(result);
+    res.status(200);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 // Method that inserts a ticket price
 const insertReservationTicket = async (req, res) => {
   try {
@@ -65,4 +83,4 @@ const updateTicket = async (req, res) => {
   }
 };
 
-export { getAllTickets, insertReservationTicket, updateTicket };
+export { getAllTickets, insertReservationTicket, updateTicket, getTicketsByReservationID };

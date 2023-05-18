@@ -26,7 +26,7 @@ const useUpdateReservation = (reservation) => {
   const updateServices = async () => {
     try {
       const { ID, Reservation_Date, Services } = reservation;
-      const url = `/reservation-list/getServicesByReservationID/${ID}/${Reservation_Date}`;
+      const url = `/getServicesByReservationID/${ID}/${Reservation_Date}`;
       const { data } = await AxiosClient.get(url);
       const url2 = "/updateService";
       await Promise.all(

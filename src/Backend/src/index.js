@@ -7,18 +7,18 @@ import countryRoutes from "./routes/countryRoutes.js";
 import mailQRCodeRoute from "./routes/mailQRCodeRoute.js";
 import ticketPricesRoutes from "./routes/ticketPricesRoutes.js";
 import servicePricesRoutes from "./routes/servicePricesRoutes.js";
-import reservationListRoutes from "./routes/reservationListRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
-import personRoutes from "./routes/personRoutes.js"
+import personRoutes from "./routes/personRoutes.js";
 import spotsRoutes from "./routes/spotsRoutes.js";
 import ticketRoutes from "./routes/ticketRoutes.js";
 import ticketReservationRoutes from "./routes/ticketReservationRoutes.js";
 import campingRoutes from "./routes/campingRoutes.js";
 import picnicRoutes from "./routes/picnicRoutes.js";
-import vehicleRoutes from "./routes/vehicleRoutes.js"
-import clientRoutes from "./routes/clientRoutes.js"
-import serviceRoutes from "./routes/serviceRoutes.js"
-import spotsCampingRoutes from "./routes/spotsCampingRoutes.js"
+import vehicleRoutes from "./routes/vehicleRoutes.js";
+import clientRoutes from "./routes/clientRoutes.js";
+import serviceRoutes from "./routes/serviceRoutes.js";
+import spotsCampingRoutes from "./routes/spotsCampingRoutes.js";
+import serviceReservationRoutes from "./routes/serviceReservationRoutes.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -39,7 +39,6 @@ app.use('/api', countryRoutes);
 app.use('/api', ticketPricesRoutes);
 app.use('/api', servicePricesRoutes);
 app.use('/api', mailQRCodeRoute);
-app.use('/api', reservationListRoutes);
 app.use('/api', personRoutes);
 app.use('/api', spotsRoutes);
 app.use('/api', reservationRoutes);
@@ -51,6 +50,7 @@ app.use('/api', vehicleRoutes);
 app.use('/api', clientRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', spotsCampingRoutes);
+app.use('/api', serviceReservationRoutes);
 
 //app.use('/api', reservationListRoutes);
 
