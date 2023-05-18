@@ -12,6 +12,7 @@ import {
   createHoursWithIntervals,
   changeDateInISOFormat,
   changeHourInISOFormat,
+  formatDateDTMMDDYYYY
 } from "../../helpers/formatDate";
 
 const ReservationListModal = (props) => {
@@ -76,7 +77,7 @@ const ReservationListModal = (props) => {
             ));
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
-        if (type[1] == "ticketType") {
+        if (type[1] === "ticketType") {
           if (value === "Foreign, Adult") {
             newTickets[type[2]].Demographic_Group = 1;
             newTickets[type[2]].Age_Range = 1;
@@ -116,12 +117,9 @@ const ReservationListModal = (props) => {
       } else if (type === "Country_Name") {
         newRecord.Country_Name = value;
       } else if (type === "Start_Date") {
-        newRecord.Start_Date = changeDateInISOFormat(
-          value,
-          newRecord.Start_Date
-        );
+        newRecord.Start_Date = value;
       } else if (type === "End_Date") {
-        newRecord.End_Date = changeDateInISOFormat(value, newRecord.End_Date);
+        newRecord.End_Date = value;
       } else if (type === "State") {
         newRecord.State = value === "Pending" ? 0 : 1;
       }
@@ -232,20 +230,20 @@ const ReservationListModal = (props) => {
           <span className="">
             <DatePickerButton
               text="Start Date"
-              typeClass="2"
+              typeClass="3"
               type="Start_Date"
               disabled={disabledElements}
-              selectedDate={new Date(currentRecord.Start_Date)}
+              selectedDate={new Date(formatDateDTMMDDYYYY(currentRecord.Start_Date))}
               onChangeFunction={changeCurrentRecordData}
             />
           </span>
           <span className="mr-2">
             <DatePickerButton
               text="End Date"
-              typeClass="2"
+              typeClass="3"
               type="End_Date"
               disabled={disabledElements}
-              selectedDate={new Date(currentRecord.End_Date)}
+              selectedDate={new Date(formatDateDTMMDDYYYY(currentRecord.End_Date))}
               onChangeFunction={changeCurrentRecordData}
             />
           </span>
