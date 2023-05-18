@@ -11,3 +11,4 @@ router.post("/spots", insertSpotCamping);
 
 router.put("/updateSpot", updateSpot);
 
+export default router;

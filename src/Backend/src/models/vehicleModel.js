@@ -1,4 +1,4 @@
-import { getConnection } from "../config/db";      
+import { getConnection } from "../config/db.js";      
 
 
 //Method that gets the vehicles of all reservations

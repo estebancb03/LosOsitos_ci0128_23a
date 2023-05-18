@@ -1,5 +1,5 @@
 import {Router} from "express"
-import { getAllVehicles, getVehiclesByReservationID, updateVehicle, insertNewVehicle } from "../models/reservationListModel";
+import { getAllVehicles, getVehiclesByReservationID, updateVehicle, insertNewVehicle } from "../models/vehicleModel.js";
 
 const router = Router()
 

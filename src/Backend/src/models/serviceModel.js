@@ -1,4 +1,4 @@
-import {getConnection, sql} from "../config.db.js"
+import {getConnection} from "../config/db.js"
 
 // Method that gets the names of all services in the park
 const getServicesOptions = async (req, res) => {

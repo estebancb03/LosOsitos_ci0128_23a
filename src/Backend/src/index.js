@@ -17,7 +17,6 @@ import campingRoutes from "./routes/campingRoutes.js";
 import picnicRoutes from "./routes/picnicRoutes.js";
 import vehicleRoutes from "./routes/vehicleRoutes.js"
 import clientRoutes from "./routes/clientRoutes.js"
-import servicePricesRoutes from "./routes/serviceReservationRoutes.js"
 import serviceRoutes from "./routes/serviceRoutes.js"
 import spotsCampingRoutes from "./routes/spotsCampingRoutes.js"
 
@@ -50,7 +49,6 @@ app.use('/api', picnicRoutes);
 app.use('/api', ticketReservationRoutes);
 app.use('/api', vehicleRoutes);
 app.use('/api', clientRoutes);
-app.use('/api', servicePricesRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', spotsCampingRoutes);
 
