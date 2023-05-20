@@ -2,9 +2,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
-const useServicesNames = () => {
+const useServices = () => {
   // State that controls the services names
   const [servicesNames, setServicesNames] = useState([]);
+  // State that controls the services prices
+  const [servicesPrices, setServicesPrices] = useState([]);
 
   // Method that gets the services names
   const fetchServicesNames = async () => {
@@ -18,11 +20,23 @@ const useServicesNames = () => {
     }
   };
 
+  // Method that gets the services prices
+  const fetchServicesPrices = async () => {
+    try {
+      const url = "/service-prices";
+      const result = await AxiosClient.get(url);
+      setServicesPrices(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   useEffect(() => {
     fetchServicesNames();
+    fetchServicesPrices();
   }, []);
 
-  return { servicesNames };
+  return { servicesNames, servicesPrices };
 };
 
-export default useServicesNames;
+export default useServices;
