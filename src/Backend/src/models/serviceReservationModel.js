@@ -1,5 +1,26 @@
 import { getConnection, sql } from "../config/db.js";
 
+// Method that insert a new service in a reservation
+const insertService = async (req, res) => {
+  try {
+    const {
+      ID_Client,
+      Reservation_Date,
+      Name_Service,
+      Price,
+      Schedule
+    } = req.body;
+    const pool = await getConnection();
+    await pool . query(
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID_Client}, '${Reservation_Date}', '${Name_Service}', ${Price}, '${Schedule}')`
+    );
+    res.status(200);
+    console.log("The insert to the Service_Reservation was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
 // Method that gets the services of all reservations
 const getAllServices = async (req, res) => {
@@ -57,4 +78,9 @@ const updateService = async (req, res) => {
     }
   };
 
-  export {getAllServices, getServicesByReservationID, updateService}
+  export {
+    insertService,
+    getAllServices,
+    getServicesByReservationID,
+    updateService
+  }
