@@ -31,12 +31,18 @@ const useServices = () => {
     }
   };
 
+  // Method that gets the price of a service
+  const searchServicePrice = (NameService) => {
+    const result = servicePrices.filter((price) => price.Name_Service === NameService);
+    return result;
+  };
+
   useEffect(() => {
     fetchServicesNames();
     fetchServicesPrices();
   }, []);
 
-  return { servicesNames, servicesPrices };
+  return { servicesNames, servicesPrices, searchServicePrice };
 };
 
 export default useServices;
