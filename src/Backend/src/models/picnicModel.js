@@ -5,11 +5,12 @@ const insertPicnic = async (req, res) => {
   try {
     const {
       ID_Client,
-      Reservation_Date
+      Reservation_Date,
+      Picnic_Date
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Picnic VALUES (${ID_Client}, '${Reservation_Date}')`
+      `INSERT INTO Picnic VALUES (${ID_Client}, '${Reservation_Date}', '${Picnic_Date}')`
     );
     res.status(200);
     console.log("The insert to the Picnic was successfull");

@@ -7,12 +7,13 @@ const insertReservation = async (req, res) => {
       ID_Client,
       Reservation_Date,
       Payment_Method,
-      State,
-      Payment_Prof
+      Payment_Proof,
+      Status,
+      Reservation_Method
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Payment_Method}, ${State}, '${Payment_Prof}')`
+      `INSERT INTO Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Payment_Method}, '${Payment_Proof}', ${Status}, ${Reservation_Method})`
     );
     res.status(200);
     res.send('The insert to the Reservation was successful');
@@ -30,7 +31,7 @@ const getReservations = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        "SELECT DISTINCT Person.ID, Person.Name, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.State, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation JOIN Person ON Reservation.ID_Client = Person.ID JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client FULL OUTER JOIN Picnic on Reservation.ID_Client = Picnic.ID_Client"
+        "SELECT DISTINCT Person.ID, Person.Name, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.Status, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation JOIN Person ON Reservation.ID_Client = Person.ID JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client FULL OUTER JOIN Picnic on Reservation.ID_Client = Picnic.ID_Client"
       );
     console.log(result);
     res.status(200);
@@ -104,11 +105,11 @@ const updateState = async (req, res) => {
     const {
       ID,
       Reservation_Date,
-      State,
+      Status,
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `UPDATE Reservation SET State = '${State}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      `UPDATE Reservation SET Status = '${Status}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
     );
     res.status(200);
     console.log("The update to the State was successfull");

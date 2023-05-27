@@ -68,13 +68,13 @@ const ReservationListModal = (props) => {
       } else if (type[0] === "services") {
         const newServices = [...newRecord.Services];
         type[1] === "date"
-          ? (newServices[type[2]].Schedule = changeDateInISOFormat(
+          ? (newServices[type[2]].Reservation_Date = changeDateInISOFormat(
               value,
-              newServices[type[2]].Schedule
+              newServices[type[2]].Reservation_Date
             ))
-          : (newServices[type[2]].Schedule = changeHourInISOFormat(
+          : (newServices[type[2]].Reservation_Date = changeHourInISOFormat(
               value,
-              newServices[type[2]].Schedule
+              newServices[type[2]].Reservation_Date
             ));
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
@@ -121,8 +121,8 @@ const ReservationListModal = (props) => {
         newRecord.Start_Date = value;
       } else if (type === "End_Date") {
         newRecord.End_Date = value;
-      } else if (type === "State") {
-        newRecord.State = value === "Pending" ? 0 : 1;
+      } else if (type === "Status") {
+        newRecord.Status = value === "Pending" ? 0 : 1;
       }
     }
     setCurrentRecord(newRecord);
@@ -151,11 +151,11 @@ const ReservationListModal = (props) => {
           disabled={true}
         />
         <DropDownSelect
-          text="State"
+          text="Status"
           options={["Pending", "Approved"]}
-          selectedOption={currentRecord.State === 0 ? "Pending" : "Approved"}
+          selectedOption={currentRecord.Status === 0 ? "Pending" : "Approved"}
           disabled={disabledElements}
-          typeChange="State"
+          typeChange="Status"
           onChangeFunction={changeCurrentRecordData}
         />
       </div>
@@ -331,7 +331,7 @@ const ReservationListModal = (props) => {
                     typeClass="2"
                     disabled={true}
                     type={["services", "date", index]}
-                    selectedDate={new Date(service.Schedule)}
+                    selectedDate={new Date(service.Reservation_Date)}
                     onChangeFunction={changeCurrentRecordData}
                   />
                 </span>
@@ -339,7 +339,7 @@ const ReservationListModal = (props) => {
                   <DropDownSelect
                     options={createHoursWithIntervals(8, 16, 30)}
                     selectedOption={getHoursMinutesFromISOFormat(
-                      service.Schedule
+                      service.Reservation_Date
                     )}
                     disabled={disabledElements}
                     typeChange={["services", "hour", index]}
