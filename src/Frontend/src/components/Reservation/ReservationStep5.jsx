@@ -106,6 +106,7 @@ const ReservationStep5 = ({
         await AxiosClient.post(url, {
           ID_Client: ID,
           Reservation_Date,
+          Picnic_Date: new Date()
         });
       } else {
         const url = "/camping";

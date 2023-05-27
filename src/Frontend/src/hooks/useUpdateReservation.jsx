@@ -35,7 +35,6 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             Name_Service: service.Name_Service,
-            Schedule: Services[index].Schedule,
           });
         })
       );
@@ -178,12 +177,12 @@ const useUpdateReservation = (reservation) => {
   // Method that updates the state
   const updateState = async () => {
     try {
-      const { ID, Reservation_Date, State } = reservation;
+      const { ID, Reservation_Date, Status } = reservation;
       const url = "/updateState";
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
-        State,
+        Status,
       });
     } catch (exception) {
       console.log(exception);
