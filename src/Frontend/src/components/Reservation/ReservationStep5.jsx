@@ -85,6 +85,7 @@ const ReservationStep5 = ({
             Demographic_Group: ticket.Demographic_Group,
             Reservation_Type: ticket.Reservation_Type,
             Price: ticket.Price,
+            Special: 0,
             Amount: ticket.Amount,
           });
         })
