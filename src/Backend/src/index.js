@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import { getConnection } from "./config/db.js";
 import countryRoutes from "./routes/countryRoutes.js";
 import mailQRCodeRoute from "./routes/mailQRCodeRoute.js";
-import ticketPricesRoutes from "./routes/ticketPricesRoutes.js";
 import servicePricesRoutes from "./routes/servicePricesRoutes.js";
 import reservationRoutes from "./routes/reservationRoutes.js";
 import personRoutes from "./routes/personRoutes.js";
@@ -36,7 +35,6 @@ app.use(cors(corsOptions));
 
 //Routes
 app.use('/api', countryRoutes);
-app.use('/api', ticketPricesRoutes);
 app.use('/api', servicePricesRoutes);
 app.use('/api', mailQRCodeRoute);
 app.use('/api', personRoutes);
