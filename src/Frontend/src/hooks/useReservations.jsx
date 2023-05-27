@@ -94,6 +94,7 @@ const useReservations = () => {
       reservation.Services = Services.length !== 0 ? Services : null;
       reservation.Vehicles = Vehicles.length !== 0 ? Vehicles : null;
       reservation.NewVehicles = [];
+      reservation.NewServices = [];
     });
     setReservations(formattedReservations);
   };
