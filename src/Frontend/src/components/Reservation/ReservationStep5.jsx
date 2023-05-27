@@ -76,7 +76,7 @@ const ReservationStep5 = ({
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
-          console.log('tickets map')
+          console.log("tickets map");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -112,7 +112,7 @@ const ReservationStep5 = ({
           Reservation_Date,
           Start_Date,
           End_Date,
-          Reservation_Method: 1
+          Reservation_Method: 1,
         });
       }
     } catch (exception) {
@@ -128,12 +128,12 @@ const ReservationStep5 = ({
       const url = "/spots";
       await Promise.all(
         Spots.map(async (spot) => {
-          console.log(Spots)
+          console.log(Spots);
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
             Location_Spot: spot.Location_Spot,
-            Price: spot.Price
+            Price: spot.Price,
           });
         })
       );
@@ -161,7 +161,7 @@ const ReservationStep5 = ({
       // ).then(
       //   insertReservation()
       // ).then(
-      //   insertReservationTicket()    
+      //   insertReservationTicket()
       // ).then(
       //   insertReservationType()
       // ).then(
@@ -172,22 +172,20 @@ const ReservationStep5 = ({
       await insertReservation();
       insertReservationTicket();
       await insertReservationType();
-      insertSpotsCamping();
+      //insertSpotsCamping();
       newWindows.Step5 = false;
       newWindows.Step7 = true;
     }
     newReservationData.QRData = {
       data: newReservationData.ID + newReservationData.Reservation_Date,
       mail: newReservationData.Email,
-      text: reservationData
+      text: reservationData,
     };
     setWindows(newWindows);
     setReservationData(newReservationData);
-    console.log('correo');
+    console.log("correo");
     sendQRData(newReservationData.QRData);
   };
-
-
 
   // Method to send data to be emailed
   const sendQRData = async (value) => {
@@ -202,7 +200,6 @@ const ReservationStep5 = ({
       console.log(exception);
     }
   };
-
 
   return (
     <>
@@ -241,9 +238,7 @@ const ReservationStep5 = ({
                 text="Back"
                 onclickFunction={(e) => {
                   const newWindows = { ...windows };
-                  reservationData.Reservation_Type == 0
-                    ? (newWindows.Step2 = true)
-                    : (newWindows.Step3 = true);
+                  newWindows.Step2 = true;
                   newWindows.Step5 = false;
                   setWindows(newWindows);
                 }}

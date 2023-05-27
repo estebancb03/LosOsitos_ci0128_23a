@@ -24,7 +24,7 @@ const insertTicket = async (req, res) => {
 const getPrices = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query("SELECT * FROM Ticket_Price");
+    const result = await pool.request().query("SELECT * FROM Ticket");
     console.log(result);
     res.json(result.recordset);
   } catch (error) {

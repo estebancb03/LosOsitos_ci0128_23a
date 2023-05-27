@@ -43,6 +43,7 @@ const ReservationStep6 = ({
         Birth_Date,
         Email,
         Country_Name,
+        State,
       } = reservationData;
       const url = "/person";
       await AxiosClient.post(url, {
@@ -54,6 +55,7 @@ const ReservationStep6 = ({
         Birth_Date,
         Email,
         Country_Name,
+        State,
       });
     } catch (exception) {
       console.log(exception);
@@ -99,7 +101,7 @@ const ReservationStep6 = ({
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
-          console.log('tickets map')
+          console.log("tickets map");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -135,7 +137,7 @@ const ReservationStep6 = ({
           Reservation_Date,
           Start_Date,
           End_Date,
-          Reservation_Method: 0
+          Reservation_Method: 0,
         });
       }
     } catch (exception) {
@@ -143,27 +145,27 @@ const ReservationStep6 = ({
     }
   };
 
-  // Method that inserts a spot camping
-  const insertSpotsCamping = async () => {
-    try {
-      console.log("spots");
-      const { ID, Reservation_Date, Spots } = reservationData;
-      const url = "/spots";
-      await Promise.all(
-        Spots.map(async (spot) => {
-          console.log(Spots)
-          await AxiosClient.post(url, {
-            ID_Client: ID,
-            Reservation_Date,
-            Location_Spot: spot.Location_Spot,
-            Price: spot.Price
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  // // Method that inserts a spot camping
+  // const insertSpotsCamping = async () => {
+  //   try {
+  //     console.log("spots");
+  //     const { ID, Reservation_Date, Spots } = reservationData;
+  //     const url = "/spots";
+  //     await Promise.all(
+  //       Spots.map(async (spot) => {
+  //         console.log(Spots);
+  //         await AxiosClient.post(url, {
+  //           ID_Client: ID,
+  //           Reservation_Date,
+  //           Location_Spot: spot.Location_Spot,
+  //           Price: spot.Price,
+  //         });
+  //       })
+  //     );
+  //   } catch (exception) {
+  //     console.log(exception);
+  //   }
+  // };
 
   const updateReservationData = async (method) => {
     if (checkbox && filesBase64 != "") {
@@ -181,7 +183,7 @@ const ReservationStep6 = ({
       newReservationData.QRData = {
         data: newReservationData.ID + newReservationData.Reservation_Date,
         mail: newReservationData.Email,
-        text: reservationData
+        text: reservationData,
       };
       setReservationData(newReservationData);
       setWindows(newWindows);

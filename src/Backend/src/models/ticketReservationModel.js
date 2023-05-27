@@ -44,12 +44,13 @@ const insertReservationTicket = async (req, res) => {
       Age_Range,
       Demographic_Group,
       Reservation_Type,
+      Special,
       Price,
       Amount
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Ticket_Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Age_Range}, ${Demographic_Group}, ${Reservation_Type}, ${Price}, ${Amount})`
+      `INSERT INTO Ticket_Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Age_Range}, ${Demographic_Group}, ${Reservation_Type}, ${Special}, ${Price}, ${Amount})`
     );
     res.status(200);
     console.log("The insert to the Reservation_Ticket was successfull");
