@@ -61,7 +61,8 @@ const ReservationStep5 = ({
         Reservation_Date,
         Payment_Method: 2,
         Payment_Proof: null,
-        State: 1,
+        Status: 1,
+        Reservation_Method: 0,
       });
     } catch (exception) {
       console.log(exception);

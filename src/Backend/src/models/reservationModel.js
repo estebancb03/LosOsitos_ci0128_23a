@@ -7,12 +7,13 @@ const insertReservation = async (req, res) => {
       ID_Client,
       Reservation_Date,
       Payment_Method,
-      State,
-      Payment_Prof
+      Payment_Proof,
+      Status,
+      Reservation_Method
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Payment_Method}, ${State}, '${Payment_Prof}')`
+      `INSERT INTO Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Payment_Method}, '${Payment_Proof}', ${Status}, ${Reservation_Method})`
     );
     res.status(200);
     res.send('The insert to the Reservation was successful');
