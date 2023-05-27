@@ -32,9 +32,9 @@ const useServices = () => {
   };
 
   // Method that gets the price of a service
-  const searchServicePrice = (NameService) => {
-    const result = servicePrices.filter((price) => price.Name_Service === NameService);
-    return result;
+  const searchServicePrice = (nameService, currency) => {
+    const result = servicesPrices.filter((price) => price.Name_Service === nameService && price.Currency === currency);
+    return result[0].Price;
   };
 
   useEffect(() => {
