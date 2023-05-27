@@ -132,9 +132,9 @@ function ReservationStep1({
         setGender(3);
       }
     } else if (type === "startDate") {
-      setStartDate(changeDateInISOFormat(value, date));
+      setStartDate(value);
     } else if (type === "endDate") {
-      setEndDate(changeDateInISOFormat(value, date));
+      setEndDate(value);
     }
   };
 

@@ -122,13 +122,14 @@ const ReservationStep6 = ({
   const insertReservationType = async () => {
     try {
       console.log("reservation type");
-      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
+      const { ID, Reservation_Date, Start_Date, End_Date, Picnic_Date } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
         const url = "/picnic";
         await AxiosClient.post(url, {
           ID_Client: ID,
           Reservation_Date,
+          Picnic_Date
         });
       } else {
         const url = "/camping";
@@ -136,8 +137,7 @@ const ReservationStep6 = ({
           ID_Client: ID,
           Reservation_Date,
           Start_Date,
-          End_Date,
-          Reservation_Method: 0,
+          End_Date
         });
       }
     } catch (exception) {
