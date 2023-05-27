@@ -25,7 +25,7 @@ const getServicesByReservationID = async (req, res) => {
       const result = await pool
         .request()
         .query(
-          `SELECT Name_Service, Schedule FROM Service_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+          `SELECT Name_Service, Reservation_Date, Price FROM Service_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
         );
       console.log(result);
       res.status(200);
@@ -43,11 +43,10 @@ const updateService = async (req, res) => {
         ID,
         Reservation_Date,
         Name_Service,
-        Schedule,
       } = req.body;
       const pool = await getConnection();
       await pool.query(
-        `UPDATE Service_Reservation SET Schedule = '${Schedule}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
+        `UPDATE Service_Reservation SET Reservation_Date = '${Reservation_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
       );
       res.status(200);
       console.log("The update to the Service_Reservation was successfull");

@@ -84,7 +84,8 @@ const ReservationStep6 = ({
         Reservation_Date,
         Payment_Method: 2,
         Payment_Proof: null,
-        State: 0,
+        Status: 0,
+        Reservation_Method: 0,
       });
     } catch (exception) {
       console.log(exception);
@@ -99,13 +100,14 @@ const ReservationStep6 = ({
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
-          console.log('tickets map')
+          console.log("tickets map");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
             Age_Range: ticket.Age_Range,
             Demographic_Group: ticket.Demographic_Group,
             Reservation_Type: ticket.Reservation_Type,
+            Special: 0,
             Price: ticket.Price,
             Amount: ticket.Amount,
           });
@@ -120,13 +122,14 @@ const ReservationStep6 = ({
   const insertReservationType = async () => {
     try {
       console.log("reservation type");
-      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
+      const { ID, Reservation_Date, Start_Date, End_Date, Picnic_Date } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
         const url = "/picnic";
         await AxiosClient.post(url, {
           ID_Client: ID,
           Reservation_Date,
+          Picnic_Date
         });
       } else {
         const url = "/camping";
@@ -134,8 +137,7 @@ const ReservationStep6 = ({
           ID_Client: ID,
           Reservation_Date,
           Start_Date,
-          End_Date,
-          Reservation_Method: 0
+          End_Date
         });
       }
     } catch (exception) {
@@ -143,27 +145,27 @@ const ReservationStep6 = ({
     }
   };
 
-  // Method that inserts a spot camping
-  const insertSpotsCamping = async () => {
-    try {
-      console.log("spots");
-      const { ID, Reservation_Date, Spots } = reservationData;
-      const url = "/spots";
-      await Promise.all(
-        Spots.map(async (spot) => {
-          console.log(Spots)
-          await AxiosClient.post(url, {
-            ID_Client: ID,
-            Reservation_Date,
-            Location_Spot: spot.Location_Spot,
-            Price: spot.Price
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  // // Method that inserts a spot camping
+  // const insertSpotsCamping = async () => {
+  //   try {
+  //     console.log("spots");
+  //     const { ID, Reservation_Date, Spots } = reservationData;
+  //     const url = "/spots";
+  //     await Promise.all(
+  //       Spots.map(async (spot) => {
+  //         console.log(Spots);
+  //         await AxiosClient.post(url, {
+  //           ID_Client: ID,
+  //           Reservation_Date,
+  //           Location_Spot: spot.Location_Spot,
+  //           Price: spot.Price,
+  //         });
+  //       })
+  //     );
+  //   } catch (exception) {
+  //     console.log(exception);
+  //   }
+  // };
 
   const updateReservationData = async (method) => {
     if (checkbox && filesBase64 != "") {
@@ -181,7 +183,7 @@ const ReservationStep6 = ({
       newReservationData.QRData = {
         data: newReservationData.ID + newReservationData.Reservation_Date,
         mail: newReservationData.Email,
-        text: reservationData
+        text: reservationData,
       };
       setReservationData(newReservationData);
       setWindows(newWindows);

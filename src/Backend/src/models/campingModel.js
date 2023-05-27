@@ -7,13 +7,12 @@ const insertCamping = async (req, res) => {
       ID_Client,
       Reservation_Date,
       Start_Date,
-      End_Date,
-      Reservation_Method
+      End_Date
     } = req.body;
     console.log(req.body);
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Camping VALUES (${ID_Client}, '${Reservation_Date}', '${Start_Date}', '${End_Date}', ${Reservation_Method})`
+      `INSERT INTO Camping VALUES (${ID_Client}, '${Reservation_Date}', '${Start_Date}', '${End_Date}')`
     );
     res.status(200);
     console.log("The insert to the Camping was successfull");
