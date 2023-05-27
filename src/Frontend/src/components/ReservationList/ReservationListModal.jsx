@@ -6,6 +6,7 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import useUpdateReservation from "../../hooks/useUpdateReservation";
 import ReservationListAddVehicles from "./ReservationListAddVehicles";
+import ReservationListAddServices from "./ReservationListAddServices";
 import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
@@ -311,6 +312,11 @@ const ReservationListModal = (props) => {
           Services
         </label>
       )}
+      <ReservationListAddServices
+        disabledElements={disabledElements}
+        currentRecord={currentRecord}
+        setCurrentRecord={setCurrentRecord}
+      />
       {currentRecord.Services &&
         currentRecord.Services.map((service, index) => (
           <div key={index} className="flex">
@@ -323,13 +329,13 @@ const ReservationListModal = (props) => {
                   <DatePickerButton
                     text=""
                     typeClass="2"
-                    disabled={disabledElements}
+                    disabled={true}
                     type={["services", "date", index]}
                     selectedDate={new Date(service.Schedule)}
                     onChangeFunction={changeCurrentRecordData}
                   />
                 </span>
-                <div className="mt- sm:-mt-4">
+                <div className="mt-0.5 sm:-mt-4">
                   <DropDownSelect
                     options={createHoursWithIntervals(8, 16, 30)}
                     selectedOption={getHoursMinutesFromISOFormat(
@@ -337,6 +343,14 @@ const ReservationListModal = (props) => {
                     )}
                     disabled={disabledElements}
                     typeChange={["services", "hour", index]}
+                    onChangeFunction={changeCurrentRecordData}
+                  />
+                </div>
+                <div className="-mt-4 mb-1">
+                  <InputButton
+                    type={["price", index]}
+                    placeholderText={"CRC " + service.Price}
+                    disabled={true}
                     onChangeFunction={changeCurrentRecordData}
                   />
                 </div>
