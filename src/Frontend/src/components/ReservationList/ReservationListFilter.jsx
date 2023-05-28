@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { formatDateDTMMDDYYYY, addZerosToDate } from "../../helpers/formatDate";
-import useServicesNames from "../../hooks/useServicesNames";
+import useServices from "../../hooks/useServices.jsx";
 import useReservationFilter from "../../hooks/useReservationFilter";
 
 import InputButton from "../Buttons/InputButton";
@@ -11,7 +11,7 @@ import FiltersContainer from "../Containers/FiltersContainer";
 const ReservationListFilter = (props) => {
   const { reservations, setCurrentReservations } = props;
   // Services options
-  const { servicesNames } = useServicesNames();
+  const { servicesNames } = useServices();
   const { handleFilter } = useReservationFilter(reservations);
 
   // State that controls the filters that there are apply
@@ -103,7 +103,7 @@ const ReservationListFilter = (props) => {
             selectedOption={""}
             text="Service"
             disabled={false}
-            options={servicesNames}
+            options={["", ...servicesNames]}
             typeChange="service"
             onChangeFunction={changeFiltersState}
           />

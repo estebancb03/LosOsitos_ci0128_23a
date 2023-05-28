@@ -1,5 +1,26 @@
 import { getConnection, sql } from "../config/db.js";
 
+// Method that insert a new service in a reservation
+const insertService = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      Name_Service,
+      Price,
+      Quantity
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity})`
+    );
+    res.status(200);
+    console.log("The insert to the Service_Reservation was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
 // Method that gets the services of all reservations
 const getAllServices = async (req, res) => {
@@ -43,10 +64,11 @@ const updateService = async (req, res) => {
         ID,
         Reservation_Date,
         Name_Service,
+        Quantity
       } = req.body;
       const pool = await getConnection();
       await pool.query(
-        `UPDATE Service_Reservation SET Reservation_Date = '${Reservation_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
+        `UPDATE Service_Reservation SET Quantity = ${Quantity} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
       );
       res.status(200);
       console.log("The update to the Service_Reservation was successfull");
@@ -56,4 +78,9 @@ const updateService = async (req, res) => {
     }
   };
 
-  export {getAllServices, getServicesByReservationID, updateService}
+  export {
+    insertService,
+    getAllServices,
+    getServicesByReservationID,
+    updateService
+  }
