@@ -5,8 +5,9 @@ import Home from "./pages/Home";
 import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Reservation from "./pages/Reservation";
+import Settings from "./pages/Settings";
 
-import 'filepond/dist/filepond.min.css';
+import "filepond/dist/filepond.min.css";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="reservation-list" element={<ReservationList />} />
           <Route path="reservation" element={<Reservation />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>
