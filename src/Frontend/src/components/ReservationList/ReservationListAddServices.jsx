@@ -4,14 +4,6 @@ import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import useServices from "../../hooks/useServices";
-import {
-  formatDateDTDDMMYYYY,
-  getHoursMinutesFromISOFormat,
-  createHoursWithIntervals,
-  changeDateInISOFormat,
-  changeHourInISOFormat,
-  formatDateDTMMDDYYYY
-} from "../../helpers/formatDate";
 
 const ReservationListAddServices = (props) => {
   // Props
@@ -20,38 +12,33 @@ const ReservationListAddServices = (props) => {
     currentRecord,
     setCurrentRecord
   } = props;
-  
-  const { inputServicesPrices, setInputServicesPrice } = useState([]);
-  const { servicesNames, servicesPrices, searchServicePrice } = useServices();
+  // Services hook
+  const { servicesNames, searchServicePrice } = useServices();
 
   // Method that adds a service element
   const addService = () => {
     const newCurrentRecord = {...currentRecord};
-    const newInputServicesPrices = [ ...inputServicesPrices ];
     let services = [...currentRecord.NewServices];
     services = [...services, {
       ID_Client: currentRecord.ID,
-      Reservation_Date: currentRecord.Reservation_Date,
+      Reservation_Date: new Date().toISOString(),
       Name_Service: servicesNames[1],
+      Quantity: "1",
       Price: searchServicePrice(servicesNames[1], 'CRC'),
-      Schedule: new Date().toISOString()
     }];
-    newInputServicesPrices.push(searchServicePrice(servicesNames[1], 'CRC'));
     newCurrentRecord.NewServices = services;
     setCurrentRecord(newCurrentRecord);
-    setInputServicesPrice(newInputServicesPrices);
   };
 
   // Method that modify the currentRecord
   const modifyService = (type, value) => {
-    console.log(type);
     const newCurrentRecord = { ...currentRecord };
     const newServices = [ ...currentRecord.NewServices ];
     if (type[0] === "name") {
       newServices[type[1]].Name_Service = value;
       newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
-    } else if (type[0] === "hour") {
-      newServices[type[1]].Schedule = changeHourInISOFormat(value, newServices[type[1]].Schedule);
+    } else if (type[0] === "quantity") {
+      newServices[type[1]].Quantity = value;
     }
     newCurrentRecord.NewServices = newServices;
     setCurrentRecord(newCurrentRecord);
@@ -88,24 +75,27 @@ const ReservationListAddServices = (props) => {
                     text=""
                     typeClass="2"
                     disabled={true}
-                    selectedDate={new Date(service.Schedule)}
+                    selectedDate={new Date(service.Reservation_Date)}
                   />
                 </span>
-                <div className="mt-0.5 sm:-mt-4">
-                  <DropDownSelect
-                    options={createHoursWithIntervals(8, 16, 30)}
-                    selectedOption={getHoursMinutesFromISOFormat(
-                      service.Schedule
-                    )}
+                <div className="mt-0.5 mb-3">
+                  <InputButton
+                    type={["quantity", index]}
+                    placeholderText={service.Quantity}
                     disabled={disabledElements}
-                    typeChange={["hour", index]}
                     onChangeFunction={modifyService}
                   />
                 </div>
+              </div>
+              <div className="h-1 bg-gray-200 rounded-sm my-2 mx-2"></div>
+              <label className="block mt-4 mx-3 text-md font-regular leading-6 text-gray-900">
+                Prices
+              </label>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mt-3 mb-2">
                 <div className="-mt-4 mb-3">
                   <InputButton
                     type={["price", index]}
-                    placeholderText={"CRC " + inputServicesPrices[index]}
+                    placeholderText={"₡" + service.Price}
                     disabled={true}
                     onChangeFunction={modifyService}
                   />
@@ -113,7 +103,7 @@ const ReservationListAddServices = (props) => {
                 <div className="-mt-4 mb-3">
                   <InputButton
                     type={["price", index]}
-                    placeholderText={"USD " + searchServicePrice(service.Name_Service, 'USD')}
+                    placeholderText={"$" + searchServicePrice(service.Name_Service, 'USD')}
                     disabled={true}
                     onChangeFunction={modifyService}
                   />
