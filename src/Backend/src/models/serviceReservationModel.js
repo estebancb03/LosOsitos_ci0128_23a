@@ -4,15 +4,15 @@ import { getConnection, sql } from "../config/db.js";
 const insertService = async (req, res) => {
   try {
     const {
-      ID_Client,
+      ID,
       Reservation_Date,
       Name_Service,
       Price,
-      Schedule
+      Quantity
     } = req.body;
     const pool = await getConnection();
-    await pool . query(
-      `INSERT INTO SERVICE_RESERVATION VALUES (${ID_Client}, '${Reservation_Date}', '${Name_Service}', ${Price}, '${Schedule}')`
+    await pool.query(
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity})`
     );
     res.status(200);
     console.log("The insert to the Service_Reservation was successfull");
@@ -66,7 +66,6 @@ const updateService = async (req, res) => {
         Name_Service,
         Quantity
       } = req.body;
-      console.log(Quantity);
       const pool = await getConnection();
       await pool.query(
         `UPDATE Service_Reservation SET Quantity = ${Quantity} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`

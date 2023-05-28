@@ -13,10 +13,31 @@ const useUpdateReservation = (reservation) => {
           await AxiosClient.post(url, {
             ID,
             Reservation_Date,
-            ID_Vehicle: reservation.NewVehicles[index],
+            ID_Vehicle: NewVehicles[index],
           });
         })
       );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a new service
+  const insertNewService = async () => {
+    try {
+      const { ID, Reservation_Date, NewServices } = reservation;
+      const url = "/insertServiceReservation";
+      await Promise.all(
+        NewServices.map(async (service, index) => {
+          await AxiosClient.post(url, {
+            ID,
+            Reservation_Date,
+            Name_Service: NewServices[index].Name_Service,
+            Price: NewServices[index].Price,
+            Quantity: parseInt(NewServices[index].Quantity)
+          });
+        })
+        );
     } catch (exception) {
       console.log(exception);
     }
@@ -198,6 +219,7 @@ const useUpdateReservation = (reservation) => {
     updateTickets();
     updateState();
     insertNewVehicle();
+    insertNewService();
     updateSpots();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
   };
