@@ -35,6 +35,7 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             Name_Service: service.Name_Service,
+            Quantity: parseInt(Services[index].Quantity)
           });
         })
       );

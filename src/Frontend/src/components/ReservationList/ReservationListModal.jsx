@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
@@ -7,6 +7,7 @@ import DatePickerButton from "../Buttons/DatePickerButton";
 import useUpdateReservation from "../../hooks/useUpdateReservation";
 import ReservationListAddVehicles from "./ReservationListAddVehicles";
 import ReservationListAddServices from "./ReservationListAddServices";
+import useServices from "../../hooks/useServices";
 import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
@@ -29,7 +30,9 @@ const ReservationListModal = (props) => {
   // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
   // Hook that updates the reservation
-  const { updateReservation } = useUpdateReservation(currentRecord);
+  const {updateReservation} = useUpdateReservation(currentRecord);
+  // Hook that provides the method that search the price of a service
+  const {searchServicePrice} = useServices();
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -41,7 +44,7 @@ const ReservationListModal = (props) => {
 
   // Method tha formats the ticket information
   const formatTicket = (ticket) => {
-    const { Age_Range, Demographic_Group } = ticket;
+    const {Age_Range, Demographic_Group} = ticket;
     const resultAgeRange = Age_Range == 0 ? "Children" : "Adult";
     const resultDemographicGroup =
       Demographic_Group == 0 ? "National" : "Foreign";
@@ -59,7 +62,7 @@ const ReservationListModal = (props) => {
 
   // Method that validates what part of the state to modify
   const changeCurrentRecordData = (type, value) => {
-    const newRecord = { ...currentRecord };
+    const newRecord = {...currentRecord};
     if (Array.isArray(type)) {
       if (type[0] === "vehicles") {
         const newVehicles = [...newRecord.Vehicles];
@@ -67,15 +70,9 @@ const ReservationListModal = (props) => {
         newRecord.Vehicles = newVehicles;
       } else if (type[0] === "services") {
         const newServices = [...newRecord.Services];
-        type[1] === "date"
-          ? (newServices[type[2]].Reservation_Date = changeDateInISOFormat(
-              value,
-              newServices[type[2]].Reservation_Date
-            ))
-          : (newServices[type[2]].Reservation_Date = changeHourInISOFormat(
-              value,
-              newServices[type[2]].Reservation_Date
-            ));
+        if (type[1] === "quantity") {
+          newServices[type[2]].Quantity = value;
+        }
       } else if (type[0] === "tickets") {
         const newTickets = [...newRecord.Tickets];
         if (type[1] === "ticketType") {
@@ -134,7 +131,7 @@ const ReservationListModal = (props) => {
         {
           <Button
             text={modifyButton}
-            onclickFunction={ () => {
+            onclickFunction={() => {
               modifyHandleClick();
               if (modifyButton === "Save changes")
                 updateReservation();
@@ -259,7 +256,7 @@ const ReservationListModal = (props) => {
         {currentRecord.Tickets &&
           currentRecord.Tickets.map((ticket, index) => (
             <div key={index} className="flex">
-              <div className="bg-gray-100 w-[500px] rounded-sm my-2">
+              <div className="bg-gray-100 w-full rounded-sm my-2">
                 <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
                   <div className="mt-1 mb-1.5 sm:-mb-4">
                     <InputButton
@@ -335,21 +332,32 @@ const ReservationListModal = (props) => {
                     onChangeFunction={changeCurrentRecordData}
                   />
                 </span>
-                <div className="mt-0.5 sm:-mt-4">
-                  <DropDownSelect
-                    options={createHoursWithIntervals(8, 16, 30)}
-                    selectedOption={getHoursMinutesFromISOFormat(
-                      service.Reservation_Date
-                    )}
+                <div className="mt-0.5 mb-3">
+                  <InputButton
+                    type={["services", "quantity", index]}
+                    placeholderText={service.Quantity}
                     disabled={disabledElements}
-                    typeChange={["services", "hour", index]}
+                    onChangeFunction={changeCurrentRecordData}
+                  />
+                </div>
+              </div>
+              <div className="h-1 bg-gray-200 rounded-sm my-2 mx-2"></div>
+              <label className="block mt-4 mx-3 text-md font-regular leading-6 text-gray-900">
+                Prices
+              </label>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mt-3 mb-2">
+                <div className="-mt-4 mb-1">
+                  <InputButton
+                    type={["price", index]}
+                    placeholderText={"₡" + service.Price}
+                    disabled={true}
                     onChangeFunction={changeCurrentRecordData}
                   />
                 </div>
                 <div className="-mt-4 mb-1">
                   <InputButton
                     type={["price", index]}
-                    placeholderText={"CRC " + service.Price}
+                    placeholderText={"$" + searchServicePrice(service.Name_Service, "USD")}
                     disabled={true}
                     onChangeFunction={changeCurrentRecordData}
                   />

@@ -64,10 +64,12 @@ const updateService = async (req, res) => {
         ID,
         Reservation_Date,
         Name_Service,
+        Quantity
       } = req.body;
+      console.log(Quantity);
       const pool = await getConnection();
       await pool.query(
-        `UPDATE Service_Reservation SET Reservation_Date = '${Reservation_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
+        `UPDATE Service_Reservation SET Quantity = ${Quantity} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
       );
       res.status(200);
       console.log("The update to the Service_Reservation was successfull");
