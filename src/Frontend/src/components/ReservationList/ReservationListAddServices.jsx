@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState, useEffect} from "react";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
@@ -13,10 +13,48 @@ const ReservationListAddServices = (props) => {
     setCurrentRecord
   } = props;
   // Services hook
-  const { servicesNames, searchServicePrice } = useServices();
+  const {servicesNames, searchServicePrice} = useServices();
+  // State that controls the elements of the service dropdown
+  const [availableServices, setAvailableServices] = useState([]);
+  // State that controls the button visibility
+  const [buttonVisibility, setButtonVisibility] = useState(true);
+
+  // Method that gets reservation services names
+  const getReservationServicesNames = () => {
+    if (currentRecord.Services !== null) {
+      return currentRecord.Services.map((service) => service.Name_Service);
+    }
+    return [];
+  };
+
+  // Method that gets reservation services names
+  const getNewReservationServicesNames = () => {
+    if (currentRecord.NewServices.length !== 0) {
+      return currentRecord.NewServices.map((newService) => newService.Name_Service);
+    }
+    return [];
+  };
+
+  // Method that compares all services with the reservation services
+  const validateButtonVisibility = () => {
+    const reservationServices = getReservationServicesNames();
+    const newReservationServices = getNewReservationServicesNames();
+    const allReservationServices = [...new Set([...reservationServices, ...newReservationServices])];
+    if (allReservationServices.length === servicesNames.length && allReservationServices.length !== 0) {
+      setButtonVisibility(false);
+    }
+  };
+
+  // Method that filter the available services
+  const filterAvailableServices = () => {
+    const reservationServices = getReservationServicesNames();
+    const newAavailableServices = availableServices.filter(service => reservationServices.includes(service) === false);
+    setAvailableServices(newAavailableServices);
+  };
 
   // Method that adds a service element
   const addService = () => {
+    filterAvailableServices();
     const newCurrentRecord = {...currentRecord};
     let services = [...currentRecord.NewServices];
     services = [...services, {
@@ -32,8 +70,8 @@ const ReservationListAddServices = (props) => {
 
   // Method that modify the currentRecord
   const modifyService = (type, value) => {
-    const newCurrentRecord = { ...currentRecord };
-    const newServices = [ ...currentRecord.NewServices ];
+    const newCurrentRecord = {...currentRecord};
+    const newServices = [...currentRecord.NewServices];
     if (type[0] === "name") {
       newServices[type[1]].Name_Service = value;
       newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
@@ -44,24 +82,37 @@ const ReservationListAddServices = (props) => {
     setCurrentRecord(newCurrentRecord);
   };
 
+  useEffect(() => {
+    setAvailableServices(servicesNames);
+  }, [servicesNames]);
+
+  useEffect(() => {
+    if (currentRecord) {
+      validateButtonVisibility();
+    }
+  });
+
   return (
     <>
-      <div className="mt-4 mb-2">
-        <Button
-          text="Add service"
-          type="add"
-          disabled={disabledElements}
-          onclickFunction={() => addService()}
-        />
-      </div>
+      {buttonVisibility && (
+        <div className="mt-4 mb-2">
+          <Button
+            text="Add service"
+            type="add"
+            disabled={disabledElements}
+            onclickFunction={() => addService()}
+          />
+        </div>
+      )}
+      {buttonVisibility === false && (<div className="mt-4 mb-2"></div>)}
       {currentRecord.NewServices &&
         currentRecord.NewServices.map((service, index) => (
           <div className="bg-gray-100 w-full rounded-sm mt-4" key={index}>
             <div>
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1">
                 <DropDownSelect
-                  options={servicesNames}
-                  selectedOption={servicesNames[1]}
+                  options={availableServices}
+                  selectedOption={availableServices[0]}
                   disabled={disabledElements}
                   typeChange={["name", index]}
                   onChangeFunction={modifyService}
@@ -110,7 +161,7 @@ const ReservationListAddServices = (props) => {
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
         ))}
     </>
   );

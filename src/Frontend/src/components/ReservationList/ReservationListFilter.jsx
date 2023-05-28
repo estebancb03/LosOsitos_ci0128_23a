@@ -103,7 +103,7 @@ const ReservationListFilter = (props) => {
             selectedOption={""}
             text="Service"
             disabled={false}
-            options={servicesNames}
+            options={["", ...servicesNames]}
             typeChange="service"
             onChangeFunction={changeFiltersState}
           />
