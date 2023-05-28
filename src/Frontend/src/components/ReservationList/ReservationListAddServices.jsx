@@ -48,21 +48,22 @@ const ReservationListAddServices = (props) => {
   // Method that filter the available services
   const filterAvailableServices = () => {
     const reservationServices = getReservationServicesNames();
-    const newAavailableServices = availableServices.filter(service => reservationServices.includes(service) === false);
-    setAvailableServices(newAavailableServices);
+    const newAvailableServices = availableServices.filter(service => reservationServices.includes(service) === false);
+    setAvailableServices(newAvailableServices);
+    return newAvailableServices;
   };
 
   // Method that adds a service element
   const addService = () => {
-    filterAvailableServices();
+    const currentAvailableServices = filterAvailableServices();
     const newCurrentRecord = {...currentRecord};
     let services = [...currentRecord.NewServices];
     services = [...services, {
       ID_Client: currentRecord.ID,
       Reservation_Date: new Date().toISOString(),
-      Name_Service: servicesNames[1],
+      Name_Service: currentAvailableServices[0],
       Quantity: "1",
-      Price: searchServicePrice(servicesNames[1], 'CRC'),
+      Price: searchServicePrice(currentAvailableServices[0], 'CRC'),
     }];
     newCurrentRecord.NewServices = services;
     setCurrentRecord(newCurrentRecord);
