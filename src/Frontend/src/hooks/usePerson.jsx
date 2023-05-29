@@ -27,13 +27,13 @@ const usePerson = () => {
       newReservation.Country_Name = personData[0].Country_Name;
       newReservation.Birth_Date = personData[0].Birth_Date;
     } else {
-      newReservation.Name = null;
-      newReservation.LastName1 = null;
-      newReservation.LastName2 = null;
-      newReservation.Gender = null;
-      newReservation.Email = null;
-      newReservation.Country_Name = null;
-      newReservation.Birth_Date = null;
+      newReservation.Name = "";
+      newReservation.LastName1 = "";
+      newReservation.LastName2 = "";
+      newReservation.Gender = "";
+      newReservation.Email = "";
+      newReservation.Country_Name = "";
+      newReservation.Birth_Date = "";
     }
     setReservation(newReservation);
   };
