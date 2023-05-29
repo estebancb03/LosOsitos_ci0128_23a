@@ -15,6 +15,27 @@ const useReservations = () => {
   // State that constrols the services
   const [services, setServices] = useState([]);
 
+  // Method that inits a new reservation
+  const createReservation = () => {
+    return {
+      ID: null,
+      Name: null,
+      LastName1: null,
+      LastName2: null,
+      Email: null,
+      Country_Name: null,
+      Reservation_Method: null,
+      Status: null,
+      Reservation_Type: null,
+      Start_Date: null,
+      End_Date: null,
+      NewSpots: [],
+      NewTickets: [],
+      NewServices: [],
+      NewVehicles: []
+    };
+  };
+
   // Method that gets the records
   const fetchReservations = async () => {
     try {
@@ -111,7 +132,7 @@ const useReservations = () => {
     formatReservations();
   }, [spots, vehicles, tickets, services]);
 
-  return { reservations };
+  return { reservations, createReservation };
 };
 
 export default useReservations;
