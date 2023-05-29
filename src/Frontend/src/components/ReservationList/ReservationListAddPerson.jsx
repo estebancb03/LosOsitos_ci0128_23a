@@ -51,6 +51,8 @@ const ReservationListAddPerson = (props) => {
       newReservation.Country_Name = value;
       if (value !== "Costa Rica") {
         newReservation.State = "";
+      } else {
+        newReservation.State = "San José";
       }
     } else if (type === "state") {
       newReservation.State = value;

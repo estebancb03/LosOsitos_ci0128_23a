@@ -126,7 +126,7 @@ const ReservationListModal = (props) => {
   };
 
   return (
-    <Modal state={viewModal} setState={restartModal} title="Reservation Data">
+    <Modal state={viewModal} setState={restartModal} exitFunction={() => {}} title="Reservation Data">
       <div className="my-3">
         {
           <Button

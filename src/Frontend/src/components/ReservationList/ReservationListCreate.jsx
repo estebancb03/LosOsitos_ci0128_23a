@@ -17,9 +17,14 @@ const ReservationListCreate = (props) => {
   // The new reservations is inited
   useEffect(() => setReservation(createReservation), []);
 
+  // Method that reset the reservation
+  const resetReservation = () => {
+    setReservation(createReservation);
+  };
+
   return (
     <>
-      <Modal state={viewModal} setState={setViewModal} title="Create Reservation">
+      <Modal state={viewModal} setState={setViewModal} exitFunction={resetReservation} title="Create Reservation">
         <ReservationListAddPerson
           reservation={reservation}
           setReservation={setReservation}
