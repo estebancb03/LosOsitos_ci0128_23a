@@ -9,6 +9,7 @@ const usePerson = () => {
       const url = `/person/${reservation.ID}`;
       const { data } = await AxiosClient.get(url);
       setPersonData(data, reservation, setReservation);
+      return data.length !== 0;
     } catch (exception) {
       console.log(exception);
     }
@@ -16,7 +17,6 @@ const usePerson = () => {
 
   // Method that sets the person data into the reservation
   const setPersonData = (personData, reservation, setReservation) => {
-    console.log(personData);
     const newReservation = { ...reservation };
     if (personData.length !== 0) {
       newReservation.Name = personData[0].Name;
@@ -25,6 +25,7 @@ const usePerson = () => {
       newReservation.Gender = personData[0].Gender;
       newReservation.Email = personData[0].Email;
       newReservation.Country_Name = personData[0].Country_Name;
+      newReservation.State = personData[0].State !== "undefined" ? personData[0].State : "";
       newReservation.Birth_Date = personData[0].Birth_Date;
     } else {
       newReservation.Name = "";
@@ -33,6 +34,7 @@ const usePerson = () => {
       newReservation.Gender = "";
       newReservation.Email = "";
       newReservation.Country_Name = "";
+      newReservation.State = "";
       newReservation.Birth_Date = "";
     }
     setReservation(newReservation);

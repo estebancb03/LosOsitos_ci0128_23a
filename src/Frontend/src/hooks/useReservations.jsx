@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import useCountry from "./useCountry";
 
 import AxiosClient from "../config/AxiosClient";
 
@@ -14,6 +15,8 @@ const useReservations = () => {
   const [tickets, setTickets] = useState([]);
   // State that constrols the services
   const [services, setServices] = useState([]);
+  // Country hook
+  const {countries} = useCountry();
 
   // Method that inits a new reservation
   const createReservation = () => {
@@ -22,10 +25,11 @@ const useReservations = () => {
       Name: "",
       LastName1: "",
       LastName2: "",
-      Gender: "",
+      Gender: 0,
       Email: "",
-      Country_Name: "",
+      Country_Name: "Argentina",
       Birth_Date: "",
+      State: "",
       Reservation_Method: "",
       Status: "",
       Reservation_Type: "",
