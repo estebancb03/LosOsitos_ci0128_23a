@@ -14,20 +14,20 @@ const useSettingCapacity = () => {
   const filterCapacityValues = (values) => {
     let formatedCapacity = [...values];
 
-    const campingOnline = formatedCapacity.map((values) => {
-      values.Type == "CampingOnline";
+    const campingOnline = formatedCapacity.filter((values) => {
+      values.Type === "CampingOnline";
     });
 
-    const campingOnSite = formatedCapacity.map((values) => {
-      values.Type == "CampingOnSite";
+    const campingOnSite = formatedCapacity.filter((values) => {
+      values.Type === "CampingOnSite";
     });
 
-    const picnicOnline = formatedCapacity.map((values) => {
-      values.Type = "PicnicOnline";
+    const picnicOnline = formatedCapacity.filter((values) => {
+      values.Type === "PicnicOnline";
     });
 
-    const picnicOnSite = formatedCapacity.map((values) => {
-      values.Type = "PicnicOnSite";
+    const picnicOnSite = formatedCapacity.filter((values) => {
+      values.Type === "PicnicOnSite666";
     });
 
     formatedCapacity.CampingOnline = campingOnline;
@@ -41,7 +41,6 @@ const useSettingCapacity = () => {
   useEffect(() => {
     fetchActualCapacityValues();
   }, []);
-
   return { capacityValues };
 };
 
