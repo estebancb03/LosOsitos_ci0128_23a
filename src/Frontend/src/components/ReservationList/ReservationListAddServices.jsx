@@ -21,7 +21,7 @@ const ReservationListAddServices = (props) => {
 
   // Method that gets reservation services names
   const getReservationServicesNames = () => {
-    if (currentRecord.Services !== null) {
+    if (currentRecord.Services) {
       return currentRecord.Services.map((service) => service.Name_Service);
     }
     return [];
