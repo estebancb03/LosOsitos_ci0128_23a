@@ -5,7 +5,7 @@ import AddPerson from "./AddPerson.jsx";
 import AddVehicle from "./AddVehicle.jsx";
 import AddService from "./AddService.jsx";
 
-const ReservationListCreate = (props) => {
+const CreateReservation = (props) => {
   // Props
   const {
     viewModal,
@@ -52,4 +52,4 @@ const ReservationListCreate = (props) => {
   );
 };
 
-export default ReservationListCreate;
+export default CreateReservation;

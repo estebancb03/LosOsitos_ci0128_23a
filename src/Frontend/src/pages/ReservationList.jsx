@@ -10,9 +10,9 @@ import TableItem from "../components/Table/TableItem";
 import useReservations from "../hooks/useReservations";
 import Container from "../components/Containers/Container";
 import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
-import ReservationListModal from "../components/ReservationList/ReservationListModal";
-import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
-import ReservationListCreate from "../components/ReservationList/ReservationListCreate";
+import ShowReservation from "../components/ReservationList/ShowReservation.jsx";
+import FilterReservations from "../components/ReservationList/FilterReservations.jsx";
+import CreateReservation from "../components/ReservationList/CreateReservation.jsx";
 
 const ReservationList = () => {
   // Containst all reservations
@@ -58,20 +58,20 @@ const ReservationList = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation List" />
-        <ReservationListFilter
+        <FilterReservations
           reservations={reservations}
           setCurrentReservations={setCurrentReservations}
         />
         <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
           <Button text="Create Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
         </div>
-        <ReservationListCreate
+        <CreateReservation
           viewModal={viewCreateModal}
           setViewModal={setViewCreateModal}
           reservation={newReservation}
           setReservation={setNewReservation}
         />
-        <ReservationListModal
+        <ShowReservation
           currentRecord={selectedReservation}
           setCurrentRecord={setSelectedReservation}
           viewModal={viewModal}

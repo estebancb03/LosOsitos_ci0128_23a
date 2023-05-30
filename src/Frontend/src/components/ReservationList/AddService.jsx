@@ -5,7 +5,7 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import useServices from "../../hooks/useServices";
 
-const ReservationListAddServices = (props) => {
+const AddService = (props) => {
   // Props
   const {
     disabledElements,
@@ -168,4 +168,4 @@ const ReservationListAddServices = (props) => {
   );
 };
 
-export default ReservationListAddServices;
+export default AddService;

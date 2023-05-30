@@ -10,7 +10,7 @@ import {
   formatDateDTMMDDYYYY
 } from "../../helpers/formatDate";
 
-const ReservationListAddPerson = (props) => {
+const AddPerson = (props) => {
   // Props
   const {reservation, setReservation} = props;
   // Person hook
@@ -203,4 +203,4 @@ const ReservationListAddPerson = (props) => {
   );
 };
 
-export default ReservationListAddPerson;
+export default AddPerson;

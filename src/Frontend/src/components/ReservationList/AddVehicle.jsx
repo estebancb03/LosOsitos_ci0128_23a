@@ -1,7 +1,7 @@
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 
-const ReservationListAddVehicles = (props) => {
+const AddVehicle = (props) => {
   // Props
   const {
     disabledElements,
@@ -55,4 +55,4 @@ const ReservationListAddVehicles = (props) => {
   );
 };
 
-export default ReservationListAddVehicles;
+export default AddVehicle;

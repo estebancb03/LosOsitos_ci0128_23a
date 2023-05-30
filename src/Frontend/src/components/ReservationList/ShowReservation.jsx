@@ -17,7 +17,7 @@ import {
   formatDateDTMMDDYYYY
 } from "../../helpers/formatDate";
 
-const ReservationListModal = (props) => {
+const ShowReservation = (props) => {
   // Props
   const {
     currentRecord,
@@ -390,4 +390,4 @@ const ReservationListModal = (props) => {
   );
 };
 
-export default ReservationListModal;
+export default ShowReservation;
