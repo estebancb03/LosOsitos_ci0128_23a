@@ -12,4 +12,13 @@ import {
 
 
 
-const FinancialReport = () => {}
+function FinancialReport() {
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+    const [reportType, setReportType] = useState("daily");
+    const [reportData, setReportData] = useState([]);
+    const [reportDataTotal, setReportDataTotal] = useState(0);
+    const [reportDataTotalCash, setReportDataTotalCash] = useState(0);
+    const [reportDataTotalCard, setReportDataTotalCard] = useState(0);
+    const [reportDataTotalOnline, setReportDataTotalOnline] = useState(0);
+}
