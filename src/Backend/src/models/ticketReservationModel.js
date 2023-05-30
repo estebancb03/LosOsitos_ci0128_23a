@@ -1,6 +1,5 @@
 import { getConnection } from "../config/db.js";
 
-
 //Method that gets the tickets of all reservations
 const getAllTickets = async (req, res) => {
   try {
@@ -24,7 +23,7 @@ const getTicketsByReservationID = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        `SELECT Age_Range, Amount, Demographic_Group FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+        `SELECT Age_Range, Amount, Demographic_Group, Special, Price FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
         );
     console.log(result);
     res.status(200);
