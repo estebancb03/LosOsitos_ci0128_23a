@@ -31,7 +31,7 @@ const getReservations = async (req, res) => {
     const result = await pool
       .request()
       .query(
-        "SELECT DISTINCT Person.ID, Person.Name, Person.Birth_Date, Person.State, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.Status, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date FROM Reservation JOIN Person ON Reservation.ID_Client = Person.ID JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client FULL OUTER JOIN Picnic on Reservation.ID_Client = Picnic.ID_Client"
+        "SELECT DISTINCT Person.ID, Person.Name, Person.Birth_Date, Person.State, Person.LastName1, Person.LastName2, Person.Email, Person.Country_Name, Reservation_Method, Reservation.Status, Reservation.Reservation_Date, Ticket_Reservation.Reservation_Type, Camping.Start_Date, Camping.End_Date, Picnic.Picnic_Date FROM Reservation JOIN Person ON Reservation.ID_Client = Person.ID JOIN Ticket_Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client FULL OUTER JOIN Camping ON Reservation.ID_Client = Camping.ID_Client FULL OUTER JOIN Picnic on Reservation.ID_Client = Picnic.ID_Client"
       );
     console.log(result);
     res.status(200);

@@ -9,6 +9,7 @@ import AddVehicle from "./Add/AddVehicle.jsx";
 import AddService from "./Add/AddService.jsx";
 import useServices from "../../hooks/useServices";
 import ShowPerson from "./Show/ShowPerson";
+import ShowMainData from "./Show/ShowMainData";
 import {
   formatDateDTDDMMYYYY,
   getHoursMinutesFromISOFormat,
@@ -143,7 +144,12 @@ const ShowReservation = (props) => {
       <ShowPerson
         disabledElements={disabledElements}
         reservation={currentRecord}
-        setReservartion={setCurrentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowMainData
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
       />
       {/*<div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-6 mb-8">*/}
       {/*  <InputButton*/}
