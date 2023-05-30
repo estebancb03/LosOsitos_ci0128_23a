@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import useReservations from "../../hooks/useReservations";
-import AddPerson from "./AddPerson.jsx";
-import AddVehicle from "./AddVehicle.jsx";
-import AddService from "./AddService.jsx";
+import AddPerson from "./AddPerson";
+import AddVehicle from "./AddVehicle";
+import AddService from "./AddService";
+import AddMainData from "./AddMainData";
 
 const CreateReservation = (props) => {
   // Props
@@ -28,6 +29,10 @@ const CreateReservation = (props) => {
     <>
       <Modal state={viewModal} setState={setViewModal} exitFunction={resetReservation} title="Create Reservation">
         <AddPerson
+          reservation={reservation}
+          setReservation={setReservation}
+        />
+        <AddMainData
           reservation={reservation}
           setReservation={setReservation}
         />
