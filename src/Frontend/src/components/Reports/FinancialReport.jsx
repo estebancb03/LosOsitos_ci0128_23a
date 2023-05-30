@@ -12,8 +12,8 @@ import {
 
 
 
-function FinancialReport() {
-    const [startDate, setStartDate] = useState(new Date());
+const FinancialReportsPage = () => {
+    const [financialData, setFinancialData] = useState([]);
     const [endDate, setEndDate] = useState(new Date());
     const [reportType, setReportType] = useState("daily");
     const [reportData, setReportData] = useState([]);
@@ -21,10 +21,6 @@ function FinancialReport() {
     const [reportDataTotalCash, setReportDataTotalCash] = useState(0);
     const [reportDataTotalCard, setReportDataTotalCard] = useState(0);
     const [reportDataTotalOnline, setReportDataTotalOnline] = useState(0);
-}
-
-const FinancialReportsPage = () => {
-    const [financialData, setFinancialData] = useState([]);
   
     useEffect(() => {
       fetchFinancialData()
