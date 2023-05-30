@@ -19,21 +19,18 @@ const Capacity = () => {
 
   const checkValuesEntered = () => {
     let succesfulConversion = true;
-    if (newCapacityValues.length > 0) {
-      for (let i = 0; i < 4 && succesfulConversion; ++i) {
-        if (!Number.isInteger(newCapacityValues[i].Value)) {
-          const parsedInt = parseInt(newCapacityValues[i].Value, 10);
-          if (
-            !newCapacityValues[i].Value.includes(".") &&
-            validNumber(parsedInt)
-          ) {
-            newCapacityValues[i].Value = parsedInt;
-          } else {
-            alert(
-              "Values from the capacity can only be positive and intergers. Changes will not be applied"
-            );
-            succesfulConversion = false;
-          }
+    let arrayLength = newCapacityValues.length;
+    if (arrayLength > 0) {
+      const regex = /^(0|[1-9]\d)+$/;
+      for (let i = 0; i < arrayLength && succesfulConversion; ++i) {
+        if (regex.test(newCapacityValues[i].Value)) {
+          newCapacityValues[i].Value = parseInt(newCapacityValues[i].Value, 10);
+        } else {
+          alert(
+            "Values from the capacity can only be positive and intergers." +
+              "\nChanges will not be applied"
+          );
+          succesfulConversion = false;
         }
       }
     }
@@ -43,7 +40,7 @@ const Capacity = () => {
   const modifyHandleClick = (buttonNumber, type) => {
     if (buttonNumber === 1) {
       if (modifyButton1 === "Modify") {
-        setModifyButton1("Save changes");
+        setModifyButton1("Save");
       } else {
         if (checkValuesEntered()) {
           setModifyButton1("Modify");
@@ -51,7 +48,7 @@ const Capacity = () => {
       }
     } else {
       if (modifyButton2 === "Modify") {
-        setModifyButton2("Save changes");
+        setModifyButton2("Save");
       } else {
         if (checkValuesEntered()) {
           setModifyButton2("Modify");
@@ -70,14 +67,6 @@ const Capacity = () => {
         newDisabledButtons.picnicCapacity === true ? false : true;
     }
     setDisabledButtons(newDisabledButtons);
-  };
-
-  const validNumber = (numberEntered) => {
-    return (
-      numberEntered > 0 &&
-      Number.isInteger(numberEntered) &&
-      !isNaN(numberEntered)
-    );
   };
 
   const modifyCapacityValues = (type, value) => {
