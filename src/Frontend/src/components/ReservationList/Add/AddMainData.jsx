@@ -1,6 +1,6 @@
 import {useEffect} from "react";
-import DropDownSelect from "../Buttons/DropDownSelect";
-import DatePickerButton from "../Buttons/DatePickerButton";
+import DropDownSelect from "../../Buttons/DropDownSelect";
+import DatePickerButton from "../../Buttons/DatePickerButton";
 
 const AddMainData = (props) => {
   // Props

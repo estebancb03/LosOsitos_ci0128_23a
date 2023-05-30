@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Button from "../Buttons/Button";
-import InputButton from "../Buttons/InputButton";
+import Button from "../../Buttons/Button";
+import InputButton from "../../Buttons/InputButton";
 
 const AddTicket = (props) => {
   // Props

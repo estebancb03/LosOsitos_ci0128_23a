@@ -1,5 +1,5 @@
-import Button from "../Buttons/Button";
-import InputButton from "../Buttons/InputButton";
+import Button from "../../Buttons/Button";
+import InputButton from "../../Buttons/InputButton";
 
 const AddVehicle = (props) => {
   // Props
@@ -18,8 +18,8 @@ const AddVehicle = (props) => {
     setCurrentRecord(newMainRecordInfo);
   };
 
-  // Method that modify the mainRecordInfo
-  const modifyVehicle = (type, value) => {
+  // Method that changes the vehicle
+  const changeVehicle = (type, value) => {
     const newRecord = { ...currentRecord };
     if (type[0] === "newVehicles") {
       const newVehicles = [...newRecord.NewVehicles];
@@ -47,7 +47,7 @@ const AddVehicle = (props) => {
               type={["newVehicles", index]}
               placeholderText={vehicle}
               disabled={disabledElements}
-              onChangeFunction={modifyVehicle}
+              onChangeFunction={changeVehicle}
             />
           ))}
       </div>

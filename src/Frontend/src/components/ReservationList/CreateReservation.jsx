@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import useReservations from "../../hooks/useReservations";
-import AddPerson from "./AddPerson";
-import AddVehicle from "./AddVehicle";
-import AddService from "./AddService";
-import AddMainData from "./AddMainData";
+import AddPerson from "./Add/AddPerson";
+import AddTicket from "./Add/AddTicket";
+import AddVehicle from "./Add/AddVehicle";
+import AddService from "./Add/AddService";
+import AddMainData from "./Add/AddMainData";
 
 const CreateReservation = (props) => {
   // Props
@@ -35,6 +36,14 @@ const CreateReservation = (props) => {
         <AddMainData
           reservation={reservation}
           setReservation={setReservation}
+        />
+        <label className="block text-xl font-semibold leading-6 text-gray-900">
+          Tickets
+        </label>
+        <AddTicket
+          disabledElements={false}
+          currentRecord={reservation}
+          setCurrentRecord={setReservation}
         />
         <label className="block text-xl font-semibold leading-6 text-gray-900">
           Services
