@@ -11,9 +11,9 @@ import {
 const  ShowPerson = (props) => {
   // Props
   const {
-    disabledElements,
     reservation,
-    setReservation
+    setReservation,
+    disabledElements
   } = props;
   // Person hook
   const {getPersonData, setPersonData, modifyPersonData} = usePerson(reservation, setReservation);
@@ -33,8 +33,8 @@ const  ShowPerson = (props) => {
         <InputButton
           text="Customer ID"
           type="id"
-          placeholderText=""
-          disabled={false}
+          placeholderText={reservation.ID}
+          disabled={true}
           onChangeFunction={changePersonData}
         />
       </div>
@@ -65,16 +65,15 @@ const  ShowPerson = (props) => {
           onChangeFunction={changePersonData}
         />
       </div>
-      <div className="-mt-0.5 ml-3">
-        {console.log(reservation.Birth_Date)}
-        {/*<DatePickerButton*/}
-        {/*  text="Date of birth"*/}
-        {/*  typeClass="3"*/}
-        {/*  type="birthdate"*/}
-        {/*  disabled={disabledElements}*/}
-        {/*  selectedDate={new Date(formatDateDTMMDDYYYY(reservation.Birth_Date))}*/}
-        {/*  onChangeFunction={changePersonData}*/}
-        {/*/>*/}
+      <div className="-mt-0.5 mr-3">
+        <DatePickerButton
+          text="Date of birth"
+          typeClass="3"
+          type="birthdate"
+          disabled={disabledElements}
+          selectedDate={new Date(formatDateDTMMDDYYYY(reservation.Birth_Date))}
+          onChangeFunction={changePersonData}
+        />
       </div>
       <div className="my-3 ml-3">
         <InputButton
