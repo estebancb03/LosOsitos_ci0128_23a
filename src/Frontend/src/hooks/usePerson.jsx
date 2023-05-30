@@ -40,7 +40,45 @@ const usePerson = () => {
     setReservation(newReservation);
   };
 
-  return { getPersonData, setPersonData };
+  // Method that changes the person data of the reservation
+  const modifyPersonData = (type, value, reservation) => {
+    const newReservation = {...reservation};
+    if (type === "id") {
+      newReservation.ID = value;
+    } else if (type === "name") {
+      newReservation.Name = value;
+    } else if (type === "lastname1") {
+      newReservation.LastName1 = value;
+    } else if (type === "lastname2") {
+      newReservation.LastName2 = value;
+    } else if (type === "birthdate") {
+      newReservation.Birth_Date = value;
+    } else if (type === "email") {
+      newReservation.Email = value;
+    } else if (type === "gender") {
+      if (value === "Male") {
+        newReservation.Gender = 0;
+      } else if (value === "Female") {
+        newReservation.Gender = 1;
+      } else if (value === "Non-Binary") {
+        newReservation.Gender = 2;
+      } else if (value === "Other") {
+        newReservation.Gender = 3;
+      }
+    } else if (type === "country") {
+      newReservation.Country_Name = value;
+      if (value !== "Costa Rica") {
+        newReservation.State = "";
+      } else {
+        newReservation.State = "San José";
+      }
+    } else if (type === "state") {
+      newReservation.State = value;
+    }
+    return newReservation;
+  };
+
+  return { getPersonData, setPersonData, modifyPersonData };
 };
 
 export default usePerson;

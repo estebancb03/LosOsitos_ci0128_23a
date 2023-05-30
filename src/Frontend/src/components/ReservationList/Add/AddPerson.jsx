@@ -1,20 +1,20 @@
 import {useEffect, useState} from "react";
-import Button from "../Buttons/Button";
-import InputButton from "../Buttons/InputButton";
-import DropDownSelect from "../Buttons/DropDownSelect";
-import DatePickerButton from "../Buttons/DatePickerButton";
-import usePerson from "../../hooks/usePerson";
-import useCountry from "../../hooks/useCountry";
+import Button from "../../Buttons/Button";
+import InputButton from "../../Buttons/InputButton";
+import DropDownSelect from "../../Buttons/DropDownSelect";
+import DatePickerButton from "../../Buttons/DatePickerButton";
+import usePerson from "../../../hooks/usePerson";
+import useCountry from "../../../hooks/useCountry";
 import {
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY
-} from "../../helpers/formatDate";
+} from "../../../helpers/formatDate";
 
 const AddPerson = (props) => {
   // Props
   const {reservation, setReservation} = props;
   // Person hook
-  const {getPersonData, setPersonData} = usePerson(reservation, setReservation);
+  const {getPersonData, setPersonData, modifyPersonData} = usePerson(reservation, setReservation);
   // Country hook
   const {countries} = useCountry();
   // State that controls the disabled of the elements
@@ -24,40 +24,8 @@ const AddPerson = (props) => {
 
   // Method that changes the person data of the reservation
   const changePersonData = (type, value) => {
-    const newReservation = {...reservation};
-    if (type === "id") {
-      newReservation.ID = value;
-    } else if (type === "name") {
-      newReservation.Name = value;
-    } else if (type === "lastname1") {
-      newReservation.LastName1 = value;
-    } else if (type === "lastname2") {
-      newReservation.LastName2 = value;
-    } else if (type === "birthdate") {
-      newReservation.Birth_Date = value;
-    } else if (type === "email") {
-      newReservation.Email = value;
-    } else if (type === "gender") {
-      if (value === "Male") {
-        newReservation.Gender = 0;
-      } else if (value === "Female") {
-        newReservation.Gender = 1;
-      } else if (value === "Non-Binary") {
-        newReservation.Gender = 2;
-      } else if (value === "Other") {
-        newReservation.Gender = 3;
-      }
-    } else if (type === "country") {
-      newReservation.Country_Name = value;
-      if (value !== "Costa Rica") {
-        newReservation.State = "";
-      } else {
-        newReservation.State = "San José";
-      }
-    } else if (type === "state") {
-      newReservation.State = value;
-    }
-    setReservation(newReservation);
+    const newReservation = modifyPersonData(type, value, reservation);
+    setReservation(newReservation)
   };
 
   // Method that checks the personal data
