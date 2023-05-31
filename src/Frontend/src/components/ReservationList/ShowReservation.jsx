@@ -11,6 +11,7 @@ import useServices from "../../hooks/useServices";
 import ShowPerson from "./Show/ShowPerson";
 import ShowMainData from "./Show/ShowMainData";
 import ShowSpots from "./Show/ShowSpots";
+import ShowVehicles from "./Show/ShowVehicles";
 import {
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY
@@ -149,6 +150,11 @@ const ShowReservation = (props) => {
         setReservation={setCurrentRecord}
       />
       <ShowSpots
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowVehicles
         disabledElements={disabledElements}
         reservation={currentRecord}
         setReservation={setCurrentRecord}

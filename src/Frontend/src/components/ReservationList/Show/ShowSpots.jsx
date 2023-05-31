@@ -26,7 +26,7 @@ const ShowSpots = (props) => {
           <div className="grid grid-cols-2">
             { reservation.Spots &&
               reservation.Spots.map((spot, index) => (
-              <div key={spot.Location_Spot}>
+              <div key={index}>
                 {index %2 === 0 ? (
                   <div className="my-1 mr-3">
                     <InputButton
