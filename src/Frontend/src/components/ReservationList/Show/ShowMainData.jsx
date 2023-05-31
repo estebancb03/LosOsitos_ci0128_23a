@@ -52,14 +52,22 @@ const ShowMainData = (props) => {
           />
         </div>
         <div className="my-3 ml-3">
-          <DropDownSelect
-            text="Status"
-            options={["Pending", "Approved"]}
-            selectedOption={reservation.Status === 0 ? "Pending" : "Approved"}
-            disabled={disabledElements}
-            typeChange="status"
-            onChangeFunction={changeMainData}
-          />
+          {disabledElements ? (
+            <InputButton
+              text="Status"
+              placeholderText={reservation.Status === 0 ? "Pending" : "Approved"}
+              disabled={true}
+            />
+          ) : (
+            <DropDownSelect
+              text="Status"
+              options={["Pending", "Approved"]}
+              selectedOption={reservation.Status === 0 ? "Pending" : "Approved"}
+              disabled={disabledElements}
+              typeChange="status"
+              onChangeFunction={changeMainData}
+            />
+          )}
         </div>
         <div className="my-3 mr-3">
           <InputButton
