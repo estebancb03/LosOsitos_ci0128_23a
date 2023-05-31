@@ -10,12 +10,9 @@ import AddService from "./Add/AddService.jsx";
 import useServices from "../../hooks/useServices";
 import ShowPerson from "./Show/ShowPerson";
 import ShowMainData from "./Show/ShowMainData";
+import ShowSpots from "./Show/ShowSpots";
 import {
   formatDateDTDDMMYYYY,
-  getHoursMinutesFromISOFormat,
-  createHoursWithIntervals,
-  changeDateInISOFormat,
-  changeHourInISOFormat,
   formatDateDTMMDDYYYY
 } from "../../helpers/formatDate";
 
@@ -128,7 +125,7 @@ const ShowReservation = (props) => {
   };
 
   return (
-    <Modal state={viewModal} setState={restartModal} exitFunction={() => {}} title="Reservation Data">
+    <Modal state={viewModal} setState={restartModal} exitFunction={() => {setCurrentRecord({})}} title="Reservation Data">
       <div className="my-3">
         {
           <Button
@@ -147,6 +144,11 @@ const ShowReservation = (props) => {
         setReservation={setCurrentRecord}
       />
       <ShowMainData
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowSpots
         disabledElements={disabledElements}
         reservation={currentRecord}
         setReservation={setCurrentRecord}
