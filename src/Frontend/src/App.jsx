@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import ReservationList from "./pages/ReservationList";
 import DefaultLayout from "./layouts/DefaultLayout";
 import Reservation from "./pages/Reservation";
+import ParkStatus from "./pages/ParkStatus";
 
 import 'filepond/dist/filepond.min.css';
 
@@ -22,12 +23,14 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="reservation-list" element={<ReservationList />} />
           <Route path="reservation" element={<Reservation />} />
+          <Route path="park-status" element={<ParkStatus />} />
         </Route>
         //Private access admin routes
         <Route path="/admin">
           <Route index element={<Home />} />
           <Route path="reservation-list" element={<ReservationList />} />
           <Route path="reservation" element={<Reservation />} />
+          <Route path="park-status" element={<ParkStatus />} />
         </Route>
       </Routes>
     </BrowserRouter>
