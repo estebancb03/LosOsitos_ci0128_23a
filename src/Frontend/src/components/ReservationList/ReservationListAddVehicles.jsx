@@ -1,32 +1,29 @@
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
 
-const ReservationListAddVehicles = (props) => {
-  // Props
-  const {
-    disabledElements,
-    currentRecord,
-    setCurrentRecord
-  } = props;
-
+const ReservationListAddVehicles = ({
+  disabledElements,
+  mainRecordInfo,
+  setMainRecordInfo,
+}) => {
   // Method that adds a input and a "" to the array
   const addVehicle = () => {
-    const newMainRecordInfo = { ...currentRecord };
-    let vehicles = [...currentRecord.NewVehicles];
+    const newMainRecordInfo = { ...mainRecordInfo };
+    let vehicles = [...mainRecordInfo.NewVehicles];
     vehicles = [...vehicles, ""];
     newMainRecordInfo.NewVehicles = vehicles;
-    setCurrentRecord(newMainRecordInfo);
+    setMainRecordInfo(newMainRecordInfo);
   };
 
   // Method that modify the mainRecordInfo
   const modifyVehicle = (type, value) => {
-    const newRecord = { ...currentRecord };
+    const newRecord = { ...mainRecordInfo };
     if (type[0] === "newVehicles") {
       const newVehicles = [...newRecord.NewVehicles];
       newVehicles[type[1]] = value;
       newRecord.NewVehicles = newVehicles;
     }
-    setCurrentRecord(newRecord);
+    setMainRecordInfo(newRecord);
   };
 
   return (
@@ -40,8 +37,8 @@ const ReservationListAddVehicles = (props) => {
         />
       </div>
       <div className="grid grid-cols-2">
-        {currentRecord.NewVehicles &&
-          currentRecord.NewVehicles.map((vehicle, index) => (
+        {mainRecordInfo.NewVehicles &&
+          mainRecordInfo.NewVehicles.map((vehicle, index) => (
             <InputButton
               key={index}
               type={["newVehicles", index]}

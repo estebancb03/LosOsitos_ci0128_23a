@@ -45,9 +45,8 @@ function ReservationStep1({
         startDate != "" &&
         endDate != "" &&
         isDateAfterISO8601(startDate, endDate)
-      )
-        result = true;
-    } else {
+      ) result = true;
+    } else {  
       if (
         name != "" &&
         regexName.test(name) &&
@@ -59,8 +58,7 @@ function ReservationStep1({
         regexName.test(nationality) &&
         email != "" &&
         regexEmail.test(email)
-      )
-        result = true;
+      ) result = true;
     }
     return result;
   };
@@ -132,9 +130,9 @@ function ReservationStep1({
         setGender(3);
       }
     } else if (type === "startDate") {
-      setStartDate(value);
+      setStartDate(changeDateInISOFormat(value, date));
     } else if (type === "endDate") {
-      setEndDate(value);
+      setEndDate(changeDateInISOFormat(value, date));
     }
   };
 

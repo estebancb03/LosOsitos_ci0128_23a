@@ -1,5 +1,9 @@
+import { useEffect, useState } from "react";
 import Button from "../Buttons/Button";
-import AxiosClient from "../../config/AxiosClient";
+import Table from "../Table/Table";
+import TableItem from "../Table/TableItem";
+import CampingTentsMap from "../../assets/images/CampingTentsMap.jpg";
+import axiosClient from "../../config/AxiosClient";
 
 const ReservationStep3 = ({
   windows,
@@ -7,225 +11,181 @@ const ReservationStep3 = ({
   reservationData,
   setReservationData,
 }) => {
-  // Method thah inserts a person
-  const insertPerson = async () => {
+  const [availableSpots, setAvailableSpots] = useState([]);
+  const [quantitySmallSpot, setQuantitySmallSpot] = useState(0);
+  const [quantityMediumSpot, setQuantityMediumSpot] = useState(0);
+  const [quantityBigSpot, setQuantityBigSpot] = useState(0);
+  const [quantityAdded, setQuantityAdded] = useState(0);
+  const [selectedSpots, setSelectedSpots] = useState([]);
+
+  const columns = [
+    "Available Spots",
+    "Type",
+    "Size [square foot]",
+    "Currency",
+    "Price",
+    "Action",
+  ];
+
+  const getAvailableSpotsByDates = async () => {
     try {
-      console.log("person");
-      const {
-        ID,
-        Name,
-        LastName1,
-        LastName2,
-        Gender,
-        Birth_Date,
-        Email,
-        Country_Name,
-      } = reservationData;
-      const url = "/person";
-      await AxiosClient.post(url, {
-        ID,
-        Name,
-        LastName1,
-        LastName2,
-        Gender,
-        Birth_Date,
-        Email,
-        Country_Name,
-      });
+      let startDate = "2020-01-01T06:15:20.000";
+      let endDate = "2023-02-02T16:00:00.000";
+      const url = `/getAvailableSpotsByDates/${startDate}/${endDate}`;
+      const result = await axiosClient.get(url);
+      setAvailableSpots(result.data);
     } catch (exception) {
-      console.log(exception);
+      console.error(exception);
     }
   };
 
-  const insertClient = async () => {
-    try {
-      console.log("client");
-      const { ID } = reservationData;
-      const url2 = "/client";
-      await AxiosClient.post(url2, {
-        ID_Person: ID,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
+  const typeOfSpot = (size) => {
+    let result;
+    size < 120
+      ? (result = "Small")
+      : size < 180
+      ? (result = "Medium")
+      : (result = "Big");
+    return result;
   };
 
-  // Method tha inserts a reservation
-  const insertReservation = async () => {
-    try {
-      console.log("reservation");
-      const { ID, Reservation_Date } = reservationData;
-      const url = "/reservation";
-      await AxiosClient.post(url, {
-        ID_Client: ID,
-        Reservation_Date,
-        Payment_Method: 2,
-        Payment_Proof: null,
-        Status: 1,
-        Reservation_Method: 0,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that inserts a reservation ticket
-  const insertReservationTicket = async () => {
-    try {
-      console.log("tickets");
-      const { ID, Reservation_Date, Tickets } = reservationData;
-      const url = "/reservationTicket";
-      await Promise.all(
-        Tickets.map(async (ticket) => {
-          console.log("tickets map");
-          await AxiosClient.post(url, {
-            ID_Client: ID,
-            Reservation_Date,
-            Age_Range: ticket.Age_Range,
-            Demographic_Group: ticket.Demographic_Group,
-            Reservation_Type: ticket.Reservation_Type,
-            Price: ticket.Price,
-            Special: 0,
-            Amount: ticket.Amount,
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that inserts a camping or a picnic
-  const insertReservationType = async () => {
-    try {
-      console.log("reservation type");
-      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
-        reservationData;
-      if (reservationData.Reservation_Type === 0) {
-        const url = "/picnic";
-        await AxiosClient.post(url, {
-          ID_Client: ID,
-          Reservation_Date,
-          Picnic_Date: new Date()
-        });
-      } else {
-        const url = "/camping";
-        await AxiosClient.post(url, {
-          ID_Client: ID,
-          Reservation_Date,
-          Start_Date,
-          End_Date,
-          Reservation_Method: 1,
-        });
-      }
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that inserts a spot camping
-  const insertSpotsCamping = async () => {
-    try {
-      console.log("spots");
-      const { ID, Reservation_Date, Spots } = reservationData;
-      const url = "/spots";
-      await Promise.all(
-        Spots.map(async (spot) => {
-          console.log(Spots);
-          await AxiosClient.post(url, {
-            ID_Client: ID,
-            Reservation_Date,
-            Location_Spot: spot.Location_Spot,
-            Price: spot.Price,
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  const updateReservationData = async (method) => {
-    const newReservationData = { ...reservationData };
-    const newWindows = { ...windows };
-    newReservationData.Payment_Method = method;
+  const checkParcelWasAdded = () => {
     if (
-      newReservationData.Payment_Method !== 0 &&
-      newReservationData.Payment_Method === 1
+      quantitySmallSpot != 0 ||
+      quantityMediumSpot != 0 ||
+      quantityBigSpot != 0
     ) {
-      newWindows.Step3 = false;
-      newWindows.Step4 = true;
-    } else if (
-      newReservationData.Payment_Method !== 0 &&
-      newReservationData.Payment_Method === 2
-    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
-      await insertPerson();
-      await insertClient();
-      await insertReservation();
-      insertReservationTicket();
-      await insertReservationType();
+  useEffect(() => {
+    getAvailableSpotsByDates();
+  }, []);
+
+  const readyToLoad = () => {
+    return availableSpots && availableSpots.length > 0;
+  };
+
+  const handleCheckboxClick = (e, typeOfSpot, price) => {
+    const locationPassed = e.target.value;
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      // Verify that the customer can't add more spots than
+      // the ones available
+      if (quantityAdded < 3) {
+        if (typeOfSpot == "Small") {
+          setQuantitySmallSpot(quantitySmallSpot + 1);
+        } else {
+          if (typeOfSpot == "Medium") {
+            setQuantityMediumSpot(quantityMediumSpot + 1);
+          } else {
+            setQuantityBigSpot(quantityBigSpot + 1);
+          }
+          setQuantityAdded(quantityAdded + 1);
+          setSelectedSpots([
+            ...selectedSpots,
+            { location: parseInt(locationPassed), price: price },
+          ]);
+        }
+      } else {
+        alert("There aren't any spots left. Please continue");
+        e.target.checked = false;
+      }
+    } else {
+      if (quantityAdded > 0) {
+        if (typeOfSpot == "Small") {
+          if (quantitySmallSpot > 0) {
+            setQuantitySmallSpot(quantitySmallSpot - 1);
+          }
+        } else {
+          if (typeOfSpot == "Medium") {
+            if (quantityMediumSpot > 0) {
+              setQuantityMediumSpot(quantityMediumSpot - 1);
+            }
+          } else {
+            if (quantityBigSpot > 0) {
+              setQuantityBigSpot(quantityBigSpot - 1);
+            }
+          }
+        }
+        setQuantityAdded(quantityAdded - 1);
+        setSelectedSpots(
+          selectedSpots.filter(
+            (location) =>
+              parseInt(location.location) !== parseInt(locationPassed)
+          )
+        );
+      }
+    }
+  };
+
+  const updateReservationData = () => {
+    if (checkParcelWasAdded()) {
+      const newReservationData = { ...reservationData };
+      const newWindows = { ...windows };
       newWindows.Step3 = false;
       newWindows.Step5 = true;
-    }
-    newReservationData.QRData = {
-      data: newReservationData.ID + newReservationData.Reservation_Date,
-      mail: newReservationData.Email,
-      text: reservationData,
-    };
-    setWindows(newWindows);
-    setReservationData(newReservationData);
-    console.log("correo");
-    sendQRData(newReservationData.QRData);
-  };
-
-  // Method to send data to be emailed
-  const sendQRData = async (value) => {
-    try {
-      console.log(value);
-      const data = value;
-      const url = "/mail";
-      await AxiosClient.post(url, {
-        data,
-      });
-    } catch (exception) {
-      console.log(exception);
+      let spots = [];
+      selectedSpots.map((spot) =>
+        spots.push({
+          Location_Spot: spot.location,
+          Price: spot.price
+        })
+      );
+      newReservationData.Spots = spots;
+      setReservationData(newReservationData);
+      setWindows(newWindows);
+      setQuantityAdded(0);
+      setSelectedSpots([]);
+    } else {
+      alert("To proceed, please add at least one spot to your reservation");
     }
   };
 
   return (
     <>
-      {windows.Step3 && (
-        <div>
+      {windows.Step3 && readyToLoad() && (
+        <div className="grid grid-cols-1 gap-2 content-center">
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
-            Choose your payment method
+            Spots selection
           </h2>
-          <div className="grid grid-cols-3 sm:grid-cols-1">
-            <div className="mb-8 mt-1 sm:mb-0">
-              <div className="">
-                <Button
-                  text="Credit Card"
-                  onclickFunction={(e) => updateReservationData(0)}
+          <div className="align-center">
+            <img
+              src={CampingTentsMap}
+              className=" h-auto w-auto rounded-lg rounded-bg border-4 border-black align-center"
+            />
+          </div>
+          <div className="">
+            <Table colums={columns}>
+              {availableSpots.map((item, index) => (
+                <TableItem
+                  key={index}
+                  number={index}
+                  data={[
+                    item.Location,
+                    typeOfSpot(item.Size),
+                    item.Size,
+                    item.Currency,
+                    item.Price,
+                    <input
+                      type="checkbox"
+                      value={item.Location}
+                      onChange={(e) =>
+                        handleCheckboxClick(
+                          e,
+                          typeOfSpot(item.size),
+                          item.Price
+                        )
+                      }
+                    ></input>,
+                  ]}
                 />
-              </div>
-            </div>
-            <div className="mb-8 mt-1 sm:my-5">
-              <div className="mx-5 sm:mx-0">
-                <Button
-                  text="Sinpe"
-                  onclickFunction={(e) => updateReservationData(1)}
-                />
-              </div>
-            </div>
-            <div className="mt-1 sm:mt-0">
-              <div className="">
-                <Button
-                  text="Cash"
-                  onclickFunction={(e) => updateReservationData(2)}
-                />
-              </div>
-            </div>
-            <div className="mb-8 sm:mt-5">
+              ))}
+            </Table>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
               <Button
                 text="Back"
                 onclickFunction={(e) => {
@@ -235,6 +195,13 @@ const ReservationStep3 = ({
                   setWindows(newWindows);
                 }}
               />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
             </div>
           </div>
         </div>

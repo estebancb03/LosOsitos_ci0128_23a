@@ -1,4 +1,4 @@
-import { getConnection } from "../config/db.js";
+import { getConnection, sql } from "../config/db.js";
 
 // Method that inserts a ticket
 const insertTicket = async (req, res) => {
@@ -21,17 +21,4 @@ const insertTicket = async (req, res) => {
   }
 };
 
-const getPrices = async (req, res) => {
-  try {
-    const pool = await getConnection();
-    const result = await pool.request().query("SELECT * FROM Ticket");
-    console.log(result);
-    res.json(result.recordset);
-  } catch (error) {
-    res.status(500);
-    res.send(error.message);
-  }
-};
-
-
-export { insertTicket, getPrices };
+export { insertTicket };
