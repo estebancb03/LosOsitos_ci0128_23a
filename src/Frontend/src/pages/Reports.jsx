@@ -13,13 +13,11 @@ const Reports = () => {
         <NavMenu/>
         <Container>
             <Title name="Reports"/>
-            <div className="grid grid-cols-3 gap-4 my-5">
+            <div className="grid grid-cols-4 gap-4 my-5 sm:grid-cols-2">
                 <div><DropDownSelect text="Report type" options={reportTypes}/></div>
                 <div><DatePickerButton text="Start date"/></div>
                 <div><DatePickerButton text="End date"/></div>
-            </div>
-            <div>
-                <Button text="Generate report" type="add"/>
+                <div className="mt-8"><Button text="Generate" type="add"/></div>
             </div>
         </Container>
     </>
