@@ -75,6 +75,8 @@ const useUpdateReservation = (reservation) => {
       Tickets.map((ticket) => {
         ticket.Age_Range = parseInt(ticket.Age_Range);
         ticket.Demographic_Group = parseInt(ticket.Demographic_Group);
+        ticket.Special = parseInt(ticket.Special);
+        ticket.Price = parseInt(ticket.Price);
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
@@ -86,8 +88,14 @@ const useUpdateReservation = (reservation) => {
             Reservation_Date,
             Age_Range: ticket.Age_Range,
             Amount: ticket.Amount,
+            Special: ticket.Special,
             Demographic_Group: ticket.Demographic_Group,
+            Price: ticket.Price,
+            newAge_Range: parsedTickets[index].Age_Range,
+            newDemographic_Group: parsedTickets[index].Demographic_Group,
+            newSpecial: parsedTickets[index].Special,
             newAmount: parsedTickets[index].Amount,
+            newPrice: parsedTickets[index].Price
           });
         })
       );

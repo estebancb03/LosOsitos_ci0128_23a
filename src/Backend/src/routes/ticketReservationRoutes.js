@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getAllTickets, insertReservationTicket, updateTicket, getTicketsByReservationID } from "../models/ticketReservationModel.js";
+import { getAllTickets, insertReservationTicket, updateTicket, getTicketsByReservationID, deleteTicket } from "../models/ticketReservationModel.js";
 
 const router = Router();
 
@@ -10,5 +10,7 @@ router.get("/getTicketsByReservationID/:ID/:Reservation_Date", getTicketsByReser
 router.post("/reservationTicket", insertReservationTicket);
 
 router.put("/updateTicket", updateTicket);
+
+router.delete("/deleteTicket", deleteTicket);
 
 export default router;
