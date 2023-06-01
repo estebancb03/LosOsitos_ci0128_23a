@@ -12,6 +12,7 @@ import ShowPerson from "./Show/ShowPerson";
 import ShowMainData from "./Show/ShowMainData";
 import ShowSpots from "./Show/ShowSpots";
 import ShowVehicles from "./Show/ShowVehicles";
+import ShowServices from "./Show/ShowServices";
 import {
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY
@@ -32,7 +33,7 @@ const ShowReservation = (props) => {
   // Hook that updates the reservation
   const {updateReservation} = useUpdateReservation(currentRecord);
   // Hook that provides the method that search the price of a service
-  const {searchServicePrice} = useServices();
+  const {searchServicePrice,servicesPrices} = useServices();
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -150,6 +151,11 @@ const ShowReservation = (props) => {
         setReservation={setCurrentRecord}
       />
       <ShowSpots
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowServices
         disabledElements={disabledElements}
         reservation={currentRecord}
         setReservation={setCurrentRecord}
