@@ -2,6 +2,7 @@ import Title from "../components/Title";
 import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
+import * as BsIcons from "react-icons/bs";
 
 const ParkStatus = () => {
   return (
@@ -9,10 +10,19 @@ const ParkStatus = () => {
       <NavMenu />
       <Container>
         <Title name="Park Status" />
-        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10">
-          <Container>
-
-          </Container>
+        <div className="object-center flex gap-4 flex-wrap place-content-center my-2">
+          <div className="w-2/5 text-center border-2 border-[#21295c] rounded">
+            <BsIcons.BsCarFrontFill />
+          </div>
+          <div className="w-2/5 text-center border-2 border-[#21295c] rounded">
+            <BsIcons.BsCarFrontFill />
+          </div>
+          <div className="w-2/5 text-center border-2 border-[#21295c] rounded">
+            <BsIcons.BsCarFrontFill />
+          </div>
+          <div className="w-2/5 text-center border-2 border-[#21295c] rounded">
+            <BsIcons.BsCarFrontFill />
+          </div>
         </div>
       </Container>
       <Footer />
