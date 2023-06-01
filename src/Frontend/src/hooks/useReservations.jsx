@@ -129,13 +129,16 @@ const useReservations = () => {
     setReservations(formattedReservations);
   };
 
-  useEffect(() => {
-    fetchSpots();
-    fetchTickets();
-    fetchVehicles();
-    fetchServices();
-    fetchReservations();
-  }, []);
+  // Method that fetch all data
+  const fetch = async () => {
+    await fetchReservations();
+    await fetchSpots();
+    await fetchTickets();
+    await fetchVehicles();
+    await fetchServices();
+  }
+
+  useEffect(() => fetch, []);
 
   useEffect(() => {
     formatReservations();
