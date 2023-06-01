@@ -13,6 +13,7 @@ import ShowMainData from "./Show/ShowMainData";
 import ShowSpots from "./Show/ShowSpots";
 import ShowVehicles from "./Show/ShowVehicles";
 import ShowServices from "./Show/ShowServices";
+import ShowTickets from "./Show/ShowTickets";
 import {
   formatDateDTDDMMYYYY,
   formatDateDTMMDDYYYY
@@ -146,6 +147,11 @@ const ShowReservation = (props) => {
         setReservation={setCurrentRecord}
       />
       <ShowMainData
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowTickets
         disabledElements={disabledElements}
         reservation={currentRecord}
         setReservation={setCurrentRecord}

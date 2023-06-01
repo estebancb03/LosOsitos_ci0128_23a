@@ -57,5 +57,26 @@ const getUSDPrices = async (req, res) => {
   }
 };
 
+const getPriceByARDGCurrency = async (req, res) => {
+  try {
+    const {
+      Age_Range,
+      Demographic_Group,
+      Reservation_Type,
+      Currency
+    } = req.params;
+//    console.log(req.body);
+    const pool = await getConnection();
+    const result = await pool
+      .request()
+      .query(`SELECT Price FROM Ticket WHERE Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Reservation_Type = ${Reservation_Type} AND Currency = '${Currency}'`);
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
-export { insertTicket, getPrices, getCRCPrices, getUSDPrices };
+
+export { insertTicket, getPrices, getCRCPrices, getUSDPrices, getPriceByARDGCurrency };
