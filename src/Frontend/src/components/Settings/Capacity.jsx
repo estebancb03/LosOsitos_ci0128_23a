@@ -2,7 +2,7 @@ import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSettingCapacity from "../../hooks/useSettingCapacity";
 
 const Capacity = () => {
@@ -16,6 +16,7 @@ const Capacity = () => {
     campingCapacity: true,
     picnicCapacity: true,
   });
+  const [applyChanges, setApplyChanges] = useState(true);
 
   const checkValuesEntered = () => {
     let succesfulConversion = true;
@@ -26,10 +27,6 @@ const Capacity = () => {
         if (regex.test(newCapacityValues[i].Value)) {
           newCapacityValues[i].Value = parseInt(newCapacityValues[i].Value, 10);
         } else {
-          alert(
-            "Values from the capacity can only be positive and intergers." +
-              "\nChanges will not be applied"
-          );
           succesfulConversion = false;
         }
       }
@@ -37,13 +34,14 @@ const Capacity = () => {
     return succesfulConversion;
   };
 
-  const modifyHandleClick = (buttonNumber, type) => {
+  const modifyHandleClick = (buttonNumber) => {
     if (buttonNumber === 1) {
-      if (modifyButton1 === "Modify") {
-        setModifyButton1("Save");
-      } else {
+      if (modifyButton1 === "Save") {
         if (checkValuesEntered()) {
           setModifyButton1("Modify");
+          setApplyChanges(true);
+        } else {
+          setApplyChanges(false);
         }
       }
     } else {
@@ -52,21 +50,38 @@ const Capacity = () => {
       } else {
         if (checkValuesEntered()) {
           setModifyButton2("Modify");
+          setApplyChanges(true);
         }
       }
     }
+    return;
   };
 
-  const setButtonState = (buttonNumber) => {
-    const newDisabledButtons = { ...disabledButtons };
-    if (buttonNumber === 0) {
-      newDisabledButtons.campingCapacity =
-        newDisabledButtons.campingCapacity === true ? false : true;
+  const modfiyButton = (buttonNumber) {
+    if(buttonNumber === 1) {
+
     } else {
-      newDisabledButtons.picnicCapacity =
-        newDisabledButtons.picnicCapacity === true ? false : true;
+      
     }
-    setDisabledButtons(newDisabledButtons);
+  }
+
+  const enableInput = (buttonNumber) => {
+    if (applyChanges) {
+      const newDisabledButtons = { ...disabledButtons };
+      if (buttonNumber === 0) {
+        newDisabledButtons.campingCapacity =
+          newDisabledButtons.campingCapacity === true ? false : true;
+      } else {
+        newDisabledButtons.picnicCapacity =
+          newDisabledButtons.picnicCapacity === true ? false : true;
+      }
+      setDisabledButtons(newDisabledButtons);
+    } else {
+      alert(
+        "Values from the capacity can only be positive and intergers." +
+          "\nChanges will not be applied"
+      );
+    }
   };
 
   const modifyCapacityValues = (type, value) => {
@@ -81,9 +96,14 @@ const Capacity = () => {
     setNewCapacityValues(newValuesEntered);
   };
 
+  useEffect(() => {
+    modifyHandleClick(1);
+  }, [newCapacityValues]);
+
   const readyToLoad = () => {
     return capacityValues.length > 0;
   };
+
   return (
     <>
       {readyToLoad() && (
@@ -110,8 +130,7 @@ const Capacity = () => {
                   <Button
                     text={modifyButton1}
                     onclickFunction={() => {
-                      modifyHandleClick(1);
-                      setButtonState(0);
+                      enableInput(0);
                     }}
                   />,
                 ]}
@@ -136,8 +155,7 @@ const Capacity = () => {
                   <Button
                     text={modifyButton2}
                     onclickFunction={() => {
-                      modifyHandleClick(2);
-                      setButtonState(1);
+                      enableInput(1);
                     }}
                   />,
                 ]}
