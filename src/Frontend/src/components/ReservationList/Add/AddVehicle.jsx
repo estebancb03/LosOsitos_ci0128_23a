@@ -31,7 +31,7 @@ const AddVehicle = (props) => {
 
   return (
     <>
-      <div className="mt-4 mb-2">
+    <div className="mb-3 mt-6">
         <Button
           text="Add vehicle"
           type="add"
@@ -42,13 +42,31 @@ const AddVehicle = (props) => {
       <div className="grid grid-cols-2">
         {currentRecord.NewVehicles &&
           currentRecord.NewVehicles.map((vehicle, index) => (
-            <InputButton
-              key={index}
-              type={["newVehicles", index]}
-              placeholderText={vehicle}
-              disabled={disabledElements}
-              onChangeFunction={changeVehicle}
-            />
+            <div key={index}>
+              {index %2 === 0 ? (
+                <div className="my-1 mr-3">
+                  <InputButton
+                    key={index}
+                    text=" "
+                    type={["newVehicles", index]}
+                    placeholderText={vehicle}
+                    disabled={disabledElements}
+                    onChangeFunction={changeVehicle}
+                  />
+                </div>
+                ) : (
+                  <div className="my-1 ml-3">
+                    <InputButton
+                      key={index}
+                      text=" "
+                      type={["newVehicles", index]}
+                      placeholderText={vehicle}
+                      disabled={disabledElements}
+                      onChangeFunction={changeVehicle}
+                    />
+                  </div>
+                  )}
+            </div>
           ))}
       </div>
     </>
