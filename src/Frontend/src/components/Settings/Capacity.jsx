@@ -35,35 +35,43 @@ const Capacity = () => {
   };
 
   const modifyHandleClick = (buttonNumber) => {
-    if (buttonNumber === 1) {
+    if (buttonNumber === 0) {
       if (modifyButton1 === "Save") {
         if (checkValuesEntered()) {
-          setModifyButton1("Modify");
           setApplyChanges(true);
         } else {
           setApplyChanges(false);
         }
       }
     } else {
-      if (modifyButton2 === "Modify") {
-        setModifyButton2("Save");
+      if (checkValuesEntered()) {
+        setApplyChanges(true);
       } else {
-        if (checkValuesEntered()) {
-          setModifyButton2("Modify");
-          setApplyChanges(true);
-        }
+        setApplyChanges(false);
       }
     }
     return;
   };
 
-  const modfiyButton = (buttonNumber) {
-    if(buttonNumber === 1) {
-
+  const modifyButton = (buttonNumber) => {
+    if (buttonNumber === 0) {
+      if (modifyButton1 === "Save") {
+        if (checkValuesEntered()) {
+          setModifyButton1("Modify");
+        }
+      } else {
+        setModifyButton1("Save");
+      }
     } else {
-      
+      if (modifyButton2 === "Save") {
+        if (checkValuesEntered()) {
+          setModifyButton2("Modify");
+        } else {
+          setModifyButton2("Save");
+        }
+      }
     }
-  }
+  };
 
   const enableInput = (buttonNumber) => {
     if (applyChanges) {
@@ -97,7 +105,7 @@ const Capacity = () => {
   };
 
   useEffect(() => {
-    modifyHandleClick(1);
+    modifyHandleClick(0);
   }, [newCapacityValues]);
 
   const readyToLoad = () => {
@@ -130,6 +138,7 @@ const Capacity = () => {
                   <Button
                     text={modifyButton1}
                     onclickFunction={() => {
+                      modifyButton(0);
                       enableInput(0);
                     }}
                   />,
@@ -155,6 +164,7 @@ const Capacity = () => {
                   <Button
                     text={modifyButton2}
                     onclickFunction={() => {
+                      modifyButton(1);
                       enableInput(1);
                     }}
                   />,
