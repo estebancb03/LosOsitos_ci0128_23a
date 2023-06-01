@@ -1,11 +1,15 @@
 import { Router } from "express";
-import { getAllTickets, insertReservationTicket, updateTicket, getTicketsByReservationID } from "../models/ticketReservationModel.js";
+import { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, updateTicket, getTicketsByReservationID } from "../models/ticketReservationModel.js";
 
 const router = Router();
 
 router.get("/getAllTickets", getAllTickets);
 
 router.get("/getTicketsByReservationID/:ID/:Reservation_Date", getTicketsByReservationID);
+
+router.get("/getCampingCapacity/:date", getCampingCapacity);
+
+router.get("/getPicnicCapacity/:date", getPicnicCapacity);
 
 router.post("/reservationTicket", insertReservationTicket);
 
