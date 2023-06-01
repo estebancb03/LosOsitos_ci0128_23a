@@ -1,12 +1,10 @@
 import { Router } from "express";
-import { getPerson, insertPerson, updatePersonData } from "../models/personModel.js";
+import { getPerson, insertPerson, insertClient } from "../models/personModel.js";
 
 const router = Router();
 
 router.get("/person/:id", getPerson);
-
 router.post("/person", insertPerson);
-
-router.put("/updatePersonData", updatePersonData);
+router.post("/client", insertClient);
 
 export default router;
