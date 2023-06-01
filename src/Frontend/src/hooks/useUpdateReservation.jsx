@@ -170,8 +170,11 @@ const useUpdateReservation = (reservation) => {
         Name,
         LastName1,
         LastName2,
+        Birth_Date,
         Email,
+        Gender,
         Country_Name,
+        State
       } = reservation;
       const url = "/updatePersonData";
       await AxiosClient.put(url, {
@@ -180,8 +183,11 @@ const useUpdateReservation = (reservation) => {
         Name,
         LastName1,
         LastName2,
+        Birth_Date,
         Email,
+        Gender,
         Country_Name,
+        State: Country_Name === "Costa Rica" ? State : "NULL"
       });
     } catch (exception) {
       console.log(exception);

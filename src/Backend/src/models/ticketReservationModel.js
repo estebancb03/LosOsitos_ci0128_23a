@@ -77,7 +77,6 @@ const updateTicket = async (req, res) => {
       newSpecial,
       newPrice
     } = req.body;
-    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
       `UPDATE Ticket_Reservation SET Age_Range = ${newAge_Range}, Demographic_Group = ${newDemographic_Group}, Amount = ${newAmount}, Price = ${newPrice}, Special = ${newSpecial} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`

@@ -44,10 +44,21 @@ const insertPerson = async (req, res) => {
 // Method that updates the Person table by ID
 const updatePersonData = async (req, res) => {
   try {
-    const { ID, Name, LastName1, LastName2, Email, Country_Name } = req.body;
+    const {
+      ID,
+      Name,
+      LastName1,
+      LastName2,
+      Birth_Date,
+      Email,
+      Gender,
+      Country_Name,
+      State
+    } = req.body;
+    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
-      `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Email = '${Email}', Country_Name = '${Country_Name}' WHERE ID = ${ID}`
+      `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Birth_Date = '${Birth_Date}', Email = '${Email}', Gender = ${Gender}, Country_Name = '${Country_Name}', State = '${State}' WHERE ID = ${ID}`
     );
     res.status(200);
     console.log("The update to the Person table was successful");

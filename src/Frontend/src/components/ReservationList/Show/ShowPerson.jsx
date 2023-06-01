@@ -107,6 +107,11 @@ const  ShowPerson = (props) => {
                 options={["Male", "Female", "Non-Binary", "Other"]}
                 disabled={false}
                 typeChange="gender"
+                selectedOption={
+                  reservation.Gender === 0 ? "Male" :
+                  reservation.Gender === 1 ? "Female" :
+                  reservation.Gender === 2 ? "Non-Binary" :
+                  "Other"}
                 onChangeFunction={changePersonData}
               />
             </div>
