@@ -27,11 +27,13 @@ const ShowServices = (props) => {
       <label className="block text-xl font-semibold leading-6 text-gray-900 mb-3 mt-6">
         Services
       </label>
-      <AddService
-        disabledElements={false}
-        currentRecord={reservation}
-        setCurrentRecord={setReservation}
-      />
+      {disabledElements === false && (
+        <AddService
+          disabledElements={false}
+          currentRecord={reservation}
+          setCurrentRecord={setReservation}
+        />
+      )}
     {reservation.Services &&
       reservation.Services.map((service, index) => (
         <div key={index} className="flex">

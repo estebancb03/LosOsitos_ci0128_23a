@@ -1,4 +1,5 @@
 import InputButton from "../../Buttons/InputButton";
+import AddVehicle from "../Add/AddVehicle";
 
 const ShowVehicles = (props) => {
   // Props
@@ -21,6 +22,13 @@ const ShowVehicles = (props) => {
     <>
       <div className="mb-3 mt-6">
         <label className="block text-xl font-semibold leading-6 text-gray-900">Vehicles</label>
+        {disabledElements === false && (
+          <AddVehicle
+            disabledElements={false}
+            currentRecord={reservation}
+            setCurrentRecord={setReservation}
+          />
+        )}
         <div className="grid grid-cols-2">
           { reservation.Vehicles &&
               reservation.Vehicles.map((vehicle, index) => (
