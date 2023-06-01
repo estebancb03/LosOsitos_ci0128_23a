@@ -33,5 +33,29 @@ const getPrices = async (req, res) => {
   }
 };
 
+const getCRCPrices = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.request().query("SELECT * FROM Ticket WHERE Currency = 'CRC'");
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
-export { insertTicket, getPrices };
+const getUSDPrices = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.request().query("SELECT * FROM Ticket WHERE Currency = 'USD'");
+    console.log(result);
+    res.json(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+
+export { insertTicket, getPrices, getCRCPrices, getUSDPrices };
