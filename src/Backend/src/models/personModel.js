@@ -25,11 +25,12 @@ const insertPerson = async (req, res) => {
       Gender,
       Birth_Date,
       Email, 
-      Country_Name
+      Country_Name,
+      State
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Person VALUES (${ID}, '${Name}', '${LastName1}', '${LastName2}', ${Gender}, '${Birth_Date}', '${Email}', '${Country_Name}')`
+      `INSERT INTO Person VALUES (${ID}, '${Name}', '${LastName1}', '${LastName2}', ${Gender}, '${Birth_Date}', '${Email}', '${Country_Name}', '${State}')`
     );
     res.status(200);
     console.log("The insert to the Person was successfull");
@@ -40,19 +41,16 @@ const insertPerson = async (req, res) => {
   }
 };
 
-// Method that inserts a client
-const insertClient = async (req, res) => {
+// Method that updates the Person table by ID
+const updatePersonData = async (req, res) => {
   try {
-    const {
-      ID_Person
-    } = req.body;
+    const { ID, Name, LastName1, LastName2, Email, Country_Name } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Client VALUES (${ID_Person})`
+      `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Email = '${Email}', Country_Name = '${Country_Name}' WHERE ID = ${ID}`
     );
     res.status(200);
-    console.log("The insert to the Client was successfull");
-    res.send("The insert to the Client was successful");
+    console.log("The update to the Person table was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -62,5 +60,5 @@ const insertClient = async (req, res) => {
 export {
   getPerson,
   insertPerson,
-  insertClient
+  updatePersonData
 }

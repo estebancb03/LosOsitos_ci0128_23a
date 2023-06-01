@@ -1,39 +1,27 @@
+import React from "react";
 import { useEffect, useState } from "react";
 
 import Title from "../components/Title";
 import Table from "../components/Table/Table";
-import AxiosClient from "../config/AxiosClient";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
+import useReservations from "../hooks/useReservations";
 import Container from "../components/Containers/Container";
+import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import ReservationListModal from "../components/ReservationList/ReservationListModal";
 import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
-import { 
-  formatDateDTDDMMYYYY, 
-  getHoursMinutesFromISOFormat
- } from "../helpers/formatDate";
 
 const ReservationList = () => {
-  // State that controls the popup window
+  // Containst all reservations
+  const { reservations } = useReservations();
+  // State that controls current reservations
+  const [currentReservations, setCurrentReservations] = useState([]);
+  // State that controls the selected reservation
+  const [selectedReservation, setSelectedReservation] = useState({});
+  // State that controls the modal
   const [viewModal, setViewModal] = useState(false);
-  // State that controls the current records of the table
-  const [allRecords, setAllRecords] = useState([]);
-  // State that controls the current records of the table
-  const [currentRecords, setCurrentRecords] = useState([]);
-  // State that controls the services of each row
-  const [servicesNames, setServicesNames] = useState([]);
-  // State that constrols the modal information
-  const [recordInfo, setRecordInfo] = useState({});
-  // State that constrols the spots
-  const [spots, setSpots] = useState([]);
-  // State that constrols the vehicles
-  const [vehicles, setVehicles] = useState([]);
-  // State that constrols the tickets
-  const [tickets, setTickets] = useState([]);
-  // State that constrols the tickets
-  const [services, setServices] = useState([]);
   // Table columns
   const tableColumns = [
     "Id",
@@ -47,125 +35,18 @@ const ReservationList = () => {
     "Action",
   ];
 
-  // Method that gets the records from the Data Base
-  const getAllRecords = async () => {
-    try {
-      const url = "/reservation-list/getAllRecords";
-      const records = await AxiosClient.get(url);
-      setAllRecords(records.data);
-      setCurrentRecords(records.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that gets the spots of all records
-  const getAllSpots = async () => {
-    try {
-      const url = "/reservation-list/getAllSpots";
-      const result = await AxiosClient.get(url);
-      setSpots(result.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that gets the vehicles of all records
-  const getAllVehicles = async () => {
-    try {
-      const url = "/reservation-list/getAllVehicles";
-      const result = await AxiosClient.get(url);
-      setVehicles(result.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that gets the tickets of all records
-  const getAllTickets = async () => {
-    try {
-      const url = "/reservation-list/getAllTickets";
-      const result = await AxiosClient.get(url);
-      setTickets(result.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that gets the tickets of all records
-  const getAllServices = async () => {
-    try {
-      const url = "/reservation-list/getAllServices";
-      const result = await AxiosClient.get(url);
-      setServices(result.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that shows the information of a row in the popup
-  const setModalDataStatus = (reservationID) => {
-    const itemSelected = currentRecords.filter(
-      (item) => item.ID + item.Reservation_Date == reservationID
+  // Method that gets the selected reservation
+  const getSelectedReservation = (ID, Reservation_Date) => {
+    const result = currentReservations.filter((reservation) =>
+      reservation.ID === ID && reservation.Reservation_Date === Reservation_Date
     );
-    const spotsSelected = spots.filter(
-      (spot) => spot.ID_Client + spot.Reservation_Date == reservationID
-    ).map((item) => ({Location_Spot: item.Location_Spot}));
-    const vehiclesSelected = vehicles.filter(
-      (vehicle) => vehicle.ID_Client + vehicle.Reservation_Date == reservationID
-    ).map((item) => item.ID_Vehicle);
-    const servicesSelected = services.filter(
-      (service) => service.ID_Client + service.Reservation_Date == reservationID
-    );
-    const ticketsSelected = tickets.filter(
-      (ticket) => ticket.ID_Client + ticket.Reservation_Date == reservationID
-    ).map((item) => ({
-      Age_Range: item.Age_Range,
-      Amount: item.Amount,
-      Demographic_Group: item.Demographic_Group
-    }));
-    const information = [...itemSelected];
-    information[0].Spots = spotsSelected;
-    information[0].Vehicles = vehiclesSelected;
-    information[0].Services = servicesSelected;
-    information[0].Tickets = ticketsSelected;
-    information[0].NewVehicles = [];
-    setRecordInfo(information[0]);
+    setSelectedReservation(result[0]);
     setViewModal(true);
   };
 
-  // Method that gets the services names of the records from the Data Base
-  const getServices = async () => {
-    try {
-      const url = "/reservation-list/getRecordsServices";
-      const result = await AxiosClient(url);
-      setServicesNames(result.data);
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that returns only the associated services to a reservation ID
-  const extractServiceByID = (reservationID) => {
-    return servicesNames.filter(
-      (service) => service.ID_Client + service.Reservation_Date == reservationID
-    );
-  };
-
-  // Method that gets the names of the services of a row
-  const getServicesNames = (reservationServices) => {
-    return reservationServices.map((service) => service.Name_Service);
-  };
-
-  // The data is loaded to the state
   useEffect(() => {
-    getAllRecords();
-    getServices();
-    getAllSpots();
-    getAllVehicles();
-    getAllTickets();
-    getAllServices();
-  }, []);
+    setCurrentReservations(reservations);
+  }, [reservations]);
 
   return (
     <>
@@ -173,44 +54,44 @@ const ReservationList = () => {
       <Container>
         <Title name="Reservation List" />
         <ReservationListFilter
-          reservationData={allRecords}
-          setReservationRecords={setCurrentRecords}
-          services={servicesNames}
+          reservations={reservations}
+          setCurrentReservations={setCurrentReservations}
         />
         <ReservationListModal
-          mainRecordInfo={recordInfo}
-          setMainRecordInfo={setRecordInfo}
+          currentRecord={selectedReservation}
+          setCurrentRecord={setSelectedReservation}
           viewModal={viewModal}
           setViewModal={setViewModal}
         />
-
-        {/* Table elements */}
         <Table colums={tableColumns}>
-          {currentRecords.map((record, index) => (
+          {currentReservations.map((reservation, index) => (
             <TableItem
               key={index}
               number={index}
               data={[
-                record.ID,
-                record.Name + " " + record.LastName1 + " " + record.LastName2,
-                record.Reservation_Type == 1 ? "Camping" : "Picnic",
-                record.Reservation_Method == 0 ? "Online" : "In site",
-                record.State == 0 ? "Pending" : "Approved", 
-                record.Start_Date !== null ? formatDateDTDDMMYYYY(record.Start_Date) : "N/A",
-                record.End_Date !== null ? formatDateDTDDMMYYYY(record.End_Date) : "N/A",
-                getServicesNames(
-                  extractServiceByID(record.ID + record.Reservation_Date)
-                ),
+                reservation.ID,
+                reservation.Name +
+                  " " +
+                  reservation.LastName1 +
+                  " " +
+                  reservation.LastName2,
+                reservation.Reservation_Type == 1 ? "Camping" : "Picnic",
+                reservation.Reservation_Method == 0 ? "Online" : "In site",
+                reservation.State == 0 ? "Pending" : "Approved",
+                reservation.Start_Date !== null
+                  ? formatDateDTDDMMYYYY(reservation.Start_Date)
+                  : "N/A",
+                reservation.End_Date !== null
+                  ? formatDateDTDDMMYYYY(reservation.End_Date)
+                  : "N/A",
+                reservation.Services !== null &&
+                reservation.Services !== undefined
+                  ? reservation.Services.map((service) => service.Name_Service)
+                  : "N/A",
                 <Button
                   text="View"
-                  onclickFunction={(e) => {
-                    const reservationId = record.ID + record.Reservation_Date;
-                    setModalDataStatus(reservationId);
-                    allRecords.map((record) => getAllSpots({
-                      ID: record.ID,
-                      Reservation_Date: record.Reservation_Date
-                    }));
-                  }}
+                  type="modify"
+                  onclickFunction={(e) => getSelectedReservation(reservation.ID, reservation.Reservation_Date)}
                 />,
               ]}
             />
