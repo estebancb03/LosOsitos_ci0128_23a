@@ -12,7 +12,7 @@ import Button from "../Buttons/Button";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import InputButton from "../Buttons/InputButton";
 import DatePickerButton from "../Buttons/DatePickerButton";
-import axiosClient from "../../config/AxiosClient";
+import AxiosClient from "../../config/AxiosClient";
 import {
   formatDateDTDDMMYYYY,
   changeDateInISOFormat,
@@ -37,8 +37,7 @@ const FinancialReportsPage = () => {
 
   const fetchFinancialData = async () => {
     try {
-      const response = await fetch("/api/mieo/Ayuda?isra");
-      const data = await response.json();
+      const {data} = await AxiosClient.get('url mieo');
       return data;
     } catch (error) {
       console.error("Error fetching financial data:", error);
