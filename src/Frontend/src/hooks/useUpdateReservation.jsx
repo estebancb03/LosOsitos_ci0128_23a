@@ -30,14 +30,39 @@ const useUpdateReservation = (reservation) => {
       await Promise.all(
         NewServices.map(async (service, index) => {
           await AxiosClient.post(url, {
-            ID,
+            ID_Client: ID,
             Reservation_Date,
             Name_Service: NewServices[index].Name_Service,
             Price: NewServices[index].Price,
-            Quantity: parseInt(NewServices[index].Quantity)
+            Quantity: parseInt(NewServices[index].Quantity),
+            Currency: NewServices[index].Currency
           });
         })
         );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a new ticket
+  const insertNewTicket = async () => {
+    try {
+      const { ID, Reservation_Date, Reservation_Type, NewTickets } = reservation;
+      const url = "/reservationTicket";
+      await Promise.all(
+        NewTickets.map(async (ticket, index) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Reservation_Type,
+            Age_Range: ticket.Age_Range,
+            Demographic_Group: ticket.Demographic_Group,
+            Special: ticket.Special,
+            Price: parseFloat(ticket.Price),
+            Amount: parseInt(ticket.Amount)
+          });
+        })
+      );
     } catch (exception) {
       console.log(exception);
     }
@@ -187,7 +212,7 @@ const useUpdateReservation = (reservation) => {
         Email,
         Gender,
         Country_Name,
-        State: Country_Name === "Costa Rica" ? State : "NULL"
+        State: Country_Name === "Costa Rica" ? State : null
       });
     } catch (exception) {
       console.log(exception);
@@ -234,6 +259,7 @@ const useUpdateReservation = (reservation) => {
     updateState();
     insertNewVehicle();
     insertNewService();
+    insertNewTicket();
     updateSpots();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
   };
