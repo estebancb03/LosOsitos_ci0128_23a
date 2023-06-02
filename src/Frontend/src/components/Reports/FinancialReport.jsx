@@ -13,6 +13,7 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 import InputButton from "../Buttons/InputButton";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import AxiosClient from "../../config/AxiosClient";
+import XLSX from 'xlsx';
 import {
   formatDateDTDDMMYYYY,
   changeDateInISOFormat,
@@ -28,6 +29,22 @@ const fetchFinancialData = async () => {
     return [];
   }
 };
+
+
+
+const workbook = XLSX.utils.book_new();
+const worksheet = XLSX.utils.json_to_sheet(data);
+XLSX.utils.book_append_sheet(workbook, worksheet, "ReporteAutogenerado");
+
+// Generate a buffer from the workbook
+const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+// Create a Blob from the buffer
+const blob = new Blob([excelBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+// Save the Blob as a file
+const fileName = 'data.xlsx';
+saveAs(blob, fileName);
 
 const downloadCSV = () => {
   const csvData = financialData.map((report) => ({
