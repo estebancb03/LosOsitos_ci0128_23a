@@ -63,7 +63,7 @@ const ShowServices = (props) => {
               </div>
               <div className="h-1 bg-gray-200 rounded-sm my-2 mx-2"></div>
               <label className="block mt-4 mx-3 text-md font-regular leading-6 text-gray-900">
-                Prices
+                Price
               </label>
               <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mt-3 mb-2">
                 {reservation.Country_Name === "Costa Rica" ? (
