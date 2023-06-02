@@ -25,39 +25,28 @@ const Capacity = () => {
   const rowNames = ["Camping", "Picnic"];
 
   const checkValuesEntered = (stateModified) => {
-    //const regex = /^(0|[1-9]\d)+$/;
     const regex = /^(0|[1-9]\d*)$/;
     let successfulConversion = true;
     switch (stateModified) {
       case 0:
-        // console.log("Case 0 type received: " + campingOnlineCapacity);
-        // if (regex.test(campingOnlineCapacity)) {
-        //   setCampingOnlineCapacity(parseInt(campingOnlineCapacity, 10));
-        // } else {
-        //   console.log("Esto no tiene sentido :s");
-        //   successfulConversion == false;
-        // }
         regex.test(campingOnlineCapacity)
           ? setCampingOnlineCapacity(parseInt(campingOnlineCapacity, 10))
           : (successfulConversion = false);
         break;
 
       case 1:
-        //console.log("Case 1 type received: " + campingOnSiteCapacity);
         regex.test(campingOnSiteCapacity)
           ? setCampingOnSiteCapacity(parseInt(campingOnSiteCapacity, 10))
           : (successfulConversion = false);
         break;
 
       case 2:
-        //console.log("Case 2 type received: " + picnicOnlineCapacity);
         regex.test(picnicOnlineCapacity)
           ? setPicnicOnlineCapacity(parseInt(picnicOnlineCapacity, 10))
           : (successfulConversion = false);
         break;
 
       case 3:
-        //console.log("Case 3 type received: " + picnicOnSiteCapacity);
         regex.test(picnicOnSiteCapacity)
           ? setPicnicOnSiteCapacity(parseInt(picnicOnSiteCapacity, 10))
           : (successfulConversion = false);
@@ -69,22 +58,14 @@ const Capacity = () => {
   const modifyHandleClick = (stateModified) => {
     if (stateModified < 2) {
       if (modifyButton1 === "Save") {
-        if (
-          //checkValuesEntered(stateModified) &&
-          checkValuesEntered(0) &&
-          checkValuesEntered(1)
-        ) {
+        if (checkValuesEntered(0) && checkValuesEntered(1)) {
           setIsValidDataCamping(true);
         } else {
           setIsValidDataCamping(false);
         }
       }
     } else {
-      if (
-        //checkValuesEntered(stateModified) &&
-        checkValuesEntered(2) &&
-        checkValuesEntered(3)
-      ) {
+      if (checkValuesEntered(2) && checkValuesEntered(3)) {
         setIsValidDataPicnic(true);
       } else {
         setIsValidDataPicnic(false);
@@ -99,11 +80,8 @@ const Capacity = () => {
         if (checkValuesEntered(0) && checkValuesEntered(1)) {
           setModifyButton1("Modify");
           if (isValidDataCamping && campingOnlineCapacity !== 0) {
-            console.log("<<<<<< Time to send changes >>>>>>>>>");
             useUpdateCapacity("CampingOnline", campingOnlineCapacity);
             useUpdateCapacity("CampingOnSite", campingOnSiteCapacity);
-          } else {
-            console.log("El value es vacio entonces ni trato de meterlo");
           }
         }
       } else {
@@ -155,36 +133,18 @@ const Capacity = () => {
 
   useEffect(() => {
     modifyHandleClick(0);
-    // if (isValidDataCamping && campingOnlineCapacity !== 0) {
-    //   if (modifyButton1 === "Modify") {
-    //     console.log(" <<<<<<<<<<<<<<< Time to send changes >>>>>>>>>>");
-    //     useUpdateCapacity("CampingOnline", campingOnlineCapacity);
-    //   }
-    // } else {
-    //   console.log("El value es vacio entonces ni trato de meterlo");
-    // }
   }, [campingOnlineCapacity]);
 
   useEffect(() => {
     modifyHandleClick(1);
-    // if (isValidDataCamping && campingOnSiteCapacity !== 0) {
-    //   //if(mod)
-    //   useUpdateCapacity("CampingOnSite", campingOnSiteCapacity);
-    // }
   }, [campingOnSiteCapacity]);
 
   useEffect(() => {
     modifyHandleClick(2);
-    // if (isValidDataPicnic && picnicOnlineCapacity !== 0) {
-    //   useUpdateCapacity("PicnicOnline", picnicOnlineCapacity);
-    // }
   }, [picnicOnlineCapacity]);
 
   useEffect(() => {
     modifyHandleClick(3);
-    // if (isValidDataPicnic && picnicOnSiteCapacity !== 0) {
-    //   useUpdateCapacity("PicnicOnSite", picnicOnSiteCapacity);
-    // }
   }, [picnicOnSiteCapacity]);
 
   const readyToLoad = () => {

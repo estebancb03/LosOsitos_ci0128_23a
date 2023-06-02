@@ -12,7 +12,7 @@ const Settings = () => {
       <Container>
         <Title name="Settings" />
         <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10"></div>
-        <span className="ml-1 text-3xl sm:text-2xl font-semibold">
+        <span className="ml-1 text-2xl sm:text-2xl font-semibold">
           Capacity
         </span>
         <Capacity />
