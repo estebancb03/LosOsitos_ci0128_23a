@@ -30,7 +30,7 @@ const insertPerson = async (req, res) => {
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO Person VALUES (${ID}, '${Name}', '${LastName1}', '${LastName2}', ${Gender}, '${Birth_Date}', '${Email}', '${Country_Name}', '${State}')`
+      `INSERT INTO Person VALUES (${ID}, '${Name}', '${LastName1}', '${LastName2}', ${Gender}, '${Birth_Date}', '${Email}', '${Country_Name}', ${State !== null ? `'${State}'` : 'NULL'})`
     );
     res.status(200);
     console.log("The insert to the Person was successfull");
@@ -58,7 +58,7 @@ const updatePersonData = async (req, res) => {
     console.log(req.body);
     const pool = await getConnection();
     await pool.query(
-      `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Birth_Date = '${Birth_Date}', Email = '${Email}', Gender = ${Gender}, Country_Name = '${Country_Name}', State = '${State}' WHERE ID = ${ID}`
+      `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Birth_Date = '${Birth_Date}', Email = '${Email}', Gender = ${Gender}, Country_Name = '${Country_Name}', State = ${State !== null ? `'${State}'` : 'NULL'} WHERE ID = ${ID}`
     );
     res.status(200);
     console.log("The update to the Person table was successful");

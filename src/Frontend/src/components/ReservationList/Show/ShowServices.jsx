@@ -34,14 +34,14 @@ const ShowServices = (props) => {
           setCurrentRecord={setReservation}
         />
       )}
-    {reservation.Services &&
-      reservation.Services.map((service, index) => (
-        <div key={index} className="flex">
-          <div className="bg-gray-100 w-full rounded-sm my-2">
-            <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
-              {service.Name_Service}
-            </label>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
+      {reservation.Services &&
+        reservation.Services.map((service, index) => (
+          <div key={index} className="flex">
+            <div className="bg-gray-100 w-full rounded-sm my-2">
+              <label className="block text-lg font-semibold ml-3 leading-6 mt-2 text-gray-900">
+                {service.Name_Service}
+              </label>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mb-2">
               <span className="mr-2 sm:mr-7">
                 <DatePickerButton
                   text=""
@@ -52,40 +52,43 @@ const ShowServices = (props) => {
                   onChangeFunction={changeService}
                 />
               </span>
-              <div className="mt-0.5 mb-3">
-                <InputButton
-                  type={["quantity", index]}
-                  placeholderText={service.Quantity}
-                  disabled={disabledElements}
-                  onChangeFunction={changeService}
-                />
+                <div className="mt-0.5 mb-3">
+                  <InputButton
+                    type={["quantity", index]}
+                    placeholderText={service.Quantity}
+                    disabled={disabledElements}
+                    onChangeFunction={changeService}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="h-1 bg-gray-200 rounded-sm my-2 mx-2"></div>
-            <label className="block mt-4 mx-3 text-md font-regular leading-6 text-gray-900">
-              Prices
-            </label>
-            <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mt-3 mb-2">
-              <div className="-mt-4 mb-1">
-                <InputButton
-                  type={["price", index]}
-                  placeholderText={"₡" + service.Price}
-                  disabled={true}
-                  onChangeFunction={changeService}
-                />
-              </div>
-              <div className="-mt-4 mb-1">
-                <InputButton
-                  type={["price", index]}
-                  placeholderText={"$" + searchServicePrice(service.Name_Service, "USD")}
-                  disabled={true}
-                  onChangeFunction={changeService}
-                />
+              <div className="h-1 bg-gray-200 rounded-sm my-2 mx-2"></div>
+              <label className="block mt-4 mx-3 text-md font-regular leading-6 text-gray-900">
+                Prices
+              </label>
+              <div className="grid grid-cols-2 gap-x-2 gap-y-6 sm:grid-cols-1 mt-3 mb-2">
+                {reservation.Country_Name === "Costa Rica" ? (
+                  <div className="-mt-4 mb-3">
+                    <InputButton
+                      type={["price", index]}
+                      placeholderText={"₡" + service.Price}
+                      disabled={true}
+                      onChangeFunction={changeService}
+                    />
+                  </div>
+                  ) : (
+                    <div className="-mt-4 mb-3">
+                      <InputButton
+                        type={["price", index]}
+                        placeholderText={"$" + service.Price}
+                        disabled={true}
+                        onChangeFunction={changeService}
+                      />
+                    </div>
+                    )}
               </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
     </>
   );
 };

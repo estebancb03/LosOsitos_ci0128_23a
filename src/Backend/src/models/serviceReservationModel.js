@@ -4,15 +4,16 @@ import { getConnection, sql } from "../config/db.js";
 const insertService = async (req, res) => {
   try {
     const {
-      ID,
+      ID_Client,
       Reservation_Date,
       Name_Service,
       Price,
-      Quantity
+      Quantity,
+      Currency
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO SERVICE_RESERVATION VALUES (${ID}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity})`
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID_Client}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity}, '${Currency}')`
     );
     res.status(200);
     console.log("The insert to the Service_Reservation was successfull");

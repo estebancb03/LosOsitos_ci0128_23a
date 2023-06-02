@@ -45,7 +45,8 @@ const useServices = () => {
     const newServices = [...reservation.NewServices];
     if (type[0] === "name") {
       newServices[type[1]].Name_Service = value;
-      newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
+      newServices[type[1]].Price = searchServicePrice(value, reservation.Country_Name === "Costa Rica" ? "CRC" : "USD");
+      newServices[type[1]].Currency = reservation.Country_Name === "Costa Rica" ? "CRC" : "USD";
     } else if (type[0] === "quantity") {
       newServices[type[1]].Quantity = value;
     }
