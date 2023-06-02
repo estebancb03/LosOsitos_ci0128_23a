@@ -18,7 +18,9 @@ import clientRoutes from "./routes/clientRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import spotsCampingRoutes from "./routes/spotsCampingRoutes.js";
 import serviceReservationRoutes from "./routes/serviceReservationRoutes.js";
-import settingCapacityRoutes from "./routes/settingCapacityRoutes.js"
+
+import parkStatus from "./routes/parkStatus.js";
+
 
 const app = express();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -50,7 +52,9 @@ app.use('/api', clientRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', spotsCampingRoutes);
 app.use('/api', serviceReservationRoutes);
-app.use('/api', settingCapacityRoutes);
+
+app.use('/api', parkStatus);
+
 
 //app.use('/api', reservationListRoutes);
 
