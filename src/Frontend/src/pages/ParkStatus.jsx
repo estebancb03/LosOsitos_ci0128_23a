@@ -52,29 +52,29 @@ const ParkStatus = () => {
             <span className="flex justify-center my-1">
               <BsIcons.BsPersonFill size={50} color="#21295c"/>
             </span> 
-            <p>People</p>
-            <p>{statusData.peopleInDate}</p>
+            <Title name="People" />
+            <Title name={statusData.peopleInDate}/>
           </BoxContainer>
           <BoxContainer>
             <span className="flex justify-center my-1">
               <BsIcons.BsCarFrontFill size={50} color="#21295c"/>
             </span> 
-            <p>Vehicles</p>
-            <p>{statusData.vehiclesInDate}</p>
+            <Title name="Vehicles" />
+            <Title name={statusData.vehiclesInDate}/>
           </BoxContainer>
           <BoxContainer>
             <span className="flex justify-center my-1">
               <GiIcons.GiCampingTent size={50} color="#21295c"/>
             </span> 
-            <p>Camping</p>
-            <p>{statusData.peopleInDateCamping}</p>
+            <Title name="Camping" />
+            <Title name={statusData.peopleInDateCamping}/>
           </BoxContainer>
           <BoxContainer>
             <span className="flex justify-center my-1">
               <RiIcons.RiShoppingBasketFill size={50} color="#21295c"/>
             </span> 
-            <p>Picnic</p>
-            <p>{statusData.peopleInDatePicnic}</p>
+           <Title name="Picnic" />
+            <Title name={statusData.peopleInDatePicnic}/>
           </BoxContainer>
         </div>
       </Container>
