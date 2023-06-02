@@ -1,8 +1,10 @@
 import { Router } from "express";
-import { getActualCapacities } from "../models/settingCapacityModel.js";
+import { getActualCapacities, updateCapacity } from "../models/settingCapacityModel.js";
 
 const router = Router();
 
 router.get("/getActualCapacities", getActualCapacities)
+
+router.put("/updateCapacity", updateCapacity);
 
 export default router;
