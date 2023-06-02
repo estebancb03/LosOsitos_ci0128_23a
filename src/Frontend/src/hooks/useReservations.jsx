@@ -126,6 +126,7 @@ const useReservations = () => {
       reservation.NewVehicles = [];
       reservation.NewServices = [];
       reservation.NewTickets = [];
+      reservation.NewSpots = [];
     });
     setReservations(formattedReservations);
   };

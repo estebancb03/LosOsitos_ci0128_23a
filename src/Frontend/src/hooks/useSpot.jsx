@@ -19,7 +19,7 @@ const useSpot = () => {
     }
   };
 
-  // Method that gets the all the spots
+  // Method that gets spots prices
   const getSpotsPrices = async () => {
     try {
       const url = '/spot-prices';
@@ -29,6 +29,12 @@ const useSpot = () => {
     } catch (exception) {
       console.error(exception);
     }
+  };
+
+  // Method that gets the price of a spot
+  const getSpotPrice = async (Location_Spot, Currency) => {
+    const filteredPrices = spotsPrices.filter((price) => price.Location_Spot === Location_Spot && price.Currency === Currency);
+    return filteredPrices.Price;
   };
 
   useEffect(() => getSpots, []);

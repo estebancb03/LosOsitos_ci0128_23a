@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import useReservations from "../../hooks/useReservations";
+import AddSpot from "./Add/AddSpot";
 import AddPerson from "./Add/AddPerson";
 import AddTicket from "./Add/AddTicket";
 import AddVehicle from "./Add/AddVehicle";
@@ -41,6 +42,14 @@ const CreateReservation = (props) => {
           Tickets
         </label>
         <AddTicket
+          disabledElements={false}
+          currentRecord={reservation}
+          setCurrentRecord={setReservation}
+        />
+        <label className="block text-xl font-semibold leading-6 text-gray-900">
+          Spots
+        </label>
+        <AddSpot
           disabledElements={false}
           currentRecord={reservation}
           setCurrentRecord={setReservation}
