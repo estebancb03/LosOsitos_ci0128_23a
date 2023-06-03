@@ -15,8 +15,8 @@ import FilterReservations from "../components/ReservationList/FilterReservations
 import CreateReservation from "../components/ReservationList/CreateReservation.jsx";
 
 const ReservationList = () => {
-  // Containst all reservations
-  const { reservations } = useReservations();
+  // Contains all reservations
+  const { reservations, fetch, formatReservations, createReservation } = useReservations();
   // State that controls current reservations
   const [currentReservations, setCurrentReservations] = useState([]);
   // State that controls the selected reservation
@@ -49,6 +49,14 @@ const ReservationList = () => {
     setViewModal(true);
   };
 
+  // Method that update the info
+  const refreshRecords = () => {
+    setSelectedReservation({});
+    setNewReservation(createReservation);
+    fetch();
+    formatReservations();
+  }
+
   useEffect(() => {
     setCurrentReservations(reservations);
   }, [reservations]);
@@ -61,6 +69,7 @@ const ReservationList = () => {
         <FilterReservations
           reservations={reservations}
           setCurrentReservations={setCurrentReservations}
+          exitMethod={refreshRecords}
         />
         <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
           <Button text="Create Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
@@ -70,12 +79,14 @@ const ReservationList = () => {
           setViewModal={setViewCreateModal}
           reservation={newReservation}
           setReservation={setNewReservation}
+          exitMethod={refreshRecords}
         />
         <ShowReservation
           currentRecord={selectedReservation}
           setCurrentRecord={setSelectedReservation}
           viewModal={viewModal}
           setViewModal={setViewModal}
+          exitMethod={refreshRecords}
         />
         <Table colums={tableColumns}>
           {currentReservations.map((reservation, index) => (
@@ -94,10 +105,10 @@ const ReservationList = () => {
                 reservation.Status == 0 ? "Pending" : "Approved",
                 reservation.Start_Date !== null
                   ? formatDateDTDDMMYYYY(reservation.Start_Date)
-                  : "N/A",
+                  : reservation.Picnic_Date !== null ? formatDateDTDDMMYYYY(reservation.Picnic_Date) : "N/A",
                 reservation.End_Date !== null
                   ? formatDateDTDDMMYYYY(reservation.End_Date)
-                  : "N/A",
+                  : reservation.Picnic_Date !== null ? formatDateDTDDMMYYYY(reservation.Picnic_Date) : "N/A",
                 reservation.Services !== null &&
                 reservation.Services !== undefined
                   ? reservation.Services.map((service) => service.Name_Service)

@@ -146,7 +146,7 @@ const useReservations = () => {
     formatReservations();
   }, [spots, vehicles, tickets, services]);
 
-  return { reservations, createReservation };
+  return { reservations, createReservation, fetch, formatReservations };
 };
 
 export default useReservations;

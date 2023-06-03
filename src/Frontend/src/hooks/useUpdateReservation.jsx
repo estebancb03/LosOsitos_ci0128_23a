@@ -126,7 +126,6 @@ const useUpdateReservation = (reservation) => {
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
-      console.log(data);
       const url2 = "/updateTicket";
       await Promise.all(
         data.map(async (ticket, index) => {

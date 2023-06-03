@@ -14,7 +14,8 @@ const CreateReservation = (props) => {
     viewModal,
     setViewModal,
     reservation,
-    setReservation
+    setReservation,
+    exitMethod
   } = props;
   // Hook for reservations
   const { createReservation } = useReservations();
@@ -22,14 +23,9 @@ const CreateReservation = (props) => {
   // The new reservation is inited
   useEffect(() => setReservation(createReservation), []);
 
-  // Method that reset the reservation
-  const resetReservation = () => {
-    setReservation(createReservation);
-  };
-
   return (
     <>
-      <Modal state={viewModal} setState={setViewModal} exitFunction={resetReservation} title="Create Reservation">
+      <Modal state={viewModal} setState={setViewModal} exitFunction={exitMethod} title="Create Reservation">
         <AddPerson
           reservation={reservation}
           setReservation={setReservation}
