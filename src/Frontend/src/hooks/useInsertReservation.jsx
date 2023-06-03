@@ -132,10 +132,35 @@ const useInsertReservation = (reservation) => {
     }
   };
 
+  // Method that inserts a reservation
+  const insertMainData = async () => {
+    try {
+      const {
+        ID,
+        Reservation_Date,
+        Reservation_Method,
+        Payment_Method,
+        Status
+      } = reservation;
+      const url = "/reservation";
+      await AxiosClient.post(url, {
+        ID_Client: ID,
+        Reservation_Date,
+        Payment_Method,
+        Payment_Proof: "NULL",
+        Status,
+        Reservation_Method,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that inserts all the data
   const insertReservation = async () => {
     await insertPersonData();
     await insertClient();
+    await insertMainData();
     await insertNewTicket();
     await insertNewSpot();
     await insertNewService();
