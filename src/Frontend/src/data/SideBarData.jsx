@@ -30,7 +30,7 @@ const SideBarData = [
   },
   {
     title: "Settings",
-    path: "/settings",
+    path: "/admin/settings",
     icon: <MdIcons.MdSettings />,
   },
   {
