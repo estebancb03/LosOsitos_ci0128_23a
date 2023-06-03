@@ -32,48 +32,60 @@ const Reservation = () => {
         <Title name="Reservation" />
         <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10">
           <Container>
-            <ReservationStep0
+            {windows.Step0 === true && (
+              <ReservationStep0
+              windows={windows}
+              setWindows={setWindows}
+              reservationData={reservationData}
+              setReservationData={setReservationData}
+              />
+            )}
+            {windows.Step1 === true && (
+              <ReservationStep1
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
-            <ReservationStep1
+            )}
+            {windows.Step2 === true && (
+              <ReservationStep2
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
-            <ReservationStep2
-              windows={windows}
-              setWindows={setWindows}
-              reservationData={reservationData}
-              setReservationData={setReservationData}
-            />
+            )}
             {/* <ReservationStep3
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             /> */}
-            <ReservationStep5
+            {windows.Step5 === true && (
+              <ReservationStep5
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
-            <ReservationStep6
+            )}
+            {windows.Step6 === true && (
+              <ReservationStep6
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
-            <ReservationStep7
+            )}
+            {windows.Step7 === true && (
+              <ReservationStep7
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
+            )}
           </Container>
         </div>
       </Container>
