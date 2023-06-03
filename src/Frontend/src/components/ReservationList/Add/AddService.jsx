@@ -141,7 +141,7 @@ const AddService = (props) => {
                   <div className="-mt-4 mb-3">
                     <InputButton
                       type={["price", index]}
-                      placeholderText={"₡" + service.Price}
+                      placeholderText={"₡" + service.Price.toLocaleString("en-us")}
                       disabled={true}
                       onChangeFunction={changeService}
                     />

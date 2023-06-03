@@ -80,7 +80,7 @@ const AddSpot = (props) => {
                      <div className="mt-1 mb-1">
                        <InputButton
                          type={["price", index]}
-                         placeholderText={"₡" + spot.Price}
+                         placeholderText={"₡" + spot.Price.toLocaleString("en-us")}
                          disabled={true}
                        />
                      </div>

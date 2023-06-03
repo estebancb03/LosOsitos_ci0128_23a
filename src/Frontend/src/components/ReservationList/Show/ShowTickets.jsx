@@ -77,7 +77,7 @@ const ShowTickets = (props) => {
                       <div className="-mt-4 mb-1">
                         <InputButton
                           type={["price", index]}
-                          placeholderText={"₡" + ticket.Price}
+                          placeholderText={"₡" + ticket.Price.toLocaleString("en-us")}
                           disabled={true}
                         />
                       </div>
@@ -138,7 +138,7 @@ const ShowTickets = (props) => {
                           <div className="mt-1 mb-1">
                             <InputButton
                               type={["price", index]}
-                              placeholderText={"₡" + ticket.Price}
+                              placeholderText={"₡" + ticket.Price.toLocaleString("en-us")}
                               disabled={true}
                             />
                           </div>
@@ -163,7 +163,7 @@ const ShowTickets = (props) => {
                           <div className="mt-1 mb-1">
                             <InputButton
                               type={["price", index]}
-                              placeholderText={ticket.Price}
+                              placeholderText={ticket.Price.toLocaleString("en-us")}
                               disabled={false}
                               onChangeFunction={changeTicket}
                             />
