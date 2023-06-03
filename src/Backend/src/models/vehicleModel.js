@@ -35,7 +35,6 @@ const getVehiclesByReservationID = async (req, res) => {
 // Method that updates a vehicle
 const updateVehicle = async (req, res) => {
     try {
-      console.log(req.body);
       const { ID, Reservation_Date, oldID_Vehicle, newID_Vehicle } = req.body;
       const pool = await getConnection();
       await pool.query(
