@@ -1,14 +1,14 @@
-import { getConnection } from "../config/db.js";
+import { getConnection, sql } from "../config/db.js";
 
 const getCampingCapacity = async(req, res) => {
   try {
     const {
       date
-    } = req.body;
-    console.log(req.body);
+    } = req.params;
+    console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
-      input("date", sql.Date, Start_Date).
+      input("date", sql.DateTime, date).
       execute("RemainingCampingCapacity");
     res.status(200);
     console.log(result);
@@ -27,7 +27,7 @@ const getPicnicCapacity = async(req, res) => {
     console.log(req.body);
     const pool = await getConnection();
     let result = await pool.request().
-      input("date", sql.Date, Start_Date).
+      input("date", sql.DateTime, date).
       execute("RemainingPicnicCapacity");
     res.status(200);
     console.log(result);
