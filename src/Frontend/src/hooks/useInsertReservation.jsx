@@ -33,7 +33,7 @@ const useInsertReservation = (reservation) => {
             Reservation_Date,
             Name_Service: NewServices[index].Name_Service,
             Price: NewServices[index].Price,
-            Quantity: parseInt(NewServices[index].Quantity),
+            Quantity: parseFloat(NewServices[index].Quantity),
             Currency: NewServices[index].Currency
           });
         })

@@ -44,7 +44,7 @@ const useUpdateReservation = (reservation) => {
         ticket.Age_Range = parseInt(ticket.Age_Range);
         ticket.Demographic_Group = parseInt(ticket.Demographic_Group);
         ticket.Special = parseInt(ticket.Special);
-        ticket.Price = parseInt(ticket.Price);
+        ticket.Price = parseFloat(ticket.Price);
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
