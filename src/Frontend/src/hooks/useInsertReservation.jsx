@@ -119,9 +119,23 @@ const useInsertReservation = (reservation) => {
     }
   };
 
+  // Method that inserts a client
+  const insertClient = async () => {
+    try {
+      const { ID } = reservation;
+      const url = "/client";
+      await AxiosClient.post(url, {
+        ID_Person: ID,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that inserts all the data
   const insertReservation = async () => {
     await insertPersonData();
+    await insertClient();
     await insertNewTicket();
     await insertNewSpot();
     await insertNewService();
