@@ -156,11 +156,61 @@ const useInsertReservation = (reservation) => {
     }
   };
 
+  // Method that inserts a Picnic
+  const insertPicnic = async () => {
+    try {
+      const {
+        ID,
+        Reservation_Date,
+        Picnic_Date
+      } = reservation;
+      const url = "/picnic";
+      await AxiosClient.post(url, {
+        ID_Client: ID,
+        Reservation_Date,
+        Picnic_Date
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a Camping
+  const insertCamping = async () => {
+    try {
+      const {
+        ID,
+        Reservation_Date,
+        Start_Date,
+        End_Date
+      } = reservation;
+      const url = "/camping";
+      await AxiosClient.post(url, {
+        ID_Client: ID,
+        Reservation_Date,
+        Start_Date,
+        End_Date
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  // Method that inserts a Reservation_Type
+  const insertReservationType = async () => {
+    if (reservation.Reservation_Type === 0) {
+      await insertPicnic();
+    } else {
+      await insertCamping();
+    }
+  };
+
   // Method that inserts all the data
   const insertReservation = async () => {
     await insertPersonData();
     await insertClient();
     await insertMainData();
+    await insertReservationType();
     await insertNewTicket();
     await insertNewSpot();
     await insertNewService();
