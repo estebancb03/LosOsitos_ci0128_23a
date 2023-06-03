@@ -211,10 +211,10 @@ const useInsertReservation = (reservation) => {
     await insertClient();
     await insertMainData();
     await insertReservationType();
+    await insertNewVehicle();
     await insertNewTicket();
     await insertNewSpot();
     await insertNewService();
-    await insertNewVehicle();
   };
   
   return {

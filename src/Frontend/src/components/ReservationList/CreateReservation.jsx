@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import Modal from "../Modal";
+import Button from "../Buttons/Button";
 import useReservations from "../../hooks/useReservations";
+import useInsertReservation from "../../hooks/useInsertReservation";
 import AddSpot from "./Add/AddSpot";
 import AddPerson from "./Add/AddPerson";
 import AddTicket from "./Add/AddTicket";
@@ -18,8 +20,10 @@ const CreateReservation = (props) => {
     exitMethod
   } = props;
   // Hook for reservations
-  const { createReservation } = useReservations();
-  
+  const {createReservation} = useReservations();
+  // Hook for insert reservations
+  const {insertReservation} = useInsertReservation(reservation);
+
   // The new reservation is inited
   useEffect(() => setReservation(createReservation), []);
 
@@ -46,7 +50,7 @@ const CreateReservation = (props) => {
           <label className="block text-xl font-semibold leading-6 text-gray-900">
             Spots
           </label>
-          )}
+        )}
         <AddSpot
           disabledElements={false}
           currentRecord={reservation}
@@ -68,6 +72,12 @@ const CreateReservation = (props) => {
           currentRecord={reservation}
           setCurrentRecord={setReservation}
         />
+        <div className="my-3">
+          <Button
+            text="Save reservation"
+            onclickFunction={insertReservation}
+          />
+        </div>
       </Modal>
     </>
   );

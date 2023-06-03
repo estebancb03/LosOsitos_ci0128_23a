@@ -62,6 +62,7 @@ const insertNewVehicle = async (req, res) => {
         `INSERT INTO Vehicle VALUES (${ID}, '${Reservation_Date}', '${ID_Vehicle}')`
       );
       res.status(200);
+      res.send("The insert to the Vehicle was successfull");
       console.log("The insert to the Vehicle was successfull");
     } catch (error) {
       res.status(500);
