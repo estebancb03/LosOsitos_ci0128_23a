@@ -43,22 +43,25 @@ const ShowReservation = (props) => {
     setModifyButton("Modify");
   };
 
+  // Method that change the reservation data
+  const changeReservationData = () => {
+    modifyHandleClick();
+    if (modifyButton === "Save changes") {
+      if (validateUpdateReservation()) {
+        updateReservation();
+      } else {
+        alert("Incorrect data, check the information entered");
+      }
+    }
+  };
+
   return (
     <Modal state={viewModal} setState={restartModal} exitFunction={exitMethod} title="Reservation Data">
       <div className="my-3">
         {
           <Button
             text={modifyButton}
-            onclickFunction={() => {
-            modifyHandleClick();
-              if (modifyButton === "Save changes") {
-                if (validateUpdateReservation()) {
-                  updateReservation();
-                } else {
-                  alert("Incorrect data, check the information entered");
-                }
-              }
-            }}
+            onclickFunction={changeReservationData}
           />
         }
       </div>
