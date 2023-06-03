@@ -24,7 +24,7 @@ const AddSpot = (props) => {
       Location_Spot: locations[0],
       Price: searchSpotPrice(locations[0], currency),
       Currency: currency
-    }, ...currentRecord.NewSpots];
+    }, ...newSpots];
     newCurrentRecord.NewSpots = newSpots;
     setCurrentRecord(newCurrentRecord);
   };

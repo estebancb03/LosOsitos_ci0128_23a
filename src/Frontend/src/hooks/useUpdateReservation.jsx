@@ -105,6 +105,7 @@ const useUpdateReservation = (reservation) => {
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
+      console.log(data);
       const url2 = "/updateTicket";
       await Promise.all(
         data.map(async (ticket, index) => {
@@ -149,10 +150,12 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             oldLocation_Spot: oldSpots[spot],
-            newLocation_Spot: parseInt(Spots[spot].Location_Spot),
+            newLocation_Spot: Spots[spot].Location_Spot,
+            Price: Spots[spot].Price,
+            Currency: Spots[spot].Currency
           });
         })
-      );
+        );
     } catch (exception) {
       console.log(exception);
     }
@@ -177,7 +180,7 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             oldID_Vehicle: oldVehicles[vehicle],
-            newID_Vehicle: Vehicles[vehicle],
+            newID_Vehicle: Vehicles[vehicle].ID_Vehicle,
           });
         })
       );
@@ -239,6 +242,7 @@ const useUpdateReservation = (reservation) => {
   const updateState = async () => {
     try {
       const { ID, Reservation_Date, Status } = reservation;
+      console.log(reservation);
       const url = "/updateState";
       await AxiosClient.put(url, {
         ID,
@@ -252,15 +256,15 @@ const useUpdateReservation = (reservation) => {
 
   // Method that update all about the reservation
   const updateReservation = () => {
-    updateVehicles();
-    updatePersonData();
-    updateServices();
+    updateSpots();
     updateTickets();
-    updateState();
+    updateServices();
+    updatePersonData();
     insertNewVehicle();
     insertNewService();
     insertNewTicket();
-    updateSpots();
+    updateState();
+    updateVehicles();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
   };
 
