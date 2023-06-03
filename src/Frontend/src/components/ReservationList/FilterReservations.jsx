@@ -8,7 +8,7 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import FiltersContainer from "../Containers/FiltersContainer";
 
-const ReservationListFilter = (props) => {
+const FilterReservations = (props) => {
   const { reservations, setCurrentReservations } = props;
   // Services options
   const { servicesNames } = useServices();
@@ -140,4 +140,4 @@ const ReservationListFilter = (props) => {
   );
 };
 
-export default ReservationListFilter;
+export default FilterReservations;

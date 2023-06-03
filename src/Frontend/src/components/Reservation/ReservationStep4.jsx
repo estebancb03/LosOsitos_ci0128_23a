@@ -16,7 +16,7 @@ registerPlugin(FilePondPluginFileEncode);
 // Import Checkbox
 import { Checkbox } from "antd";
 
-const ReservationStep6 = ({
+const ReservationStep4 = ({
   windows,
   setWindows,
   reservationData,
@@ -145,28 +145,6 @@ const ReservationStep6 = ({
     }
   };
 
-  // // Method that inserts a spot camping
-  // const insertSpotsCamping = async () => {
-  //   try {
-  //     console.log("spots");
-  //     const { ID, Reservation_Date, Spots } = reservationData;
-  //     const url = "/spots";
-  //     await Promise.all(
-  //       Spots.map(async (spot) => {
-  //         console.log(Spots);
-  //         await AxiosClient.post(url, {
-  //           ID_Client: ID,
-  //           Reservation_Date,
-  //           Location_Spot: spot.Location_Spot,
-  //           Price: spot.Price,
-  //         });
-  //       })
-  //     );
-  //   } catch (exception) {
-  //     console.log(exception);
-  //   }
-  // };
-
   const updateReservationData = async (method) => {
     if (checkbox && filesBase64 != "") {
       await insertPerson();
@@ -174,11 +152,10 @@ const ReservationStep6 = ({
       await insertReservation();
       await insertReservationTicket();
       await insertReservationType();
-      await insertSpotsCamping();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
-      newWindows.Step6 = false;
-      newWindows.Step7 = true;
+      newWindows.Step4 = false;
+      newWindows.Step5 = true;
       newReservationData.Payment_Proof = filesBase64;
       newReservationData.QRData = {
         data: newReservationData.ID + newReservationData.Reservation_Date,
@@ -216,7 +193,7 @@ const ReservationStep6 = ({
 
   return (
     <>
-      {windows.Step6 && (
+      {windows.Step4 && (
         <div>
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Upload payment proof picture
@@ -244,8 +221,8 @@ const ReservationStep6 = ({
               text="Back"
               onclickFunction={(e) => {
                 const newWindows = { ...windows };
-                newWindows.Step5 = true;
-                newWindows.Step6 = false;
+                newWindows.Step3 = true;
+                newWindows.Step4 = false;
                 setWindows(newWindows);
               }}
             />
@@ -263,4 +240,4 @@ const ReservationStep6 = ({
   );
 };
 
-export default ReservationStep6;
+export default ReservationStep4;

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import useCountry from "./useCountry";
 
 import AxiosClient from "../config/AxiosClient";
 
@@ -14,6 +15,35 @@ const useReservations = () => {
   const [tickets, setTickets] = useState([]);
   // State that constrols the services
   const [services, setServices] = useState([]);
+  // Country hook
+  const {countries} = useCountry();
+
+  // Method that inits a new reservation
+  const createReservation = () => {
+    return {
+      ID: "",
+      Name: "",
+      LastName1: "",
+      LastName2: "",
+      Gender: 0,
+      Email: "",
+      Country_Name: "Argentina",
+      Birth_Date: new Date().toISOString(),
+      State: "",
+      Reservation_Method: 1,
+      Status: 1,
+      Payment_Method: 2,
+      Reservation_Type: 0,
+      Reservation_Date: new Date().toISOString(),
+      Picnic_Date: new Date().toISOString(),
+      Start_Date: new Date().toISOString(),
+      End_Date: new Date().toISOString(),
+      NewSpots: [],
+      NewTickets: [],
+      NewServices: [],
+      NewVehicles: []
+    };
+  };
 
   // Method that gets the records
   const fetchReservations = async () => {
@@ -111,7 +141,7 @@ const useReservations = () => {
     formatReservations();
   }, [spots, vehicles, tickets, services]);
 
-  return { reservations };
+  return { reservations, createReservation };
 };
 
 export default useReservations;
