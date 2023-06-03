@@ -88,12 +88,44 @@ const useInsertReservation = (reservation) => {
     }
   };
   
+  // Method that inserts a new person
+  const insertPersonData = async () => {
+    try {
+      const {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State
+      } = reservation;
+      const url = "/person";
+      await AxiosClient.post(url, {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State: Country_Name === "Costa Rica" ? State : null
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that inserts all the data
-  const insertReservation = () => {
-    insertNewTicket();
-    insertNewSpot();
-    insertNewService();
-    insertNewVehicle();
+  const insertReservation = async () => {
+    await insertPersonData();
+    await insertNewTicket();
+    await insertNewSpot();
+    await insertNewService();
+    await insertNewVehicle();
   };
   
   return {
