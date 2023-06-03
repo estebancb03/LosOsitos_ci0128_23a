@@ -33,7 +33,7 @@ const ReservationList = () => {
     "Customer",
     "Type",
     "Method",
-    "State",
+    "Status",
     "Start date",
     "End date",
     "Services",
@@ -91,7 +91,7 @@ const ReservationList = () => {
                   reservation.LastName2,
                 reservation.Reservation_Type == 1 ? "Camping" : "Picnic",
                 reservation.Reservation_Method == 0 ? "Online" : "In site",
-                reservation.State == 0 ? "Pending" : "Approved",
+                reservation.Status == 0 ? "Pending" : "Approved",
                 reservation.Start_Date !== null
                   ? formatDateDTDDMMYYYY(reservation.Start_Date)
                   : "N/A",

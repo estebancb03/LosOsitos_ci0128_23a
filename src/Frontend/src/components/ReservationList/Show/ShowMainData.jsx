@@ -30,7 +30,7 @@ const ShowMainData = (props) => {
         newReservation.Payment_Method = 2;
       }
     } else if (type === "status") {
-      newReservation.Status = value;
+      newReservation.Status = value === "Pending" ? 0 : 1;
     } else if (type === "picnicdate") {
       newReservation.Picni_Date = value;
     } else if (type === "startdate") {
