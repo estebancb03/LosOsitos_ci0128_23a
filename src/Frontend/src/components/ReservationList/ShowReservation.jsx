@@ -50,10 +50,12 @@ const ShowReservation = (props) => {
           <Button
             text={modifyButton}
             onclickFunction={() => {
-              modifyHandleClick();
+            modifyHandleClick();
               if (modifyButton === "Save changes") {
                 if (validateUpdateReservation()) {
                   updateReservation();
+                } else {
+                  alert("Incorrect data, check the information entered");
                 }
               }
             }}
