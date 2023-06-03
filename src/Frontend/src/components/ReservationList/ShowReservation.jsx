@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import useUpdateReservation from "../../hooks/useUpdateReservation";
+import useValidations from "../../hooks/useValidations";
 import ShowPerson from "./Show/ShowPerson";
 import ShowMainData from "./Show/ShowMainData";
 import ShowSpots from "./Show/ShowSpots";
@@ -24,6 +25,8 @@ const ShowReservation = (props) => {
   const [disabledElements, setDisabledElements] = useState(true);
   // Hook that updates the reservation
   const {updateReservation} = useUpdateReservation(currentRecord);
+  // Hook that validates changes
+  const {validateUpdateReservation} = useValidations(currentRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -48,8 +51,11 @@ const ShowReservation = (props) => {
             text={modifyButton}
             onclickFunction={() => {
               modifyHandleClick();
-              if (modifyButton === "Save changes")
-                updateReservation();
+              if (modifyButton === "Save changes") {
+                if (validateUpdateReservation()) {
+                  updateReservation();
+                }
+              }
             }}
           />
         }

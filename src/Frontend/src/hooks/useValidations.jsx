@@ -51,9 +51,11 @@ const useValidations = (reservation) => {
         parseInt(ticket.Amount) !== 0
       ) {
         result = true;
-        console.log("Tickets");
       }
     });
+    if (reservation.Tickets && reservation.NewTickets.length === 0) {
+      result = true;
+    }
     return result;
   };
   
@@ -66,6 +68,7 @@ const useValidations = (reservation) => {
         parseInt(ticket.Amount) !== 0
         ) {
         result = true;
+        console.log("Ticket");
       }
     });
     return result;
@@ -98,6 +101,7 @@ const useValidations = (reservation) => {
           parseInt(service.Quantity) === 0
         ) {
           result = false;
+          console.log("No service");
         }
       });
     }
