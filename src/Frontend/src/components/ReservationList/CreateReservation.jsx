@@ -27,6 +27,15 @@ const CreateReservation = (props) => {
   // Hook for validations
   const {validateInsertReservation} = useValidations(reservation);
 
+  // Method that saves the reservation
+  const saveReservation = () => {
+    if (validateInsertReservation()) {
+      insertReservation();
+    } else {
+      alert("Incorrect data, check the information entered");
+    }
+  };
+
   // The new reservation is inited
   useEffect(() => setReservation(createReservation), []);
 
@@ -78,13 +87,7 @@ const CreateReservation = (props) => {
         <div className="my-3">
           <Button
             text="Save reservation"
-            onclickFunction={() => {
-              if (validateInsertReservation()) {
-                insertReservation();
-              } else {
-                alert("Incorrect data, check the information entered");
-              }
-            }}
+            onclickFunction={saveReservation}
           />
         </div>
       </Modal>
