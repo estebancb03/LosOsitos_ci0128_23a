@@ -58,14 +58,14 @@ const AddService = (props) => {
     const currentAvailableServices = filterAvailableServices();
     const newCurrentRecord = {...currentRecord};
     let services = [...currentRecord.NewServices];
-    services = [...services, {
+    services = [{
       ID_Client: currentRecord.ID,
       Reservation_Date: new Date().toISOString(),
       Name_Service: currentAvailableServices[0],
       Quantity: "1",
       Price: searchServicePrice(currentAvailableServices[0], currentRecord.Country_Name === "Costa Rica" ? "CRC" : "USD"),
       Currency: currentRecord.Country_Name === "Costa Rica" ? "CRC" : "USD",
-    }];
+    }, ...services];
     newCurrentRecord.NewServices = services;
     setCurrentRecord(newCurrentRecord);
   };

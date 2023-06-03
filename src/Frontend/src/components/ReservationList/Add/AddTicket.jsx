@@ -58,7 +58,7 @@ const AddTicket = (props) => {
     const newCurrentRecord = {...currentRecord};
     const data = extractTicketData(currentAvailableTickets[0], currentRecord.Reservation_Type);
     let tickets = [...currentRecord.NewTickets];
-    tickets = [...tickets, {
+    tickets = [{
       ID_Client: currentRecord.ID,
       Reservation_Date: currentRecord.Reservation_Date,
       Reservation_Type: currentRecord.Reservation_Type,
@@ -67,7 +67,7 @@ const AddTicket = (props) => {
       Special: data.Special,
       Amount: 1,
       Price: data.Price
-    }];
+    }, ...tickets];
     newCurrentRecord.NewTickets = tickets;
     setCurrentRecord(newCurrentRecord);
   };
