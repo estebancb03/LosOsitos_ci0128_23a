@@ -46,9 +46,11 @@ const CreateReservation = (props) => {
           currentRecord={reservation}
           setCurrentRecord={setReservation}
         />
-        <label className="block text-xl font-semibold leading-6 text-gray-900">
-          Spots
-        </label>
+        {reservation.Reservation_Type === 1 && (
+          <label className="block text-xl font-semibold leading-6 text-gray-900">
+            Spots
+          </label>
+          )}
         <AddSpot
           disabledElements={false}
           currentRecord={reservation}
