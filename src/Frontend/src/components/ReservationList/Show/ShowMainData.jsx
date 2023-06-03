@@ -32,7 +32,7 @@ const ShowMainData = (props) => {
     } else if (type === "status") {
       newReservation.Status = value === "Pending" ? 0 : 1;
     } else if (type === "picnicdate") {
-      newReservation.Picni_Date = value;
+      newReservation.Picnic_Date = value;
     } else if (type === "startdate") {
       newReservation.Start_Date = value;
     } else if (type === "endDate") {

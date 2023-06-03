@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import useReservations from "../../hooks/useReservations";
 import useInsertReservation from "../../hooks/useInsertReservation";
+import useValidations from "../../hooks/useValidations";
 import AddSpot from "./Add/AddSpot";
 import AddPerson from "./Add/AddPerson";
 import AddTicket from "./Add/AddTicket";
@@ -23,6 +24,8 @@ const CreateReservation = (props) => {
   const {createReservation} = useReservations();
   // Hook for insert reservations
   const {insertReservation} = useInsertReservation(reservation);
+  // Hook for validations
+  const {validateInsertReservation} = useValidations(reservation);
 
   // The new reservation is inited
   useEffect(() => setReservation(createReservation), []);
@@ -75,7 +78,13 @@ const CreateReservation = (props) => {
         <div className="my-3">
           <Button
             text="Save reservation"
-            onclickFunction={insertReservation}
+            onclickFunction={() => {
+              if (validateInsertReservation()) {
+                insertReservation();
+              } else {
+                alert("Incorrect data, check the information entered");
+              }
+            }}
           />
         </div>
       </Modal>
