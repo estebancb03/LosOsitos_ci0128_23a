@@ -4,6 +4,7 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import Footer from "../components/Footer/Footer";
 import Container from "../components/Containers/Container";
 import Capacity from "../components/Settings/Capacity";
+import Tickets from "../components/Settings/Tickets";
 
 const Settings = () => {
   return (
@@ -19,6 +20,7 @@ const Settings = () => {
         <div className=" mt-4 ml-1 text-2xl sm:text-2xl font-semibold">
           Tickets
         </div>
+        <Tickets />
       </Container>
       <Footer />
     </>
