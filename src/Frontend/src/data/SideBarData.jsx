@@ -15,7 +15,7 @@ const SideBarData = [
   },
   {
     title: "Park Status",
-    path: "/park-status",
+    path: "/admin/park-status",
     icon: <BsIcons.BsFillPersonCheckFill />,
   },
   {
