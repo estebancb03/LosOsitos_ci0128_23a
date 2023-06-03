@@ -39,11 +39,12 @@ const insertSpotCamping = async (req, res) => {
         ID_Client,
         Reservation_Date,
         Location_Spot,
-        Price
+        Price,
+        Currency
       } = req.body;
       const pool = await getConnection();
       await pool.query(
-        `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price})`
+        `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price}, '${Currency}')`
       );
       res.status(200);
       console.log("The insert to the Spot_Camping was successful");

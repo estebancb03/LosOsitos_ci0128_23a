@@ -68,6 +68,27 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
+  // Method that inserts a new spot
+  const insertNewSpot = async () => {
+    try {
+      const { ID, Reservation_Date, NewSpots } = reservation;
+      const url = "/spots";
+      await Promise.all(
+        NewSpots.map(async (spot) => {
+          await AxiosClient.post(url, {
+            ID_Client: ID,
+            Reservation_Date,
+            Location_Spot: spot.Location_Spot,
+            Price: spot.Price,
+            Currency: spot.Currency
+          });
+        })
+        );
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   // Method that updates the services
   const updateServices = async () => {
     try {
@@ -242,7 +263,6 @@ const useUpdateReservation = (reservation) => {
   const updateState = async () => {
     try {
       const { ID, Reservation_Date, Status } = reservation;
-      console.log(reservation);
       const url = "/updateState";
       await AxiosClient.put(url, {
         ID,
@@ -263,6 +283,7 @@ const useUpdateReservation = (reservation) => {
     insertNewVehicle();
     insertNewService();
     insertNewTicket();
+    insertNewSpot();
     updateState();
     updateVehicles();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
