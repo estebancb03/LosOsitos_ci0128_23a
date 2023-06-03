@@ -25,7 +25,6 @@ const getPrices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query("SELECT * FROM Ticket");
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -37,7 +36,6 @@ const getCRCPrices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query("SELECT * FROM Ticket WHERE Currency = 'CRC'");
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -49,7 +47,6 @@ const getUSDPrices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query("SELECT * FROM Ticket WHERE Currency = 'USD'");
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -65,12 +62,10 @@ const getPriceByARDGCurrency = async (req, res) => {
       Reservation_Type,
       Currency
     } = req.params;
-//    console.log(req.body);
     const pool = await getConnection();
     const result = await pool
       .request()
       .query(`SELECT Price FROM Ticket WHERE Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Reservation_Type = ${Reservation_Type} AND Currency = '${Currency}'`);
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);

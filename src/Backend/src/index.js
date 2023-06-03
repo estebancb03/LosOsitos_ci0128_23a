@@ -55,5 +55,5 @@ app.use('/api', serviceReservationRoutes);
 //app.use('/api', reservationListRoutes);
 
 app.listen(port, () => {
-  console.log(`LosOsitos Server running on port ${port}`);
+  console.log(`[] LosOsitos Server running on port ${port}`);
 });

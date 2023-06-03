@@ -7,7 +7,6 @@ const getAllTickets = async (req, res) => {
     const result = await pool
       .request()
       .query("SELECT * FROM Ticket_Reservation");
-    console.log(result);
     res.status(200);
     res.json(result.recordset);
   } catch (error) {
@@ -25,7 +24,6 @@ const getTicketsByReservationID = async (req, res) => {
       .query(
         `SELECT Age_Range, Amount, Demographic_Group, Special, Price FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
         );
-    console.log(result);
     res.status(200);
     res.json(result.recordset);
   } catch (error) {
@@ -82,6 +80,7 @@ const updateTicket = async (req, res) => {
       `UPDATE Ticket_Reservation SET Age_Range = ${newAge_Range}, Demographic_Group = ${newDemographic_Group}, Amount = ${newAmount}, Price = ${newPrice}, Special = ${newSpecial} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`
     );
     res.status(200);
+    res.send("The update to the Ticket_Reservation was successfull");
     console.log("The update to the Ticket_Reservation was successfull");
   } catch (error) {
     res.status(500);
@@ -101,7 +100,6 @@ const deleteTicket = async (req, res) => {
       Special,
       Price,
     } = req.body;
-    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
       `DELETE Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`

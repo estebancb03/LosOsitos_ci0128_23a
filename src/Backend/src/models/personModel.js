@@ -2,11 +2,9 @@ import { getConnection, sql } from "../config/db.js";
 
 const getPerson = async (req, res) => {
   try {
-    const {id} = req.params
-    console.log(id);
+    const {id} = req.params;
     const pool = await getConnection();
     const result = await pool.request().query(`SELECT Name, LastName1, LastName2, Gender, Email, Country_Name, State, Birth_Date FROM Person WHERE ID = ${id}`);
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -55,12 +53,12 @@ const updatePersonData = async (req, res) => {
       Country_Name,
       State
     } = req.body;
-    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
       `UPDATE Person SET Name = '${Name}', LastName1 = '${LastName1}', LastName2 = '${LastName2}', Birth_Date = '${Birth_Date}', Email = '${Email}', Gender = ${Gender}, Country_Name = '${Country_Name}', State = ${State !== null ? `'${State}'` : 'NULL'} WHERE ID = ${ID}`
     );
     res.status(200);
+    res.send("The update to the Person table was successful");
     console.log("The update to the Person table was successful");
   } catch (error) {
     res.status(500);

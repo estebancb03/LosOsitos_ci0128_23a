@@ -13,7 +13,6 @@ const getAvailableSpotsByDates = async (req, res) => {
       .query(
         "SELECT S.Location, S.Size, Spot_Price.Price, Spot_Price.Currency FROM Spot S JOIN Spot_Price ON S.Location = Spot_Price.Location_Spot WHERE NOT EXISTS( SELECT * FROM Spot_Camping WHERE (Reservation_Date BETWEEN @startDateObj AND @endDateObj) AND S.Location = Spot_Camping.Location_Spot)"
       );
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -25,7 +24,6 @@ const getAllSpots = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query(`SELECT * FROM Spot`);
-    console.log(result);
     res.status(200);
     res.json(result.recordset);
   } catch (error) {

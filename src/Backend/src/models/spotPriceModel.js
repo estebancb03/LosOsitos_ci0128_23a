@@ -4,7 +4,6 @@ const getSpotPrices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query(`SELECT * FROM Spot_Price`);
-    console.log(result);
     res.status(200);
     res.json(result.recordset);
   } catch (error) {
