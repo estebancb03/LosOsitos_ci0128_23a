@@ -5,10 +5,7 @@ import DropDownSelect from "../../Buttons/DropDownSelect";
 import DatePickerButton from "../../Buttons/DatePickerButton";
 import usePerson from "../../../hooks/usePerson";
 import useCountry from "../../../hooks/useCountry";
-import {
-  formatDateDTDDMMYYYY,
-  formatDateDTMMDDYYYY
-} from "../../../helpers/formatDate";
+import { formatDateDTMMDDYYYY } from "../../../helpers/formatDate";
 
 const AddPerson = (props) => {
   // Props
