@@ -10,8 +10,9 @@ import TableItem from "../components/Table/TableItem";
 import useReservations from "../hooks/useReservations";
 import Container from "../components/Containers/Container";
 import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
-import ReservationListModal from "../components/ReservationList/ReservationListModal";
-import ReservationListFilter from "../components/ReservationList/ReservationListFilter";
+import ShowReservation from "../components/ReservationList/ShowReservation.jsx";
+import FilterReservations from "../components/ReservationList/FilterReservations.jsx";
+import CreateReservation from "../components/ReservationList/CreateReservation.jsx";
 
 const ReservationList = () => {
   // Containst all reservations
@@ -20,8 +21,12 @@ const ReservationList = () => {
   const [currentReservations, setCurrentReservations] = useState([]);
   // State that controls the selected reservation
   const [selectedReservation, setSelectedReservation] = useState({});
+  // State that controls the new reservation
+  const [newReservation, setNewReservation] = useState({});
   // State that controls the modal
   const [viewModal, setViewModal] = useState(false);
+  // State that controls the create reservation modal
+  const [viewCreateModal, setViewCreateModal] = useState(false);
   // Table columns
   const tableColumns = [
     "Id",
@@ -53,11 +58,20 @@ const ReservationList = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation List" />
-        <ReservationListFilter
+        <FilterReservations
           reservations={reservations}
           setCurrentReservations={setCurrentReservations}
         />
-        <ReservationListModal
+        <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
+          <Button text="Create Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
+        </div>
+        <CreateReservation
+          viewModal={viewCreateModal}
+          setViewModal={setViewCreateModal}
+          reservation={newReservation}
+          setReservation={setNewReservation}
+        />
+        <ShowReservation
           currentRecord={selectedReservation}
           setCurrentRecord={setSelectedReservation}
           viewModal={viewModal}

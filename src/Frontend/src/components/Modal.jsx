@@ -2,7 +2,7 @@ import Title from "./Title";
 import Container from "./Containers/Container";
 import * as IoIcons from "react-icons/io";
 
-const Modal = ({ state, setState, title, children }) => {
+const Modal = ({ state, setState, exitFunction, title, children }) => {
   return (
     <>
       {state && (
@@ -11,7 +11,10 @@ const Modal = ({ state, setState, title, children }) => {
             <Container>
               <button
                 className="flex ml-[90%] text-4xl text-[#21295c] hover:text-[#6545e6] transition-all ease-in duration-300"
-                onClick={(e) => setState(false)}
+                onClick={(e) => {
+                  setState(false);
+                  exitFunction();
+                }}
               >
                 <IoIcons.IoMdClose />
               </button>
