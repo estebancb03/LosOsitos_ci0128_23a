@@ -27,7 +27,7 @@ const ShowReservation = (props) => {
   // Hook that updates the reservation
   const {updateReservation} = useUpdateReservation(currentRecord);
   // Hook that validates changes
-  const {validateUpdateReservation} = useValidations(currentRecord);
+  const {validateUpdateReservation, validateCapacity} = useValidations(currentRecord);
   // Hook that calculates fees
   const {calculateSpotsFee} = useCalculateFees(currentRecord);
 
@@ -47,11 +47,15 @@ const ShowReservation = (props) => {
   };
 
   // Method that change the reservation data
-  const changeReservationData = () => {
+  const changeReservationData = async () => {
     modifyHandleClick();
     if (modifyButton === "Save changes") {
       if (validateUpdateReservation()) {
-        updateReservation();
+        if (await validateCapacity()) {
+          updateReservation();
+        } else {
+          alert("Insufficient capacity");
+        }
       } else {
         alert("Incorrect data, check the information entered");
       }

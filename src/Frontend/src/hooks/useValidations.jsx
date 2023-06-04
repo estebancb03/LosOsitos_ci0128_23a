@@ -1,4 +1,4 @@
-import { isDateAfterISO8601, getDateRange } from "../helpers/formatDate.js";
+import { isDateAfterISO8601, getDateRange, formatDateDTMMDDYYYY } from "../helpers/formatDate.js";
 import AxiosClient from "../config/AxiosClient";
 
 const useValidations = (reservation) => {
@@ -20,15 +20,22 @@ const useValidations = (reservation) => {
   const validateCapacityForCamping = async () => {
     let result = true;
     let persons = 0;
-    const days = getDateRange(reservation.Start_Date, reservation.End_Date);
+    let dbPersons = 0;
+    const days = getDateRange(formatDateDTMMDDYYYY(reservation.Start_Date), formatDateDTMMDDYYYY(reservation.End_Date));
     await Promise.all(
       days.map(async (day) => {
         const capacities = await getRemainingCapacity(day);
         const onlineCapacicty = capacities[0].Remaining_Capacity;
         const insiteCapacity = capacities[1].Remaining_Capacity;
+        if (reservation.Tickets) {
+          const {data} = await AxiosClient.get(`/getTicketsByReservationID/${reservation.ID}/${reservation.Reservation_Date}`);
+          data.map((ticket) => dbPersons += parseInt(ticket.Amount));
+          reservation.Tickets.map((ticket) => persons += parseInt(ticket.Amount));
+        }
         if (reservation.NewTickets) {
           reservation.NewTickets.map((ticket) => persons += parseInt(ticket.Amount));
         }
+        persons -= dbPersons;
         if (reservation.Reservation_Method === 0) {
           if (onlineCapacicty < persons) {
             result = false;
@@ -38,8 +45,8 @@ const useValidations = (reservation) => {
             result = false;
           }
         }
-        console.log(persons);
         persons = 0;
+        dbPersons = 0;
       }
     ));
     return result;
@@ -49,14 +56,21 @@ const useValidations = (reservation) => {
   const validateCapacityForPicnic = async () => {
     let result = false;
     let persons = 0;
+    let dbPersons = 0;
     const capacities = await getRemainingCapacity(reservation.Picnic_Date);
     const onlineCapcicty = capacities[0].Remaining_Capacity;
     const insiteCapacity = capacities[1].Remaining_Capacity;
 
+    if (reservation.Tickets) {
+      const {data} = await AxiosClient.get(`/getTicketsByReservationID/${reservation.ID}/${reservation.Reservation_Date}`);
+      data.map((ticket) => dbPersons += parseInt(ticket.Amount));
+      reservation.Tickets.map((ticket) => persons += parseInt(ticket.Amount));
+    }
+
     if (reservation.NewTickets) {
       reservation.NewTickets.map((ticket) => persons += parseInt(ticket.Amount));
     }
-
+    persons -= dbPersons;
     if (reservation.Reservation_Method === 0) {
       if (onlineCapcicty >= persons) {
         result = true;
@@ -73,13 +87,10 @@ const useValidations = (reservation) => {
   const validateCapacity = async () => {
     let result = false;
     if (reservation.Reservation_Type === 0) {
-      console.log("Picnic");
       result = await validateCapacityForPicnic();
     } else {
-      console.log("Camping");
       result = await validateCapacityForCamping();
     }
-    console.log(result);
     return result;
   };
 
@@ -97,7 +108,6 @@ const useValidations = (reservation) => {
       reservation.Country_Name !== ""
     ) {
       result = true;
-      console.log("Personal data");
     }
     return result;
   };
@@ -108,7 +118,6 @@ const useValidations = (reservation) => {
     if (reservation.Reservation_Type === 0) {
       if (reservation.Picnic_Date !== "") {
         result = true;
-        console.log("Dates");
       }
     } else {
       if (
@@ -117,7 +126,6 @@ const useValidations = (reservation) => {
         isDateAfterISO8601(reservation.Start_Date, reservation.End_Date)
       ) {
         result = true;
-        console.log("Dates");
       }
     }
     return result;
@@ -149,7 +157,6 @@ const useValidations = (reservation) => {
         parseInt(ticket.Amount) !== 0
         ) {
         result = true;
-        console.log("Ticket");
       }
     });
     return result;
@@ -165,7 +172,6 @@ const useValidations = (reservation) => {
           parseInt(service.Quantity) === 0
         ) {
           result = false;
-          console.log("No Services");
         }
       });
     }
@@ -182,7 +188,6 @@ const useValidations = (reservation) => {
           parseInt(service.Quantity) === 0
         ) {
           result = false;
-          console.log("No service");
         }
       });
     }
@@ -194,7 +199,6 @@ const useValidations = (reservation) => {
     let result = true;
     if (reservation.Reservation_Type === 1) {
       if (reservation.NewSpots.length === 0) {
-        console.log("No spots");
         result = false;
       }
     }
