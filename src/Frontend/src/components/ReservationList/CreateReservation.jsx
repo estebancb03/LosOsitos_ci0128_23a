@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import useReservations from "../../hooks/useReservations";
 import useInsertReservation from "../../hooks/useInsertReservation";
+import useCalculateFees from "../../hooks/useCalculateFees";
 import useValidations from "../../hooks/useValidations";
 import AddSpot from "./Add/AddSpot";
 import AddPerson from "./Add/AddPerson";
@@ -10,6 +11,7 @@ import AddTicket from "./Add/AddTicket";
 import AddVehicle from "./Add/AddVehicle";
 import AddService from "./Add/AddService";
 import AddMainData from "./Add/AddMainData";
+import ShowFee from "./Show/ShowFee";
 
 const CreateReservation = (props) => {
   // Props
@@ -26,6 +28,13 @@ const CreateReservation = (props) => {
   const {insertReservation} = useInsertReservation(reservation);
   // Hook for validations
   const {validateInsertReservation, validateCapacity} = useValidations(reservation);
+  // Hook that calculates fees
+  const {
+    calculateAllTicketsFee,
+    calculateAllSpotsFee,
+    calculateAllServicesFee,
+    calculateTotalFee
+  } = useCalculateFees(reservation);
 
   // Method that saves the reservation
   const saveReservation = async () => {
@@ -62,6 +71,10 @@ const CreateReservation = (props) => {
           currentRecord={reservation}
           setCurrentRecord={setReservation}
         />
+        <ShowFee
+          text="Subtotal"
+          fees={calculateAllTicketsFee()}
+        />
         {reservation.Reservation_Type === 1 && (
           <label className="block text-xl font-semibold leading-6 text-gray-900">
             Spots
@@ -72,6 +85,12 @@ const CreateReservation = (props) => {
           currentRecord={reservation}
           setCurrentRecord={setReservation}
         />
+        {reservation.Reservation_Type === 1 && (
+          <ShowFee
+            text="Subtotal"
+            fees={calculateAllSpotsFee()}
+          />
+        )}
         <label className="block text-xl font-semibold leading-6 text-gray-900">
           Services
         </label>
@@ -79,6 +98,10 @@ const CreateReservation = (props) => {
           disabledElements={false}
           currentRecord={reservation}
           setCurrentRecord={setReservation}
+        />
+        <ShowFee
+          text="Subtotal"
+          fees={calculateAllServicesFee()}
         />
         <label className="mt-4 block text-xl font-semibold leading-6 text-gray-900">
           Vehicles
@@ -94,6 +117,10 @@ const CreateReservation = (props) => {
             onclickFunction={saveReservation}
           />
         </div>
+        <ShowFee
+          text="Total"
+          fees={calculateTotalFee()}
+        />
       </Modal>
     </>
   );

@@ -31,7 +31,7 @@ const AddVehicle = (props) => {
 
   return (
     <>
-    <div className="mb-3 mt-6">
+    <div className="mb-1 mt-4">
         <Button
           text="Add vehicle"
           type="add"
