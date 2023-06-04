@@ -18,7 +18,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { saveAs } from "file-saver";
 import { stringify } from 'csv-stringify';
-import {
+import { 
   formatDateDTDDMMYYYY,
   changeDateInISOFormat,
   isDateAfterISO8601,
@@ -190,3 +190,5 @@ const downloadCSV = () => {
     );
   };
 };
+
+export default FinancialReport;

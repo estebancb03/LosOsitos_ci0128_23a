@@ -1,47 +1,15 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import useInsertReservation from "./useInsertReservation";
 import AxiosClient from "../config/AxiosClient";
 
 const useUpdateReservation = (reservation) => {
-  // Method that inserts a new vehicle
-  const insertNewVehicle = async () => {
-    try {
-      const { ID, Reservation_Date, NewVehicles } = reservation;
-      const url = "/insertVehicle";
-      await Promise.all(
-        NewVehicles.map(async (vehicle, index) => {
-          await AxiosClient.post(url, {
-            ID,
-            Reservation_Date,
-            ID_Vehicle: NewVehicles[index],
-          });
-        })
-      );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  // Method that inserts a new service
-  const insertNewService = async () => {
-    try {
-      const { ID, Reservation_Date, NewServices } = reservation;
-      const url = "/insertServiceReservation";
-      await Promise.all(
-        NewServices.map(async (service, index) => {
-          await AxiosClient.post(url, {
-            ID,
-            Reservation_Date,
-            Name_Service: NewServices[index].Name_Service,
-            Price: NewServices[index].Price,
-            Quantity: parseInt(NewServices[index].Quantity)
-          });
-        })
-        );
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
+  // Insert reservation hook
+  const {
+    insertNewTicket,
+    insertNewSpot,
+    insertNewService,
+    insertNewVehicle,
+  } = useInsertReservation(reservation);
 
   // Method that updates the services
   const updateServices = async () => {
@@ -75,6 +43,8 @@ const useUpdateReservation = (reservation) => {
       Tickets.map((ticket) => {
         ticket.Age_Range = parseInt(ticket.Age_Range);
         ticket.Demographic_Group = parseInt(ticket.Demographic_Group);
+        ticket.Special = parseInt(ticket.Special);
+        ticket.Price = parseFloat(ticket.Price);
         ticket.Amount = parseInt(ticket.Amount);
         parsedTickets.push(ticket);
       });
@@ -86,8 +56,14 @@ const useUpdateReservation = (reservation) => {
             Reservation_Date,
             Age_Range: ticket.Age_Range,
             Amount: ticket.Amount,
+            Special: ticket.Special,
             Demographic_Group: ticket.Demographic_Group,
+            Price: ticket.Price,
+            newAge_Range: parsedTickets[index].Age_Range,
+            newDemographic_Group: parsedTickets[index].Demographic_Group,
+            newSpecial: parsedTickets[index].Special,
             newAmount: parsedTickets[index].Amount,
+            newPrice: parsedTickets[index].Price
           });
         })
       );
@@ -116,10 +92,12 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             oldLocation_Spot: oldSpots[spot],
-            newLocation_Spot: parseInt(Spots[spot].Location_Spot),
+            newLocation_Spot: Spots[spot].Location_Spot,
+            Price: Spots[spot].Price,
+            Currency: Spots[spot].Currency
           });
         })
-      );
+        );
     } catch (exception) {
       console.log(exception);
     }
@@ -144,7 +122,7 @@ const useUpdateReservation = (reservation) => {
             ID,
             Reservation_Date,
             oldID_Vehicle: oldVehicles[vehicle],
-            newID_Vehicle: Vehicles[vehicle],
+            newID_Vehicle: Vehicles[vehicle].ID_Vehicle,
           });
         })
       );
@@ -162,8 +140,11 @@ const useUpdateReservation = (reservation) => {
         Name,
         LastName1,
         LastName2,
+        Birth_Date,
         Email,
+        Gender,
         Country_Name,
+        State
       } = reservation;
       const url = "/updatePersonData";
       await AxiosClient.put(url, {
@@ -172,8 +153,11 @@ const useUpdateReservation = (reservation) => {
         Name,
         LastName1,
         LastName2,
+        Birth_Date,
         Email,
+        Gender,
         Country_Name,
+        State: Country_Name === "Costa Rica" ? State : null
       });
     } catch (exception) {
       console.log(exception);
@@ -213,14 +197,16 @@ const useUpdateReservation = (reservation) => {
 
   // Method that update all about the reservation
   const updateReservation = () => {
-    updateVehicles();
-    updatePersonData();
-    updateServices();
+    updateSpots();
     updateTickets();
-    updateState();
+    updateServices();
+    updatePersonData();
     insertNewVehicle();
     insertNewService();
-    updateSpots();
+    insertNewTicket();
+    insertNewSpot();
+    updateState();
+    updateVehicles();
     if (reservation.Reservation_Type === 1) updateStartEndDates();
   };
 
