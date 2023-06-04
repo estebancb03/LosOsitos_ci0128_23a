@@ -18,7 +18,7 @@ const useCalculateFees = (reservation) => {
     let foreignFee = { fee: 0, currency: "USD" };
     const startDate = reservation.Start_Date;
     const endDate = reservation.End_Date;
-    const days = getDaysDifference(startDate, endDate) + 1;
+    const days = getDaysDifference(startDate, endDate);
     if (reservation.Tickets) {
       reservation.Tickets.map((ticket) => {
         if (ticket.Demographic_Group === 0) {
@@ -39,7 +39,7 @@ const useCalculateFees = (reservation) => {
     let foreignFee = { fee: 0, currency: "USD" };
     const startDate = reservation.Start_Date;
     const endDate = reservation.End_Date;
-    const days = getDaysDifference(startDate, endDate) + 1;
+    const days = getDaysDifference(startDate, endDate);
     if (reservation.NewTickets) {
       reservation.NewTickets.map((ticket) => {
         if (ticket.Demographic_Group === 0) {
@@ -56,12 +56,11 @@ const useCalculateFees = (reservation) => {
 
   // Method that calculates the spots fee
   const calculateSpotsFee = () => {
-    let fee = 0;
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
     const startDate = reservation.Start_Date;
     const endDate = reservation.End_Date;
-    const days = getDaysDifference(startDate, endDate) + 1;
+    const days = getDaysDifference(startDate, endDate);
     if (reservation.Spots) {
       reservation.Spots.map((spot) => {
         if (spot.Currency === "CRC") {
@@ -82,7 +81,7 @@ const useCalculateFees = (reservation) => {
     let foreignFee = { fee: 0, currency: "USD" };
     const startDate = reservation.Start_Date;
     const endDate = reservation.End_Date;
-    const days = getDaysDifference(startDate, endDate) + 1;
+    const days = getDaysDifference(startDate, endDate);
     if (reservation.NewSpots) {
       reservation.NewSpots.map((spot) => {
         if (spot.Currency === "CRC") {
@@ -134,7 +133,7 @@ const useCalculateFees = (reservation) => {
   const calculateAllTicketsFee = () => {
     const ticketsFee = calculatesTicketsFee();
     const newTicketsFee = calculatesNewTicketsFee();
-    const CRCFee = ticketsFee[0] + newTicketsFee[0];
+    const CRCFee = parseInt(ticketsFee[0] + newTicketsFee[0]);
     const USDFee = ticketsFee[1] + newTicketsFee[1];
     return [CRCFee, USDFee];
   };
@@ -143,7 +142,7 @@ const useCalculateFees = (reservation) => {
   const calculateAllSpotsFee = () => {
     const spotsFee = calculateSpotsFee();
     const newSpotsFee = calculateNewSpotsFee();
-    const CRCFee = spotsFee[0] + newSpotsFee[0];
+    const CRCFee = parseInt(spotsFee[0] + newSpotsFee[0]);
     const USDFee = spotsFee[1] + newSpotsFee[1];
     return [CRCFee, USDFee];
   };
@@ -152,7 +151,7 @@ const useCalculateFees = (reservation) => {
   const calculateAllServicesFee = () => {
     const servicesFee = calculateServicesFee();
     const newServicesFee = calculateNewServicesFee();
-    const CRCFee = servicesFee[0] + newServicesFee[0];
+    const CRCFee = parseInt(servicesFee[0] + newServicesFee[0]);
     const USDFee = servicesFee[1] + newServicesFee[1];
     return [CRCFee, USDFee];
   };
