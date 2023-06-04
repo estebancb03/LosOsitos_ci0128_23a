@@ -24,8 +24,7 @@
     "morgan": "^1.10.0",
     "mssql": "^9.1.1",
     "nodemailer": "^6.9.1",
-    "qrcode": "^1.5.3",
-    "xlsx": "^0.18.5"
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.21.0",

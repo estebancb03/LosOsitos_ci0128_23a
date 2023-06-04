@@ -32,8 +32,8 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "react-tailwindcss-datepicker": "^1.6.0",
-    "typescript": "^5.0.4",
-    "xlsx": "^0.18.5"
+    "sheetjs-style": "^0.15.8",
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
