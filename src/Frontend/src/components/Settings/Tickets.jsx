@@ -107,28 +107,24 @@ const Tickets = () => {
         break;
 
       case 4:
-        //console.log("Entre al case 4");
         regex.test(childCampingPrice)
           ? setChildCampingPrice(parseFloat(childCampingPrice))
           : (successfulConversion = false);
         break;
 
       case 5:
-        //console.log("Entre al case 5");
         regex.test(foreignChildCampingPrice)
           ? setForeignChildCampingPrice(parseFloat(foreignChildCampingPrice))
           : (successfulConversion = false);
         break;
 
       case 6:
-        //console.log("Entre al case 6");
         regex.test(adultCampingPrice)
           ? setAdultCampingPrice(parseFloat(adultCampingPrice))
           : (successfulConversion = false);
         break;
 
       case 7:
-        //console.log("Entre al case 7");
         regex.test(foreignAdultCampingPrice)
           ? setForeignAdultCampingPrice(parseFloat(foreignAdultCampingPrice))
           : (successfulConversion = false);
@@ -218,7 +214,6 @@ const Tickets = () => {
   };
 
   const modifyPrice = (type, value) => {
-    //console.log("Reached modifyPrice !!!");
     //console.log("Type[0] is " + type[0] + " y type[1] es " + type[1]);
     const index = type[1];
     switch (index) {
@@ -282,7 +277,6 @@ const Tickets = () => {
       }
     } else {
       const offSet = 4;
-      //console.log("En camping index + 4 es: " + offSet);
       if (modifyButtons[index + offSet] === "Modify") {
         setModifyButtons((prevButtons) => {
           const updatedButtons = [...prevButtons];
