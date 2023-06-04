@@ -1,5 +1,6 @@
 import { getConnection, sql } from "../config/db.js";
 import { generateCSV } from "../helpers/fileConverter.js";
+import { generateXLSX } from "../helpers/fileConverter.js";
 
 export const getIncomeData = async (req, res) => {
   try {
@@ -22,7 +23,9 @@ export const getIncomeData = async (req, res) => {
       res.send(report)
     } else if (file_type == "Excel") {
       res.status(200);
-
+      const report = generateXLSX(result.recordset);
+      console.log(report);
+      res.send(report)
     } else if (file_type == "PDF") {
       res.status(200);
 

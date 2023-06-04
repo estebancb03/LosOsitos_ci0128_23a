@@ -4,7 +4,7 @@ import DatePickerButton from "../components/Buttons/DatePickerButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
 import Button from "../components/Buttons/Button";
 
-import { downloadCSV } from "../helpers/fileDownloader";
+import { downloadCSV, downloadXLSX } from "../helpers/fileDownloader";
 import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
 
@@ -36,7 +36,9 @@ const Reports = () => {
     try {
       if (reportType == "Income") {
         result = await getIncomeData(startDate, endDate, fileType);
-        downloadCSV(result, "income_report.csv")        
+        downloadCSV(result, "income_report.csv")
+        downloadXLSX(result, "income_report.xlsx")
+
       } else if (reportType == "Visitors") {
         result = await getVisitationData(startDate, endDate, fileType);
       }
