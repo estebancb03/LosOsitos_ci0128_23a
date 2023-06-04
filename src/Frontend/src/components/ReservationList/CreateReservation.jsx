@@ -25,12 +25,16 @@ const CreateReservation = (props) => {
   // Hook for insert reservations
   const {insertReservation} = useInsertReservation(reservation);
   // Hook for validations
-  const {validateInsertReservation} = useValidations(reservation);
+  const {validateInsertReservation, validateCapacity} = useValidations(reservation);
 
   // Method that saves the reservation
-  const saveReservation = () => {
+  const saveReservation = async () => {
     if (validateInsertReservation()) {
-      insertReservation();
+      if(await validateCapacity()) {
+        insertReservation();
+      } else {
+        alert("Insufficient capacity");
+      }
     } else {
       alert("Incorrect data, check the information entered");
     }

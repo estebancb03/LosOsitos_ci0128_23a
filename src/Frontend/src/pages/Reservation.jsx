@@ -8,8 +8,6 @@ import ReservationStep1 from "../components/Reservation/ReservationStep1";
 import ReservationStep2 from "../components/Reservation/ReservationStep2";
 // import ReservationStep3 from "../components/Reservation/ReservationStep3";
 import ReservationStep5 from "../components/Reservation/ReservationStep5";
-import ReservationStep6 from "../components/Reservation/ReservationStep6";
-import ReservationStep7 from "../components/Reservation/ReservationStep7";
 
 const Reservation = () => {
   // State that controls the visibility of the windows
@@ -64,22 +62,6 @@ const Reservation = () => {
             /> */}
           {windows.Step5 === true && (
             <ReservationStep5
-              windows={windows}
-              setWindows={setWindows}
-              reservationData={reservationData}
-              setReservationData={setReservationData}
-            />
-            )}
-          {windows.Step6 === true && (
-            <ReservationStep6
-              windows={windows}
-              setWindows={setWindows}
-              reservationData={reservationData}
-              setReservationData={setReservationData}
-            />
-            )}
-          {windows.Step7 === true && (
-            <ReservationStep7
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}

@@ -23,14 +23,12 @@ const getPicnicCapacity = async(req, res) => {
   try {
     const {
       date
-    } = req.body;
-    console.log(req.body);
+    } = req.params;
     const pool = await getConnection();
     let result = await pool.request().
       input("date", sql.DateTime, date).
       execute("RemainingPicnicCapacity");
     res.status(200);
-    console.log(result);
     res.send(result.recordset);
   } catch (error) {
     res.status(500);
