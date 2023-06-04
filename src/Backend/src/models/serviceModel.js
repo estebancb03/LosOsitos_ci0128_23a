@@ -5,7 +5,6 @@ const getServicesOptions = async (req, res) => {
     try {
       const pool = await getConnection();
       const result = await pool.request().query("SELECT Name FROM Service");
-      console.log(result);
       res.status(200);
       res.json(result.recordset);
     } catch (error) {

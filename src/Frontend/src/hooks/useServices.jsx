@@ -33,17 +33,20 @@ const useServices = () => {
 
   // Method that gets the price of a service
   const searchServicePrice = (nameService, currency) => {
-    const result = servicesPrices.filter((price) => price.Name_Service === nameService && price.Currency === currency);
-    return result[0].Price;
+    if (servicesPrices.length > 0) {
+      const result = servicesPrices.filter((price) => price.Name_Service === nameService && price.Currency === currency);
+      return result[0].Price;
+    }
   };
 
-  // Method that modify the currentRecord
+  // Method that modify a new service
   const modifyService = (type, value, reservation) => {
     const newReservation = {...reservation};
     const newServices = [...reservation.NewServices];
     if (type[0] === "name") {
       newServices[type[1]].Name_Service = value;
-      newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
+      newServices[type[1]].Price = searchServicePrice(value, reservation.Country_Name === "Costa Rica" ? "CRC" : "USD");
+      newServices[type[1]].Currency = reservation.Country_Name === "Costa Rica" ? "CRC" : "USD";
     } else if (type[0] === "quantity") {
       newServices[type[1]].Quantity = value;
     }

@@ -1,6 +1,7 @@
 import {useEffect} from "react";
 import DropDownSelect from "../../Buttons/DropDownSelect";
 import DatePickerButton from "../../Buttons/DatePickerButton";
+import { formatDateDTMMDDYYYY } from "../../../helpers/formatDate";
 
 const AddMainData = (props) => {
   // Props
@@ -22,10 +23,10 @@ const AddMainData = (props) => {
         newReservation.Payment_Method = 2;
       }
     } else if (type === "picnicdate") {
-      newReservation.Picni_Date = value;
+      newReservation.Picnic_Date = value;
     } else if (type === "startdate") {
       newReservation.Start_Date = value;
-    } else if (type === "endDate") {
+    } else if (type === "enddate") {
       newReservation.End_Date = value;
     }
     setReservation(newReservation);
@@ -59,7 +60,7 @@ const AddMainData = (props) => {
               typeClass="3"
               type="picnicdate"
               disabled={false}
-              selectedDate={new Date()}
+              selectedDate={new Date(formatDateDTMMDDYYYY(reservation.Picnic_Date))}
               onChangeFunction={changeMainData}
             />
           </div>
@@ -70,7 +71,7 @@ const AddMainData = (props) => {
               typeClass="3"
               type="startdate"
               disabled={false}
-              selectedDate={new Date()}
+              selectedDate={new Date(formatDateDTMMDDYYYY(reservation.Start_Date))}
               onChangeFunction={changeMainData}
             />
           </div>
@@ -82,7 +83,7 @@ const AddMainData = (props) => {
               typeClass="3"
               type="enddate"
               disabled={false}
-              selectedDate={new Date()}
+              selectedDate={new Date(formatDateDTMMDDYYYY(reservation.End_Date))}
               onChangeFunction={changeMainData}
             />
           </div>

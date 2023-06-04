@@ -9,7 +9,6 @@ const insertCamping = async (req, res) => {
       Start_Date,
       End_Date
     } = req.body;
-    console.log(req.body);
     const pool = await getConnection();
     await pool.query(
       `INSERT INTO Camping VALUES (${ID_Client}, '${Reservation_Date}', '${Start_Date}', '${End_Date}')`
@@ -32,6 +31,7 @@ const updateStartEndDates = async (req, res) => {
       `UPDATE Camping SET Start_Date = '${Start_Date}', End_Date = '${End_Date}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
     );
     res.status(200);
+    res.send("The update to the Reservation dates was successfull");
     console.log("The update to the Reservation dates was successfull");
   } catch (error) {
     res.status(500);
