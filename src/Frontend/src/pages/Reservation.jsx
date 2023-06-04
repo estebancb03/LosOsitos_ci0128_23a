@@ -7,6 +7,7 @@ import ReservationStep0 from "../components/Reservation/ReservationStep0";
 import ReservationStep1 from "../components/Reservation/ReservationStep1";
 import ReservationStep2 from "../components/Reservation/ReservationStep2";
 import ReservationStep3 from "../components/Reservation/ReservationStep3";
+import ReservationStep4 from "../components/Reservation/ReservationStep4";
 import ReservationStep5 from "../components/Reservation/ReservationStep5";
 
 const Reservation = () => {
