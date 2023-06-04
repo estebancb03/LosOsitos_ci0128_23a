@@ -118,6 +118,26 @@ const getDaysDifference = (date1, date2) => {
   const diffInMs = Math.abs(d2 - d1);
   const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
   return diffInDays;
+}
+
+const formatDateYYYYMMDD = (date) => {
+  const parts = date !== undefined ? date.split("-") : "";
+  return parts !== "" ? parts[2] + "/" + parts[0] + "/" + parts[1] : "";
+}
+
+const getDateRange = (startDate, endDate) => {
+  let dates = [];
+  let currentDate = new Date(formatDateYYYYMMDD(startDate));
+  let newEndDate = new Date(formatDateYYYYMMDD(endDate));
+
+  while (currentDate <= newEndDate) {
+    const temp = currentDate.toISOString();
+    const parts = temp.split("T");
+    dates.push(parts[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
 };
 
 export {
@@ -132,5 +152,6 @@ export {
   changeHourInISOFormat,
   changeDateInISOFormat2,
   isDateAfterISO8601,
-  getDaysDifference
+  getDaysDifference,
+  getDateRange
 };
