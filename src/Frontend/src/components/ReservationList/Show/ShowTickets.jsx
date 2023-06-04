@@ -2,6 +2,8 @@ import InputButton from "../../Buttons/InputButton";
 import DropDownSelect from "../../Buttons/DropDownSelect";
 import useTicket from "../../../hooks/useTicket";
 import AddTicket from "../Add/AddTicket";
+import ShowFee from "./ShowFee";
+import useCalculateFees from "../../../hooks/useCalculateFees";
 
 const ShowTickets = (props) => {
   // Props
@@ -12,6 +14,8 @@ const ShowTickets = (props) => {
   } = props;
   // Tickets hook
   const {ticketOptions, ticketPrices, formatTicket, modifyTicket} = useTicket();
+  // Fees hook
+  const { calculateAllTicketsFee } = useCalculateFees(reservation);
 
   // Method that changes the ticket data
   const changeTicket = (type, value) => {
@@ -178,6 +182,10 @@ const ShowTickets = (props) => {
             </div>
           ))}
       </div>
+      <ShowFee
+        text="Subtotal"
+        fees={calculateAllTicketsFee()}
+      />
     </>
   );
 };

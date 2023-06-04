@@ -10,6 +10,7 @@ import ShowSpots from "./Show/ShowSpots";
 import ShowVehicles from "./Show/ShowVehicles";
 import ShowServices from "./Show/ShowServices";
 import ShowTickets from "./Show/ShowTickets";
+import ShowFee from "./Show/ShowFee";
 
 const ShowReservation = (props) => {
   // Props
@@ -29,7 +30,7 @@ const ShowReservation = (props) => {
   // Hook that validates changes
   const {validateUpdateReservation, validateCapacity} = useValidations(currentRecord);
   // Hook that calculates fees
-  const {calculatesTicketsFee} = useCalculateFees(currentRecord);
+  const {calculateTotalFee} = useCalculateFees(currentRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -102,7 +103,10 @@ const ShowReservation = (props) => {
         reservation={currentRecord}
         setReservation={setCurrentRecord}
       />
-      {calculatesTicketsFee()}
+      <ShowFee
+        text="Total"
+        fees={calculateTotalFee()}
+      />
     </Modal>
   );
 };

@@ -3,6 +3,8 @@ import InputButton from "../../Buttons/InputButton";
 import DropDownSelect from "../../Buttons/DropDownSelect";
 import useSpot from "../../../hooks/useSpot";
 import AddSpot from "../Add/AddSpot";
+import ShowFee from "./ShowFee";
+import useCalculateFees from "../../../hooks/useCalculateFees";
 
 const ShowSpots = (props) => {
   // Props
@@ -13,6 +15,8 @@ const ShowSpots = (props) => {
   } = props;
   // Spots hook
   const {spots, locations, searchSpotPrice, searchSpotSize} = useSpot();
+  // Fees hook
+  const {calculateAllSpotsFee} = useCalculateFees(reservation);
 
   // Method that changes the spots
   const changeSpot = (type, value) => {
@@ -30,7 +34,7 @@ const ShowSpots = (props) => {
 
   return (
     <>
-      {reservation.Spots && (
+    {reservation.Reservation_Type === 1 && (
         <div>
           <label className="block text-xl font-semibold leading-6 text-gray-900 mb-3 mt-6">
             Spots
@@ -108,6 +112,12 @@ const ShowSpots = (props) => {
             </div>
           </div>
         ))}
+      {reservation.Reservation_Type === 1 && (
+        <ShowFee
+          text="Subtotal"
+          fees={calculateAllSpotsFee()}
+        />
+      )}
     </>
   );
 };

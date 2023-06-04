@@ -2,6 +2,8 @@ import InputButton from "../../Buttons/InputButton";
 import DatePickerButton from "../../Buttons/DatePickerButton";
 import AddService from "../Add/AddService";
 import useServices from "../../../hooks/useServices";
+import ShowFee from "./ShowFee";
+import useCalculateFees from "../../../hooks/useCalculateFees";
 
 const ShowServices = (props) => {
   // Props
@@ -12,6 +14,8 @@ const ShowServices = (props) => {
   } = props;
   // Services hook
   const {searchServicePrice} = useServices();
+  // Fees hook
+  const { calculateAllServicesFee } = useCalculateFees(reservation);
 
   // Method that changes the service
   const changeService = (type, value) => {
@@ -89,6 +93,10 @@ const ShowServices = (props) => {
             </div>
           </div>
         ))}
+      <ShowFee
+        text="Subtotal"
+        fees={calculateAllServicesFee()}
+      />
     </>
   );
 };
