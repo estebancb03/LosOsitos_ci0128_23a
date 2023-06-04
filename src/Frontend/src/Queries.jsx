@@ -50,10 +50,10 @@ export const getKayakPrices = async () => {
   return result;
 };
 
-export const getIncomeData = async (startDate, endDate) => {
+export const getIncomeData = async (startDate, endDate, fileType) => {
   let result = [];
   try {
-    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}`);
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`);
     result = data;
   } catch (exception) {
     console.error(exception);
@@ -61,10 +61,10 @@ export const getIncomeData = async (startDate, endDate) => {
   return result;
 };
 
-export const getVisitationData = async (startDate, endDate) => {
+export const getVisitationData = async (startDate, endDate, fileType) => {
   let result = [];
   try {
-    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}`);
+    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}/${fileType}`);
     result = data;
   } catch (exception) {
     console.error(exception);

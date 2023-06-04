@@ -4,7 +4,7 @@ import DatePickerButton from "../components/Buttons/DatePickerButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
 import Button from "../components/Buttons/Button";
 
-//import { generateCsv, generatePdf, /**ExportExcel**/ } from "../components/Reports/FinancialReport";
+import { downloadCSV } from "../helpers/fileDownloader";
 import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
 
@@ -32,31 +32,17 @@ const Reports = () => {
   };
 
   const generateReport = async () => {
-    await getReportData();
-    formatReport();
-  };
-
-  const getReportData = async () => {
     let result = [];
     try {
       if (reportType == "Income") {
-        result = await getIncomeData(startDate, endDate);
+        result = await getIncomeData(startDate, endDate, fileType);
+        downloadCSV(result, "income_report.csv")        
       } else if (reportType == "Visitors") {
-        result = await getVisitationData(startDate, endDate);
+        result = await getVisitationData(startDate, endDate, fileType);
       }
       setReportData(result);
     } catch (exception) {
       console.error(exception);
-    }
-  };
-
-  const formatReport = () => {
-    if (fileType == "CSV") {
-      generateCsv(reportData);
-    } /**else if (fileType == "Excel") {
-      ExportExcel(reportData);
-    }**/ else if (fileType == "PDF") {
-      generatePdf(reportData);
     }
   };
 
