@@ -1,5 +1,42 @@
-import { getConnection } from "../config/db.js";
+import { getConnection, sql } from "../config/db.js";
 
+const getCampingCapacity = async(req, res) => {
+  try {
+    const {
+      date
+    } = req.c;
+    console.log(req.params);
+    const pool = await getConnection();
+    let result = await pool.request().
+      input("date", sql.DateTime, date).
+      execute("RemainingCampingCapacity");
+    res.status(200);
+    console.log(result);
+    res.send(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+}
+
+const getPicnicCapacity = async(req, res) => {
+  try {
+    const {
+      date
+    } = req.params;
+    console.log(req.params);
+    const pool = await getConnection();
+    let result = await pool.request().
+      input("date", sql.DateTime, date).
+      execute("RemainingPicnicCapacity");
+    res.status(200);
+    console.log(result);
+    res.send(result.recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+}
 //Method that gets the tickets of all reservations
 const getAllTickets = async (req, res) => {
   try {
@@ -83,4 +120,4 @@ const updateTicket = async (req, res) => {
   }
 };
 
-export { getAllTickets, insertReservationTicket, updateTicket, getTicketsByReservationID };
+export { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, updateTicket, getTicketsByReservationID };

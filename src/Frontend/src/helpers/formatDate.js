@@ -111,6 +111,26 @@ const isDateAfterISO8601 = (date1, date2) => {
   return parsedDate1 < parsedDate2;
 };
 
+const formatDateYYYYMMDD = (date) => {
+  const parts = date !== undefined ? date.split("-") : "";
+  return parts !== "" ? parts[2] + "/" + parts[0] + "/" + parts[1] : "";
+}
+
+const getDateRange = (startDate, endDate) => {
+  let dates = [];
+  let currentDate = new Date(formatDateYYYYMMDD(startDate));
+  let newEndDate = new Date(formatDateYYYYMMDD(endDate));
+
+  while (currentDate <= newEndDate) {
+    const temp = currentDate.toISOString();
+    const parts = temp.split("T");
+    dates.push(parts[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  
+  return dates;
+};
+
 export {
   formatDateDDMMYYYY,
   formatDateMMDDYYYY,
@@ -123,4 +143,5 @@ export {
   changeHourInISOFormat,
   changeDateInISOFormat2,
   isDateAfterISO8601,
+  getDateRange
 };
