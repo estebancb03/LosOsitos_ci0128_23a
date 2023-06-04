@@ -1,6 +1,6 @@
-import { getConnection } from "../config/db";
+import { getConnection, sql } from "../config/db.js";
 
-const getIncomeData = async (req, res) => {
+export const getIncomeData = async (req, res) => {
   try {
     const {
       start_date,
@@ -21,7 +21,7 @@ const getIncomeData = async (req, res) => {
   }
 }
 
-const getVisitationData = async (req, res) => {
+export const getVisitationData = async (req, res) => {
   try {
     const {
       start_date,
