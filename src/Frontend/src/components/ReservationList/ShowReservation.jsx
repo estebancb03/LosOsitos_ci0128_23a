@@ -3,6 +3,7 @@ import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import useUpdateReservation from "../../hooks/useUpdateReservation";
 import useValidations from "../../hooks/useValidations";
+import useCalculateFees from "../../hooks/useCalculateFees";
 import ShowPerson from "./Show/ShowPerson";
 import ShowMainData from "./Show/ShowMainData";
 import ShowSpots from "./Show/ShowSpots";
@@ -27,6 +28,8 @@ const ShowReservation = (props) => {
   const {updateReservation} = useUpdateReservation(currentRecord);
   // Hook that validates changes
   const {validateUpdateReservation} = useValidations(currentRecord);
+  // Hook that calculates fees
+  const {calculateSpotsFee} = useCalculateFees(currentRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -95,6 +98,7 @@ const ShowReservation = (props) => {
         reservation={currentRecord}
         setReservation={setCurrentRecord}
       />
+      {calculateSpotsFee()}
     </Modal>
   );
 };
