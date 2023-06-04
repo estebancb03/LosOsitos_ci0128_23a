@@ -151,7 +151,10 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  return { validateInsertReservation, validateUpdateReservation };
+  return {
+    validatePersonalData,
+    validateInsertReservation,
+    validateUpdateReservation };
 }
 
 export default useValidations;
