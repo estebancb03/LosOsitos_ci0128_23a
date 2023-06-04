@@ -96,14 +96,18 @@ const useValidations = (reservation) => {
 
   // Method that validates the personal data
   const validatePersonalData = () => {
+    const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
+    const regexName = /^[\w ]+$/;
+    const regexId = /^\d+$/;
+    const regexLastName = /^[a-zA-Z ]+$/;
     let result = false;
     if (
-      reservation.ID !== "" &&
-      reservation.Name !== "" &&
-      reservation.LastName1 !== "" &&
-      reservation.LastName2 !== "" &&
+      reservation.ID !== "" && regexId.test(reservation.ID) &&
+      reservation.Name !== "" && regexName.test(reservation.Name) &&
+      reservation.LastName1 !== "" && regexLastName.test(reservation.LastName1) &&
+      reservation.LastName2 !== "" && regexLastName.test(reservation.LastName2) &&
       reservation.Birth_Date !== "" &&
-      reservation.Email !== "" &&
+      reservation.Email !== "" && regexEmail.test(reservation.Email) &&
       reservation.Gender !== "" &&
       reservation.Country_Name !== ""
     ) {
