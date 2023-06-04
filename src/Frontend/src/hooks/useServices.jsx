@@ -37,12 +37,26 @@ const useServices = () => {
     return result[0].Price;
   };
 
+  // Method that modify the currentRecord
+  const modifyService = (type, value, reservation) => {
+    const newReservation = {...reservation};
+    const newServices = [...reservation.NewServices];
+    if (type[0] === "name") {
+      newServices[type[1]].Name_Service = value;
+      newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
+    } else if (type[0] === "quantity") {
+      newServices[type[1]].Quantity = value;
+    }
+    newReservation.NewServices = newServices;
+    return newReservation;
+  };
+
   useEffect(() => {
     fetchServicesNames();
     fetchServicesPrices();
   }, []);
 
-  return { servicesNames, servicesPrices, searchServicePrice };
+  return { servicesNames, servicesPrices, searchServicePrice, modifyService };
 };
 
 export default useServices;

@@ -1,7 +1,7 @@
-import Button from "../Buttons/Button";
-import InputButton from "../Buttons/InputButton";
+import Button from "../../Buttons/Button";
+import InputButton from "../../Buttons/InputButton";
 
-const ReservationListAddVehicles = (props) => {
+const AddVehicle = (props) => {
   // Props
   const {
     disabledElements,
@@ -18,8 +18,8 @@ const ReservationListAddVehicles = (props) => {
     setCurrentRecord(newMainRecordInfo);
   };
 
-  // Method that modify the mainRecordInfo
-  const modifyVehicle = (type, value) => {
+  // Method that changes the vehicle
+  const changeVehicle = (type, value) => {
     const newRecord = { ...currentRecord };
     if (type[0] === "newVehicles") {
       const newVehicles = [...newRecord.NewVehicles];
@@ -47,7 +47,7 @@ const ReservationListAddVehicles = (props) => {
               type={["newVehicles", index]}
               placeholderText={vehicle}
               disabled={disabledElements}
-              onChangeFunction={modifyVehicle}
+              onChangeFunction={changeVehicle}
             />
           ))}
       </div>
@@ -55,4 +55,4 @@ const ReservationListAddVehicles = (props) => {
   );
 };
 
-export default ReservationListAddVehicles;
+export default AddVehicle;

@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react";
-import Button from "../Buttons/Button";
-import InputButton from "../Buttons/InputButton";
-import DropDownSelect from "../Buttons/DropDownSelect";
-import DatePickerButton from "../Buttons/DatePickerButton";
-import useServices from "../../hooks/useServices";
+import Button from "../../Buttons/Button";
+import InputButton from "../../Buttons/InputButton";
+import DropDownSelect from "../../Buttons/DropDownSelect";
+import DatePickerButton from "../../Buttons/DatePickerButton";
+import useServices from "../../../hooks/useServices";
 
-const ReservationListAddServices = (props) => {
+const AddService = (props) => {
   // Props
   const {
     disabledElements,
@@ -13,7 +13,7 @@ const ReservationListAddServices = (props) => {
     setCurrentRecord
   } = props;
   // Services hook
-  const {servicesNames, searchServicePrice} = useServices();
+  const {servicesNames, searchServicePrice, modifyService} = useServices();
   // State that controls the elements of the service dropdown
   const [availableServices, setAvailableServices] = useState([]);
   // State that controls the button visibility
@@ -21,7 +21,7 @@ const ReservationListAddServices = (props) => {
 
   // Method that gets reservation services names
   const getReservationServicesNames = () => {
-    if (currentRecord.Services !== null) {
+    if (currentRecord.Services) {
       return currentRecord.Services.map((service) => service.Name_Service);
     }
     return [];
@@ -70,16 +70,8 @@ const ReservationListAddServices = (props) => {
   };
 
   // Method that modify the currentRecord
-  const modifyService = (type, value) => {
-    const newCurrentRecord = {...currentRecord};
-    const newServices = [...currentRecord.NewServices];
-    if (type[0] === "name") {
-      newServices[type[1]].Name_Service = value;
-      newServices[type[1]].Price = searchServicePrice(newServices[type[1]].Name_Service, 'CRC');
-    } else if (type[0] === "quantity") {
-      newServices[type[1]].Quantity = value;
-    }
-    newCurrentRecord.NewServices = newServices;
+  const changeService = (type, value) => {
+    const newCurrentRecord = modifyService(type, value, currentRecord);
     setCurrentRecord(newCurrentRecord);
   };
 
@@ -116,7 +108,7 @@ const ReservationListAddServices = (props) => {
                   selectedOption={availableServices[0]}
                   disabled={disabledElements}
                   typeChange={["name", index]}
-                  onChangeFunction={modifyService}
+                  onChangeFunction={changeService}
                 />
               </div>
             </div>
@@ -135,7 +127,7 @@ const ReservationListAddServices = (props) => {
                     type={["quantity", index]}
                     placeholderText={service.Quantity}
                     disabled={disabledElements}
-                    onChangeFunction={modifyService}
+                    onChangeFunction={changeService}
                   />
                 </div>
               </div>
@@ -149,7 +141,7 @@ const ReservationListAddServices = (props) => {
                     type={["price", index]}
                     placeholderText={"₡" + service.Price}
                     disabled={true}
-                    onChangeFunction={modifyService}
+                    onChangeFunction={changeService}
                   />
                 </div>
                 <div className="-mt-4 mb-3">
@@ -157,7 +149,7 @@ const ReservationListAddServices = (props) => {
                     type={["price", index]}
                     placeholderText={"$" + searchServicePrice(service.Name_Service, 'USD')}
                     disabled={true}
-                    onChangeFunction={modifyService}
+                    onChangeFunction={changeService}
                   />
                 </div>
               </div>
@@ -168,4 +160,4 @@ const ReservationListAddServices = (props) => {
   );
 };
 
-export default ReservationListAddServices;
+export default AddService;
