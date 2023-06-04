@@ -63,7 +63,6 @@ const useCalculateFees = (reservation) => {
     const endDate = reservation.End_Date;
     const days = getDaysDifference(startDate, endDate) + 1;
     if (reservation.Spots) {
-      console.log("Pichaa");
       reservation.Spots.map((spot) => {
         if (spot.Currency === "CRC") {
           nationalFee.fee += spot.Price;
@@ -165,10 +164,6 @@ const useCalculateFees = (reservation) => {
     const allServicesFee = calculateAllServicesFee();
     const CRCFee = allTicketsFee[0] + allSpotsFee[0] + allServicesFee[0];
     const USDFee = allTicketsFee[1] + allSpotsFee[1] + allServicesFee[1];
-    console.log("Tickets prices: ", allTicketsFee);
-    console.log("Spots prices: ", allSpotsFee);
-    console.log("Services prices: ", allServicesFee);
-    console.log("Total prices: ", [CRCFee, USDFee]);
     return [CRCFee, USDFee];
   }
 
