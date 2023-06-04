@@ -3,6 +3,8 @@ import {
   countryRoute,
   ticketPricesRoute,
   servicesPricesRoute,
+  incomeReporteRoute,
+  visitationReportRoute
 } from "./config/Routes";
 
 export const getCountries = async () => {
@@ -41,6 +43,28 @@ export const getKayakPrices = async () => {
   let result = [];
   try {
     const { data } = await axiosClient.get(servicesPricesRoute);
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
+  return result;
+};
+
+export const getIncomeData = async (startDate, endDate) => {
+  let result = [];
+  try {
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}`);
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
+  return result;
+};
+
+export const getVisitationData = async (startDate, endDate) => {
+  let result = [];
+  try {
+    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}`);
     result = data;
   } catch (exception) {
     console.error(exception);
