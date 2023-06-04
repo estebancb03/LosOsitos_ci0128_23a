@@ -2,6 +2,28 @@ import { getDaysDifference } from "../helpers/formatDate";
 
 const useCalculateFees = (reservation) => {
   
+  // Method that calculates the tickets fees
+  const calculatesTicketsFee = () => {
+    let CRCFee = 0;
+    let USDFee = 0;
+    const startDate = reservation.Start_Date;
+    const endDate = reservation.End_Date;
+    const days = getDaysDifference(startDate, endDate) + 1;
+    if (reservation.Tickets) {
+      reservation.Tickets.map((ticket) => {
+        if (ticket.Demographic_Group === 0) {
+          CRCFee += ticket.Price * ticket.Amount;
+        } else {
+          USDFee += ticket.Price * ticket.Amount;
+        }
+      });
+    }
+    CRCFee *= days;
+    USDFee *= days;
+    console.log([CRCFee, USDFee]);
+    return [CRCFee, USDFee];
+  };
+
   // Method that calculates the spots fee
   const calculateSpotsFee = () => {
     let fee = 0;
@@ -50,8 +72,10 @@ const useCalculateFees = (reservation) => {
 
   return {
     calculateSpotsFee,
+    calculateNewSpotsFee,
     calculateServicesFee,
-    calculateNewServicesFee
+    calculateNewServicesFee,
+    calculatesTicketsFee
   };
 };
 

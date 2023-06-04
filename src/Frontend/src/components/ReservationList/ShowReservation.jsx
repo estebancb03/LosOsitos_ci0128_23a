@@ -29,7 +29,7 @@ const ShowReservation = (props) => {
   // Hook that validates changes
   const {validateUpdateReservation, validateCapacity} = useValidations(currentRecord);
   // Hook that calculates fees
-  const {calculateSpotsFee} = useCalculateFees(currentRecord);
+  const {calculatesTicketsFee} = useCalculateFees(currentRecord);
 
   // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
@@ -102,7 +102,7 @@ const ShowReservation = (props) => {
         reservation={currentRecord}
         setReservation={setCurrentRecord}
       />
-      {calculateSpotsFee()}
+      {calculatesTicketsFee()}
     </Modal>
   );
 };
