@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, updateTicket, getTicketsByReservationID, deleteTicket } from "../models/ticketReservationModel.js";
 
+
 const router = Router();
 
 router.get("/getAllTickets", getAllTickets);

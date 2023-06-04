@@ -53,14 +53,22 @@ const Reservation = () => {
               reservationData={reservationData}
               setReservationData={setReservationData}
             />
-            )}
-          {/* <ReservationStep3
+
+            <ReservationStep3
               windows={windows}
               setWindows={setWindows}
               reservationData={reservationData}
               setReservationData={setReservationData}
+
             /> */}
           {windows.Step5 === true && (
+            <ReservationStep4
+              windows={windows}
+              setWindows={setWindows}
+              reservationData={reservationData}
+              setReservationData={setReservationData}
+            />
+
             <ReservationStep5
               windows={windows}
               setWindows={setWindows}
@@ -68,10 +76,10 @@ const Reservation = () => {
               setReservationData={setReservationData}
             />
             )}
-        </Container>
-      </div>
-    </Container>
-    <Footer />
+          </Container>
+        </div>
+      </Container>
+      <Footer />
     </>
     );
 };
