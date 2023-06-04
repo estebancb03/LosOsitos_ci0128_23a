@@ -4,7 +4,7 @@ import DatePickerButton from "../components/Buttons/DatePickerButton";
 import DropDownSelect from "../components/Buttons/DropDownSelect";
 import Button from "../components/Buttons/Button";
 
-import { generateCsv, generatePdf, ExportExcel } from "../components/Reports/FinancialReport";
+//import { generateCsv, generatePdf, /**ExportExcel**/ } from "../components/Reports/FinancialReport";
 import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
 
@@ -53,9 +53,9 @@ const Reports = () => {
   const formatReport = () => {
     if (fileType == "CSV") {
       generateCsv(reportData);
-    } else if (fileType == "Excel") {
+    } /**else if (fileType == "Excel") {
       ExportExcel(reportData);
-    } else if (fileType == "PDF") {
+    }**/ else if (fileType == "PDF") {
       generatePdf(reportData);
     }
   };
@@ -74,6 +74,14 @@ const Reports = () => {
             />
           </div>
           <div>
+            <DropDownSelect
+              text="File type"
+              typeChange="fileType"
+              options={fileFormats}
+              onChangeFunction={setValue}
+            />
+          </div>
+          <div>
             <DatePickerButton
               text="Start date"
               type="startDate"
@@ -84,14 +92,6 @@ const Reports = () => {
             <DatePickerButton
               text="End date"
               type="endDate"
-              onChangeFunction={setValue}
-            />
-          </div>
-          <div>
-            <DropDownSelect
-              text="File type"
-              typeChange="fileType"
-              options={fileFormats}
               onChangeFunction={setValue}
             />
           </div>

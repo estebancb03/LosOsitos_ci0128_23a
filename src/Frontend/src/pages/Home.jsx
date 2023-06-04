@@ -9,6 +9,7 @@ const Home = () => {
     <>
       <NavMenu />
       <Container>
+        <Reports />
       </Container>
       <Footer />
     </>

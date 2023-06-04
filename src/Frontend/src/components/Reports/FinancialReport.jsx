@@ -2,37 +2,37 @@ import {
   useRef
 } from "react";
 //import * as XLSX from 'xlsx';
-import XLSX from 'sheetjs-style';
-import * as FileSaver from 'file-saver';
+//import * as XLSX from 'sheetjs-style';
+//import * as FileSaver from 'file-saver';
 import * as jsPDF from 'jspdf';
 import { stringify } from 'csv-stringify';
 
 
 
 
-export const ExportExcel = ({data}) => {
-  const tipoArchivo = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-  const extencionArchivo = '.xlsx';
-  const nombreArchivo = 'ReporteAutogenerado';
+// export const ExportExcel = ({data}) => {
+//   const tipoArchivo = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+//   const extencionArchivo = '.xlsx';
+//   const nombreArchivo = 'ReporteAutogenerado';
 
-  const exportToExcel = async () => {
-    const ws = XLSX.utils.json_to_sheet(data);
-    const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
-    const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
-    const dataExcel = new Blob([excelBuffer], { type: tipoArchivo });
-    FileSaver.saveAs(dataExcel, nombreArchivo + extencionArchivo);
-  };
-};
+//   const exportToExcel = async () => {
+//     const ws = XLSX.utils.json_to_sheet(data);
+//     const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] };
+//     const excelBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+//     const dataExcel = new Blob([excelBuffer], { type: tipoArchivo });
+//     FileSaver.saveAs(dataExcel, nombreArchivo + extencionArchivo);
+//   };
+// };
 
 
-export const ExportPdf = ({data}) => {
-  const pdfRef = useRef();
-  const input = pdfRef.current;
-  const pdf = new jsPDF();
-  pdf.addHTML(input, () => {
-    pdf.save("output.pdf");
-  });
-};
+// export const ExportPdf = ({data}) => {
+//   const pdfRef = useRef();
+//   const input = pdfRef.current;
+//   const pdf = new jsPDF();
+//   pdf.addHTML(input, () => {
+//     pdf.save("output.pdf");
+//   });
+// };
 
 
 
