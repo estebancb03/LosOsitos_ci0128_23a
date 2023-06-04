@@ -4,7 +4,7 @@ const getCampingCapacity = async(req, res) => {
   try {
     const {
       date
-    } = req.params;
+    } = req.c;
     console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
@@ -23,8 +23,8 @@ const getPicnicCapacity = async(req, res) => {
   try {
     const {
       date
-    } = req.body;
-    console.log(req.body);
+    } = req.params;
+    console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
       input("date", sql.DateTime, date).
