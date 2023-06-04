@@ -2,9 +2,10 @@ import { getConnection, sql } from "../config/db.js";
 
 const getCampingCapacity = async(req, res) => {
   try {
+    console.log(req);
     const {
       date
-    } = req.c;
+    } = req.params;
     console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
