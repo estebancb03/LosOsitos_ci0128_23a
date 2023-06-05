@@ -45,6 +45,29 @@ const useReservations = () => {
     };
   };
 
+  // Method that inits a online reservation
+  const createOnlineReservation = () => {
+    return {
+      ID: "",
+      Name: "",
+      LastName1: "",
+      LastName2: "",
+      Gender: 0,
+      Email: "",
+      Country_Name: "Argentina",
+      Birth_Date: new Date().toISOString(),
+      State: "",
+      Reservation_Method: 0,
+      Status: 0,
+      Payment_Method: 0,
+      Reservation_Type: 0,
+      Reservation_Date: new Date().toISOString(),
+      Picnic_Date: new Date().toISOString(),
+      Start_Date: new Date().toISOString(),
+      End_Date: new Date().toISOString(),
+    };
+  };
+
   // Method that gets the records
   const fetchReservations = async () => {
     try {
@@ -146,7 +169,7 @@ const useReservations = () => {
     formatReservations();
   }, [spots, vehicles, tickets, services]);
 
-  return { reservations, createReservation, fetch, formatReservations };
+  return { reservations, createReservation, createOnlineReservation, fetch, formatReservations };
 };
 
 export default useReservations;

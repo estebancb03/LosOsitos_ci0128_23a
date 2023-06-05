@@ -240,6 +240,7 @@ const useValidations = (reservation) => {
   
   return {
     validatePersonalData,
+    validateDates,
     validateCapacity,
     validateInsertReservation,
     validateUpdateReservation
