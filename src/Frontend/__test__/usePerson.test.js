@@ -1,5 +1,4 @@
-import { renderHook } from "@testing-library/react-hooks";
-import usePerson from "../src/hooks/usePerson.jsx";
+import usePerson from "../src/hooks/usePerson";
 
 describe('usePerson', () => {
   test("setPersonData sets the new data into the reservation", () => {

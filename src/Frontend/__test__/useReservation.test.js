@@ -1,10 +1,10 @@
-import {renderHook} from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import useReservations from "../src/hooks/useReservations";
 
 describe('useReservations', () => {
   test('createReservation returns a reservation object with default values', () => {
-    const {result} = renderHook(() => useReservations());
-    const {createReservation} = result.current;
+    const { result } = renderHook(() => useReservations());
+    const { createReservation } = result.current;
     const expectedReservation = {
       ID: "",
       Name: "",
