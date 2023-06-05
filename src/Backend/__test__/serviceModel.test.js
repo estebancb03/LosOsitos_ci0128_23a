@@ -1,6 +1,6 @@
 import { getServicesOptions } from "../src/models/serviceModel.js";
 
-describe('getAllServices', () => {
+describe('serviceModel', () => {
   test('getAllServices returns the names of all services', async () => {
     const mockReq = {};
     const mockRes = {
