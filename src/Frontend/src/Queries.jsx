@@ -65,6 +65,7 @@ export const getIncomeData = async (startDate, endDate, fileType) => {
   } catch (exception) {
     console.error(exception);
   }
+  return result;
 }
 export const getRemainingCapacity = async (date, reservationType) => {
   let result = [];
