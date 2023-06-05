@@ -3,6 +3,8 @@ import {
   countryRoute,
   ticketPricesRoute,
   servicesPricesRoute,
+  campingCapacityRoute, 
+  picnicCapacityRoute
 } from "./config/Routes";
 
 export const getCountries = async () => {
@@ -47,6 +49,18 @@ export const getKayakPrices = async () => {
   }
   return result;
 };
+
+export const getRemainingCapacity = async (date, reservationType) => {
+  let result = [];
+  try {
+    const capacityRoute = reservationType == 0 ? picnicCapacityRoute : campingCapacityRoute;
+    const { data } = await axiosClient.get(`${capacityRoute}/${date}`);
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
+  return result;
+}
 
 // plantilla miedo
 const getFromDB = async (route) => {

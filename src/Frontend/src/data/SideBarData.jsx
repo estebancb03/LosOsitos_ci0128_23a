@@ -14,6 +14,11 @@ const SideBarData = [
     icon: <SiIcons.SiAddthis />,
   },
   {
+    title: "Park Status",
+    path: "/admin/park-status",
+    icon: <BsIcons.BsFillPersonCheckFill />,
+  },
+  {
     title: "Testimonials",
     path: "/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,

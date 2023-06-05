@@ -62,7 +62,7 @@ function ReservationStep1({
       )
         result = true;
     }
-    return result;
+    return true;
   };
 
   const matchGender = (gender) => {
@@ -104,7 +104,7 @@ function ReservationStep1({
   const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
   const regexName = /^[\w ]+$/;
   const regexId = /^\d+$/;
-  const regexLastName = /^[a-zA-Z\s]+$/;
+  const regexLastName = /^[a-zA-Z ]+$/;
 
   const setValue = (type, value) => {
     const date = new Date();

@@ -8,8 +8,12 @@ import DropDownSelect from "../Buttons/DropDownSelect";
 import DatePickerButton from "../Buttons/DatePickerButton";
 import FiltersContainer from "../Containers/FiltersContainer";
 
-const ReservationListFilter = (props) => {
-  const { reservations, setCurrentReservations } = props;
+const FilterReservations = (props) => {
+  const {
+    reservations,
+    setCurrentReservations,
+    exitMethod
+  } = props;
   // Services options
   const { servicesNames } = useServices();
   const { handleFilter } = useReservationFilter(reservations);
@@ -67,16 +71,11 @@ const ReservationListFilter = (props) => {
     setCurrentReservations(filteredReservations);
   };
 
-  // Method that reset the page
-  const reset = () => {
-    window.location.reload();
-  };
-
   return (
     <>
       <FiltersContainer
         applyFunction={apply}
-        restartFunction={reset}
+        restartFunction={exitMethod}
       >
         <span className="sm:mr-3">
           <DropDownSelect
@@ -140,4 +139,4 @@ const ReservationListFilter = (props) => {
   );
 };
 
-export default ReservationListFilter;
+export default FilterReservations;

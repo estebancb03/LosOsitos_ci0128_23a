@@ -111,6 +111,35 @@ const isDateAfterISO8601 = (date1, date2) => {
   return parsedDate1 < parsedDate2;
 };
 
+// Method that found the day difference
+const getDaysDifference = (date1, date2) => {
+  const d1 = new Date(formatDateDTMMDDYYYY(date1));
+  const d2 = new Date(formatDateDTMMDDYYYY(date2));
+  const diffInMs = Math.abs(d2 - d1);
+  const diffInDays = Math.ceil(diffInMs / (1000 * 60 * 60 * 24));
+  return diffInDays + 1;
+}
+
+const formatDateYYYYMMDD = (date) => {
+  const parts = date !== undefined ? date.split("-") : "";
+  return parts !== "" ? parts[2] + "/" + parts[0] + "/" + parts[1] : "";
+}
+
+const getDateRange = (startDate, endDate) => {
+  let dates = [];
+  let currentDate = new Date(formatDateYYYYMMDD(startDate));
+  let newEndDate = new Date(formatDateYYYYMMDD(endDate));
+
+  while (currentDate <= newEndDate) {
+    const temp = currentDate.toISOString();
+    const parts = temp.split("T");
+    dates.push(parts[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+
+  return dates;
+};
+
 export {
   formatDateDDMMYYYY,
   formatDateMMDDYYYY,
@@ -123,4 +152,6 @@ export {
   changeHourInISOFormat,
   changeDateInISOFormat2,
   isDateAfterISO8601,
+  getDaysDifference,
+  getDateRange
 };
