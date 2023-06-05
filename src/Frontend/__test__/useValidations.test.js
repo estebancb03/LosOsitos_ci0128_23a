@@ -18,4 +18,31 @@ describe('useValidation', () => {
     // Must be false because the email field is wrong
     expect(validationResult).toBe(false);
   });
+
+  test("validateServices should return true if services are valid", () => {
+    const { result } = renderHook(() => useValidations({
+      Services: [
+        {
+          ID_Client: "118090359",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Name_Service: "Hiking",
+          Price: 2000,
+          Quantity: 0,
+          Currency: "CRC"
+        },
+        {
+          ID_Client: "118090359",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Name_Service: "Kayak",
+          Price: 7000,
+          Quantity: 2,
+          Currency: "CRC"
+        }
+      ]
+    }));
+    const { validateServices } = result.current;
+    const validationResult = validateServices();
+    // Must be false because the quantity field of Hiking is 0
+    expect(validationResult).toBe(false);
+  });
 });
