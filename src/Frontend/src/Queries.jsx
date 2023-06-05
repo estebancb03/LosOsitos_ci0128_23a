@@ -52,23 +52,39 @@ export const getKayakPrices = async () => {
 
 export const getIncomeData = async (startDate, endDate, fileType) => {
   let result = [];
+  let config = {};
+  if (fileType == "CSV") {
+    config = {};
+  } else if (fileType == "Excel") {
+    config = {method: "GET", responseType: "blob"};
+  }
+  
   try {
-    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`);
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`, config);
     result = data;
   } catch (exception) {
     console.error(exception);
   }
+
   return result;
 };
 
 export const getVisitationData = async (startDate, endDate, fileType) => {
   let result = [];
+  let config = {};
+  if (fileType == "CSV") {
+    config = {};
+  } else if (fileType == "Excel") {
+    config = {method: "GET", responseType: "blob"};
+  }
+
   try {
-    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}/${fileType}`);
+    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}/${fileType}`, config);
     result = data;
   } catch (exception) {
     console.error(exception);
   }
+
   return result;
 };
 

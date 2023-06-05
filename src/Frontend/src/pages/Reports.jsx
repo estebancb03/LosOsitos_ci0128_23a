@@ -9,14 +9,17 @@ import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
 
 const reportTypes = ["Income", "Visitors"];
-const fileFormats = ["CSV", "Excel", "PDF"];
+const fileFormats = ["CSV", "Excel"];
+
+const incomeReportFileName = "income_report";
+const visitationReportFileName = "visitation_report";
 
 const Reports = () => {
   const [reportType, setReportType] = useState(reportTypes[0]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [fileType, setFileType] = useState(fileFormats[0]);
-  const [reportData, setReportData] = useState([]);
+  const [reportData, setReportData] = useState();
 
   const setValue = (type, value) => {
     console.log(type, value);
@@ -32,21 +35,39 @@ const Reports = () => {
   };
 
   const generateReport = async () => {
-    let result = [];
     try {
-      if (reportType == "Income") {
-        result = await getIncomeData(startDate, endDate, fileType);
-        downloadCSV(result, "income_report.csv")
-        downloadXLSX(result, "income_report.xlsx")
-
-      } else if (reportType == "Visitors") {
-        result = await getVisitationData(startDate, endDate, fileType);
-      }
-      setReportData(result);
+      const result = await getReportData();
+      downloadReport(result);
     } catch (exception) {
       console.error(exception);
     }
   };
+
+  const getReportData = async () => {
+    let result = []
+    if (reportType == reportTypes[0]) {
+      result = await getIncomeData(startDate, endDate, fileType);
+      setReportData(result);
+    } else if (reportType == reportTypes[1]) {
+      result = await getVisitationData(startDate, endDate, fileType);
+      setReportData(result);
+    }
+    return result;
+  }
+
+  const downloadReport = (result) => {
+    let reportFileName = "";
+    if (reportType == reportTypes[0]) {
+      reportFileName = incomeReportFileName;
+    } else if (reportType == reportTypes[1]) {
+      reportFileName = visitationReportFileName;
+    }
+    if (fileType == fileFormats[0]) {
+      downloadCSV(result, `${reportFileName}.csv`);
+    } else if (fileType == fileFormats[1]) {
+      downloadXLSX(result, `${reportFileName}.xlsx`);
+    }
+  } 
 
   return (
     <>

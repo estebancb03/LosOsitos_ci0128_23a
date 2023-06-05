@@ -15,18 +15,11 @@ export const downloadCSV = (csvString, fileName) => {
 }
 
 export const downloadXLSX = (xlsxBuffer, fileName) => {
-  const blob = new Blob([xlsxBuffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  const url = URL.createObjectURL(blob);
-
+  const url = window.URL.createObjectURL(new Blob([xlsxBuffer]));
   const link = document.createElement('a');
   link.href = url;
-  link.download = fileName;
-  link.style.display = 'none';
-
+  link.setAttribute('download', fileName);
   document.body.appendChild(link);
   link.click();
-
-  document.body.removeChild(link);
-  URL.revokeObjectURL(url);
 }
   
