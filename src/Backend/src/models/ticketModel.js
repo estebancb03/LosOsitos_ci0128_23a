@@ -13,7 +13,6 @@ const insertTicket = async (req, res) => {
       `INSERT INTO Ticket VALUES (${Age_Range}, ${Demographic_Group}, ${Reservation_Type})`
     );
     res.status(200);
-    console.log("The insert to the ticket was successfull");
     res.send('The insert to the ticket was successful');
   } catch (error) {
     res.status(500);
@@ -73,5 +72,25 @@ const getPriceByARDGCurrency = async (req, res) => {
   }
 };
 
+const updateTicketPrice = async (req, res) => {
+  try {
+    const {
+      Age_Range,
+      Demographic_Group,
+      Reservation_Type,
+      Price,
+    } = req.body;
+    const Special = 0;
+    const pool = await getConnection();
+    await pool.query(
+      `UPDATE Ticket SET Price = ${Price} WHERE Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Reservation_Type = ${Reservation_Type} AND Special = ${Special}`
+    )
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
 
-export { insertTicket, getPrices, getCRCPrices, getUSDPrices, getPriceByARDGCurrency };
+export { insertTicket, getPrices, updateTicketPrice, getCRCPrices, getUSDPrices, getPriceByARDGCurrency };
+
