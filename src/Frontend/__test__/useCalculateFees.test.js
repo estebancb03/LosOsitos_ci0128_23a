@@ -55,6 +55,33 @@ describe('useCalculateFees', () => {
     expect(resultTicketsFee).toEqual(expectedResult);
   });
 
+  test("calculateSpotsFee returns an array with the prices in CRC and USD of the reservation spots", () => {
+    const { result } = renderHook(() => useCalculateFees({
+      Start_Date: "2023-06-28T00:00:00.000Z",
+      End_Date: "2023-06-30T00:00:00.000Z",
+      Spots: [
+        {
+          ID_Client: "1111111",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Location_Spot: 1,
+          Price: 10000,
+          Currency: "CRC"
+        },
+        {
+          ID_Client: "1111111",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Location_Spot: 3,
+          Price: 7500,
+          Currency: "CRC"
+        }
+      ]
+    }));
+    const { calculateSpotsFee } = result.current;
+    const expectedResult = [52500, 97.70532075261012];
+    const resultSpotsFee = calculateSpotsFee();
+    expect(resultSpotsFee).toEqual(expectedResult);
+  });
+
   test("calculateServicesFee returns an array with the prices in CRC and USD of the reservation services", () => {
     const { result } = renderHook(() => useCalculateFees({
       Start_Date: "2023-06-28T00:00:00.000Z",
