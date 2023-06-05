@@ -3,8 +3,10 @@ import {
   countryRoute,
   ticketPricesRoute,
   servicesPricesRoute,
+  incomeReporteRoute,
+  visitationReportRoute,
   campingCapacityRoute, 
-  picnicCapacityRoute
+  picnicCapacityRoute,
 } from "./config/Routes";
 
 export const getCountries = async () => {
@@ -49,18 +51,52 @@ export const getKayakPrices = async () => {
   }
   return result;
 };
-
+export const getIncomeData = async (startDate, endDate, fileType) => {
+  let result = [];
+  let config = {};
+  if (fileType == "CSV") {
+    config = {};
+  } else if (fileType == "Excel") {
+    config = {method: "GET", responseType: "blob"};
+  }
+  try {
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`, config);    
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
+}
 export const getRemainingCapacity = async (date, reservationType) => {
   let result = [];
   try {
     const capacityRoute = reservationType == 0 ? picnicCapacityRoute : campingCapacityRoute;
     const { data } = await axiosClient.get(`${capacityRoute}/${date}`);
+
     result = data;
   } catch (exception) {
     console.error(exception);
   }
   return result;
-}
+};
+
+export const getVisitationData = async (startDate, endDate, fileType) => {
+  let result = [];
+  let config = {};
+  if (fileType == "CSV") {
+    config = {};
+  } else if (fileType == "Excel") {
+    config = {method: "GET", responseType: "blob"};
+  }
+
+  try {
+    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}/${fileType}`, config);
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
+
+  return result;
+};
 
 // plantilla miedo
 const getFromDB = async (route) => {

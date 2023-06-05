@@ -25,6 +25,7 @@ const Capacity = () => {
   const rowNames = ["Camping", "Picnic"];
 
   const checkValuesEntered = (stateModified) => {
+    // Regex that checks that only positive integer numbers are entered
     const regex = /^(0|[1-9]\d*)$/;
     let successfulConversion = true;
     switch (stateModified) {
@@ -79,7 +80,11 @@ const Capacity = () => {
       if (modifyButton1 === "Save") {
         if (checkValuesEntered(0) && checkValuesEntered(1)) {
           setModifyButton1("Modify");
-          if (isValidDataCamping && campingOnlineCapacity !== 0) {
+          if (
+            isValidDataCamping &&
+            campingOnlineCapacity !== 0 &&
+            campingOnSiteCapacity !== 0
+          ) {
             useUpdateCapacity("CampingOnline", campingOnlineCapacity);
             useUpdateCapacity("CampingOnSite", campingOnSiteCapacity);
           }
@@ -91,7 +96,11 @@ const Capacity = () => {
       if (modifyButton2 === "Save") {
         if (checkValuesEntered(2) && checkValuesEntered(3)) {
           setModifyButton2("Modify");
-          if (isValidDataPicnic && picnicOnlineCapacity !== 0) {
+          if (
+            isValidDataPicnic &&
+            picnicOnlineCapacity !== 0 &&
+            picnicOnSiteCapacity !== 0
+          ) {
             useUpdateCapacity("PicnicOnline", picnicOnlineCapacity);
             useUpdateCapacity("PicnicOnSite", picnicOnSiteCapacity);
           }
@@ -151,6 +160,31 @@ const Capacity = () => {
     return capacityValues.length > 0;
   };
 
+  const assignValuesToStates = (index) => {
+    switch (index) {
+      case 0:
+        if (campingOnlineCapacity === 0) {
+          setCampingOnlineCapacity(capacityValues[0].Value);
+        }
+        return campingOnlineCapacity;
+      case 1:
+        if (campingOnSiteCapacity === 0) {
+          setCampingOnSiteCapacity(capacityValues[1].Value);
+        }
+        return campingOnSiteCapacity;
+      case 2:
+        if (picnicOnlineCapacity === 0) {
+          setPicnicOnlineCapacity(capacityValues[2].Value);
+        }
+        return picnicOnlineCapacity;
+      case 3:
+        if (picnicOnSiteCapacity === 0) {
+          setPicnicOnSiteCapacity(capacityValues[3].Value);
+        }
+        return picnicOnSiteCapacity;
+    }
+  };
+
   return (
     <>
       {readyToLoad() && (
@@ -163,13 +197,13 @@ const Capacity = () => {
                 data={[
                   rowNames[0],
                   <InputButton
-                    placeholderText={capacityValues[0].Value}
+                    placeholderText={assignValuesToStates(0)}
                     disabled={disabledButtons.campingCapacity}
                     type="CampingOnline"
                     onChangeFunction={modifyCapacityValues}
                   />,
                   <InputButton
-                    placeholderText={capacityValues[1].Value}
+                    placeholderText={assignValuesToStates(1)}
                     disabled={disabledButtons.campingCapacity}
                     type="CampingOnSite"
                     onChangeFunction={modifyCapacityValues}
@@ -189,13 +223,13 @@ const Capacity = () => {
                 data={[
                   rowNames[1],
                   <InputButton
-                    placeholderText={capacityValues[2].Value}
+                    placeholderText={assignValuesToStates(2)}
                     disabled={disabledButtons.picnicCapacity}
                     type="PicnicOnline"
                     onChangeFunction={modifyCapacityValues}
                   />,
                   <InputButton
-                    placeholderText={capacityValues[3].Value}
+                    placeholderText={assignValuesToStates(3)}
                     disabled={disabledButtons.picnicCapacity}
                     type="PicnicOnSite"
                     onChangeFunction={modifyCapacityValues}
