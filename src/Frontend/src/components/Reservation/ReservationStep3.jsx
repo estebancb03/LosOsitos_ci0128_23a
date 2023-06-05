@@ -99,14 +99,14 @@ const ReservationStep3 = ({
   const insertReservationType = async () => {
     try {
       console.log("reservation type");
-      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method } =
+      const { ID, Reservation_Date, Start_Date, End_Date, Reservation_Method, Picnic_Date } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
         const url = "/picnic";
         await AxiosClient.post(url, {
           ID_Client: ID,
           Reservation_Date,
-          Picnic_Date: new Date()
+          Picnic_Date
         });
       } else {
         const url = "/camping";
@@ -200,7 +200,7 @@ const ReservationStep3 = ({
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Choose your payment method
           </h2>
-          <div className="grid grid-cols-3 sm:grid-cols-1">
+          <div className="grid grid-cols-2 sm:grid-cols-1">
             <div className="mb-8 mt-1 sm:mb-0">
               <div className="">
                 <Button
@@ -214,14 +214,6 @@ const ReservationStep3 = ({
                 <Button
                   text="Sinpe"
                   onclickFunction={(e) => updateReservationData(1)}
-                />
-              </div>
-            </div>
-            <div className="mt-1 sm:mt-0">
-              <div className="">
-                <Button
-                  text="Cash"
-                  onclickFunction={(e) => updateReservationData(2)}
                 />
               </div>
             </div>
