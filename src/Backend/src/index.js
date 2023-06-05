@@ -19,7 +19,7 @@ import serviceRoutes from "./routes/serviceRoutes.js";
 import spotsCampingRoutes from "./routes/spotsCampingRoutes.js";
 import serviceReservationRoutes from "./routes/serviceReservationRoutes.js";
 import reportsRoutes from "./routes/reportsRoutes.js"
-
+import spotPriceRoutes from "./routes/spotPriceRoutes.js";
 import parkStatus from "./routes/parkStatus.js";
 
 
@@ -53,6 +53,7 @@ app.use('/api', vehicleRoutes);
 app.use('/api', clientRoutes);
 app.use('/api', serviceRoutes);
 app.use('/api', spotsCampingRoutes);
+app.use('/api', spotPriceRoutes);
 app.use('/api', serviceReservationRoutes);
 
 app.use('/api', parkStatus);
@@ -61,5 +62,5 @@ app.use('/api', parkStatus);
 //app.use('/api', reservationListRoutes);
 
 app.listen(port, () => {
-  console.log(`LosOsitos Server running on port ${port}`);
+  console.log(`[] LosOsitos Server running on port ${port}`);
 });

@@ -4,7 +4,9 @@ import {
   ticketPricesRoute,
   servicesPricesRoute,
   incomeReporteRoute,
-  visitationReportRoute
+  visitationReportRoute,
+  campingCapacityRoute, 
+  picnicCapacityRoute,
 } from "./config/Routes";
 
 export const getCountries = async () => {
@@ -49,7 +51,6 @@ export const getKayakPrices = async () => {
   }
   return result;
 };
-
 export const getIncomeData = async (startDate, endDate, fileType) => {
   let result = [];
   let config = {};
@@ -58,14 +59,23 @@ export const getIncomeData = async (startDate, endDate, fileType) => {
   } else if (fileType == "Excel") {
     config = {method: "GET", responseType: "blob"};
   }
-  
   try {
-    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`, config);
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`, config);    
     result = data;
   } catch (exception) {
     console.error(exception);
   }
+}
+export const getRemainingCapacity = async (date, reservationType) => {
+  let result = [];
+  try {
+    const capacityRoute = reservationType == 0 ? picnicCapacityRoute : campingCapacityRoute;
+    const { data } = await axiosClient.get(`${capacityRoute}/${date}`);
 
+    result = data;
+  } catch (exception) {
+    console.error(exception);
+  }
   return result;
 };
 

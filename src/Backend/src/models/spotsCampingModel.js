@@ -5,7 +5,6 @@ const getAllSpots = async (req, res) => {
     try {
       const pool = await getConnection();
       const result = await pool.request().query(`SELECT * FROM Spot_Camping`);
-      console.log(result);
       res.status(200);
       res.json(result.recordset);
     } catch (error) {
@@ -24,7 +23,6 @@ const getSpotsByReservationID = async (req, res) => {
       .query(
         `SELECT Location_Spot FROM Spot_Camping WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
       );
-    console.log(result);
     res.status(200);
     res.json(result.recordset);
   } catch (error) {
@@ -37,16 +35,16 @@ const getSpotsByReservationID = async (req, res) => {
   // Method that inserts a spot camping
 const insertSpotCamping = async (req, res) => {
     try {
-      console.log(req.body)
       const {
         ID_Client,
         Reservation_Date,
         Location_Spot,
-        Price
+        Price,
+        Currency
       } = req.body;
       const pool = await getConnection();
       await pool.query(
-        `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price})`
+        `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price}, '${Currency}')`
       );
       res.status(200);
       console.log("The insert to the Spot_Camping was successful");
@@ -68,6 +66,7 @@ const updateSpot = async (req, res) => {
         `UPDATE Spot_Camping SET Location_Spot = ${newLocation_Spot} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Location_Spot = ${oldLocation_Spot}`
       );
       res.status(200);
+      res.send("The update to the Spot_Camping was successfull");
       console.log("The update to the Spot_Camping was successfull");
     } catch (error) {
       res.status(500);

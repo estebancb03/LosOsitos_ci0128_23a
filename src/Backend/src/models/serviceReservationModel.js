@@ -4,15 +4,16 @@ import { getConnection, sql } from "../config/db.js";
 const insertService = async (req, res) => {
   try {
     const {
-      ID,
+      ID_Client,
       Reservation_Date,
       Name_Service,
       Price,
-      Quantity
+      Quantity,
+      Currency
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `INSERT INTO SERVICE_RESERVATION VALUES (${ID}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity})`
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID_Client}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity}, '${Currency}')`
     );
     res.status(200);
     console.log("The insert to the Service_Reservation was successfull");
@@ -29,7 +30,6 @@ const getAllServices = async (req, res) => {
       const result = await pool
         .request()
         .query("SELECT * FROM Service_Reservation");
-      console.log(result);
       res.status(200);
       res.json(result.recordset);
     } catch (error) {
@@ -48,7 +48,6 @@ const getServicesByReservationID = async (req, res) => {
         .query(
           `SELECT Name_Service, Reservation_Date, Price FROM Service_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
         );
-      console.log(result);
       res.status(200);
       res.json(result.recordset);
     } catch (error) {
@@ -71,6 +70,7 @@ const updateService = async (req, res) => {
         `UPDATE Service_Reservation SET Quantity = ${Quantity} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Name_Service = '${Name_Service}'`
       );
       res.status(200);
+      res.send("The update to the Service_Reservation was successfull");
       console.log("The update to the Service_Reservation was successfull");
     } catch (error) {
       res.status(500);

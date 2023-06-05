@@ -125,23 +125,28 @@ const useReservations = () => {
       reservation.Vehicles = Vehicles.length !== 0 ? Vehicles : null;
       reservation.NewVehicles = [];
       reservation.NewServices = [];
+      reservation.NewTickets = [];
+      reservation.NewSpots = [];
     });
     setReservations(formattedReservations);
   };
 
-  useEffect(() => {
-    fetchSpots();
-    fetchTickets();
-    fetchVehicles();
-    fetchServices();
-    fetchReservations();
-  }, []);
+  // Method that fetch all data
+  const fetch = async () => {
+    await fetchReservations();
+    await fetchSpots();
+    await fetchTickets();
+    await fetchVehicles();
+    await fetchServices();
+  }
+
+  useEffect(() => fetch, []);
 
   useEffect(() => {
     formatReservations();
   }, [spots, vehicles, tickets, services]);
 
-  return { reservations, createReservation };
+  return { reservations, createReservation, fetch, formatReservations };
 };
 
 export default useReservations;
