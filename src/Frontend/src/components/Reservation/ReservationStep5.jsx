@@ -111,7 +111,7 @@ const ReservationStep5 = ({
             Amount: ticket.Amount,
           });
         })
-        );
+      );
     } catch (exception) {
       console.log(exception);
     }
@@ -128,7 +128,7 @@ const ReservationStep5 = ({
         await AxiosClient.post(url, {
           ID_Client: ID,
           Reservation_Date,
-          Picnic_Date
+          Picnic_Date,
         });
       } else {
         const url = "/camping";
@@ -136,7 +136,7 @@ const ReservationStep5 = ({
           ID_Client: ID,
           Reservation_Date,
           Start_Date,
-          End_Date
+          End_Date,
         });
       }
     } catch (exception) {
@@ -168,7 +168,7 @@ const ReservationStep5 = ({
     } else {
       alert(
         "Check if you uploaded the payment proof or if you have already accepter the terms and conditions"
-        );
+      );
     }
   };
 
@@ -192,51 +192,51 @@ const ReservationStep5 = ({
 
   return (
     <>
-    {windows.Step5 && (
-      <div>
-        <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
-          Upload payment proof picture
-        </h2>
-        <FilePond
-          files={files}
-          onupdatefiles={setFiles}
-          allowMultiple={false}
-          maxFiles={1}
-          name="files"
-          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-        />
-        <Checkbox
-          onChange={() => {
-          setCheckbox(!checkbox);
-        }}
+      {windows.Step5 && (
+        <div>
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+            Upload payment proof picture
+          </h2>
+          <FilePond
+            files={files}
+            onupdatefiles={setFiles}
+            allowMultiple={false}
+            maxFiles={1}
+            name="files"
+            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          />
+          <Checkbox
+            onChange={() => {
+              setCheckbox(!checkbox);
+            }}
           >
-          Agree with{" "}
-          <a href="./termsconditions.jpeg" target="_blank">
-            terms and conditions
-          </a>
-        </Checkbox>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
-          <Button
-            text="Back"
-            onclickFunction={(e) => {
-            const newWindows = { ...windows };
-            newWindows.Step4 = true;
-            newWindows.Step5 = false;
-            setWindows(newWindows);
-          }}
-          />
-          <Button
-            text="Next"
-            onclickFunction={() => {
-            updateReservationData();
-          }}
-          />
-          <div className="mb-1"></div>
+            Agree with{" "}
+            <a href="./termsconditions.jpeg" target="_blank">
+              terms and conditions
+            </a>
+          </Checkbox>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
+            <Button
+              text="Back"
+              onclickFunction={(e) => {
+                const newWindows = { ...windows };
+                newWindows.Step4 = true;
+                newWindows.Step5 = false;
+                setWindows(newWindows);
+              }}
+            />
+            <Button
+              text="Next"
+              onclickFunction={() => {
+                updateReservationData();
+              }}
+            />
+            <div className="mb-1"></div>
+          </div>
         </div>
-      </div>
       )}
     </>
-    );
+  );
 };
 
 export default ReservationStep5;
