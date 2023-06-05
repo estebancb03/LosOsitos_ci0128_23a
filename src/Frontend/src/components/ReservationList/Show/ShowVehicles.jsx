@@ -40,7 +40,7 @@ const ShowVehicles = (props) => {
                         key={index}
                         type={[index]}
                         placeholderText={vehicle.ID_Vehicle}
-                        disabled={disabledElements}
+                        disabled={true}
                         onChangeFunction={changeVehicles}
                       />
                     </div>
@@ -51,7 +51,7 @@ const ShowVehicles = (props) => {
                           key={index}
                           type={[index]}
                           placeholderText={vehicle.ID_Vehicle}
-                          disabled={disabledElements}
+                          disabled={true}
                           onChangeFunction={changeVehicles}
                         />
                       </div>

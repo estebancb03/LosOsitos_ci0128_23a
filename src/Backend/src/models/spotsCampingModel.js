@@ -59,11 +59,17 @@ const insertSpotCamping = async (req, res) => {
   // Method that updates a spot
 const updateSpot = async (req, res) => {
     try {
-      const { ID, Reservation_Date, oldLocation_Spot, newLocation_Spot } =
-        req.body;
+      const {
+        ID,
+        Reservation_Date,
+        oldLocation_Spot,
+        newLocation_Spot,
+        Currency,
+        Price
+      } =req.body;
       const pool = await getConnection();
       await pool.query(
-        `UPDATE Spot_Camping SET Location_Spot = ${newLocation_Spot} WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Location_Spot = ${oldLocation_Spot}`
+        `UPDATE Spot_Camping SET Location_Spot = ${newLocation_Spot}, Price = ${Price} , Currency = '${Currency}' WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Location_Spot = ${oldLocation_Spot}`
       );
       res.status(200);
       res.send("The update to the Spot_Camping was successfull");
