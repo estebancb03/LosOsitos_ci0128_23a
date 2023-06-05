@@ -4,6 +4,7 @@ import Table from "../Table/Table";
 import TableItem from "../Table/TableItem";
 import InputButton from "../Buttons/InputButton";
 import Button from "../Buttons/Button";
+import useUpdateTicketPrice from "../../hooks/useUpdateTicketPrice";
 
 const Tickets = () => {
   const [picnicTickets, setPicnicTickets] = useState([]);
@@ -86,48 +87,56 @@ const Tickets = () => {
         regex.test(childPicnicPrice)
           ? setChildPicnicPrice(parseFloat(childPicnicPrice))
           : (successfulConversion = false);
+
         break;
 
       case 1:
         regex.test(foreignChildPicnicPrice)
           ? setForeignChildPicnicPrice(parseFloat(foreignChildPicnicPrice))
           : (successfulConversion = false);
+
         break;
 
       case 2:
         regex.test(adultPicnicPrice)
           ? setAdultPicnicPrice(parseFloat(adultPicnicPrice))
           : (successfulConversion = false);
+
         break;
 
       case 3:
-        regex.test(adultPicnicPrice)
+        regex.test(foreignAdultPicnicPrice.toFixed(2))
           ? setForeignAdultPicnicPrice(parseFloat(foreignAdultPicnicPrice))
           : (successfulConversion = false);
+
         break;
 
       case 4:
         regex.test(childCampingPrice)
           ? setChildCampingPrice(parseFloat(childCampingPrice))
           : (successfulConversion = false);
+
         break;
 
       case 5:
         regex.test(foreignChildCampingPrice)
           ? setForeignChildCampingPrice(parseFloat(foreignChildCampingPrice))
           : (successfulConversion = false);
+
         break;
 
       case 6:
         regex.test(adultCampingPrice)
           ? setAdultCampingPrice(parseFloat(adultCampingPrice))
           : (successfulConversion = false);
+
         break;
 
       case 7:
         regex.test(foreignAdultCampingPrice)
           ? setForeignAdultCampingPrice(parseFloat(foreignAdultCampingPrice))
           : (successfulConversion = false);
+
         break;
     }
     return successfulConversion;
@@ -186,9 +195,6 @@ const Tickets = () => {
   };
 
   const modifyHandleClick = (stateModified) => {
-    //console.log(
-    //  "Al modifyHandleClick le llego al stateModified: " + stateModified
-    //);
     if (modifyButtons[stateModified] === "Save") {
       if (checkValuesEntered(stateModified)) {
         setIsValidData((prevValidData) => {
@@ -204,51 +210,82 @@ const Tickets = () => {
         });
       }
     }
-    // else {
-    //   setIsValidData((prevValidData) => {
-    //     const updatedData = [...prevValidData];
-    //     updatedData[stateModified] = true;
-    //     return updatedData;
-    //   });
-    // }
   };
 
   const modifyPrice = (type, value) => {
-    //console.log("Type[0] is " + type[0] + " y type[1] es " + type[1]);
     const index = type[1];
     switch (index) {
       case 0:
-        //console.log("ModifyPrice case 0");
         setChildPicnicPrice(value);
         break;
       case 1:
-        //console.log("ModifyPrice case 1");
         setForeignChildPicnicPrice(value);
         break;
       case 2:
-        //console.log("ModifyPrice case 2");
         setAdultPicnicPrice(value);
         break;
       case 3:
-        //console.log("ModifyPrice case 3");
         setForeignAdultPicnicPrice(value);
         break;
       case 4:
-        //console.log("ModifyPrice case 4");
         setChildCampingPrice(value);
         break;
       case 5:
-        //console.log("ModifyPrice case 5");
         setForeignChildCampingPrice(value);
         break;
       case 6:
-        //console.log("ModifyPrice case 6");
         setAdultCampingPrice(value);
         break;
       case 7:
-        //console.log("ModifyPrice case ");
         setForeignAdultCampingPrice(value);
         break;
+    }
+  };
+
+  const sendDataToDatabase = (index, type) => {
+    let price = 0;
+    if (type === "Picnic") {
+      switch (index) {
+        case 0:
+          price = childPicnicPrice;
+          break;
+        case 1:
+          price = foreignChildPicnicPrice;
+          break;
+        case 2:
+          price = adultPicnicPrice;
+          break;
+        case 3:
+          price = foreignAdultPicnicPrice;
+          break;
+      }
+      useUpdateTicketPrice(
+        picnicTickets[index].Age_Range,
+        picnicTickets[index].Demographic_Group,
+        picnicTickets[index].Reservation_Type,
+        price
+      );
+    } else {
+      switch (index) {
+        case 0:
+          price = childCampingPrice;
+          break;
+        case 1:
+          price = foreignChildCampingPrice;
+          break;
+        case 2:
+          price = adultCampingPrice;
+          break;
+        case 3:
+          price = foreignAdultCampingPrice;
+          break;
+      }
+      useUpdateTicketPrice(
+        campingTickets[index].Age_Range,
+        campingTickets[index].Demographic_Group,
+        campingTickets[index].Reservation_Type,
+        price
+      );
     }
   };
 
@@ -267,10 +304,11 @@ const Tickets = () => {
             updatedButtons[index] = "Modify";
             return updatedButtons;
           });
-          alert("Correctus");
+          sendDataToDatabase(index, type);
         } else {
           alert(
-            "Values from the capacity can only be positive and intergers." +
+            "Values from the capacity can only be positive numbers." +
+              "\nIf you entered a number with commas, remove them." +
               "\nChanges will not be applied"
           );
         }
@@ -290,10 +328,11 @@ const Tickets = () => {
             updatedButtons[index + offSet] = "Modify";
             return updatedButtons;
           });
-          alert("Correctus");
+          sendDataToDatabase(index, type);
         } else {
           alert(
-            "Values from the capacity can only be positive and intergers." +
+            "Values from the capacity can only be positive numbers." +
+              "\nIf you entered a number with commas, remove them." +
               "\nChanges will not be applied"
           );
         }
@@ -316,17 +355,11 @@ const Tickets = () => {
         );
       }
     }
-    // type === "Picnic"
-    //   ? setDisabledPicnicButtons((prevButtons) =>
-    //       prevButtons.map((button, i) => (i === index ? !button : button))
-    //     )
-    //   : setDisabledCampingButtons((prevButtons) =>
-    //       prevButtons.map((button, i) => (i === index ? !button : button))
-    //     );
   };
 
   const returnState = (index) => {
     assignValuesToStates(index);
+    let price = 0;
     switch (index) {
       case 0:
         return childPicnicPrice;
@@ -345,6 +378,7 @@ const Tickets = () => {
       case 7:
         return foreignAdultCampingPrice;
     }
+    return price;
   };
 
   const readyToLoad = () => {
@@ -401,7 +435,7 @@ const Tickets = () => {
                   rowNames[index],
                   picnicTicket.Currency,
                   <InputButton
-                    placeholderText={returnState(index).toLocaleString("en-us")}
+                    placeholderText={returnState(index)}
                     disabled={disablePicnicButtons[index]}
                     type={["Picnic", index]}
                     onChangeFunction={modifyPrice}
@@ -427,9 +461,7 @@ const Tickets = () => {
                   rowNames[index],
                   campingTicket.Currency,
                   <InputButton
-                    placeholderText={returnState(index + 4).toLocaleString(
-                      "en-us"
-                    )}
+                    placeholderText={returnState(index + 4)}
                     disabled={disabledCampingButtons[index]}
                     type={["Camping", index + 4]}
                     onChangeFunction={modifyPrice}
