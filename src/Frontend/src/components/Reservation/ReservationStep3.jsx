@@ -27,7 +27,7 @@ const ReservationStep3 = ({
     <>
       {windows.Step3 && (
         <div className="">
-          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">Bill</h2>
+          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">Summary</h2>
           <div className="my-2 grid grid-cols-2">
             {reservationData.Reservation_Type === 0 ? (
               <div className="-mt-3 mb-3">
