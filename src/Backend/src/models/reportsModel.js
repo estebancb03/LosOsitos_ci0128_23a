@@ -1,6 +1,5 @@
 import { getConnection, sql } from "../config/db.js";
-import { generateCSV } from "../helpers/fileConverter.js";
-import { generateXLSX } from "../helpers/fileConverter.js";
+import { generateCSV, generateXLSX } from "../helpers/fileConverter.js";
 
 export const getIncomeData = async (req, res) => {
   try {
@@ -23,12 +22,12 @@ export const getIncomeData = async (req, res) => {
       res.send(report)
     } else if (file_type == "Excel") {
       res.status(200);
-      const report = generateXLSX(result.recordset);
-      console.log(report);
-      res.send(report)
-    } else if (file_type == "PDF") {
-      res.status(200);
+      const workbook = generateXLSX(result.recordset);
 
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
+      await workbook.xlsx.write(res);
+      res.end();
     }
   } catch (error) {
     res.status(500);
@@ -49,9 +48,21 @@ export const getVisitationData = async (req, res) => {
       input("start_date", sql.DateTime, start_date).
       input("end_date", sql.DateTime, end_date).
       execute("ReservationsByVisitor");
-    res.status(200);
-    console.log(result);
-    res.send(result.recordset);
+  
+    if (file_type == "CSV") {
+      res.status(200);
+      const report = generateCSV(result.recordset);
+      console.log(report);
+      res.send(report)
+    } else if (file_type == "Excel") {
+      res.status(200);
+      const workbook = generateXLSX(result.recordset);
+
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
+      await workbook.xlsx.write(res);
+      res.end();
+    }
   } catch (error) {
     res.status(500);
     res.send(error.message);

@@ -22,13 +22,7 @@ export const generateXLSX = (data) => {
   data.forEach((item) => {
     sheet.addRow(item);
   });
-
-  // Genera y guarda el archivo de Excel
-  workbook.xlsx.writeFile("data.xlsx").then(() => {
-      console.log("Archivo de Excel generado exitosamente.");
-    }).catch((error) => {
-      console.error("Error al generar el archivo de Excel:", error);
-    });
+  return workbook;
 };
 
 export const generatePDF = (data) => {};
