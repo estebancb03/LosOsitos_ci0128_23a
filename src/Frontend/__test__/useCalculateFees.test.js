@@ -55,7 +55,7 @@ describe('useCalculateFees', () => {
     expect(resultTicketsFee).toEqual(expectedResult);
   });
 
-  test("calculatesServicesFee returns an array with the prices in CRC and USD of the reservation services", () => {
+  test("calculateServicesFee returns an array with the prices in CRC and USD of the reservation services", () => {
     const { result } = renderHook(() => useCalculateFees({
       Start_Date: "2023-06-28T00:00:00.000Z",
       End_Date: "2023-06-30T00:00:00.000Z",
