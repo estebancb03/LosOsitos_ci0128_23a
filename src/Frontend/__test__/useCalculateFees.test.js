@@ -54,4 +54,33 @@ describe('useCalculateFees', () => {
     const resultTicketsFee = calculatesTicketsFee();
     expect(resultTicketsFee).toEqual(expectedResult);
   });
+
+  test("calculatesServicesFee returns an array with the prices in CRC and USD of the reservation services", () => {
+    const { result } = renderHook(() => useCalculateFees({
+      Start_Date: "2023-06-28T00:00:00.000Z",
+      End_Date: "2023-06-30T00:00:00.000Z",
+      Services: [
+        {
+          ID_Client: "1111111",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Name_Service: "Hiking",
+          Price: 2000,
+          Quantity: 1,
+          Currency: "CRC"
+        },
+        {
+          ID_Client: "1111111",
+          Reservation_Date: "2023-06-03T19:01:54.970Z",
+          Name_Service: "Kayak",
+          Price: 7000,
+          Quantity: 1,
+          Currency: "CRC"
+        }
+      ]
+    }));
+    const { calculateServicesFee } = result.current;
+    const expectedResult = [9000, 16.749483557590306];
+    const resultTicketsFee = calculateServicesFee();
+    expect(resultTicketsFee).toEqual(expectedResult);
+  });
 });
