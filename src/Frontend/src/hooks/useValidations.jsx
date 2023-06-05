@@ -244,6 +244,8 @@ const useValidations = (reservation) => {
     validateDates,
     validateCapacity,
     validateInsertReservation,
+    validateTickets,
+    validateNewSpots,
     validateUpdateReservation
   };
 }

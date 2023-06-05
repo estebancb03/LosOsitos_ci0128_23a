@@ -153,5 +153,6 @@ export {
   changeDateInISOFormat2,
   isDateAfterISO8601,
   getDaysDifference,
+  formatDateYYYYMMDD,
   getDateRange
 };
