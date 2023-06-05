@@ -18,4 +18,12 @@ describe('formatDateHelper', () => {
     const result = isDateAfterISO8601(date1, date2);
     expect(result).toBe(true);
   });
+
+  test("getDaysDifference returns the days between two days counting the dates entered", () => {
+    const date1 = "2023-01-10T19:01:54.970Z";
+    const date2 = "2023-01-20T19:01:54.970Z";
+    const expectedResult = 11;
+    const result = getDaysDifference(date1, date2);
+    expect(result).toEqual(expectedResult);
+  });
 });
