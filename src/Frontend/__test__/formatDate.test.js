@@ -11,4 +11,11 @@ describe('formatDateHelper', () => {
     const result = formatDateDTMMDDYYYY(date);
     expect(result).toEqual(expectedDate);
   });
+
+  test("isDateAfterISO8601 should return true if the second date is greater than the first", () => {
+    const date1 = "2023-09-10T19:01:54.970Z";
+    const date2 = "2023-09-11T19:01:54.970Z";
+    const result = isDateAfterISO8601(date1, date2);
+    expect(result).toBe(true);
+  });
 });
