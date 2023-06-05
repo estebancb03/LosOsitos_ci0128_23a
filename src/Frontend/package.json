@@ -17,6 +17,7 @@
     "@types/node": "^20.1.0",
     "antd": "^5.4.7",
     "axios": "^1.4.0",
+    "buffer": "^6.0.3",
     "csv-stringify": "^6.4.0",
     "file-saver": "^2.0.5",
     "filepond": "^4.30.4",
@@ -32,8 +33,7 @@
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.10.0",
     "react-tailwindcss-datepicker": "^1.6.0",
-    "typescript": "^5.0.4",
-    "xlsx": "^0.18.5"
+    "typescript": "^5.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",

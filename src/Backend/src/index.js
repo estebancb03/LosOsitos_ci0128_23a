@@ -18,8 +18,8 @@ import clientRoutes from "./routes/clientRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import spotsCampingRoutes from "./routes/spotsCampingRoutes.js";
 import serviceReservationRoutes from "./routes/serviceReservationRoutes.js";
+import reportsRoutes from "./routes/reportsRoutes.js"
 import spotPriceRoutes from "./routes/spotPriceRoutes.js";
-
 import parkStatus from "./routes/parkStatus.js";
 
 
@@ -44,6 +44,7 @@ app.use('/api', mailQRCodeRoute);
 app.use('/api', personRoutes);
 app.use('/api', spotsRoutes);
 app.use('/api', reservationRoutes);
+app.use('/api', reportsRoutes)
 app.use('/api', ticketRoutes);
 app.use('/api', campingRoutes);
 app.use('/api', picnicRoutes);
