@@ -1,7 +1,6 @@
 import InputButton from "../../Buttons/InputButton";
 
 const ShowFee = (props) => {
-  // Props
   const {
     text,
     fees

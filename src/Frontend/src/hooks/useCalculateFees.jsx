@@ -2,17 +2,14 @@ import { getDaysDifference } from "../helpers/formatDate";
 import useExchange from "./useExchange";
 
 const useCalculateFees = (reservation) => {
-  // Exchange hook
   const { exchange } = useExchange();
 
-  // Method that applies the exchange
   const applyExchange = (nationalFee, foreignFee) => {
     const CRCFee = (foreignFee.fee / exchange.CRC) + nationalFee.fee;
     const USDFee = (nationalFee.fee / exchange.USD) + foreignFee.fee;
     return [CRCFee, USDFee];
   }
   
-  // Method that calculates the tickets fees
   const calculatesTicketsFee = () => {
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
@@ -33,7 +30,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
 
-  // Method that calculates the new tickets fees
   const calculatesNewTicketsFee = () => {
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
@@ -54,7 +50,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
 
-  // Method that calculates the spots fee
   const calculateSpotsFee = () => {
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
@@ -75,7 +70,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
   
-  // Method that calculates the new spots fee
   const calculateNewSpotsFee = () => {
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
@@ -96,7 +90,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
 
-  // Method that calculates the services fee
   const calculateServicesFee = () => {
     let fee = 0;
     let nationalFee = { fee: 0, currency: "CRC" };
@@ -113,7 +106,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
 
-  // Method that calculastes the new services fee
   const calculateNewServicesFee = () => {
     let nationalFee = { fee: 0, currency: "CRC" };
     let foreignFee = { fee: 0, currency: "USD" };
@@ -129,7 +121,6 @@ const useCalculateFees = (reservation) => {
     return applyExchange(nationalFee, foreignFee);
   };
 
-  // Method that calculates all tickets fee
   const calculateAllTicketsFee = () => {
     const ticketsFee = calculatesTicketsFee();
     const newTicketsFee = calculatesNewTicketsFee();
@@ -138,7 +129,6 @@ const useCalculateFees = (reservation) => {
     return [CRCFee, USDFee];
   };
 
-  // Method that calculates all spots fee
   const calculateAllSpotsFee = () => {
     const spotsFee = calculateSpotsFee();
     const newSpotsFee = calculateNewSpotsFee();
@@ -147,7 +137,6 @@ const useCalculateFees = (reservation) => {
     return [CRCFee, USDFee];
   };
 
-  // Method that calculates all services fee
   const calculateAllServicesFee = () => {
     const servicesFee = calculateServicesFee();
     const newServicesFee = calculateNewServicesFee();
@@ -156,7 +145,6 @@ const useCalculateFees = (reservation) => {
     return [CRCFee, USDFee];
   };
 
-  // Method that calculates the total fee
   const calculateTotalFee = () => {
     const allTicketsFee = calculateAllTicketsFee();
     const allSpotsFee = calculateAllSpotsFee();

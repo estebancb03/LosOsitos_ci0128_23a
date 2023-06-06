@@ -8,24 +8,17 @@ import useCountry from "../../../hooks/useCountry";
 import { formatDateDTMMDDYYYY } from "../../../helpers/formatDate";
 
 const AddPerson = (props) => {
-  // Props
   const {reservation, setReservation} = props;
-  // Person hook
   const {getPersonData, setPersonData, modifyPersonData} = usePerson(reservation, setReservation);
-  // Country hook
   const {countries} = useCountry();
-  // State that controls the disabled of the elements
   const [disabledElements, setDisabledElements] = useState(false);
-  // State that controls if the person was found
   const [found, setFound] = useState(false);
 
-  // Method that changes the person data of the reservation
   const changePersonData = (type, value) => {
     const newReservation = modifyPersonData(type, value, reservation);
     setReservation(newReservation)
   };
 
-  // Method that checks the personal data
   const checkPersonalData = async () => {
     const wasFound = await getPersonData(reservation, setReservation);
     if (wasFound) {

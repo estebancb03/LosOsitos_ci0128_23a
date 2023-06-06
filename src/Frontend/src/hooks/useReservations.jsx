@@ -5,20 +5,13 @@ import useCountry from "./useCountry";
 import AxiosClient from "../config/AxiosClient";
 
 const useReservations = () => {
-  // State that controls the reservations
   const [reservations, setReservations] = useState([]);
-  // State that constrols the spots
   const [spots, setSpots] = useState([]);
-  // State that constrols the vehicles
   const [vehicles, setVehicles] = useState([]);
-  // State that constrols the tickets
   const [tickets, setTickets] = useState([]);
-  // State that constrols the services
   const [services, setServices] = useState([]);
-  // Country hook
   const {countries} = useCountry();
 
-  // Method that inits a new reservation
   const createReservation = () => {
     return {
       ID: "",
@@ -45,7 +38,6 @@ const useReservations = () => {
     };
   };
 
-  // Method that inits a online reservation
   const createOnlineReservation = () => {
     return {
       ID: "",
@@ -68,7 +60,6 @@ const useReservations = () => {
     };
   };
 
-  // Method that gets the records
   const fetchReservations = async () => {
     try {
       const url = "/getAllRecords";
@@ -79,7 +70,6 @@ const useReservations = () => {
     }
   };
 
-  // Method that gets the spots of all records
   const fetchSpots = async () => {
     try {
       const url = "/getAllSpots";
@@ -90,7 +80,6 @@ const useReservations = () => {
     }
   };
 
-  // Method that gets the vehicles of all records
   const fetchVehicles = async () => {
     try {
       const url = "/getAllVehicles";
@@ -101,7 +90,6 @@ const useReservations = () => {
     }
   };
 
-  // Method that gets the tickets of all records
   const fetchTickets = async () => {
     try {
       const url = "/getAllTickets";
@@ -112,7 +100,6 @@ const useReservations = () => {
     }
   };
 
-  // Method that gets the services of all records
   const fetchServices = async () => {
     try {
       const url = "/getAllServices";
@@ -123,7 +110,6 @@ const useReservations = () => {
     }
   };
 
-  // Method that adds the spots, tickets, services and vehicles to the reservations
   const formatReservations = () => {
     let formattedReservations = [...reservations];
     formattedReservations.map((reservation) => {
@@ -154,7 +140,6 @@ const useReservations = () => {
     setReservations(formattedReservations);
   };
 
-  // Method that fetch all data
   const fetch = async () => {
     await fetchReservations();
     await fetchSpots();

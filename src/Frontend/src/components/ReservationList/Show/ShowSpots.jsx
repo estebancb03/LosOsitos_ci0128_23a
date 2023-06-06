@@ -7,18 +7,14 @@ import ShowFee from "./ShowFee";
 import useCalculateFees from "../../../hooks/useCalculateFees";
 
 const ShowSpots = (props) => {
-  // Props
   const {
     disabledElements,
     reservation,
     setReservation
   } = props;
-  // Spots hook
   const {spots, locations, searchSpotPrice, searchSpotSize} = useSpot();
-  // Fees hook
   const {calculateAllSpotsFee} = useCalculateFees(reservation);
 
-  // Method that changes the spots
   const changeSpot = (type, value) => {
     const newReservation = {...reservation};
     const currency = reservation.Country_Name === "Costa Rica" ? "CRC" : "USD";

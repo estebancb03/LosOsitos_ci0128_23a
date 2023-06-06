@@ -13,7 +13,6 @@ import ShowTickets from "./Show/ShowTickets";
 import ShowFee from "./Show/ShowFee";
 
 const ShowReservation = (props) => {
-  // Props
   const {
     currentRecord,
     setCurrentRecord,
@@ -21,18 +20,12 @@ const ShowReservation = (props) => {
     setViewModal,
     exitMethod
   } = props;
-  // State that controls the modify button in the popup
   const [modifyButton, setModifyButton] = useState("Modify");
-  // State that controls the elements availability in the popup
   const [disabledElements, setDisabledElements] = useState(true);
-  // Hook that updates the reservation
   const {updateReservation} = useUpdateReservation(currentRecord);
-  // Hook that validates changes
   const {validateUpdateReservation, validateCapacity} = useValidations(currentRecord);
-  // Hook that calculates fees
   const {calculateTotalFee} = useCalculateFees(currentRecord);
 
-  // Method that handles what happen when the modify button is clicked
   const modifyHandleClick = () => {
     setDisabledElements(!disabledElements);
     modifyButton === "Modify"
@@ -40,14 +33,12 @@ const ShowReservation = (props) => {
       : setModifyButton("Modify");
   };
 
-  // Method that puts the element in its initial state
   const restartModal = () => {
     setViewModal(false);
     setDisabledElements(true);
     setModifyButton("Modify");
   };
 
-  // Method that change the reservation data
   const changeReservationData = async () => {
     modifyHandleClick();
     if (modifyButton === "Save changes") {

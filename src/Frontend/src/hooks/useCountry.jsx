@@ -3,10 +3,8 @@ import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useCountry = () => {
-  // State that controls the countries
   const [countries, setCountries] = useState([]);
   
-  // Method that gets the names of the countries
   const getCountries = async () => {
     try {
       const url = '/country';
