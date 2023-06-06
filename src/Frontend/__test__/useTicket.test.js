@@ -16,4 +16,15 @@ describe('useTicket', () => {
     const formatTicketResult = formatTicket(ticket);
     expect(formatTicketResult).toEqual(expectedData);
   });
+
+  test('ticketOptions should not be empty', () => {
+  const { result } = renderHook(() => useTicket());
+  const { ticketOptions } = result.current;
+  expect(ticketOptions).toEqual([
+      "National-Children",
+      "National-Adult",
+      "Foreign-Children",
+      "Foreign-Adult"
+  ]);
+  });
 });

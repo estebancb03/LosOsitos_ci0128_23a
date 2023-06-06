@@ -7,7 +7,6 @@ const useSettingCapacity = () => {
   const fetchActualCapacityValues = async () => {
     const url = "/getActualCapacities";
     const records = await AxiosClient.get(url);
-    console.log(records.data);
     filterCapacityValues(records.data);
   };
 
@@ -27,7 +26,7 @@ const useSettingCapacity = () => {
     });
 
     const picnicOnSite = formatedCapacity.filter((values) => {
-      values.Type === "PicnicOnSite666";
+      values.Type === "PicnicOnSite";
     });
 
     formatedCapacity.CampingOnline = campingOnline;
@@ -41,7 +40,7 @@ const useSettingCapacity = () => {
   useEffect(() => {
     fetchActualCapacityValues();
   }, []);
-  return { capacityValues };
+  return { capacityValues, filterCapacityValues, setCapacityValues };
 };
 
 export default useSettingCapacity;
