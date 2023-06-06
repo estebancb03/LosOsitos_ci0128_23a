@@ -37,21 +37,6 @@ const ReservationStep2 = ({
     useState(0);
   const [remainingCapacity, setRemainingCapacity] = useState([]);
 
-  const columnsNamesNames = [
-    "Type",
-    "Currency",
-    "Price",
-    "Quantity",
-    "Action",
-    "Action",
-  ];
-  const rowsNames = [
-    "Domestic Adult",
-    "Domestic Child*",
-    "Foreign Adult",
-    "Foreign Child*",
-  ];
-
   const waitForTicketPrices = async () => {
     try {
       const result = await getTicketPrices();
@@ -77,6 +62,21 @@ const ReservationStep2 = ({
       console.error(exception);
     }
   };
+
+  const columnsNamesNames = [
+    "Type",
+    "Currency",
+    "Price",
+    "Quantity",
+    "Action",
+    "Action",
+  ];
+  const rowsNames = [
+    "Domestic Adult",
+    "Domestic Child*",
+    "Foreign Adult",
+    "Foreign Child*",
+  ];
 
   const filterPrices = () => {
     const newPrices = { ...ticketsPrices };
@@ -184,7 +184,7 @@ const ReservationStep2 = ({
     return canAdd;
   };
 
-  const handleClickAdd = (quantityType) => {
+  const handleClickAdd = (e, quantityType) => {
     const canAdd = checkCapacity();
     if (canAdd) {
       switch (quantityType) {
@@ -257,7 +257,7 @@ const ReservationStep2 = ({
     }
   };
 
-  const handleClickSubstract = (quantityType) => {
+  const handleClickSubstract = (e, quantityType) => {
     switch (quantityType) {
       case 1:
         if (quantityAdultCamping != 0) {
@@ -309,7 +309,7 @@ const ReservationStep2 = ({
     }
   };
 
-  const checkTickets = () => {
+  const checkTickets = (e) => {
     if (
       quantityAdultPicnic != 0 ||
       quantityChildPicnic != 0 ||
@@ -496,14 +496,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 5);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 5);
                       }}
                     />,
@@ -522,14 +522,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 6);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 6);
                       }}
                     />,
@@ -548,14 +548,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 7);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 7);
                       }}
                     />,
@@ -574,14 +574,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 8);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 8);
                       }}
                     />,
@@ -606,14 +606,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 1);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 1);
                       }}
                     />,
@@ -632,14 +632,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 2);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 2);
                       }}
                     />,
@@ -658,14 +658,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 3);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 3);
                       }}
                     />,
@@ -684,14 +684,14 @@ const ReservationStep2 = ({
                     <Button
                       text="+"
                       type="add"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickAdd("", 4);
                       }}
                     />,
                     <Button
                       text="-"
                       type="delete"
-                      onclickFunction={() => {
+                      onclickFunction={(e) => {
                         handleClickSubstract("", 4);
                       }}
                     />,
@@ -707,7 +707,7 @@ const ReservationStep2 = ({
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
             <Button
               text="Back"
-              onclickFunction={() => {
+              onclickFunction={(e) => {
                 const newWindows = { ...windows };
                 newWindows.Step1 = true;
                 newWindows.Step2 = false;
