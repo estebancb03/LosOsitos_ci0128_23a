@@ -1,7 +1,7 @@
 const TableItem = ({ number, data }) => {
   return (
     <>
-      {number && number % 2 === 0 ? (
+      {number && number % 2 === 0 || number === 0 ? (
         <tr className="bg-white">
           {data.map((content, index) => (
             <td key={index} className="p-3 text-sm text-gray-700 whitespace-nowrap">

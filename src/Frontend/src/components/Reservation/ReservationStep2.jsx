@@ -328,36 +328,84 @@ const ReservationStep2 = ({
 
   const updateReservationData = () => {
     if (checkTickets()) {
-      const newReservationData = {...reservationData};
+      const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       newWindows.Step2 = false;
-      reservationData.Reservation_Type == 0 ? newWindows.Step5 = true : newWindows.Step3 = true;
+      newWindows.Step3 = true;
       let tickets = [];
       if (reservationData.Reservation_Type === 0) {
         if (quantityAdultPicnic !== 0) {
-          tickets.push({Age_Range: 1, Demographic_Group: 0, Reservation_Type: reservationData.Reservation_Type, Amount: quantityAdultPicnic, Price: prices.PicnicNationalAdultCRC[0].Price});
+          tickets.push({
+            Age_Range: 1,
+            Demographic_Group: 0,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityAdultPicnic,
+            Price: prices.PicnicNationalAdultCRC[0].Price,
+          });
         }
         if (quantityChildPicnic !== 0) {
-          tickets.push({Age_Range: 0, Demographic_Group: 0, Reservation_Type: reservationData.Reservation_Type, Amount: quantityChildPicnic, Price: prices.PicnicNationalChildCRC[0].Price});
+          tickets.push({
+            Age_Range: 0,
+            Demographic_Group: 0,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityChildPicnic,
+            Price: prices.PicnicNationalChildCRC[0].Price,
+          });
         }
         if (quantityForeignAdultPicnic !== 0) {
-          tickets.push({Age_Range: 1, Demographic_Group: 1, Reservation_Type: reservationData.Reservation_Type, Amount: quantityForeignAdultPicnic, Price: prices.PicnicInternationalAdultUSD[0].Price});
+          tickets.push({
+            Age_Range: 1,
+            Demographic_Group: 1,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityForeignAdultPicnic,
+            Price: prices.PicnicInternationalAdultUSD[0].Price,
+          });
         }
         if (quantityForeignChildPicnic !== 0) {
-          tickets.push({Age_Range: 0, Demographic_Group: 1, Reservation_Type: reservationData.Reservation_Type, Amount: quantityForeignChildPicnic, Price: prices.PicnicInternationalChildUSD[0].Price});
+          tickets.push({
+            Age_Range: 0,
+            Demographic_Group: 1,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityForeignChildPicnic,
+            Price: prices.PicnicInternationalChildUSD[0].Price,
+          });
         }
       } else {
         if (quantityAdultCamping !== 0) {
-          tickets.push({Age_Range: 1, Demographic_Group: 0, Reservation_Type: reservationData.Reservation_Type, Amount: quantityAdultCamping, Price: prices.CampingNationalAdultCRC[0].Price});
+          tickets.push({
+            Age_Range: 1,
+            Demographic_Group: 0,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityAdultCamping,
+            Price: prices.CampingNationalAdultCRC[0].Price,
+          });
         }
         if (quantityChildCamping !== 0) {
-          tickets.push({Age_Range: 0, Demographic_Group: 0, Reservation_Type: reservationData.Reservation_Type, Amount: quantityChildCamping, Price: prices.CampingNationalChildCRC[0].Price});
+          tickets.push({
+            Age_Range: 0,
+            Demographic_Group: 0,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityChildCamping,
+            Price: prices.CampingNationalChildCRC[0].Price,
+          });
         }
         if (quantityForeignAdultCamping !== 0) {
-          tickets.push({Age_Range: 1, Demographic_Group: 1, Reservation_Type: reservationData.Reservation_Type, Amount: quantityForeignAdultCamping, Price: prices.CampingInternationalAdultUSD[0].Price});
+          tickets.push({
+            Age_Range: 1,
+            Demographic_Group: 1,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityForeignAdultCamping,
+            Price: prices.CampingInternationalAdultUSD[0].Price,
+          });
         }
         if (quantityForeignChildCamping !== 0) {
-          tickets.push({Age_Range: 0, Demographic_Group: 1, Reservation_Type: reservationData.Reservation_Type, Amount: quantityForeignChildCamping, Price: prices.CampingInternationalChildUSD[0].Price});
+          tickets.push({
+            Age_Range: 0,
+            Demographic_Group: 1,
+            Reservation_Type: reservationData.Reservation_Type,
+            Amount: quantityForeignChildCamping,
+            Price: prices.CampingInternationalChildUSD[0].Price,
+          });
         }
       }
       newReservationData.Tickets = tickets;
