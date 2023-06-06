@@ -112,6 +112,14 @@ describe('formatDateHelper', () => {
     expect(result).toEqual(expectedResult);
   });
 
+  test("getDateRange returns no dates if the first date is after the second one", () => {
+    const date1 = "02-05-2023";
+    const date2 = "02-01-2023";
+    const expectedResult = [];
+    const result = getDateRange(date1, date2);
+    expect(result).toEqual(expectedResult);
+  })
+
   test("changeHourInISOFormat Method that update the hours and minutes in a ISO 8601 format", () => {
     const hour = "23:59";
     const ISODate = "2023-09-10T19:01:54.970Z";
