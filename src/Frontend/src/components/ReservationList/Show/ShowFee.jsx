@@ -26,7 +26,7 @@ const ShowFee = (props) => {
             <div className="mt-1 mb-5">
               <InputButton
                 type={"Fee"}
-                placeholderText={"$" + fees[1].toLocaleString("en-us")}
+                placeholderText={"$" + fees[1].toFixed(2).toLocaleString("en-us")}
                 disabled={true}
               />
             </div>
