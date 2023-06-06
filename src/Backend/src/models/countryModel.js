@@ -5,6 +5,7 @@ const getCountry = async (req, res) => {
     const pool = await getConnection();
     const result = await pool.request().query("SELECT * FROM Country");
     res.json(result.recordset);
+    res.status(200);
   } catch (error) {
     res.status(500);
     res.send(error.message);
