@@ -6,9 +6,9 @@ const getPerson = async (req, res) => {
     const pool = await getConnection();
     const result = await pool.request().query(`SELECT Name, LastName1, LastName2, Gender, Email, Country_Name, State, Birth_Date FROM Person WHERE ID = ${id}`);
     res.json(result.recordset);
+    res.status(200);
   } catch (error) {
     res.status(500);
-    res.send(error.message);
   }
 };
 
