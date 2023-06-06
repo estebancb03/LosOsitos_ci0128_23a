@@ -111,8 +111,6 @@ const useValidations = (reservation) => {
       reservation.Country_Name !== ""
     ) {
       result = true;
-    } else {
-      console.log("Picha");
     }
     return result;
   };
