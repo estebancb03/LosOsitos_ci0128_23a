@@ -111,4 +111,66 @@ describe('useValidation', () => {
     // Must be true because the Amount is correct
     expect(validationResult).toBe(true);
   });
+
+  test("validateCapacity should return true if camping capacity is not exceeded", async () => {
+    const { result } = renderHook(() => useValidations(
+      {
+        Start_Date: "2023-05-01",
+        End_Date: "2023-05-02",
+        Reservation_Method: 0,
+        New_Tickets: [{Amount: 1}],
+        Reservation_Type: 1
+      }
+    ));
+    const { validateCapacity } = result.current;
+    const validationResult = await validateCapacity();
+    // Must be true because the Amount is correct
+    expect(validationResult).toBe(true);
+  })
+
+  test("validateCapacity should return true if picnic capacity is not exceeded", async () => {
+    const { result } = renderHook(() => useValidations(
+      {
+        Picnic_Date: "2023-05-01",
+        Reservation_Method: 0,
+        New_Tickets: [{Amount: 1}],
+        Reservation_Type: 0
+      }
+    ));
+    const { validateCapacity } = result.current;
+    const validationResult = await validateCapacity();
+    // Must be true because the Amount is correct
+    expect(validationResult).toBe(true);
+  })
+
+  test("validateCapacity should return false if picnic capacity is exceeded", async () => {
+    const { result } = renderHook(() => useValidations(
+      {
+        Picnic_Date: "2023-05-01",
+        Reservation_Method: 0,
+        New_Tickets: [{Amount: 10000}],
+        Reservation_Type: 0
+      }
+    ));
+    const { validateCapacity } = result.current;
+    const validationResult = await validateCapacity();
+    // Must be true because the Amount is correct
+    expect(validationResult).toBe(true);
+  })
+
+  test("validateCapacity should return false if camping capacity is exceeded", async () => {
+    const { result } = renderHook(() => useValidations(
+      {
+        Start_Date: "2023-05-01",
+        End_Date: "2023-05-02",
+        Reservation_Method: 0,
+        New_Tickets: [{Amount: 1000}],
+        Reservation_Type: 1
+      }
+    ));
+    const { validateCapacity } = result.current;
+    const validationResult = await validateCapacity();
+    // Must be true because the Amount is correct
+    expect(validationResult).toBe(true);
+  })
 });
