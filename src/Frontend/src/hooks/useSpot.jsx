@@ -10,7 +10,7 @@ const useSpot = () => {
 
   const getSpots = async () => {
     try {
-      const url = '/spots/getAllSpots';
+      const url = "/spots/getAllSpots";
       const { data } = await AxiosClient.get(url);
       await setSpots(data);
     } catch (exception) {
@@ -20,7 +20,7 @@ const useSpot = () => {
 
   const getSpotsPrices = async () => {
     try {
-      const url = '/spot-prices';
+      const url = "/spot-prices";
       const { data } = await AxiosClient.get(url);
       await setSpotsPrices(data);
     } catch (exception) {
@@ -47,19 +47,19 @@ const useSpot = () => {
   };
 
   const formatSpotSize = (size) => {
-    let result = '';
+    let result = "";
     if (size === sizes[2]) {
-      result = 'Small';
+      result = "Small";
     } else if (size === sizes[1]) {
-      result = 'Medium';
+      result = "Medium";
     } else if (size === sizes[0]) {
-      result = 'Big';
+      result = "Big";
     }
     return result;
   };
 
   const modifyNewSpot = (type, value, record) => {
-    const newRecord = {...record};
+    const newRecord = { ...record };
     const currency = record.Country_Name === "Costa Rica" ? "CRC" : "USD";
     let newSpots = [...record.NewSpots];
     if (type[0] === "location") {
@@ -72,7 +72,10 @@ const useSpot = () => {
   };
 
   const searchSpotPrice = (Location_Spot, Currency) => {
-    const filteredPrices = spotsPrices.filter((price) => price.Location_Spot === Location_Spot && price.Currency === Currency);
+    const filteredPrices = spotsPrices.filter(
+      (price) =>
+        price.Location_Spot === Location_Spot && price.Currency === Currency
+    );
     return filteredPrices[0].Price;
   };
 
@@ -85,7 +88,14 @@ const useSpot = () => {
 
   useEffect(() => setData, [spots]);
 
-  return { spots, locations, searchSpotPrice, searchSpotSize, modifyNewSpot };
+  return {
+    spots,
+    locations,
+    searchSpotPrice,
+    searchSpotSize,
+    modifyNewSpot,
+    formatSpotSize,
+  };
 };
 
 export default useSpot;

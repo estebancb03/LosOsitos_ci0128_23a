@@ -106,8 +106,6 @@ const useValidations = (reservation) => {
       reservation.Country_Name !== ""
     ) {
       result = true;
-    } else {
-      console.log("Picha");
     }
     return result;
   };
@@ -230,9 +228,12 @@ const useValidations = (reservation) => {
   
   return {
     validatePersonalData,
+    validateServices,
     validateDates,
     validateCapacity,
     validateInsertReservation,
+    validateTickets,
+    validateNewSpots,
     validateUpdateReservation
   };
 }

@@ -43,6 +43,21 @@ npm run dev
 
 Lo anterior hará que la aplicación del backend se empiece a ejecutar en ```http://localhost:3000/```. Es necesario recalcar que para que el sistema funcione correctamente ambas aplicaciones deben estar ejecutandose a la vez.
 
+### Pruebas unitarias
+
+Cada aplicacion del proyecto tiene su proyecto de pruebas unitarias, para correr las pruebas es importante mencionar que por lo menos la aplicación del Backend debe estar ejecutandose. Una vez las aplicaciones estén en ejecución, en una nueva consola debe dirigirse a ```src/Frontend``` o ```src/Backend``` y ejecutar el siguiente comando:
+
+```
+npm test
+```
+
+Esto correrá las pruebas unitarias de todas las suits la aplicación seleccionada, para correr solo las pruebas de un determinado archivo deberá expecificarlo en el comando, por ejemplo:
+
+```
+npm test useTicket.test.js
+```
+Los archivos de pruebas unitarias se encuentran en la carpeta de ```__test__``` de cada aplicación.
+
 ## Diseño de la aplicación
 
 La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.

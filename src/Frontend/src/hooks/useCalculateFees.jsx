@@ -155,6 +155,7 @@ const useCalculateFees = (reservation) => {
   }
 
   return {
+    applyExchange,
     calculateSpotsFee,
     calculateNewSpotsFee,
     calculateServicesFee,
