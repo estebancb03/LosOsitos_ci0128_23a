@@ -10,8 +10,6 @@ La siguiente imagen muestra el diseño conceptual de la base de datos.
 
 Con base en el diagrama conceptual anterior, se realizó el diseño relacional. Para mappear las entidades involucradas en una ISA, se utilizó el mappeo 8A, dado que se consideró que este mappeo tiene más sentido para el contexto en cuestión. Un ejemplo de esto es que las superclases se encuentran relacionadas a otras entidades, por lo cual conviene conservar esta superclase en el diseño relacional.
 
-![](conceptual.jpg)
-
 ## Diseño relacional
 
 En la ISA Person utilizamos 8A debido a que tenemos un ST consideramos que sería mejor tener a las subclases en tablas diferentes para mayor control y diferenciación.
@@ -26,6 +24,8 @@ En el siguiente enlace se puede observar el PDF con el mapeo realizado:
 
 Con base en el diagrama conceptual anterior, se realizó el diseño relacional. Para mappear las entidades involucradas en una ISA, se utilizó el mappeo 8A, dado que se consideró que este mappeo tiene más sentido para el contexto en cuestión. Un ejemplo de esto es que las superclases se encuentran relacionadas a otras entidades, por lo cual conviene conservar esta superclase en el diseño relacional.
 
-## Script
+## Scripts
 
-La [script SQL](BD_LosOsitos.sql) con la que se crearon las tablas en la base de datos se puede encontrar en este directorio.
+* Script SQL de creación de [tablas](BD_LosOsitos.sql)
+* Script SQL de creación de [procedimientos almacenados](procedures.sql)
+* Script SQL de creación de [triggers](trigger.sql)
