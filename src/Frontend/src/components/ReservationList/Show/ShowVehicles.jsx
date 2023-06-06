@@ -2,14 +2,12 @@ import InputButton from "../../Buttons/InputButton";
 import AddVehicle from "../Add/AddVehicle";
 
 const ShowVehicles = (props) => {
-  // Props
   const {
     disabledElements,
     reservation,
     setReservation
   } = props;
 
-  // Method tha changes the vehicles
   const changeVehicles = (type, value) => {
     const newReservation = {...reservation};
     const newVehicles = [...newReservation.Vehicles];

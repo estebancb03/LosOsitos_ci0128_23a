@@ -3,7 +3,7 @@ import useInsertReservation from "./useInsertReservation";
 import AxiosClient from "../config/AxiosClient";
 
 const useUpdateReservation = (reservation) => {
-  // Insert reservation hook
+
   const {
     insertNewTicket,
     insertNewSpot,
@@ -11,7 +11,6 @@ const useUpdateReservation = (reservation) => {
     insertNewVehicle,
   } = useInsertReservation(reservation);
 
-  // Method that updates the services
   const updateServices = async () => {
     try {
       const { ID, Reservation_Date, Services } = reservation;
@@ -33,7 +32,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the tickets
   const updateTickets = async () => {
     try {
       const { ID, Reservation_Date, Tickets } = reservation;
@@ -72,7 +70,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the spots
   const updateSpots = async () => {
     try {
       const { ID, Reservation_Date, Spots } = reservation;
@@ -103,7 +100,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the vehicles
   const updateVehicles = async () => {
     try {
       const { ID, Reservation_Date, Vehicles } = reservation;
@@ -131,7 +127,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the customer data
   const updatePersonData = async () => {
     try {
       const {
@@ -164,7 +159,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the data of a camping dates
   const updateStartEndDates = async () => {
     try {
       const { ID, Reservation_Date, Start_Date, End_Date } = reservation;
@@ -180,7 +174,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that updates the state
   const updateState = async () => {
     try {
       const { ID, Reservation_Date, Status } = reservation;
@@ -195,7 +188,6 @@ const useUpdateReservation = (reservation) => {
     }
   };
 
-  // Method that update all about the reservation
   const updateReservation = () => {
     updateSpots();
     updateTickets();

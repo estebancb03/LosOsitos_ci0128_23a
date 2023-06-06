@@ -14,7 +14,6 @@ import AddMainData from "./Add/AddMainData";
 import ShowFee from "./Show/ShowFee";
 
 const CreateReservation = (props) => {
-  // Props
   const {
     viewModal,
     setViewModal,
@@ -22,13 +21,9 @@ const CreateReservation = (props) => {
     setReservation,
     exitMethod
   } = props;
-  // Hook for reservations
   const {createReservation} = useReservations();
-  // Hook for insert reservations
   const {insertReservation} = useInsertReservation(reservation);
-  // Hook for validations
   const {validateInsertReservation, validateCapacity} = useValidations(reservation);
-  // Hook that calculates fees
   const {
     calculateAllTicketsFee,
     calculateAllSpotsFee,
@@ -36,7 +31,6 @@ const CreateReservation = (props) => {
     calculateTotalFee
   } = useCalculateFees(reservation);
 
-  // Method that saves the reservation
   const saveReservation = async () => {
     if (validateInsertReservation()) {
       if(await validateCapacity()) {
@@ -49,7 +43,6 @@ const CreateReservation = (props) => {
     }
   };
 
-  // The new reservation is inited
   useEffect(() => setReservation(createReservation), []);
 
   return (

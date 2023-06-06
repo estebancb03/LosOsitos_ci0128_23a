@@ -7,7 +7,6 @@ import {
 } from "../../../helpers/formatDate";
 
 const ShowMainData = (props) => {
-  // Props
   const {
     reservation,
     setReservation,

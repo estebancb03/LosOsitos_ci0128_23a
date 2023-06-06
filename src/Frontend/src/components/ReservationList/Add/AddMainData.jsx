@@ -4,10 +4,8 @@ import DatePickerButton from "../../Buttons/DatePickerButton";
 import { formatDateDTMMDDYYYY } from "../../../helpers/formatDate";
 
 const AddMainData = (props) => {
-  // Props
   const {reservation, setReservation} = props;
 
-  // Method that changes the reservation main data
   const changeMainData = (type, value) => {
     const newReservation = {...reservation};
     if (type === "type") {

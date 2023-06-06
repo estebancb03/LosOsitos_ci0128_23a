@@ -4,16 +4,13 @@ import DropDownSelect from "../../Buttons/DropDownSelect";
 import useSpot from "../../../hooks/useSpot";
 
 const AddSpot = (props) => {
-  // Props
   const {
     disabledElements,
     currentRecord,
     setCurrentRecord
   } = props;
-  // Spots hook
   const {spots, locations, searchSpotPrice, searchSpotSize, modifyNewSpot } = useSpot();
 
-  // Method that adds a new spot
   const addSpot = () => {
     const newCurrentRecord = {...currentRecord};
     let newSpots = [...currentRecord.NewSpots];
@@ -29,7 +26,6 @@ const AddSpot = (props) => {
     setCurrentRecord(newCurrentRecord);
   };
 
-  // Method that changes the spot data
   const changeSpot = (type, value) => {
     const newCurrentRecord = modifyNewSpot(type, value, currentRecord);
     setCurrentRecord(newCurrentRecord);

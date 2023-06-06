@@ -5,20 +5,15 @@ import InputButton from "../../Buttons/InputButton";
 import useTicket from "../../../hooks/useTicket";
 
 const AddTicket = (props) => {
-  // Props
   const {
     disabledElements,
     currentRecord,
     setCurrentRecord
   } = props;
-  // Ticket hook
   const {ticketOptions, formatTicket, extractTicketData, modifyNewTicket} = useTicket();
-  // State that controls the elements of the service dropdown
   const [availableTickets, setAvailableTickets] = useState([]);
-  // State that controls the button visibility
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
-  // Method that gets the tickets names
   const getTicketsNames = () => {
     if (currentRecord.Tickets) {
       return currentRecord.Tickets.map((ticket) => formatTicket(ticket));
@@ -26,7 +21,6 @@ const AddTicket = (props) => {
     return [];
   };
 
-  // Method that gets the new tickets names
   const getNewTicketsNames = () => {
     if (currentRecord.NewTickets.length !== 0) {
       return currentRecord.NewTickets.map((ticket) => formatTicket(ticket));
@@ -34,7 +28,6 @@ const AddTicket = (props) => {
     return [];
   };
 
-  // Method that compares all services with the reservation services
   const validateButtonVisibility = () => {
     const reservationTickets = getTicketsNames();
     const newReservationTickets = getNewTicketsNames();
@@ -44,7 +37,6 @@ const AddTicket = (props) => {
     }
   };
 
-  // Method that filter the available tickets
   const filterAvailableTickets = () => {
     const reservationTickets = getTicketsNames();
     const newAvailableTickets = availableTickets.filter(ticket => reservationTickets.includes(ticket) === false);
@@ -52,7 +44,6 @@ const AddTicket = (props) => {
     return newAvailableTickets;
   };
 
-  // Method that adds a new ticket
   const addTicket = () => {
     const currentAvailableTickets = filterAvailableTickets();
     const newCurrentRecord = {...currentRecord};

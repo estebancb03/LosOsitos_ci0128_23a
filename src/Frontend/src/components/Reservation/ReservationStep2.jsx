@@ -48,17 +48,20 @@ const ReservationStep2 = ({
 
   const waitForRemainingCapacity = async (date) => {
     try {
-      const result = await getRemainingCapacity(date, reservationData.Reservation_Type);
+      const result = await getRemainingCapacity(
+        date,
+        reservationData.Reservation_Type
+      );
       const temp = result.map((capacityObject) => {
         if (capacityObject.Reservation_Method == 0) {
           return capacityObject;
         }
-      })
+      });
       remainingCapacityLocal.push(temp[0]);
     } catch (exception) {
       console.error(exception);
     }
-  }
+  };
 
   const columnsNamesNames = [
     "Type",
@@ -156,12 +159,22 @@ const ReservationStep2 = ({
   };
 
   const checkCapacity = () => {
-    const desiredQuantity = reservationData.Reservation_Type == 1 ?
-      quantityAdultCamping + quantityChildCamping + quantityForeignAdultCamping + quantityForeignChildCamping
-    : quantityAdultPicnic + quantityChildPicnic + quantityForeignAdultPicnic + quantityForeignChildPicnic;
+    const desiredQuantity =
+      reservationData.Reservation_Type == 1
+        ? quantityAdultCamping +
+          quantityChildCamping +
+          quantityForeignAdultCamping +
+          quantityForeignChildCamping
+        : quantityAdultPicnic +
+          quantityChildPicnic +
+          quantityForeignAdultPicnic +
+          quantityForeignChildPicnic;
 
     let overflow = remainingCapacity.map((capacityObject) => {
-      if (capacityObject.Reservation_Method == 0 && desiredQuantity >= capacityObject.Remaining_Capacity) {
+      if (
+        capacityObject.Reservation_Method == 0 &&
+        desiredQuantity >= capacityObject.Remaining_Capacity
+      ) {
         return true;
       }
       return false;
@@ -169,7 +182,7 @@ const ReservationStep2 = ({
 
     const canAdd = overflow.length > 0 ? !overflow.includes(true) : true;
     return canAdd;
-  }
+  };
 
   const handleClickAdd = (e, quantityType) => {
     const canAdd = checkCapacity();
@@ -310,7 +323,6 @@ const ReservationStep2 = ({
       return true;
     } else {
       return false;
-      alert("To proceed, please buy at least one ticket");
     }
   };
 
@@ -409,21 +421,24 @@ const ReservationStep2 = ({
   }, []);
 
   useEffect(() => {
-    remainingCapacityLocal = []
+    remainingCapacityLocal = [];
     if (reservationData.Reservation_Type == 0) {
       waitForRemainingCapacity(reservationData.Reservation_Date);
     } else if (reservationData.Reservation_Type == 1) {
-      const dates = getDateRange(reservationData.Start_Date, reservationData.End_Date);
+      const dates = getDateRange(
+        reservationData.Start_Date,
+        reservationData.End_Date
+      );
       dates.map((date) => {
         waitForRemainingCapacity(date);
-      })
+      });
     }
     setRemainingCapacity(remainingCapacityLocal);
   }, []);
 
   useEffect(() => {
     console.log(remainingCapacity);
-  }, [remainingCapacity])
+  }, [remainingCapacity]);
 
   useEffect(() => {
     if (ticketsPrices) {
@@ -474,7 +489,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[0],
                     prices.PicnicNationalAdultCRC[0].Currency,
-                    prices.PicnicNationalAdultCRC[0].Price.toLocaleString('en-US'),
+                    prices.PicnicNationalAdultCRC[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityAdultPicnic,
                     <Button
                       text="+"
@@ -498,7 +515,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[1],
                     prices.PicnicNationalChildCRC[0].Currency,
-                    prices.PicnicNationalChildCRC[0].Price.toLocaleString('en-US'),
+                    prices.PicnicNationalChildCRC[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityChildPicnic,
                     <Button
                       text="+"
@@ -522,7 +541,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[2],
                     prices.PicnicInternationalAdultUSD[0].Currency,
-                    prices.PicnicInternationalAdultUSD[0].Price.toLocaleString('en-US'),
+                    prices.PicnicInternationalAdultUSD[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityForeignAdultPicnic,
                     <Button
                       text="+"
@@ -546,7 +567,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[3],
                     prices.PicnicInternationalChildUSD[0].Currency,
-                    prices.PicnicInternationalChildUSD[0].Price.toLocaleString('en-US'),
+                    prices.PicnicInternationalChildUSD[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityForeignChildPicnic,
                     <Button
                       text="+"
@@ -576,7 +599,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[0],
                     prices.CampingNationalAdultCRC[0].Currency,
-                    prices.CampingNationalAdultCRC[0].Price.toLocaleString('en-US'),
+                    prices.CampingNationalAdultCRC[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityAdultCamping,
                     <Button
                       text="+"
@@ -600,7 +625,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[1],
                     prices.CampingNationalChildCRC[0].Currency,
-                    prices.CampingNationalChildCRC[0].Price.toLocaleString('en-US'),
+                    prices.CampingNationalChildCRC[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityChildCamping,
                     <Button
                       text="+"
@@ -624,7 +651,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[2],
                     prices.CampingInternationalAdultUSD[0].Currency,
-                    prices.CampingInternationalAdultUSD[0].Price.toLocaleString('en-US'),
+                    prices.CampingInternationalAdultUSD[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityForeignAdultCamping,
                     <Button
                       text="+"
@@ -648,7 +677,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[3],
                     prices.CampingInternationalChildUSD[0].Currency,
-                    prices.CampingInternationalChildUSD[0].Price.toLocaleString('en-US'),
+                    prices.CampingInternationalChildUSD[0].Price.toLocaleString(
+                      "en-US"
+                    ),
                     quantityForeignChildCamping,
                     <Button
                       text="+"
@@ -670,8 +701,8 @@ const ReservationStep2 = ({
             </div>
           )}
           <p className="pt-4 pl-2">
-            * Note: Children between the ages of 6 and 12. If they are older, choose
-            an Adult ticket.
+            * Note: Children between the ages of 6 and 12. If they are older,
+            choose an Adult ticket.
           </p>
           <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
             <Button

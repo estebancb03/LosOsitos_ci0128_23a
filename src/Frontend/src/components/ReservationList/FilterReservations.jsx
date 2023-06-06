@@ -14,11 +14,9 @@ const FilterReservations = (props) => {
     setCurrentReservations,
     exitMethod
   } = props;
-  // Services options
   const { servicesNames } = useServices();
   const { handleFilter } = useReservationFilter(reservations);
 
-  // State that controls the filters that there are apply
   const [filters, setFilters] = useState({
     Reservation_Type: null,
     Reservation_Method: null,
@@ -28,7 +26,6 @@ const FilterReservations = (props) => {
     End_Date: null,
   });
 
-  // Method that changes the filters that will be applied
   const changeFiltersState = (type, value) => {
     const updatedFilters = { ...filters };
     if (type === "type") {
@@ -65,7 +62,6 @@ const FilterReservations = (props) => {
     setFilters(updatedFilters);
   };
 
-  // Method that apply the filters
   const apply = () => {
     const filteredReservations = handleFilter(filters);
     setCurrentReservations(filteredReservations);

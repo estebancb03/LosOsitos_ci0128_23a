@@ -3,7 +3,6 @@ import AxiosClient from "../config/AxiosClient";
 
 const usePerson = () => {
 
-  // Method that gets the person data of an id
   const getPersonData = async (reservation, setReservation) => {
     try {
       const url = `/person/${reservation.ID}`;
@@ -15,7 +14,6 @@ const usePerson = () => {
     }
   };
 
-  // Method that sets the person data into the reservation
   const setPersonData = (personData, reservation, setReservation) => {
     const newReservation = { ...reservation };
     if (personData.length !== 0) {
@@ -40,7 +38,6 @@ const usePerson = () => {
     setReservation(newReservation);
   };
 
-  // Method that changes the person data of the reservation
   const modifyPersonData = (type, value, reservation) => {
     const newReservation = {...reservation};
     if (type === "id") {

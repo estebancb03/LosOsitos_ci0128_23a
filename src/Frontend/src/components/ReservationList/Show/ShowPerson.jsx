@@ -9,18 +9,14 @@ import {
 } from "../../../helpers/formatDate";
 
 const  ShowPerson = (props) => {
-  // Props
   const {
     reservation,
     setReservation,
     disabledElements
   } = props;
-  // Person hook
   const {getPersonData, setPersonData, modifyPersonData} = usePerson(reservation, setReservation);
-  // Country hook
   const {countries} = useCountry();
   
-  // Method that changes the person data of the reservation
   const changePersonData = (type, value) => {
     const newReservation = modifyPersonData(type, value, reservation);
     setReservation(newReservation)

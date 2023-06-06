@@ -6,20 +6,15 @@ import DatePickerButton from "../../Buttons/DatePickerButton";
 import useServices from "../../../hooks/useServices";
 
 const AddService = (props) => {
-  // Props
   const {
     disabledElements,
     currentRecord,
     setCurrentRecord
   } = props;
-  // Services hook
   const {servicesNames, searchServicePrice, modifyService} = useServices();
-  // State that controls the elements of the service dropdown
   const [availableServices, setAvailableServices] = useState([]);
-  // State that controls the button visibility
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
-  // Method that gets reservation services names
   const getReservationServicesNames = () => {
     if (currentRecord.Services) {
       return currentRecord.Services.map((service) => service.Name_Service);
@@ -27,7 +22,6 @@ const AddService = (props) => {
     return [];
   };
 
-  // Method that gets reservation services names
   const getNewReservationServicesNames = () => {
     if (currentRecord.NewServices.length !== 0) {
       return currentRecord.NewServices.map((newService) => newService.Name_Service);
@@ -35,7 +29,6 @@ const AddService = (props) => {
     return [];
   };
 
-  // Method that compares all services with the reservation services
   const validateButtonVisibility = () => {
     const reservationServices = getReservationServicesNames();
     const newReservationServices = getNewReservationServicesNames();
@@ -45,7 +38,6 @@ const AddService = (props) => {
     }
   };
 
-  // Method that filter the available services
   const filterAvailableServices = () => {
     const reservationServices = getReservationServicesNames();
     const newAvailableServices = availableServices.filter(service => reservationServices.includes(service) === false);
@@ -53,7 +45,6 @@ const AddService = (props) => {
     return newAvailableServices;
   };
 
-  // Method that adds a service element
   const addService = () => {
     const currentAvailableServices = filterAvailableServices();
     const newCurrentRecord = {...currentRecord};
@@ -70,7 +61,6 @@ const AddService = (props) => {
     setCurrentRecord(newCurrentRecord);
   };
 
-  // Method that modify the currentRecord
   const changeService = (type, value) => {
     const newCurrentRecord = modifyService(type, value, currentRecord);
     setCurrentRecord(newCurrentRecord);

@@ -6,18 +6,14 @@ import ShowFee from "./ShowFee";
 import useCalculateFees from "../../../hooks/useCalculateFees";
 
 const ShowServices = (props) => {
-  // Props
   const {
     disabledElements,
     reservation,
     setReservation
   } = props;
-  // Services hook
   const {searchServicePrice} = useServices();
-  // Fees hook
   const { calculateAllServicesFee } = useCalculateFees(reservation);
 
-  // Method that changes the service
   const changeService = (type, value) => {
     const newReservation = {...reservation};
     const newServices = [...reservation.Services];
