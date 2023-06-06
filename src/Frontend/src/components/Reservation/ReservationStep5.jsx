@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Title from "../Title";
 import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
+import useCalculateFees from "../../hooks/useCalculateFees";
 // Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
 
@@ -22,6 +23,7 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
+  const {calculateTotalFee} = useCalculateFees(reservationData);
   const [files, setFiles] = useState([]);
   const [filesBase64, setFilesBase64] = useState("");
   const [checkbox, setCheckbox] = useState(false);
@@ -153,6 +155,8 @@ const ReservationStep5 = ({
       await insertReservationType();
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
+      const bill = calculateTotalFee();
+      console.log(bill);
       newWindows.Step5 = false;
       newWindows.Step6 = true;
       newReservationData.Payment_Proof = filesBase64;
@@ -160,6 +164,8 @@ const ReservationStep5 = ({
         data: newReservationData.ID + newReservationData.Reservation_Date,
         mail: newReservationData.Email,
         text: reservationData,
+        crcBill: parseInt(bill[0]),
+        usdBill: bill[1].toFixed(2)
       };
       setReservationData(newReservationData);
       setWindows(newWindows);
