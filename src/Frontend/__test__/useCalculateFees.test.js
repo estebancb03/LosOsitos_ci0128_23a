@@ -110,4 +110,22 @@ describe('useCalculateFees', () => {
     const resultTicketsFee = calculateServicesFee();
     expect(resultTicketsFee).toEqual(expectedResult);
   });
+
+  test("applyExchange ", () => {
+    const { result } = renderHook(() => useCalculateFees({
+      exchange: {
+        CRC: 0.0019,
+        USD: 536.52
+      }
+    }));
+  
+    const { applyExchange } = result.current;
+
+    const nationalFee = {fee: 5000}
+    const foreignFee = {fee: 9}
+
+    const expectedResult = [9832.993233809473, 18.305268643105727];
+    const resultTicketsFee = applyExchange(nationalFee, foreignFee);
+    expect(resultTicketsFee).toEqual(expectedResult);
+  });
 });
