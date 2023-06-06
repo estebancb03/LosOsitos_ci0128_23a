@@ -1,20 +1,11 @@
 import { useState, useEffect } from "react";
-import Title from "../Title";
 import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
 import useCalculateFees from "../../hooks/useCalculateFees";
-// Import React FilePond
 import { FilePond, registerPlugin } from "react-filepond";
-
-// Import FilePond styles
 import "filepond/dist/filepond.min.css";
-
-// Import the plugin code
 import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-// Register the plugin
 registerPlugin(FilePondPluginFileEncode);
-
-// Import Checkbox
 import { Checkbox } from "antd";
 
 const ReservationStep5 = ({
@@ -28,7 +19,7 @@ const ReservationStep5 = ({
   const [filesBase64, setFilesBase64] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
-  const saveBase64 = (setFilesBase64, files, filesBase64) => {
+  const saveBase64 = (setFilesBase64, files) => {
     if (files.length != 0) {
       setFilesBase64(files[0].getFileEncodeBase64String());
     }
@@ -74,7 +65,6 @@ const ReservationStep5 = ({
     }
   };
 
-  // Method tha inserts a reservation
   const insertReservation = async () => {
     try {
       console.log("reservation");
@@ -93,7 +83,6 @@ const ReservationStep5 = ({
     }
   };
 
-  // Method that inserts a reservation ticket
   const insertReservationTicket = async () => {
     try {
       console.log("tickets");
@@ -119,7 +108,6 @@ const ReservationStep5 = ({
     }
   };
 
-  // Method that inserts a camping or a picnic
   const insertReservationType = async () => {
     try {
       console.log("reservation type");
@@ -178,7 +166,6 @@ const ReservationStep5 = ({
     }
   };
 
-  // Method to send data to be emailed
   const sendQRData = async (value) => {
     try {
       console.log(value);
@@ -193,7 +180,7 @@ const ReservationStep5 = ({
   };
 
   useEffect(() => {
-    saveBase64(setFilesBase64, files, filesBase64);
+    saveBase64(setFilesBase64, files);
   });
 
   return (

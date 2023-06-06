@@ -3,7 +3,6 @@ import AxiosClient from "../config/AxiosClient";
 
 const useValidations = (reservation) => {
   
-  // Method that validates the remaining capacity
   const getRemainingCapacity = async (date) => {
     let result = [];
     try {
@@ -16,7 +15,6 @@ const useValidations = (reservation) => {
     return result;
   }
 
-  // Method that validates the capacity for camping reservation
   const validateCapacityForCamping = async () => {
     let result = true;
     let persons = 0;
@@ -52,7 +50,6 @@ const useValidations = (reservation) => {
     return result;
   };
 
-  // Method that validates the capacity for picnic reservation
   const validateCapacityForPicnic = async () => {
     let result = false;
     let persons = 0;
@@ -83,7 +80,6 @@ const useValidations = (reservation) => {
     return result;
   };
 
-  // Method that validates the capacity for picnic reservation
   const validateCapacity = async () => {
     let result = false;
     if (reservation.Reservation_Type === 0) {
@@ -94,7 +90,6 @@ const useValidations = (reservation) => {
     return result;
   };
 
-  // Method that validates the personal data
   const validatePersonalData = () => {
     const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
     const regexID = /^[0-9\s]+$/;
@@ -115,7 +110,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates dates
   const validateDates = () => {
     let result = false;
     if (reservation.Reservation_Type === 0) {
@@ -134,7 +128,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates new tickets
   const validateNewTickets = () => {
     let result = false;
     reservation.NewTickets.map((ticket) => {
@@ -151,7 +144,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates tickets
   const validateTickets = () => {
     let result = false;
     reservation.Tickets.map((ticket) => {
@@ -165,7 +157,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates new services
   const validateNewServices = () => {
     let result = true;
     if (reservation.NewServices.length !== 0) {
@@ -181,7 +172,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates services
   const validateServices = () => {
     let result = true;
     if (reservation.Services) {
@@ -197,7 +187,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates the spots
   const validateNewSpots = () => {
     let result = true;
     if (reservation.Reservation_Type === 1) {
@@ -208,7 +197,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates new reservation
   const validateInsertReservation = () => {
     let result = false;
     if (
@@ -223,7 +211,6 @@ const useValidations = (reservation) => {
     return result;
   };
   
-  // Method that validates new reservation
   const validateUpdateReservation = () => {
     let result = false;
     if (

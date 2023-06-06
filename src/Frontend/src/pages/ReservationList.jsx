@@ -15,19 +15,12 @@ import FilterReservations from "../components/ReservationList/FilterReservations
 import CreateReservation from "../components/ReservationList/CreateReservation.jsx";
 
 const ReservationList = () => {
-  // Contains all reservations
   const { reservations, fetch, formatReservations, createReservation } = useReservations();
-  // State that controls current reservations
   const [currentReservations, setCurrentReservations] = useState([]);
-  // State that controls the selected reservation
   const [selectedReservation, setSelectedReservation] = useState({});
-  // State that controls the new reservation
   const [newReservation, setNewReservation] = useState({});
-  // State that controls the modal
   const [viewModal, setViewModal] = useState(false);
-  // State that controls the create reservation modal
   const [viewCreateModal, setViewCreateModal] = useState(false);
-  // Table columns
   const tableColumns = [
     "Id",
     "Customer",
@@ -40,7 +33,6 @@ const ReservationList = () => {
     "Action",
   ];
 
-  // Method that gets the selected reservation
   const getSelectedReservation = (ID, Reservation_Date) => {
     const result = currentReservations.filter((reservation) =>
       reservation.ID === ID && reservation.Reservation_Date === Reservation_Date
@@ -49,7 +41,6 @@ const ReservationList = () => {
     setViewModal(true);
   };
 
-  // Method that update the info
   const refreshRecords = () => {
     setSelectedReservation({});
     setNewReservation(createReservation);

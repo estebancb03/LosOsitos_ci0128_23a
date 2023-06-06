@@ -12,12 +12,9 @@ const ShowTickets = (props) => {
     reservation,
     setReservation
   } = props;
-  // Tickets hook
   const {ticketOptions, ticketPrices, formatTicket, modifyTicket} = useTicket();
-  // Fees hook
   const { calculateAllTicketsFee } = useCalculateFees(reservation);
 
-  // Method that changes the ticket data
   const changeTicket = (type, value) => {
     const newReservation = modifyTicket(type, value, reservation);
     setReservation(newReservation);

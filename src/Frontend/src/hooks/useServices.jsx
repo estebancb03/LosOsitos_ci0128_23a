@@ -3,12 +3,9 @@ import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useServices = () => {
-  // State that controls the services names
   const [servicesNames, setServicesNames] = useState([]);
-  // State that controls the services prices
   const [servicesPrices, setServicesPrices] = useState([]);
 
-  // Method that gets the services names
   const fetchServicesNames = async () => {
     try {
       const url = "/getServicesOptions";
@@ -20,7 +17,6 @@ const useServices = () => {
     }
   };
 
-  // Method that gets the services prices
   const fetchServicesPrices = async () => {
     try {
       const url = "/service-prices";
@@ -31,7 +27,6 @@ const useServices = () => {
     }
   };
 
-  // Method that gets the price of a service
   const searchServicePrice = (nameService, currency) => {
     if (servicesPrices.length > 0) {
       const result = servicesPrices.filter((price) => price.Name_Service === nameService && price.Currency === currency);
@@ -39,7 +34,6 @@ const useServices = () => {
     }
   };
 
-  // Method that modify a new service
   const modifyService = (type, value, reservation) => {
     const newReservation = {...reservation};
     const newServices = [...reservation.NewServices];

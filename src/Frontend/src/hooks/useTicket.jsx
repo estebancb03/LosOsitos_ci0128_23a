@@ -3,17 +3,15 @@ import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useTicket = () => {
-  // Ticket options
+
   const ticketOptions = [
     "National-Children",
     "National-Adult",
     "Foreign-Children",
     "Foreign-Adult"
   ];
-  // State that constrols the prices
   const [ticketPrices, setTicketPrices] = useState([]);
 
-  // Method that formats the ticket information
   const formatTicket = (ticket) => {
     const {Age_Range, Demographic_Group} = ticket;
     const resultAgeRange = Age_Range == 0 ? "Children" : "Adult";
@@ -22,7 +20,6 @@ const useTicket = () => {
     return resultDemographicGroup + "-" + resultAgeRange;
   };
 
-  // Method that formats the ticket prices
   const formatTicketPrices = async () => {
     const usdTicketPrices = await getUSDTickets();
     const crcTicketPrices = await getCRCTickets();
@@ -30,7 +27,6 @@ const useTicket = () => {
     setTicketPrices(formatedTicketPrices);
   };
 
-  // Method that gets the usd tickets
   const getUSDTickets = async () => {
     try {
       const url = '/ticket-prices-usd';
@@ -41,7 +37,6 @@ const useTicket = () => {
     }
   };
 
-  // Method that gets the crc tickets
   const getCRCTickets = async () => {
     try {
       const url = '/ticket-prices-crc';
@@ -52,7 +47,6 @@ const useTicket = () => {
     }
   };
 
-  // Method that changes the data of a ticket
   const modifyTicket = (type, value, reservation) => {
     const newReservation = {...reservation};
     const newTickets = [...reservation.Tickets];
@@ -90,7 +84,6 @@ const useTicket = () => {
     return newReservation;
   };
 
-  // Method that get the price by age range, demographic group, reservation type and currency
   const getPriceByARDGCurrency = async (Age_Range, Demographic_Group, Reservation_Type, Ticket) => {
     const filteredPrices = ticketPrices.filter((ticket) =>
       ticket.Age_Range === Age_Range &&
@@ -100,7 +93,6 @@ const useTicket = () => {
     Ticket.Price = filteredPrices[0].Price;
   }
 
-  // Method that extracts the data of a ticket
   const extractTicketData = (ticketName, Reservation_Type) => {
     const data = {
       Age_Range: 0,

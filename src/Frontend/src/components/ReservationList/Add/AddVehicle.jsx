@@ -2,14 +2,12 @@ import Button from "../../Buttons/Button";
 import InputButton from "../../Buttons/InputButton";
 
 const AddVehicle = (props) => {
-  // Props
   const {
     disabledElements,
     currentRecord,
     setCurrentRecord
   } = props;
 
-  // Method that adds a input and a "" to the array
   const addVehicle = () => {
     const newMainRecordInfo = { ...currentRecord };
     let vehicles = [...currentRecord.NewVehicles];
@@ -18,7 +16,6 @@ const AddVehicle = (props) => {
     setCurrentRecord(newMainRecordInfo);
   };
 
-  // Method that changes the vehicle
   const changeVehicle = (type, value) => {
     const newRecord = { ...currentRecord };
     if (type[0] === "newVehicles") {

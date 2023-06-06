@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useExchange = () => {
-  // State that controls the exchange
   const [exchange, setExchange] = useState({});
-  // State that controls if its loaded
   const [loaded, setLoaded] = useState(false);
 
   // Method that fetch the exchange

@@ -80,6 +80,7 @@ const Tickets = () => {
   };
 
   const checkValuesEntered = (index) => {
+    // Regex that checks that user can only type positive numbers with decimals.
     const regex = /^(?!.*[,])\d+(\.\d+)?$/;
     let successfulConversion = true;
     switch (index) {
@@ -105,7 +106,7 @@ const Tickets = () => {
         break;
 
       case 3:
-        regex.test(foreignAdultPicnicPrice.toFixed(2))
+        regex.test(foreignAdultPicnicPrice)
           ? setForeignAdultPicnicPrice(parseFloat(foreignAdultPicnicPrice))
           : (successfulConversion = false);
 

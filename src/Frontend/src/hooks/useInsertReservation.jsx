@@ -2,7 +2,7 @@ import React from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useInsertReservation = (reservation) => {
-  // Method that inserts a new vehicle
+
   const insertNewVehicle = async () => {
     try {
       const { ID, Reservation_Date, NewVehicles } = reservation;
@@ -20,8 +20,6 @@ const useInsertReservation = (reservation) => {
       console.log(exception);
     }
   };
-
-  // Method that inserts a new service
   const insertNewService = async () => {
     try {
       const { ID, Reservation_Date, NewServices } = reservation;
@@ -43,7 +41,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a new ticket
   const insertNewTicket = async () => {
     try {
       const { ID, Reservation_Date, Reservation_Type, NewTickets } = reservation;
@@ -67,7 +64,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a new spot
   const insertNewSpot = async () => {
     try {
       const { ID, Reservation_Date, NewSpots } = reservation;
@@ -88,7 +84,6 @@ const useInsertReservation = (reservation) => {
     }
   };
   
-  // Method that inserts a new person
   const insertPersonData = async () => {
     try {
       const {
@@ -119,7 +114,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a client
   const insertClient = async () => {
     try {
       const { ID } = reservation;
@@ -132,7 +126,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a reservation
   const insertMainData = async () => {
     try {
       const {
@@ -156,7 +149,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a Picnic
   const insertPicnic = async () => {
     try {
       const {
@@ -175,7 +167,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a Camping
   const insertCamping = async () => {
     try {
       const {
@@ -196,7 +187,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts a Reservation_Type
   const insertReservationType = async () => {
     if (reservation.Reservation_Type === 0) {
       await insertPicnic();
@@ -205,7 +195,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  // Method that inserts all the data
   const insertReservation = async () => {
     await insertPersonData();
     await insertClient();

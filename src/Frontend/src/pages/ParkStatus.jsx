@@ -13,8 +13,8 @@ import { useState, useEffect } from "react";
 const ParkStatus = () => {
 
   const [statusData, setStatusData] = useState({});
-
   const [selectedDate, setSelectedDate] = useState(new Date());
+  
   const changeSelectedDate = (type, value) => {
     setSelectedDate(value);
   };
