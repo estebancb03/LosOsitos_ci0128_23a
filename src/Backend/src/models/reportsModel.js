@@ -8,7 +8,6 @@ export const getIncomeData = async (req, res) => {
       end_date, 
       file_type
     } = req.params;
-    console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
       input("start_date", sql.DateTime, start_date).
@@ -18,12 +17,10 @@ export const getIncomeData = async (req, res) => {
     if (file_type == "CSV") {
       res.status(200);
       const report = generateCSV(result.recordset);
-      console.log(report);
       res.send(report)
     } else if (file_type == "Excel") {
       res.status(200);
       const workbook = generateXLSX(result.recordset);
-
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
       await workbook.xlsx.write(res);
@@ -42,7 +39,6 @@ export const getVisitationData = async (req, res) => {
       end_date, 
       file_type
     } = req.params;
-    console.log(req.params);
     const pool = await getConnection();
     let result = await pool.request().
       input("start_date", sql.DateTime, start_date).
@@ -52,12 +48,10 @@ export const getVisitationData = async (req, res) => {
     if (file_type == "CSV") {
       res.status(200);
       const report = generateCSV(result.recordset);
-      console.log(report);
       res.send(report)
     } else if (file_type == "Excel") {
       res.status(200);
       const workbook = generateXLSX(result.recordset);
-
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
       await workbook.xlsx.write(res);
