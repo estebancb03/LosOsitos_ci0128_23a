@@ -7,6 +7,8 @@ import Button from "../components/Buttons/Button";
 import { downloadCSV, downloadXLSX } from "../helpers/fileDownloader";
 import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
+import NavMenu from "../components/NavMenu/NavMenu";
+import Footer from "../components/Footer/Footer";
 
 const reportTypes = ["Income", "Visitors"];
 const fileFormats = ["CSV", "Excel"];
@@ -71,6 +73,7 @@ const Reports = () => {
 
   return (
     <>
+    <NavMenu />
       <Container>
         <Title name="Reports" />
         <div className="grid grid-cols-5 gap-4 my-5 sm:grid-cols-2">
@@ -113,6 +116,7 @@ const Reports = () => {
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   );
 };

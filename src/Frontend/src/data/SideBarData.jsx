@@ -40,32 +40,8 @@ const SideBarData = [
   },
   {
     title: "Reports",
-    path: "",
+    path: "/admin/reports",
     icon: <BsIcons.BsFillFileBarGraphFill />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subnav: [
-      {
-        title: "Sales",
-        path: "/sales-report",
-        icon: <IoIcons.IoIosCalculator />,
-      },
-      {
-        title: "Income",
-        path: "/income-report",
-        icon: <SiIcons.SiCashapp />,
-      },
-      {
-        title: "Taxes",
-        path: "/taxes-report",
-        icon: <HiIcons.HiReceiptTax />,
-      },
-      {
-        title: "Bills",
-        path: "/bills-report",
-        icon: <RiIcons.RiBillFill />,
-      },
-    ],
   },
 ];
 

@@ -97,10 +97,11 @@ const useValidations = (reservation) => {
   // Method that validates the personal data
   const validatePersonalData = () => {
     const regexEmail = new RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
-    const regexName = /^[\w ]+$/;
+    const regexID = /^[0-9\s]+$/;
+    const regexName = /^[a-zA-ZñáéíóúÁÉÍÓÚ ]+$/;
     let result = false;
     if (
-      reservation.ID !== "" &&
+      reservation.ID !== "" && regexID.test(reservation.ID) &&
       reservation.Name !== "" && regexName.test(reservation.Name) &&
       reservation.LastName1 !== "" && regexName.test(reservation.LastName1) &&
       reservation.LastName2 !== "" && regexName.test(reservation.LastName2) &&
@@ -110,6 +111,8 @@ const useValidations = (reservation) => {
       reservation.Country_Name !== ""
     ) {
       result = true;
+    } else {
+      console.log("Picha");
     }
     return result;
   };

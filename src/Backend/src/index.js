@@ -58,9 +58,6 @@ app.use('/api', serviceReservationRoutes);
 app.use('/api', parkStatus);
 app.use('/api', settingCapacityRoutes);
 
-
-//app.use('/api', reservationListRoutes);
-
 app.listen(port, () => {
   console.log(`[] LosOsitos Server running on port ${port}`);
 });
