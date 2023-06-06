@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import Button from "../Buttons/Button";
+import useReservations from "../../hooks/useReservations";
 
 const ReservationStep0 = ({
   windows,
@@ -7,6 +8,8 @@ const ReservationStep0 = ({
   reservationData,
   setReservationData,
 }) => {
+  const { createOnlineReservation } = useReservations();
+
   // Method that updates the reservation data
   const updateReservationData = (Reservation_Type) => {
     const newReservationData = {...reservationData};
@@ -17,6 +20,8 @@ const ReservationStep0 = ({
     setReservationData(newReservationData);
     setWindows(newWindows);
   };
+
+  useEffect(() => setReservationData(createOnlineReservation()), []);
 
   return (
     <>

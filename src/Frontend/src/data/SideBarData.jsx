@@ -14,6 +14,11 @@ const SideBarData = [
     icon: <SiIcons.SiAddthis />,
   },
   {
+    title: "Park Status",
+    path: "/admin/park-status",
+    icon: <BsIcons.BsFillPersonCheckFill />,
+  },
+  {
     title: "Testimonials",
     path: "/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,
@@ -25,7 +30,7 @@ const SideBarData = [
   },
   {
     title: "Settings",
-    path: "/settings",
+    path: "/admin/settings",
     icon: <MdIcons.MdSettings />,
   },
   {
@@ -35,32 +40,8 @@ const SideBarData = [
   },
   {
     title: "Reports",
-    path: "",
+    path: "/admin/reports",
     icon: <BsIcons.BsFillFileBarGraphFill />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subnav: [
-      {
-        title: "Sales",
-        path: "/sales-report",
-        icon: <IoIcons.IoIosCalculator />,
-      },
-      {
-        title: "Income",
-        path: "/income-report",
-        icon: <SiIcons.SiCashapp />,
-      },
-      {
-        title: "Taxes",
-        path: "/taxes-report",
-        icon: <HiIcons.HiReceiptTax />,
-      },
-      {
-        title: "Bills",
-        path: "/bills-report",
-        icon: <RiIcons.RiBillFill />,
-      },
-    ],
   },
 ];
 

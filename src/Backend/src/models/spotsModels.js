@@ -1,4 +1,3 @@
-import mssql from "mssql";
 import { getConnection } from "../config/db.js";
 
 const getAvailableSpotsByDates = async (req, res) => {
@@ -14,7 +13,6 @@ const getAvailableSpotsByDates = async (req, res) => {
       .query(
         "SELECT S.Location, S.Size, Spot_Price.Price, Spot_Price.Currency FROM Spot S JOIN Spot_Price ON S.Location = Spot_Price.Location_Spot WHERE NOT EXISTS( SELECT * FROM Spot_Camping WHERE (Reservation_Date BETWEEN @startDateObj AND @endDateObj) AND S.Location = Spot_Camping.Location_Spot)"
       );
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -22,31 +20,19 @@ const getAvailableSpotsByDates = async (req, res) => {
   }
 };
 
-// Method that inserts a spot camping
-const insertSpotCamping = async (req, res) => {
+const getAllSpots = async (req, res) => {
   try {
-    console.log(req.body)
-    const {
-      ID_Client,
-      Reservation_Date,
-      Location_Spot,
-      Price
-    } = req.body;
     const pool = await getConnection();
-    await pool.query(
-      `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price})`
-    );
+    const result = await pool.request().query(`SELECT * FROM Spot`);
     res.status(200);
-    console.log("The insert to the Spot_Camping was successful");
-    res.send('The insert to the Spot_Camping was successful');
+    res.json(result.recordset);
   } catch (error) {
     res.status(500);
     res.send(error.message);
-    console.log(error.message);
   }
 };
 
 export { 
   getAvailableSpotsByDates,
-  insertSpotCamping
+  getAllSpots
 };

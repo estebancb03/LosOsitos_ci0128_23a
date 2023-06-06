@@ -4,7 +4,6 @@ const getPrices = async (req, res) => {
   try {
     const pool = await getConnection();
     const result = await pool.request().query("SELECT * FROM Service_Price");
-    console.log(result);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
