@@ -1,0 +1,8 @@
+export const countryRoute = "/country"
+export const ticketPricesRoute = "/ticket-prices"
+export const servicesPricesRoute = "/service-prices"
+export const personRoute = "/person"
+export const incomeReporteRoute = "/income"
+export const visitationReportRoute = "/visitation"
+export const campingCapacityRoute = "/getCampingCapacity"
+export const picnicCapacityRoute = "/getPicnicCapacity"
