@@ -35,6 +35,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
+        State
       } = reservationData;
       const url = "/person";
       await AxiosClient.post(url, {
@@ -46,6 +47,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
+        State
       });
     } catch (exception) {
       console.log(exception);
