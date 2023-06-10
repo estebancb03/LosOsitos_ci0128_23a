@@ -60,7 +60,7 @@ Los archivos de pruebas unitarias se encuentran en la carpeta de ```__test__``` 
 
 ## Diseño de la aplicación
 
-La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente.
+La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente. Para más información, refierase al directorio [design](design/README.md).
 
 ### Mockup
 
