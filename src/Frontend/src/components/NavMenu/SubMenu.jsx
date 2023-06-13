@@ -16,7 +16,7 @@ const SubMenu = ({ item }) => {
             to={item.path}
             className="
               flex text-gray-300 items-center h-16 text-lg
-              hover:bg-[#6545e6] cursor-pointer hover:border-gray-300 border-transparent border-2"
+              hover:bg-[#efefd0] hover:text-black cursor-pointer hover:border-gray-300 border-transparent border-2"
             onClick={item.subnav && showIcon}
           >
             <span className="ml-4">{item.icon}</span>
