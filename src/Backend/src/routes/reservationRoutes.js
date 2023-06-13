@@ -1,5 +1,13 @@
 import { Router } from "express";
-import { insertReservation, getReservations, getMainInfoByReservationID, getRecordsServices, getStateByReservationID, updateState } from "../models/reservationModel.js";
+import {
+  insertReservation,
+  getReservations,
+  getMainInfoByReservationID,
+  getRecordsServices,
+  getStateByReservationID,
+  updateState,
+  deleteReservation
+} from "../models/reservationModel.js";
 
 const router = Router();
 
@@ -14,5 +22,7 @@ router.get("/getStateByReservationID/:ID/:Reservation_Date", getStateByReservati
 router.put("/updateState", updateState);
 
 router.post("/reservation", insertReservation);
+
+router.delete("/reservation", deleteReservation);
 
 export default router;
