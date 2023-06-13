@@ -30,7 +30,8 @@ const ReservationList = () => {
     "Start date",
     "End date",
     "Services",
-    "Action",
+    "View",
+    "Delete"
   ];
 
   const getSelectedReservation = (ID, Reservation_Date) => {
@@ -63,7 +64,7 @@ const ReservationList = () => {
           exitMethod={refreshRecords}
         />
         <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
-          <Button text="Create Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
+          <Button text="Book Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
         </div>
         <CreateReservation
           viewModal={viewCreateModal}
@@ -109,6 +110,11 @@ const ReservationList = () => {
                   type="modify"
                   onclickFunction={(e) => getSelectedReservation(reservation.ID, reservation.Reservation_Date)}
                 />,
+                <Button
+                  text="Delete"
+                  type="delete"
+                  onclickFunction={(e) => {}}
+                />
               ]}
             />
           ))}
