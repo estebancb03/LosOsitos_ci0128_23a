@@ -120,4 +120,31 @@ const updateState = async (req, res) => {
   }
 };
 
-export { insertReservation, getReservations, getMainInfoByReservationID, getRecordsServices, getStateByReservationID, updateState};
+// Method that deletes a reservation
+const deleteReservation = async (req, res) => {
+  try {
+    const {
+      ID,
+      Reservation_Date
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `DELETE Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      );
+    res.status(200);
+    console.log("The delete to the Reservation was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+export {
+  insertReservation,
+  getReservations,
+  getMainInfoByReservationID,
+  getRecordsServices,
+  getStateByReservationID,
+  updateState,
+  deleteReservation
+};
