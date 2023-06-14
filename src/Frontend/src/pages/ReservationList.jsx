@@ -8,6 +8,7 @@ import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import useReservations from "../hooks/useReservations";
+import useDeleteReservation from "../hooks/useDeleteReservation";
 import Container from "../components/Containers/Container";
 import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import ShowReservation from "../components/ReservationList/ShowReservation.jsx";
@@ -15,6 +16,7 @@ import FilterReservations from "../components/ReservationList/FilterReservations
 import CreateReservation from "../components/ReservationList/CreateReservation.jsx";
 
 const ReservationList = () => {
+  const { deleteReservation } = useDeleteReservation();
   const { reservations, fetch, formatReservations, createReservation } = useReservations();
   const [currentReservations, setCurrentReservations] = useState([]);
   const [selectedReservation, setSelectedReservation] = useState({});
@@ -40,6 +42,16 @@ const ReservationList = () => {
     );
     setSelectedReservation(result[0]);
     setViewModal(true);
+  };
+
+  const deleteSelectedReservation = (ID, Reservation_Date) => {
+    const result = currentReservations.filter((reservation) =>
+      reservation.ID === ID && reservation.Reservation_Date === Reservation_Date
+    );
+    if (confirm("Are you sure to delete this reservation?")) {
+       deleteReservation(result[0]);
+      refreshRecords();
+    }
   };
 
   const refreshRecords = () => {
@@ -113,7 +125,7 @@ const ReservationList = () => {
                 <Button
                   text="Delete"
                   type="delete"
-                  onclickFunction={(e) => {}}
+                  onclickFunction={(e) => deleteSelectedReservation(reservation.ID, reservation.Reservation_Date)}
                 />
               ]}
             />
