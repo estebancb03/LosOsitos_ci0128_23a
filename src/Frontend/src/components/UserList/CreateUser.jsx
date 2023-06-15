@@ -16,7 +16,7 @@ const CreateUser = (props) => {
     setUser,
     exitMethod
   } = props;
-  const { modifyUserData } = useUser();
+  const { modifyUserData, insertPerson, insertUser } = useUser();
   const { validatePersonalData, validateUser } = useValidations(user);
 
   const changeUser = (type, value) => {
@@ -28,6 +28,8 @@ const CreateUser = (props) => {
     const personDataValidation = await validatePersonalData();
     const userValidation = await validateUser();
     if (personDataValidation && userValidation) {
+      await insertPerson(user);
+      await insertUser(user);
       alert("User created successfully");
     } else {
       if (personDataValidation === false) {
