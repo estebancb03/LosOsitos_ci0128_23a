@@ -59,8 +59,25 @@ const insertEmployee = async (req, res) => {
   }
 };
 
+const deleteEmployee = async (req, res) => {
+  try {
+    const { Username } = req.params;
+    const pool = await getConnection();
+    await pool.query(
+      `DELETE FROM Employee WHERE Username = '${Username}'`
+      );
+    res.status(200);
+    res.send("The delete to the Employee was successfull");
+    console.log("The delete to the Employee was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   checkUsername,
   getEmployees,
-  insertEmployee
+  insertEmployee,
+  deleteEmployee
 };
