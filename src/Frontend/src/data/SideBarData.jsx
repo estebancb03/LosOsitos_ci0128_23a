@@ -19,6 +19,11 @@ const SideBarData = [
     icon: <BsIcons.BsFillPersonCheckFill />,
   },
   {
+    title: "User List",
+    path: "/admin/user-list",
+    icon: <FaIcons.FaUser />,
+  },
+  {
     title: "Testimonials",
     path: "/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,
