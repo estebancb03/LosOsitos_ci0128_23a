@@ -14,7 +14,7 @@ import useUser from "../hooks/useUser";
 const UserList = () => {
   const [user, setUser] = useState({});
   const [viewModal, setViewModal] = useState(false);
-  const { users, fetchUsers , createUser } = useUser();
+  const { users, fetchUsers , createUser, deleteUser } = useUser();
   const tableColumns = [
     "Id",
     "Username",
@@ -28,6 +28,13 @@ const UserList = () => {
   const exitMethod = () => {
     setUser(createUser());
     fetchUsers();
+  };
+
+  const deleteSelectedUser = async (selectedUser) => {
+    if (confirm("Are you sure to delete this user?")) {
+      await deleteUser(selectedUser);
+      await fetchUsers();
+    }
   };
 
   useEffect(() => setUser(createUser()), []);
@@ -64,7 +71,7 @@ const UserList = () => {
                 <Button
                   text="Delete"
                   type="delete"
-                  onclickFunction={(e) => {}}
+                  onclickFunction={(e) => deleteSelectedUser(user)}
                 />
               ]}
             />

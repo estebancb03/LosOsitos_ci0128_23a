@@ -98,6 +98,16 @@ const useUser = () => {
     }
   };
 
+  const deleteUser = async (user) => {
+    try {
+      const { Username } = user;
+      const url = `/employee/${Username}`;
+      await AxiosClient.delete(url);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   useEffect(() => fetchUsers, []);
 
   return {
@@ -106,7 +116,8 @@ const useUser = () => {
     modifyUserData,
     fetchUsers,
     insertPerson,
-    insertUser
+    insertUser,
+    deleteUser
   };
 };
 
