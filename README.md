@@ -58,7 +58,7 @@ npm test useTicket.test.js
 ```
 Los archivos de pruebas unitarias se encuentran en la carpeta de ```__test__``` de cada aplicación.
 
-### Despligue para producción
+### Despliegue para producción
 
 Para subir la aplicación a un servidor de producción antes se debe realizar un ```build``` a la aplicación del Frontend, para esto hay que dirigirse a la carpeta ```src/Frontend``` y ejecutar el siguiente comando:
 ```
