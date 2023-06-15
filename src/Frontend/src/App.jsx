@@ -7,6 +7,7 @@ import Reservation from "./pages/Reservation";
 import Reports from "./pages/Reports";
 import ParkStatus from "./pages/ParkStatus";
 import Settings from "./pages/Settings";
+import CreateUser from "./pages/CreateUser"
 import "filepond/dist/filepond.min.css";
 
 const App = () => {
@@ -35,7 +36,7 @@ const App = () => {
           <Route path="reports" element={<Reports />} />
           <Route path="settings" element={<Settings/>} />
           <Route path="park-status" element={<ParkStatus />} />
-
+          <Route path="create-user" element={<CreateUser />} />
         </Route>
       </Routes>
     </BrowserRouter>
