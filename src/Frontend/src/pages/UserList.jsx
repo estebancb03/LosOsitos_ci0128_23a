@@ -14,17 +14,21 @@ import useUser from "../hooks/useUser";
 const UserList = () => {
   const [user, setUser] = useState({});
   const [viewModal, setViewModal] = useState(false);
-  const { createUser } = useUser();
+  const { users, fetchUsers , createUser } = useUser();
   const tableColumns = [
     "Id",
-    "Name",
-    "Lastname 1",
-    "Lastname 2",
+    "Username",
+    "Employee",
     "Email",
     "Gender",
     "Type",
     "Delete"
   ];
+
+  const exitMethod = () => {
+    setUser(createUser());
+    fetchUsers();
+  };
 
   useEffect(() => setUser(createUser()), []);
 
@@ -41,8 +45,31 @@ const UserList = () => {
           setViewModal={setViewModal}
           user={user}
           setUser={setUser}
-          exitMethod={() => {}}
+          exitMethod={exitMethod}
         />
+        <Table colums={tableColumns}>
+          {users.map((user, index) => (
+            <TableItem
+              key={index}
+              number={index}
+              data={[
+                user.ID,
+                user.Username,
+                user.Name + " " + user.LastName1 + " " + user.LastName2,
+                user.Email,
+                user.Gender === 0 ? "Male" :
+                user.Gender === 1 ? "Female" :
+                user.Gender === 2 ? "Non-Binary" : "Other",
+                user.Type === 0 ? "Admin" : "Operator",
+                <Button
+                  text="Delete"
+                  type="delete"
+                  onclickFunction={(e) => {}}
+                />
+              ]}
+            />
+          ))}
+        </Table>
       </Container>
       <Footer />
     </>

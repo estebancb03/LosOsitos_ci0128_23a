@@ -1,7 +1,10 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import AxiosClient from "../config/AxiosClient";
 
 const useUser = () => {
+  const [users, setUsers] = useState([]);
+
   const createUser = () => {
     return {
       ID: "",
@@ -33,6 +36,16 @@ const useUser = () => {
       newUser.Password = value;
     }
     return newUser;
+  };
+
+  const fetchUsers = async (user) => {
+    try {
+      const url = "/employee";
+      const { data } = await AxiosClient.get(url);
+      await setUsers(data);
+    } catch (exception) {
+      console.log(exception);
+    }
   };
 
   const insertPerson = async (user) => {
@@ -85,9 +98,13 @@ const useUser = () => {
     }
   };
 
+  useEffect(() => fetchUsers, []);
+
   return {
+    users,
     createUser,
     modifyUserData,
+    fetchUsers,
     insertPerson,
     insertUser
   };
