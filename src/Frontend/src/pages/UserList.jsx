@@ -9,10 +9,12 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
 import Container from "../components/Containers/Container";
 import CreateUser from "../components/UserList/CreateUser";
+import useUser from "../hooks/useUser";
 
 const UserList = () => {
   const [user, setUser] = useState({});
   const [viewModal, setViewModal] = useState(false);
+  const { createUser } = useUser();
   const tableColumns = [
     "Id",
     "Name",
@@ -24,13 +26,15 @@ const UserList = () => {
     "Delete"
   ];
 
+  useEffect(() => setUser(createUser()), []);
+
   return (
     <>
       <NavMenu />
       <Container>
         <Title name="User List" />
         <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
-          <Button text="Create user" type="" onclickFunction={() => {}} />
+          <Button text="Create user" type="" onclickFunction={() => setViewModal(true)} />
         </div>
         <CreateUser
           viewModal={viewModal}

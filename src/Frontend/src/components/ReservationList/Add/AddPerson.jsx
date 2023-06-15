@@ -34,7 +34,7 @@ const AddPerson = (props) => {
       <div className="my-3 grid grid-cols-2">
         <div className="mr-3">
           <InputButton
-            text="Customer ID"
+            text="ID"
             type="id"
             placeholderText=""
             disabled={false}
