@@ -65,7 +65,7 @@ const useUser = () => {
     }
   };
 
-  const insertUser = (user) => {
+  const insertUser = async (user) => {
     try {
       const {
         ID,
