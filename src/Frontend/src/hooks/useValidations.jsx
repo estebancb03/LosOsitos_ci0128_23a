@@ -110,6 +110,24 @@ const useValidations = (reservation) => {
     return result;
   };
   
+  const validateUser = async () => {
+    let result = false;
+    try {
+      const { data } = await AxiosClient.get(`/employee/${reservation.Username}`);
+      const checkUsername = data;
+      if (
+        reservation.Username !== "" &&
+        reservation.Password !== "" &&
+        checkUsername
+      ) {
+        result = true;
+      }
+      return result;
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const validateDates = () => {
     let result = false;
     if (reservation.Reservation_Type === 0) {
@@ -234,7 +252,8 @@ const useValidations = (reservation) => {
     validateInsertReservation,
     validateTickets,
     validateNewSpots,
-    validateUpdateReservation
+    validateUpdateReservation,
+    validateUser
   };
 }
 

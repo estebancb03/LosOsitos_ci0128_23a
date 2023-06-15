@@ -6,6 +6,7 @@ import PasswordButton from "../Buttons/PasswordButton";
 import DropDownSelect from "../Buttons/DropDownSelect";
 import AddPerson from "../ReservationList/Add/AddPerson";
 import useUser from "../../hooks/useUser";
+import useValidations from "../../hooks/useValidations";
 
 const CreateUser = (props) => {
   const {
@@ -16,14 +17,25 @@ const CreateUser = (props) => {
     exitMethod
   } = props;
   const { modifyUserData } = useUser();
+  const { validatePersonalData, validateUser } = useValidations(user);
 
   const changeUser = (type, value) => {
     const newUser = modifyUserData(type, value, user);
     setUser(newUser);
   };
 
-  const saveUser = () => {
-
+  const saveUser = async () => {
+    const personDataValidation = await validatePersonalData();
+    const userValidation = await validateUser();
+    if (personDataValidation && userValidation) {
+      alert("User created successfully");
+    } else {
+      if (personDataValidation === false) {
+        alert("Incorrect data, check the information entered");
+      } else {
+        alert("Incorrect username or password, check the information entered");
+      }
+    }
   };
 
   return (
