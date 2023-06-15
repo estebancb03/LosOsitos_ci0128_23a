@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { checkUsername } from "../models/employeeModel.js";
+import { checkUsername, insertEmployee } from "../models/employeeModel.js";
 
 const router = Router();
 
 router.get("/employee/:Username", checkUsername);
+router.post("/employee", insertEmployee);
 
 export default router;
