@@ -44,13 +44,13 @@ const ReservationList = () => {
     setViewModal(true);
   };
 
-  const deleteSelectedReservation = (ID, Reservation_Date) => {
+  const deleteSelectedReservation = async (ID, Reservation_Date) => {
     const result = currentReservations.filter((reservation) =>
       reservation.ID === ID && reservation.Reservation_Date === Reservation_Date
     );
     if (confirm("Are you sure to delete this reservation?")) {
-       deleteReservation(result[0]);
-      refreshRecords();
+      await deleteReservation(result[0]);
+      await refreshRecords();
     }
   };
 

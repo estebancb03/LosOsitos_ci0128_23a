@@ -23,6 +23,6 @@ router.put("/updateState", updateState);
 
 router.post("/reservation", insertReservation);
 
-router.delete("/reservation", deleteReservation);
+router.delete("/reservation/:ID/:Reservation_Date", deleteReservation);
 
 export default router;

@@ -126,12 +126,13 @@ const deleteReservation = async (req, res) => {
     const {
       ID,
       Reservation_Date
-    } = req.body;
+    } = req.params;
     const pool = await getConnection();
     await pool.query(
-      `DELETE Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
+      `DELETE FROM Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}'`
       );
     res.status(200);
+    res.send("The delete to the Reservation was successfull");
     console.log("The delete to the Reservation was successfull");
   } catch (error) {
     res.status(500);

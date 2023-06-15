@@ -135,7 +135,7 @@ const deleteTicket = async (req, res) => {
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `DELETE Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`
+      `DELETE FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`
       );
     res.status(200);
     console.log("The delete to the Ticket_Reservation was successfull");

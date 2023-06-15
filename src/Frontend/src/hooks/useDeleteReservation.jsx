@@ -5,11 +5,8 @@ const useDeleReservation = () => {
   const deleteReservation = async (reservation) => {
     try {
       const { ID, Reservation_Date } = reservation;
-      const url = "/reservation";
-      await AxiosClient.delete(url, {
-        ID,
-        Reservation_Date
-      });
+      const url = `/reservation/${ID}/${Reservation_Date}`;
+      await AxiosClient.delete(url);
     } catch (exception) {
       console.log(exception);
     }
