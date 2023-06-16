@@ -19,8 +19,8 @@ const FooterItem = ({ item }) => {
             ) : attribute.link && attribute.externalicon ? (
               <Link to={attribute.link}>
                 <div
-                  className="bg-[#21295c] h-16 flex justify-center items-center rounded-md 
-                      hover:bg-[#6545e6] hover:border-gray-300 border-transparent border-2 hover:font-semibold"
+                  className="bg-[#004e98] h-16 flex justify-center items-center rounded-md 
+                      hover: hover:font-semibold"
                 >
                   <span className="ml-3 mr-3 h-[50px] w-[50px]">
                     <img src={attribute.externalicon} />

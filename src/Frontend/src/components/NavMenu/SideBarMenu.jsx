@@ -34,7 +34,7 @@ const SideBarMenu = () => {
         </Link>
       )}
       <div
-        className={`bg-[#21295c] top-0 right-0 fixed w-96 sm:w-60 h-full p-5 ${
+        className={`bg-[#3a6ea5] top-0 right-0 fixed w-96 sm:w-60 h-full p-5 ${
           sideBar ? "translate-x-0" : "translate-x-full"
         } ease-in-out duration-300`}
       >
