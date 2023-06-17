@@ -7,7 +7,8 @@ import Reservation from "./pages/Reservation";
 import Reports from "./pages/Reports";
 import ParkStatus from "./pages/ParkStatus";
 import Settings from "./pages/Settings";
-import UserList from "./pages/UserList"
+import UserList from "./pages/UserList";
+import LogIn from "./pages/LogIn";
 import "filepond/dist/filepond.min.css";
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<Home />} />
           <Route path="reservation" element={<Reservation />} />
+          <Route path="login" element={<LogIn />} />
         </Route>
         //Private access operator routes
         <Route path="/operator">
