@@ -1,5 +1,5 @@
 import { getConnection } from "../config/db.js";
-import { encrypt } from "../helpers/encryption.js";
+import { encrypt, compare } from "../helpers/encryption.js";
 
 const checkUsername = async (req, res) => {
   try {
@@ -28,7 +28,6 @@ const getEmployees = async (req, res) => {
          FROM Employee
          JOIN Person ON ID_Person = ID`
       );
-
     res.status(200);
     res.json(recordset);
   } catch (error) {
@@ -75,9 +74,33 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+const authEmployee = async (req, res) => {
+  let user = { auth: false, data: {} };
+  try {
+    const { Username, Password } = req.params;
+    const pool = await getConnection();
+    const { recordset } = await pool
+      .request()
+      .query(
+        `SELECT * FROM Employee WHERE Username = '${Username}'`
+      );
+    if (recordset.length !== 0) {
+      const authPassword = await compare(Password, recordset[0].Password);
+      user.auth = authPassword;
+      user.data = recordset[0];
+    }
+    res.status(200);
+    res.json(user);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   checkUsername,
   getEmployees,
   insertEmployee,
-  deleteEmployee
+  deleteEmployee,
+  authEmployee
 };
