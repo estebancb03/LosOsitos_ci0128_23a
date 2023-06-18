@@ -12,7 +12,7 @@ import {
 
 const router = Router();
 
-router.get("/getAllRecords", checkOperatorAuth, getReservations);
+router.get("/getAllRecords", getReservations);
 
 router.get("getMainInfoByReservationID/:ID", getMainInfoByReservationID)
 

@@ -13,6 +13,7 @@ import img from "../assets/images/3-asojunquillal-logo.png";
 
 const LogIn = () => {
   const [user, setUser] = useState({});
+  const [token, setToken] = useState("");
   const { modifyUserData, authUser } = useUser();
   
   const changeUserData = (type, value) => {
@@ -20,7 +21,7 @@ const LogIn = () => {
   };
 
   const login = async () => {
-    await setUser(await authUser(user));
+    await setToken(await authUser(user));
   };
 
   return (

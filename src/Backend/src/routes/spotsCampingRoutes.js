@@ -4,7 +4,7 @@ import {getAllSpots, getSpotsByReservationID, insertSpotCamping, updateSpot} fro
 
 const router = Router();
 
-router.get("/getAllSpots", checkOperatorAuth, getAllSpots);
+router.get("/getAllSpots", getAllSpots);
 
 router.get("/getSpotsByReservationID/:ID/:Reservation_Date", checkOperatorAuth, getSpotsByReservationID);
 

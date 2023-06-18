@@ -12,10 +12,10 @@ import {
 const router = Router();
 
 router.get("/employee/:Username", checkUsername);
-router.get("/employee/getEmployeeByUsername/:Username", checkAdminAuth, getEmployeeByUsername);
+router.get("/employee/getEmployeeByUsername/:Username", getEmployeeByUsername);
 router.get("/employee/:Username/:Password", authEmployee);
 router.get("/employee", getEmployees);
-router.post("/employee", insertEmployee);
-router.delete("/employee/:Username", deleteEmployee);
+router.post("/employee", checkAdminAuth,insertEmployee);
+router.delete("/employee/:Username", checkAdminAuth, deleteEmployee);
 
 export default router;
