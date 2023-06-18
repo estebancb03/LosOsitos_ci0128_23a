@@ -1,6 +1,8 @@
 import { Router } from "express";
+import { checkOperatorAuth, checkAdminAuth } from "../middlewares/authMiddleware.js"
 import {
   checkUsername,
+  getEmployeeByUsername,
   getEmployees,
   insertEmployee,
   deleteEmployee,
@@ -10,6 +12,7 @@ import {
 const router = Router();
 
 router.get("/employee/:Username", checkUsername);
+router.get("/employee/getEmployeeByUsername/:Username", checkAdminAuth, getEmployeeByUsername);
 router.get("/employee/:Username/:Password", authEmployee);
 router.get("/employee", getEmployees);
 router.post("/employee", insertEmployee);

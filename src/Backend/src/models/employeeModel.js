@@ -19,6 +19,19 @@ const checkUsername = async (req, res) => {
   }
 };
 
+const getEmployeeByUsername = async (req, res) => {
+  try {
+    const { Username } = req.params;
+    const pool = await getConnection();
+    const { recordset } = await pool.request().query(`SELECT * FROM Employee WHERE Username = '${Username}'`);
+    res.status(200);
+    res.json(recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 const getEmployees = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -101,6 +114,7 @@ const authEmployee = async (req, res) => {
 
 export {
   checkUsername,
+  getEmployeeByUsername,
   getEmployees,
   insertEmployee,
   deleteEmployee,
