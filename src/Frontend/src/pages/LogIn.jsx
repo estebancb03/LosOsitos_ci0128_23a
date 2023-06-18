@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
+import useUser from "../hooks/useUser";
 import Title from "../components/Title";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
@@ -11,7 +12,17 @@ import PasswordButton from "../components/Buttons/PasswordButton";
 import img from "../assets/images/3-asojunquillal-logo.png";
 
 const LogIn = () => {
+  const [user, setUser] = useState({});
+  const { modifyUserData, authUser } = useUser();
   
+  const changeUserData = (type, value) => {
+    setUser(modifyUserData(type, value, user));
+  };
+
+  const login = async () => {
+    await setUser(await authUser(user));
+  };
+
   return (
     <>
       <NavMenu />
@@ -28,7 +39,7 @@ const LogIn = () => {
                     type="username"
                     placeholderText=""
                     disabled={false}
-                    onChangeFunction={() => {}}
+                    onChangeFunction={changeUserData}
                   />
                 </div>
                 <div className="my-5 grid grid-cols-1">
@@ -37,13 +48,13 @@ const LogIn = () => {
                     type="userpassword"
                     placeholderText=""
                     disabled={false}
-                    onChangeFunction={() => {}}
+                    onChangeFunction={changeUserData}
                   />
                 </div>
                 <div className="my-5">
                   <Button
                     text="Log In"
-                    onclickFunction={() => {}}
+                    onclickFunction={login}
                   />
                 </div>
               </div>

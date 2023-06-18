@@ -108,6 +108,17 @@ const useUser = () => {
     }
   };
 
+  const authUser = async (user) => {
+    try {
+      const { Username, Password } = user;
+      const url = `/employee/${Username}/${Password}`;
+      const { data } = await AxiosClient.get(url);
+      return data;
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   useEffect(() => fetchUsers, []);
 
   return {
@@ -117,7 +128,8 @@ const useUser = () => {
     fetchUsers,
     insertPerson,
     insertUser,
-    deleteUser
+    deleteUser,
+    authUser
   };
 };
 

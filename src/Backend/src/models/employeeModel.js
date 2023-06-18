@@ -86,8 +86,10 @@ const authEmployee = async (req, res) => {
       );
     if (recordset.length !== 0) {
       const authPassword = await compare(Password, recordset[0].Password);
-      user.auth = authPassword;
-      user.data = recordset[0];
+      if (authPassword) {
+        user.auth = authPassword;
+        user.data = recordset[0];
+      }
     }
     res.status(200);
     res.json(user);
