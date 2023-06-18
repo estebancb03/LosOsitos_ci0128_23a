@@ -3,7 +3,7 @@ import { getEmployeeByUsername } from '../models/employeeModel.js';
 
 const checkOperatorAuth = async (req, res, next) => {
   let token;
-  if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, "asojunquillal-LosOsitos-ci0128-I-2023");
@@ -24,7 +24,7 @@ const checkOperatorAuth = async (req, res, next) => {
 
 const checkAdminAuth = async (req, res, next) => {
   let token;
-  if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+  if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, "asojunquillal-LosOsitos-ci0128-I-2023");

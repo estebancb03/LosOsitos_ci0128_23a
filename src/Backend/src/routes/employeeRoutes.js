@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { checkOperatorAuth, checkAdminAuth } from "../middlewares/authMiddleware.js"
+import { checkOperatorAuth, checkAdminAuth } from "../middlewares/authMiddleware.js";
 import {
   checkUsername,
   getEmployeeByUsername,
