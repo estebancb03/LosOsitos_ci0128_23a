@@ -1,5 +1,6 @@
 import { getConnection } from "../config/db.js";
-import { encrypt } from "../helpers/encryption.js";
+import { encrypt, compare } from "../helpers/encryption.js";
+import generateJWT from "../helpers/generateJWT.js"
 
 const checkUsername = async (req, res) => {
   try {
@@ -18,6 +19,19 @@ const checkUsername = async (req, res) => {
   }
 };
 
+const getEmployeeByUsername = async (req, res) => {
+  try {
+    const { Username } = req.params;
+    const pool = await getConnection();
+    const { recordset } = await pool.request().query(`SELECT * FROM Employee WHERE Username = '${Username}'`);
+    res.status(200);
+    res.json(recordset);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 const getEmployees = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -28,7 +42,6 @@ const getEmployees = async (req, res) => {
          FROM Employee
          JOIN Person ON ID_Person = ID`
       );
-
     res.status(200);
     res.json(recordset);
   } catch (error) {
@@ -75,9 +88,35 @@ const deleteEmployee = async (req, res) => {
   }
 };
 
+const authEmployee = async (req, res) => {
+  let token = null;
+  try {
+    const { Username, Password } = req.params;
+    const pool = await getConnection();
+    const { recordset } = await pool
+      .request()
+      .query(
+        `SELECT * FROM Employee WHERE Username = '${Username}'`
+      );
+    if (recordset.length !== 0) {
+      const authPassword = await compare(Password, recordset[0].Password);
+      if (authPassword) {
+        token = generateJWT(recordset[0]);
+      }
+    }
+    res.status(200);
+    res.json({token});
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
 export {
   checkUsername,
+  getEmployeeByUsername,
   getEmployees,
   insertEmployee,
-  deleteEmployee
+  deleteEmployee,
+  authEmployee
 };

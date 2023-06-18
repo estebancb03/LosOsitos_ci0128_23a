@@ -48,6 +48,11 @@ const SideBarData = [
     path: "/admin/reports",
     icon: <BsIcons.BsFillFileBarGraphFill />,
   },
+  {
+    title: "LogIn",
+    path: "/login",
+    icon: <RiIcons.RiLoginBoxFill />,
+  },
 ];
 
 export default SideBarData;
