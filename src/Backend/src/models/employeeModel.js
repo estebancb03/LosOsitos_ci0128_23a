@@ -1,5 +1,6 @@
 import { getConnection } from "../config/db.js";
 import { encrypt, compare } from "../helpers/encryption.js";
+import generateJWT from "../helpers/generateJWT.js"
 
 const checkUsername = async (req, res) => {
   try {
@@ -75,7 +76,7 @@ const deleteEmployee = async (req, res) => {
 };
 
 const authEmployee = async (req, res) => {
-  let user = { auth: false, data: {} };
+  let token = null;
   try {
     const { Username, Password } = req.params;
     const pool = await getConnection();
@@ -87,12 +88,11 @@ const authEmployee = async (req, res) => {
     if (recordset.length !== 0) {
       const authPassword = await compare(Password, recordset[0].Password);
       if (authPassword) {
-        user.auth = authPassword;
-        user.data = recordset[0];
+        token = generateJWT(recordset[0]);
       }
     }
     res.status(200);
-    res.json(user);
+    res.json({token});
   } catch (error) {
     res.status(500);
     res.send(error.message);
