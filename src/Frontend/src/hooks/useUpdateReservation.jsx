@@ -1,8 +1,13 @@
 import React from "react";
 import useInsertReservation from "./useInsertReservation";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useUpdateReservation = (reservation) => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
 
   const {
     insertNewTicket,
@@ -15,10 +20,12 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Services } = reservation;
       const url = `/getServicesByReservationID/${ID}/${Reservation_Date}`;
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       const url2 = "/updateService";
       await Promise.all(
         data.map(async (service, index) => {
+          await AuthToken(token);
           await AxiosClient.put(url2, {
             ID,
             Reservation_Date,
@@ -36,6 +43,7 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Tickets } = reservation;
       const url = `/getTicketsByReservationID/${ID}/${Reservation_Date}`;
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       let parsedTickets = [];
       Tickets.map((ticket) => {
@@ -49,6 +57,7 @@ const useUpdateReservation = (reservation) => {
       const url2 = "/updateTicket";
       await Promise.all(
         data.map(async (ticket, index) => {
+          await AuthToken(token);
           await AxiosClient.put(url2, {
             ID,
             Reservation_Date,
@@ -74,6 +83,7 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Spots } = reservation;
       const url = `/getSpotsByReservationID/${ID}/${Reservation_Date}`;
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       let oldSpots = [];
       let spotsToChange = [];
@@ -85,6 +95,7 @@ const useUpdateReservation = (reservation) => {
       const url2 = "/updateSpot";
       await Promise.all(
         spotsToChange.map(async (spot) => {
+          await AuthToken(token);
           await AxiosClient.put(url2, {
             ID,
             Reservation_Date,
@@ -104,6 +115,7 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Vehicles } = reservation;
       const url = `/getVehiclesByReservationID/${ID}/${Reservation_Date}`;
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       let oldVehicles = [];
       let vehiclesToChange = [];
@@ -114,6 +126,7 @@ const useUpdateReservation = (reservation) => {
       const url2 = "/updateVehicle";
       await Promise.all(
         vehiclesToChange.map(async (vehicle) => {
+          await AuthToken(token);
           await AxiosClient.put(url2, {
             ID,
             Reservation_Date,
@@ -142,6 +155,7 @@ const useUpdateReservation = (reservation) => {
         State
       } = reservation;
       const url = "/updatePersonData";
+      await AuthToken(token);
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
@@ -163,6 +177,7 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Start_Date, End_Date } = reservation;
       const url = "/updateStartEndDates";
+      await AuthToken(token);
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,
@@ -178,6 +193,7 @@ const useUpdateReservation = (reservation) => {
     try {
       const { ID, Reservation_Date, Status } = reservation;
       const url = "/updateState";
+      await AuthToken(token);
       await AxiosClient.put(url, {
         ID,
         Reservation_Date,

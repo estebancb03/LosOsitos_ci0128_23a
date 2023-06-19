@@ -30,7 +30,7 @@ const DatePickerButton = ({
               disabled={disabled}
               selected={startDate}
               dateFormat="dd/MM/yyyy"
-              className="block w-[100%] md:w-[100%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#054a91] sm:text-sm sm:leading-6"
+              className="block w-[100%] md:w-[100%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
             />
           </div>
         ) : typeClass && typeClass === "2" ? (
@@ -46,7 +46,7 @@ const DatePickerButton = ({
               disabled={disabled}
               selected={selectedDate}
               dateFormat="dd/MM/yyyy"
-              className="block w-[100%] md:w-[93%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#054a91] sm:text-sm sm:leading-6"
+              className="block w-[100%] md:w-[93%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
             />
           </div>
         ) : typeClass && typeClass === "3" ? (
@@ -62,7 +62,7 @@ const DatePickerButton = ({
               selected={selectedDate}
               disabled={disabled}
               dateFormat="dd/MM/yyyy"
-              className="block w-[100%] md:w-[93%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#054a91] sm:text-sm sm:leading-6"
+              className="block w-[100%] md:w-[93%] sm:w-[105%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
             />
           </div>
         ) : (
@@ -78,7 +78,7 @@ const DatePickerButton = ({
               disabled={disabled}
               selected={startDate}
               dateFormat="dd/MM/yyyy"
-              className="block w-[100%] md:w-[100%] sm:w-[100%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#054a91] sm:text-sm sm:leading-6"
+              className="block w-[100%] md:w-[100%] sm:w-[100%] rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
             />
           </div>
         )}

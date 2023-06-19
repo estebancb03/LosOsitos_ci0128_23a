@@ -4,14 +4,17 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import BoxContainer from "../components/ParkStatus/BoxContainer";
 import DatePickerButton from "../components/Buttons/DatePickerButton";
+import authContext from "../context/auth/authContext";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
 import * as BsIcons from "react-icons/bs";
 import * as GiIcons from "react-icons/gi";
 import * as RiIcons from "react-icons/ri";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 const ParkStatus = () => {
-
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [statusData, setStatusData] = useState({});
   const [selectedDate, setSelectedDate] = useState(new Date());
   
@@ -22,6 +25,7 @@ const ParkStatus = () => {
   const getStatusData = async () => {
     try {
       const url = "/Ocupation";
+      await AuthToken(token);
       const res = await AxiosClient.post(url, {
         "dateReq": selectedDate,
       });

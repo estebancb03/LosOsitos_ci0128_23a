@@ -1,14 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useServices = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [servicesNames, setServicesNames] = useState([]);
   const [servicesPrices, setServicesPrices] = useState([]);
 
   const fetchServicesNames = async () => {
     try {
       const url = "/getServicesOptions";
+      await AuthToken(token);
       const options = await AxiosClient.get(url);
       const result = [...options.data.map((service) => service.Name)];
       setServicesNames(result);
@@ -20,6 +25,7 @@ const useServices = () => {
   const fetchServicesPrices = async () => {
     try {
       const url = "/service-prices";
+      await AuthToken(token);
       const result = await AxiosClient.get(url);
       setServicesPrices(result.data);
     } catch (exception) {
