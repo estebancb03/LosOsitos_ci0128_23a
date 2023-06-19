@@ -20,7 +20,6 @@ const useExchange = () => {
       USD: result.data[0].Value,
       CRC: 1 / result.data[0].Value,
     });
-    // console.log(exchange.USD);
   };
 
   useEffect(() => {
