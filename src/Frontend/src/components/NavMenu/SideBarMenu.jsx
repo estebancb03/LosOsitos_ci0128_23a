@@ -12,6 +12,7 @@ import DefaultSideBarData from "../../data/DefaultSideBarData";
 import OperatorSideBarData from "../../data/OperatorSideBarData";
 import AdminSideBarData from "../../data/AdminSideBarData";
 import SubMenu from "./SubMenu";
+import User from "./User";
 
 const SideBarMenu = () => {
   const AuthContext = useContext(authContext);
@@ -58,6 +59,7 @@ const SideBarMenu = () => {
         } ease-in-out duration-300`}
       >
         <div className="pt-16">
+          <User />
           {
             // A SubMenu component is created for ach item in the data array
             data.map((submenu, index) => (
