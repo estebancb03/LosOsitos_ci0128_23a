@@ -1,4 +1,6 @@
 import React from "react";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import useUser from "../hooks/useUser";
@@ -13,6 +15,7 @@ import PasswordButton from "../components/Buttons/PasswordButton";
 import img from "../assets/images/3-asojunquillal-logo.png";
 
 const LogIn = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const { modifyUserData } = useUser();
   const { authUser, deauthUser } = useAuth();
@@ -24,7 +27,13 @@ const LogIn = () => {
   const login = async () => {
     const authToken = await authUser(user);
     if (authToken.token) {
-      // redirect to home page
+      localStorage.setItem('auth-token', authToken.token);
+      const decoded = jwt_decode(authToken.token);
+      if (decoded.Type === 0) {
+        navigate("/admin");
+      } else if (decoded.Type === 1) {
+        navigate("/operator");
+      }
     } else {
       alert("Incorrect user credentials");
     }
