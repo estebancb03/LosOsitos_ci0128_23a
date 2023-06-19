@@ -28,6 +28,11 @@ const OperatorSideBarData = [
     path: "/operator/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
   },
+  {
+    title: "Log out",
+    path: "/",
+    icon: <RiIcons.RiLogoutBoxFill />,
+  }
 ];
 
 export default OperatorSideBarData;

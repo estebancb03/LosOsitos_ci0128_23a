@@ -2,9 +2,11 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
 import authContext from "../../context/auth/authContext";
+import useAuth from "../../hooks/useAuth";
 
 import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
+import * as RiIcons from "react-icons/ri";
 
 import DefaultSideBarData from "../../data/DefaultSideBarData";
 import OperatorSideBarData from "../../data/OperatorSideBarData";
@@ -14,6 +16,7 @@ import SubMenu from "./SubMenu";
 const SideBarMenu = () => {
   const AuthContext = useContext(authContext);
   const { type } = AuthContext;
+  const { deauthUser } = useAuth();
   const [sideBar, setSideBar] = useState(false);
   const [data, setData] = useState([]);
   const showSideBar = () => setSideBar(!sideBar);
@@ -58,7 +61,13 @@ const SideBarMenu = () => {
           {
             // A SubMenu component is created for ach item in the data array
             data.map((submenu, index) => (
-              <SubMenu item={submenu} key={index} />
+              <div key={index} onClick={() => {
+                if (submenu.title === "Log out") {
+                  deauthUser();
+                }
+              }}>
+                <SubMenu item={submenu} key={index} />
+              </div>
             ))
           }
         </div>
