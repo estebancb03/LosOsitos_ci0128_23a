@@ -3,29 +3,31 @@ import AxiosClient from "../config/AxiosClient";
 
 const useExchange = () => {
   const [exchange, setExchange] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  let result = [];
 
-  // Method that fetch the exchange
   const fetchData = async () => {
     try {
-      setLoaded(true);
-      const url = "";
-      const result = await AxiosClient(url);
+      const url = "/getExchangeRate";
+      result = await AxiosClient(url);
+      await setExchangeRate(result);
     } catch (exception) {
       console.log(exception);
-    } finally {
-      setLoaded(false);
     }
   };
 
-  useEffect(() => {
+  const setExchangeRate = async (result) => {
     setExchange({
-      USD: 537.33,
-      CRC: 0.0018622,
+      USD: result.data[0].Value,
+      CRC: 1 / result.data[0].Value,
     });
+    // console.log(exchange.USD);
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  return { setExchange, exchange };
+  return { exchange, setExchange };
 };
 
 export default useExchange;
