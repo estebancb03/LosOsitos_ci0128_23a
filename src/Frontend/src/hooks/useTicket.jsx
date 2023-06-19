@@ -1,8 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useTicket = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
 
   const ticketOptions = [
     "National-Children",
@@ -30,6 +34,7 @@ const useTicket = () => {
   const getUSDTickets = async () => {
     try {
       const url = '/ticket-prices-usd';
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       return data;
     } catch (exception) {
@@ -40,6 +45,7 @@ const useTicket = () => {
   const getCRCTickets = async () => {
     try {
       const url = '/ticket-prices-crc';
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       return data;
     } catch (exception) {

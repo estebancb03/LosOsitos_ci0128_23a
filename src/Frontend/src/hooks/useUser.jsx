@@ -1,8 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useUser = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [users, setUsers] = useState([]);
 
   const createUser = () => {
@@ -42,6 +46,7 @@ const useUser = () => {
     try {
       const url = "/employee";
       const { data } = await AxiosClient.get(url);
+      await AuthToken(token);
       await setUsers(data);
     } catch (exception) {
       console.log(exception);
@@ -62,6 +67,7 @@ const useUser = () => {
         State
       } = user;
       const url = "/person";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID,
         Name,
@@ -87,6 +93,7 @@ const useUser = () => {
         Type
       } = user;
       const url = "/employee";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID,
         Username,
@@ -102,6 +109,7 @@ const useUser = () => {
     try {
       const { Username } = user;
       const url = `/employee/${Username}`;
+      await AuthToken(token);
       await AxiosClient.delete(url);
     } catch (exception) {
       console.log(exception);

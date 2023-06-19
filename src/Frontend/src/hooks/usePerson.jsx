@@ -1,11 +1,16 @@
-import React from "react";
+import { useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const usePerson = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
 
   const getPersonData = async (reservation, setReservation) => {
     try {
       const url = `/person/${reservation.ID}`;
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       setPersonData(data, reservation, setReservation);
       return data.length !== 0;
