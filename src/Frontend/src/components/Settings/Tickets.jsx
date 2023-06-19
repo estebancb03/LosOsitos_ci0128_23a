@@ -308,7 +308,7 @@ const Tickets = () => {
           sendDataToDatabase(index, type);
         } else {
           alert(
-            "Values from the capacity can only be positive numbers." +
+            "Values for ticket prices can only be positive numbers." +
               "\nIf you entered a number with commas, remove them." +
               "\nChanges will not be applied"
           );
@@ -332,7 +332,7 @@ const Tickets = () => {
           sendDataToDatabase(index, type);
         } else {
           alert(
-            "Values from the capacity can only be positive numbers." +
+            "Values for ticket prices can only be positive numbers." +
               "\nIf you entered a number with commas, remove them." +
               "\nChanges will not be applied"
           );
