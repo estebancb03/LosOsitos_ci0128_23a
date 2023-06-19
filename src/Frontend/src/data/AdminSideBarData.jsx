@@ -1,3 +1,5 @@
+
+
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import * as IoIcons from "react-icons/io";
@@ -7,52 +9,56 @@ import * as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
 import * as SiIcons from "react-icons/si";
 
-const SideBarData = [
+const AdminSideBarData = [
   {
     title: "Reservation",
-    path: "/reservation",
+    path: "/admin/reservation",
     icon: <SiIcons.SiAddthis />,
+    function: () => {}
+  },
+  ,
+  {
+    title: "Testimonials",
+    path: "/admin/testimonials",
+    icon: <RiIcons.RiFilePaper2Fill />,
+    function: () => {}
   },
   {
     title: "Park Status",
     path: "/admin/park-status",
     icon: <BsIcons.BsFillPersonCheckFill />,
+    function: () => {}
   },
   {
     title: "User List",
     path: "/admin/user-list",
     icon: <FaIcons.FaUser />,
-  },
-  {
-    title: "Testimonials",
-    path: "/testimonials",
-    icon: <RiIcons.RiFilePaper2Fill />,
-  },
-  {
-    title: "Inventory",
-    path: "/inventory",
-    icon: <MdIcons.MdInventory />,
-  },
-  {
-    title: "Settings",
-    path: "/admin/settings",
-    icon: <MdIcons.MdSettings />,
+    function: () => {}
   },
   {
     title: "Reservation List",
     path: "/admin/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
+    function: () => {}
   },
   {
     title: "Reports",
     path: "/admin/reports",
     icon: <BsIcons.BsFillFileBarGraphFill />,
+    function: () => {}
   },
   {
-    title: "LogIn",
-    path: "/login",
-    icon: <RiIcons.RiLoginBoxFill />,
+    title: "Settings",
+    path: "/admin/settings",
+    icon: <MdIcons.MdSettings />,
+    function: () => {}
   },
+  {
+    title: "Log out",
+    path: "/",
+    icon: <RiIcons.RiLogoutBoxFill />,
+    function: () => localStorage.removeItem('auth-token')
+  }
 ];
 
-export default SideBarData;
+export default AdminSideBarData;

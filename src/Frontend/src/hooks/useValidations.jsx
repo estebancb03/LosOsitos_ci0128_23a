@@ -1,12 +1,18 @@
 import { isDateAfterISO8601, getDateRange, formatDateDTMMDDYYYY } from "../helpers/formatDate.js";
+import { useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useValidations = (reservation) => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   
   const getRemainingCapacity = async (date) => {
     let result = [];
     try {
       const capacityRoute = reservation.Reservation_Type == 0 ? "/getPicnicCapacity" : "/getCampingCapacity";
+      await AuthToken(token);
       const { data } = await AxiosClient.get(`${capacityRoute}/${date}`);
       result = data;
     } catch (exception) {
@@ -26,6 +32,7 @@ const useValidations = (reservation) => {
         const onlineCapacicty = capacities[0].Remaining_Capacity;
         const insiteCapacity = capacities[1].Remaining_Capacity;
         if (reservation.Tickets) {
+          await AuthToken(token);
           const {data} = await AxiosClient.get(`/getTicketsByReservationID/${reservation.ID}/${reservation.Reservation_Date}`);
           data.map((ticket) => dbPersons += parseInt(ticket.Amount));
           reservation.Tickets.map((ticket) => persons += parseInt(ticket.Amount));
@@ -59,6 +66,7 @@ const useValidations = (reservation) => {
     const insiteCapacity = capacities[1].Remaining_Capacity;
 
     if (reservation.Tickets) {
+      await AuthToken(token);
       const {data} = await AxiosClient.get(`/getTicketsByReservationID/${reservation.ID}/${reservation.Reservation_Date}`);
       data.map((ticket) => dbPersons += parseInt(ticket.Amount));
       reservation.Tickets.map((ticket) => persons += parseInt(ticket.Amount));
@@ -113,6 +121,7 @@ const useValidations = (reservation) => {
   const validateUser = async () => {
     let result = false;
     try {
+      await AuthToken(token);
       const { data } = await AxiosClient.get(`/employee/${reservation.Username}`);
       const checkUsername = data;
       if (

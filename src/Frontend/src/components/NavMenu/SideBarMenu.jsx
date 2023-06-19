@@ -1,17 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import authContext from "../../context/auth/authContext";
+import useAuth from "../../hooks/useAuth";
+
 import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
+import * as RiIcons from "react-icons/ri";
 
-import SideBarData from "../../data/SideBarData";
+import DefaultSideBarData from "../../data/DefaultSideBarData";
+import OperatorSideBarData from "../../data/OperatorSideBarData";
+import AdminSideBarData from "../../data/AdminSideBarData";
 import SubMenu from "./SubMenu";
+import User from "./User";
 
 const SideBarMenu = () => {
-  // State of the sidebar
+  const AuthContext = useContext(authContext);
+  const { type } = AuthContext;
+  const { deauthUser } = useAuth();
   const [sideBar, setSideBar] = useState(false);
-  // Function that changes the sidebar state
+  const [data, setData] = useState([]);
   const showSideBar = () => setSideBar(!sideBar);
-
+  
+  useEffect(() => {
+   if (type === 0) {
+     setData(AdminSideBarData);
+   } else if (type === 1) {
+     setData(OperatorSideBarData);
+   } else {
+     setData(DefaultSideBarData);
+   }
+  });
+  
   return (
     <div>
       {!sideBar ? (
@@ -39,10 +59,17 @@ const SideBarMenu = () => {
         } ease-in-out duration-300`}
       >
         <div className="pt-16">
+          <User />
           {
             // A SubMenu component is created for ach item in the data array
-            SideBarData.map((submenu, index) => (
-              <SubMenu item={submenu} key={index} />
+            data.map((submenu, index) => (
+              <div key={index} onClick={() => {
+                if (submenu.title === "Log out") {
+                  deauthUser();
+                }
+              }}>
+                <SubMenu item={submenu} key={index} />
+              </div>
             ))
           }
         </div>

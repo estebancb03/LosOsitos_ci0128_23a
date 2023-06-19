@@ -1,7 +1,12 @@
 import React from "react";
+import { useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useInsertReservation = (reservation) => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
 
   const insertNewVehicle = async () => {
     try {
@@ -9,6 +14,7 @@ const useInsertReservation = (reservation) => {
       const url = "/insertVehicle";
       await Promise.all(
         NewVehicles.map(async (vehicle, index) => {
+          await AuthToken(token);
           await AxiosClient.post(url, {
             ID,
             Reservation_Date,
@@ -26,6 +32,7 @@ const useInsertReservation = (reservation) => {
       const url = "/insertServiceReservation";
       await Promise.all(
         NewServices.map(async (service, index) => {
+          await AuthToken(token);
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -47,6 +54,7 @@ const useInsertReservation = (reservation) => {
       const url = "/reservationTicket";
       await Promise.all(
         NewTickets.map(async (ticket, index) => {
+          await AuthToken(token);
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -70,6 +78,7 @@ const useInsertReservation = (reservation) => {
       const url = "/spots";
       await Promise.all(
         NewSpots.map(async (spot) => {
+          await AuthToken(token);
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -98,6 +107,7 @@ const useInsertReservation = (reservation) => {
         State
       } = reservation;
       const url = "/person";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID,
         Name,
@@ -118,6 +128,7 @@ const useInsertReservation = (reservation) => {
     try {
       const { ID } = reservation;
       const url = "/client";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID_Person: ID,
       });
@@ -136,6 +147,7 @@ const useInsertReservation = (reservation) => {
         Status
       } = reservation;
       const url = "/reservation";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID_Client: ID,
         Reservation_Date,
@@ -157,6 +169,7 @@ const useInsertReservation = (reservation) => {
         Picnic_Date
       } = reservation;
       const url = "/picnic";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID_Client: ID,
         Reservation_Date,
@@ -176,6 +189,7 @@ const useInsertReservation = (reservation) => {
         End_Date
       } = reservation;
       const url = "/camping";
+      await AuthToken(token);
       await AxiosClient.post(url, {
         ID_Client: ID,
         Reservation_Date,

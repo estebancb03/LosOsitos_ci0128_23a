@@ -1,7 +1,10 @@
 import React from "react";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import useUser from "../hooks/useUser";
+import useAuth from "../hooks/useAuth";
 import Title from "../components/Title";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
@@ -12,16 +15,28 @@ import PasswordButton from "../components/Buttons/PasswordButton";
 import img from "../assets/images/3-asojunquillal-logo.png";
 
 const LogIn = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
-  const [token, setToken] = useState("");
-  const { modifyUserData, authUser } = useUser();
+  const { modifyUserData } = useUser();
+  const { authUser, deauthUser } = useAuth();
   
   const changeUserData = (type, value) => {
     setUser(modifyUserData(type, value, user));
   };
 
   const login = async () => {
-    await setToken(await authUser(user));
+    const authToken = await authUser(user);
+    if (authToken.token) {
+      localStorage.setItem('auth-token', authToken.token);
+      const decoded = jwt_decode(authToken.token);
+      if (decoded.Type === 0) {
+        navigate("/admin");
+      } else if (decoded.Type === 1) {
+        navigate("/operator");
+      }
+    } else {
+      alert("Incorrect user credentials");
+    }
   };
 
   return (
