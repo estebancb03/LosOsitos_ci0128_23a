@@ -1,9 +1,9 @@
 import jwt_decode from "jwt-decode";
-import { AUTH_TOKEN } from "../../types/index";
+import { LOG_IN, LOG_OUT } from "../../types/index";
 
 export default (state, action) => {
   switch(action.type) {
-    case AUTH_TOKEN: {
+    case LOG_IN: {
       if (action.payload) {
         localStorage.setItem('auth-token', action.payload);
         const decoded = jwt_decode(action.payload);
@@ -24,6 +24,16 @@ export default (state, action) => {
         };
       }
     }
+  case LOG_OUT: {
+    localStorage.removeItem('auth-token');
+    return {
+      ...state,
+      token: null,
+      user: null,
+      type: null,
+      auth: null
+    };
+  }
     default:
       return state;
   }    

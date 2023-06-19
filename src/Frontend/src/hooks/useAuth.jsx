@@ -5,7 +5,7 @@ import authContext from "../context/auth/authContext";
 
 const useAuth = () => {
   const AuthContext = useContext(authContext);
-  const { authToken } = AuthContext;
+  const { authToken, deauthToken } = AuthContext;
   
   const authUser = async (user) => {
     try {
@@ -19,7 +19,11 @@ const useAuth = () => {
     }
   };
   
-  return { authUser };
+  const deauthUser = () => {
+    localStorage.removeItem('auth-token');
+    deauthToken();
+  }
+  return { authUser, deauthUser };
 };
 
 export default useAuth;

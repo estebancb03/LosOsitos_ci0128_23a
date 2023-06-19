@@ -1,3 +1,4 @@
-const AUTH_TOKEN = null;
+const LOG_IN = null;
+const LOG_OUT = null;
 
-export { AUTH_TOKEN };
+export { LOG_IN, LOG_OUT };

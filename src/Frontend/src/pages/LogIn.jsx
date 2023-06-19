@@ -15,19 +15,20 @@ import img from "../assets/images/3-asojunquillal-logo.png";
 const LogIn = () => {
   const [user, setUser] = useState({});
   const { modifyUserData } = useUser();
-  const { authUser } = useAuth();
+  const { authUser, deauthUser } = useAuth();
   
   const changeUserData = (type, value) => {
     setUser(modifyUserData(type, value, user));
   };
 
   const login = async () => {
-    const authToken = await authUser(user);
-    if (authToken.token) {
-      // redirect to home page
-    } else {
-      alert("Incorrect user credentials");
-    }
+//    const authToken = await authUser(user);
+//    if (authToken.token) {
+//      // redirect to home page
+//    } else {
+//      alert("Incorrect user credentials");
+//    }
+    deauthUser();
   };
 
   return (
