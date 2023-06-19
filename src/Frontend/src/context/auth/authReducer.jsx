@@ -5,6 +5,7 @@ export default (state, action) => {
   switch(action.type) {
     case AUTH_TOKEN: {
       if (action.payload) {
+        localStorage.setItem('auth-token', action.payload);
         const decoded = jwt_decode(action.payload);
         return {
           ...state,
