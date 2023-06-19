@@ -1,17 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+
+import authContext from "../../context/auth/authContext";
+
 import * as FaIcons from "react-icons/fa";
 import * as IoIcons from "react-icons/io";
 
-import SideBarData from "../../data/SideBarData";
+import DefaultSideBarData from "../../data/DefaultSideBarData";
+import OperatorSideBarData from "../../data/OperatorSideBarData";
+import AdminSideBarData from "../../data/AdminSideBarData";
 import SubMenu from "./SubMenu";
 
 const SideBarMenu = () => {
-  // State of the sidebar
+  const AuthContext = useContext(authContext);
+  const { type } = AuthContext;
   const [sideBar, setSideBar] = useState(false);
-  // Function that changes the sidebar state
+  const [data, setData] = useState([]);
   const showSideBar = () => setSideBar(!sideBar);
-
+  
+  useEffect(() => {
+   if (type === 0) {
+     setData(AdminSideBarData);
+   } else if (type === 1) {
+     setData(OperatorSideBarData);
+   } else {
+     setData(DefaultSideBarData);
+   }
+  });
+  
   return (
     <div>
       {!sideBar ? (
@@ -41,7 +57,7 @@ const SideBarMenu = () => {
         <div className="pt-16">
           {
             // A SubMenu component is created for ach item in the data array
-            SideBarData.map((submenu, index) => (
+            data.map((submenu, index) => (
               <SubMenu item={submenu} key={index} />
             ))
           }
