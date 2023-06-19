@@ -4,7 +4,6 @@ import AxiosClient from "../config/AxiosClient";
 import authContext from "../context/auth/authContext";
 
 const useUpdateCapacity = async (type, value) => {
-
   if (value) {
     try {
       const url = "/updateCapacity";
