@@ -7,11 +7,17 @@ import * as MdIcons from "react-icons/md";
 import * as BsIcons from "react-icons/bs";
 import * as SiIcons from "react-icons/si";
 
-const SideBarData = [
+const AdminSideBarData = [
   {
     title: "Reservation",
-    path: "/reservation",
+    path: "/admin/reservation",
     icon: <SiIcons.SiAddthis />,
+  },
+  ,
+  {
+    title: "Testimonials",
+    path: "/admin/testimonials",
+    icon: <RiIcons.RiFilePaper2Fill />,
   },
   {
     title: "Park Status",
@@ -24,21 +30,6 @@ const SideBarData = [
     icon: <FaIcons.FaUser />,
   },
   {
-    title: "Testimonials",
-    path: "/testimonials",
-    icon: <RiIcons.RiFilePaper2Fill />,
-  },
-  {
-    title: "Inventory",
-    path: "/inventory",
-    icon: <MdIcons.MdInventory />,
-  },
-  {
-    title: "Settings",
-    path: "/admin/settings",
-    icon: <MdIcons.MdSettings />,
-  },
-  {
     title: "Reservation List",
     path: "/admin/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
@@ -49,10 +40,10 @@ const SideBarData = [
     icon: <BsIcons.BsFillFileBarGraphFill />,
   },
   {
-    title: "LogIn",
-    path: "/login",
-    icon: <RiIcons.RiLoginBoxFill />,
-  },
+    title: "Settings",
+    path: "/admin/settings",
+    icon: <MdIcons.MdSettings />,
+  }
 ];
 
-export default SideBarData;
+export default AdminSideBarData;
