@@ -1,15 +1,18 @@
 import { useReducer } from "react";
+import jwt_decode from "jwt-decode";
 import authContext from "./authContext";
 import authReducer from "./authReducer";
 import { AUTH_TOKEN } from "../../types/index";
 
 const AuthProvider = (props) => {
   const { children } = props;
+  const localStorageToken = localStorage.getItem('auth-token');
+  const decoded = jwt_decode(localStorageToken);
   const initialState = {
-    token: null,
-    auth: null,
-    user: null,
-    type: null
+    token: localStorageToken ? localStorageToken : null,
+    auth: localStorageToken ? true : null,
+    user: localStorageToken ? decoded.Username : null,
+    type: localStorageToken ? decoded.Type : null,
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
   
