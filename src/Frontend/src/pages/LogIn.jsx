@@ -22,13 +22,12 @@ const LogIn = () => {
   };
 
   const login = async () => {
-//    const authToken = await authUser(user);
-//    if (authToken.token) {
-//      // redirect to home page
-//    } else {
-//      alert("Incorrect user credentials");
-//    }
-    deauthUser();
+    const authToken = await authUser(user);
+    if (authToken.token) {
+      // redirect to home page
+    } else {
+      alert("Incorrect user credentials");
+    }
   };
 
   return (
