@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 
 import useUser from "../hooks/useUser";
+import useAuth from "../hooks/useAuth";
 import Title from "../components/Title";
 import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
@@ -13,15 +14,20 @@ import img from "../assets/images/3-asojunquillal-logo.png";
 
 const LogIn = () => {
   const [user, setUser] = useState({});
-  const [token, setToken] = useState("");
-  const { modifyUserData, authUser } = useUser();
+  const { modifyUserData } = useUser();
+  const { authUser } = useAuth();
   
   const changeUserData = (type, value) => {
     setUser(modifyUserData(type, value, user));
   };
 
   const login = async () => {
-    await setToken(await authUser(user));
+    const authToken = await authUser(user);
+    if (authToken.token) {
+      // redirect to home page
+    } else {
+      alert("Incorrect user credentials");
+    }
   };
 
   return (
