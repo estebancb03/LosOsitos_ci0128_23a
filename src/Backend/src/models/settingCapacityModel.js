@@ -4,7 +4,6 @@ const getActualCapacities = async (req, res) => {
     try {
         const pool = await getConnection();
         const result = await pool.request().query('SELECT * FROM Setting_Capacity');
-        console.log(result);
         res.status(200);
         res.json(result.recordset);
     } catch (error) {
@@ -36,7 +35,6 @@ const getExchangeRate = async (req, res) => {
     try {
         const pool = await getConnection()
         const result = await pool.request().query(`SELECT Type, Value FROM Setting_Capacity WHERE Type LIKE 'USD%'`)
-        console.log(result)
         res.status(200)
         res.json(result.recordset)
     } catch (error) {

@@ -7,7 +7,6 @@ const checkOperatorAuth = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, "asojunquillal-LosOsitos-ci0128-I-2023");
-      console.log(decoded);
       req.user = decoded;
       return next();
     } catch(exception) {
@@ -28,7 +27,6 @@ const checkAdminAuth = async (req, res, next) => {
     try {
       token = req.headers.authorization.split(' ')[1];
       const decoded = jwt.verify(token, "asojunquillal-LosOsitos-ci0128-I-2023");
-      console.log(decoded);
       req.user = decoded;
       if (decoded.Type === 0) {
         return next();
