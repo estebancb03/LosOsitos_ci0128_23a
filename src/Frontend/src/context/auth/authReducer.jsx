@@ -1,12 +1,28 @@
-import { AUTHENTICATED_USER } from "../../types/index";
+import jwt_decode from "jwt-decode";
+import { AUTH_TOKEN } from "../../types/index";
 
 export default (state, action) => {
   switch(action.type) {
-    case AUTHENTICATED_USER:
-      return {
-        ...state,
-        user: action.payload
-      };
+    case AUTH_TOKEN: {
+      if (action.payload) {
+        const decoded = jwt_decode(action.payload);
+        return {
+          ...state,
+          token: action.payload,
+          user: decoded.Username,
+          type: decoded.Type,
+          auth: true
+        };
+      } else {
+        return {
+          ...state,
+          token: null,
+          user: null,
+          type: null,
+          auth: null
+        };
+      }
+    }
     default:
       return state;
   }    

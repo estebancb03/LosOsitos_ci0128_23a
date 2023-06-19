@@ -1,23 +1,22 @@
 import { useReducer } from "react";
 import authContext from "./authContext";
 import authReducer from "./authReducer";
-import { AUTHENTICATED_USER } from "../../types/index";
+import { AUTH_TOKEN } from "../../types/index";
 
 const AuthProvider = (props) => {
   const { children } = props;
   const initialState = {
-    token: "",
+    token: null,
     auth: null,
     user: null,
-    type: null,
-    message: null
+    type: null
   };
   const [state, dispatch] = useReducer(authReducer, initialState);
   
-  const authenticatedUser = (name) => {
+  const authToken = (token) => {
     dispatch({
-      type: AUTHENTICATED_USER,
-      payload: name
+      type: AUTH_TOKEN,
+      payload: token
     });
   };
   
@@ -27,8 +26,8 @@ const AuthProvider = (props) => {
         token: state.token,
         auth: state.auth,
         user: state.user,
-        message: state.message,
-        authenticatedUser
+        type: state.type,
+        authToken
       }}  
     >
       { children }
