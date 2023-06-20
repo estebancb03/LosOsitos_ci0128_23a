@@ -45,7 +45,7 @@ Lo anterior hará que la aplicación del backend se empiece a ejecutar en ```htt
 
 ### Pruebas unitarias
 
-Se utiliza la biblioteca ```jest``` para estas pruebas.Cada aplicacion del proyecto tiene su proyecto de pruebas unitarias, para correr las pruebas es importante mencionar que por lo menos la aplicación del Backend debe estar ejecutandose. Una vez las aplicaciones estén en ejecución, en una nueva consola debe dirigirse a ```src/Frontend``` o ```src/Backend``` y ejecutar el siguiente comando:
+Se utiliza la biblioteca ```jest``` para estas pruebas. Cada aplicacion del proyecto tiene su proyecto de pruebas unitarias, para correr las pruebas es importante mencionar que por lo menos la aplicación del Backend debe estar ejecutandose. Una vez las aplicaciones estén en ejecución, en una nueva consola debe dirigirse a ```src/Frontend``` o ```src/Backend``` y ejecutar el siguiente comando:
 
 ```
 npm test
