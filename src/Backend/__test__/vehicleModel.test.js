@@ -2,9 +2,9 @@ import { getVehiclesByReservationID } from "../src/models/vehicleModel";
 
 describe("vehicleModel", () => {
   test("getVehicleByReservationID returns VID for client ID and reservation date", async () => {
-    const req = { params: { ID: "777", Reservation_Date: "2023-06-01 03:19:03.357" } };
+    const req = { params: { ID: "118560955", Reservation_Date: "2023-05-12 14:31:00.380" } };
     const res = { status: jest.fn(), json: jest.fn() };
-    const mockResult = { recordset: [{ ID_Vehicle: "VVV777" }] };
+    const mockResult = { recordset: [{ ID_Vehicle: "ETY111" }, { ID_Vehicle: "SDF911" }, { ID_Vehicle: "YOO111" }] };
 
     await getVehiclesByReservationID(req, res);
 
