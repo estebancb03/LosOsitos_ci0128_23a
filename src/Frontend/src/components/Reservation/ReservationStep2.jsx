@@ -599,9 +599,9 @@ const ReservationStep2 = ({
                   data={[
                     rowsNames[0],
                     prices.CampingNationalAdultCRC[0].Currency,
-                    prices.CampingNationalAdultCRC[0].Price.toLocaleString(
+                    <td className="text-left">{prices.CampingNationalAdultCRC[0].Price.toLocaleString(
                       "en-US"
-                    ),
+                    )}</td>,
                     quantityAdultCamping,
                     <Button
                       text="+"
@@ -619,15 +619,15 @@ const ReservationStep2 = ({
                     />,
                   ]}
                 />
-                <TableItem
+                <TableItem 
                   key={1}
                   number={1}
                   data={[
                     rowsNames[1],
                     prices.CampingNationalChildCRC[0].Currency,
-                    prices.CampingNationalChildCRC[0].Price.toLocaleString(
+                    <label className="text-right">{prices.CampingNationalChildCRC[0].Price.toLocaleString(
                       "en-US"
-                    ),
+                    )}</label>,
                     quantityChildCamping,
                     <Button
                       text="+"
