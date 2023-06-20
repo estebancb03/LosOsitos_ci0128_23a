@@ -18,9 +18,7 @@ jest.mock("react", () => ({
 describe('usePerson', () => {
   test("setPersonData sets the new data into the reservation", () => {
     useContext.mockReturnValue(mockAuthContext);
-    const mockAxiosClient = jest.fn().mockResolvedValue({
-      data: [{ Value: 537.33 }],
-    });
+    const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const personData = [
       {
