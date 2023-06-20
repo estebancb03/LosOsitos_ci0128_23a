@@ -2,7 +2,6 @@ import { renderHook } from "@testing-library/react-hooks";
 import { act } from "react-dom/test-utils";
 import { useContext } from "react";
 import useExchange from "../src/hooks/useExchange";
-import useAuth from "../src/hooks/useAuth";
 
 const mockAuthContext = {
   token: `

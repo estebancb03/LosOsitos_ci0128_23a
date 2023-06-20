@@ -1,7 +1,27 @@
+import { useContext } from "react";
 import usePerson from "../src/hooks/usePerson";
+
+const mockAuthContext = {
+  token: `
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjEwNjAzMDg2MSAg
+    ICAgICIsIlVzZXJuYW1lIjoiY2hpcXVpIiwiVHlwZSI6MCwiaWF0IjoxNjg3M
+    jExNzIxLCJleHAiOjE2ODczNDg1MjF9.HnxyhiMF1fHgjZK88fRQXc7GoEeAl
+    A8QbRC5irb905U
+  `,
+};
+
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useContext: jest.fn(),
+}));
 
 describe('usePerson', () => {
   test("setPersonData sets the new data into the reservation", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn().mockResolvedValue({
+      data: [{ Value: 537.33 }],
+    });
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const personData = [
       {
         Name: "John",
@@ -32,6 +52,11 @@ describe('usePerson', () => {
   });
 
   test("modifyPersonDara changes the reservation object fields", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn().mockResolvedValue({
+      data: [{ Value: 537.33 }],
+    });
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const reservation = {
       ID: 1,
       Name: "John",
