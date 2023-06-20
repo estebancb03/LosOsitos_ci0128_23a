@@ -1,4 +1,4 @@
-const Button = ({ text, type, disabled = false, onclickFunction }) => {
+const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
   return (
     <div className="text-gray-200 w-full h-10">
       {type && type === "add" ? (
@@ -7,6 +7,7 @@ const Button = ({ text, type, disabled = false, onclickFunction }) => {
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
+          data-cy={datacy}
         >
           {text}
         </button>
@@ -16,6 +17,7 @@ const Button = ({ text, type, disabled = false, onclickFunction }) => {
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
+          data-cy={datacy}
         >
           {text}
         </button>
@@ -25,6 +27,7 @@ const Button = ({ text, type, disabled = false, onclickFunction }) => {
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
+          data-cy={datacy}
         >
           {text}
         </button>
@@ -34,6 +37,7 @@ const Button = ({ text, type, disabled = false, onclickFunction }) => {
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
+          data-cy={datacy}
         >
           {text}
         </button>

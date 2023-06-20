@@ -37,6 +37,7 @@ const SideBarMenu = () => {
       {!sideBar ? (
         <div className="top-0 right-0 absolute p-5">
           <Link
+            data-cy="hamburger-menu-button"
             to="#"
             className="text-stone-50 text-3xl h-10 flex justify-end items-center"
             onClick={showSideBar}
@@ -46,6 +47,7 @@ const SideBarMenu = () => {
         </div>
       ) : (
         <Link
+          data-cy="hamburger-menu-button"
           to="#"
           className="text-stone-50 mt-6 text-3xl h-10 fixed right-5 z-10"
           onClick={showSideBar}

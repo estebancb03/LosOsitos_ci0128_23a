@@ -2,6 +2,7 @@ import { useState } from "react";
 
 const InputButton = ({
   text,
+  datacy,
   placeholderText,
   disabled,
   type,
@@ -19,6 +20,7 @@ const InputButton = ({
             <div className="mt-2.5">
               <input
                 type="text"
+                data-cy={datacy}
                 value={value}
                 placeholder={placeholderText}
                 disabled={disabled}
@@ -42,6 +44,7 @@ const InputButton = ({
             <div className="mt-2.5">
               <input
                 type="text"
+                data-cy={datacy}
                 value={placeholderText}
                 placeholder={placeholderText}
                 disabled={disabled}
@@ -62,6 +65,7 @@ const InputButton = ({
             <div className="mt-2.5">
               <input
                 type="text"
+                data-cy={datacy}
                 value={placeholderText}
                 placeholder={placeholderText}
                 disabled={disabled}
