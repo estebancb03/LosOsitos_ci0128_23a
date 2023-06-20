@@ -5,7 +5,7 @@ import Container from "../components/Containers/Container";
 import playaDev from "../assets/images/wallpaper.jpg";
 import Button from "../components/Buttons/Button";
 
-const HomeTest = () => {
+const HomePage = () => {
   return (
     <>
       <NavMenu />
@@ -39,4 +39,4 @@ const HomeTest = () => {
   );
 };
 
-export default HomeTest;
+export default HomePage;

@@ -4,13 +4,13 @@ import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import playaDev from "../assets/images/playaDev.jpeg";
 import Button from "../components/Buttons/Button";
-import HomeTest from "./HomeTest";
+import HomePage from "./HomePage";
 import Information from "./Information";
 
 const Home = () => {
   return (
     <>
-      <Information></Information>
+      <HomePage></HomePage>
     </>
   );
 };
