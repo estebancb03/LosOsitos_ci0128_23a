@@ -70,14 +70,33 @@ const Information = () => (
       </ul>
       <br></br>
       <h1 className="text-3xl font-semi-bold mb-4">Services</h1>
-      <p className=" text-lg leading-relaxed mb-4">The refuge counts with several services to make your time here a more pleasent and fun memory</p>
+      <p className=" text-lg leading-relaxed mb-4">
+        The refuge counts with several services to make your time here a more
+        pleasent and fun memory
+      </p>
       <ul className="list-disc">
-        <li className=" text-lg leading-relexed mb-4">Camping Area: This area has a capacity for 80 people, in a designated and well marked area, and in some spaces there are a number of facilities such as tables, grills and a sink for use. This activity must follow the recommendations of the officials in the area.</li>
-        <li className=" text-lg leading-relexed mb-4">Picnic Area or Area for the day: this is located in the southern part of the refuge, it is marked by spaces and has some facilities; tables, grills and a sink for use.</li>
-        <li className=" text-lg leading-relaxed mb-4">Campers Area: is a marked area for camper vehicles.</li>
-        <li className=" text-lg leading-relaxed mb-4">Restrooms: located 50 meters from the information booth for use by day visitors and campers.</li>
+        <li className=" text-lg leading-relexed mb-4">
+          Camping Area: This area has a capacity for 80 people, in a designated
+          and well marked area, and in some spaces there are a number of
+          facilities such as tables, grills and a sink for use. This activity
+          must follow the recommendations of the officials in the area.
+        </li>
+        <li className=" text-lg leading-relexed mb-4">
+          Picnic Area or Area for the day: this is located in the southern part
+          of the refuge, it is marked by spaces and has some facilities; tables,
+          grills and a sink for use.
+        </li>
+        <li className=" text-lg leading-relaxed mb-4">
+          Campers Area: is a marked area for camper vehicles.
+        </li>
+        <li className=" text-lg leading-relaxed mb-4">
+          Restrooms: located 50 meters from the information booth for use by day
+          visitors and campers.
+        </li>
         <li className=" text-lg leading-relaxed mb-4">Showers</li>
-        <li className=" text-lg leading-relaxed mb-4">Kayak and bike rentals</li>
+        <li className=" text-lg leading-relaxed mb-4">
+          Kayak and bike rentals
+        </li>
       </ul>
     </Container>
 
