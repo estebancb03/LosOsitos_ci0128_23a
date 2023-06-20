@@ -1,8 +1,22 @@
 import { renderHook } from '@testing-library/react-hooks';
 import useValidations from '../src/hooks/useValidations';
+import { useContext } from "react";
+
+const mockAuthContext = {
+  token:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6IjEwNjAzMDg2MSAgICIsIlVzZXJuYW1lIjoiY2hpcXVpIiwiVHlwZSI6MCwiaWF0IjoxNjg3MjExNzIxLCJleHAiOjE2ODczNDg1MjF9.HnxyhiMF1fHgjZK88fRQXc7GoEeAlA8QbRC5irb905U",
+};
+
+jest.mock("react", () => ({
+  ...jest.requireActual("react"),
+  useContext: jest.fn(),
+}));
 
 describe('useValidation', () => {
   test('validatePersonalData returns true when all personal data fields are valid', () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations({
       ID: 11123,
       Name: 'John',
@@ -20,6 +34,9 @@ describe('useValidation', () => {
   });
 
   test("validateServices should return true if services are valid", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations({
       Services: [
         {
@@ -47,6 +64,9 @@ describe('useValidation', () => {
   });
 
   test("validateDates should return true if Picnic dates are valid", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
         {
           ID_Client: "118090359",
@@ -62,6 +82,9 @@ describe('useValidation', () => {
   });
 
   test("validateDates should return true if Camping dates are valid", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
         {
           ID_Client: "118090359",
@@ -78,6 +101,9 @@ describe('useValidation', () => {
   });
 
   test("validateTickets should return true if tickets are are valid", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Tickets: [
@@ -100,6 +126,9 @@ describe('useValidation', () => {
   });
 
   test("validateNewSpots should return true if spots are are valid", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Reservation_Type: 1,
@@ -113,6 +142,9 @@ describe('useValidation', () => {
   });
 
   test("validateCapacity should return true if camping capacity is not exceeded", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Start_Date: "2023-05-01",
@@ -129,6 +161,9 @@ describe('useValidation', () => {
   })
 
   test("validateCapacity should return true if picnic capacity is not exceeded", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Picnic_Date: "2023-05-01",
@@ -144,6 +179,9 @@ describe('useValidation', () => {
   })
 
   test("validateCapacity should return false if picnic capacity is exceeded", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Picnic_Date: "2023-05-01",
@@ -159,6 +197,9 @@ describe('useValidation', () => {
   })
 
   test("validateCapacity should return false if camping capacity is exceeded", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useValidations(
       {
         Start_Date: "2023-05-01",
