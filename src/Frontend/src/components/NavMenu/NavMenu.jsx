@@ -20,7 +20,7 @@ const NavMenu = () => {
             Home
           </Link>
           <Link className="mx-4 my-6 text-xl duration-500 hover:text-white">
-            About us
+            Information
           </Link>
           <Link className="mx-4 my-6 text-xl duration-500 hover:text-white">
             Meet Junquillal
