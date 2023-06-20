@@ -18,7 +18,6 @@ const checkOperatorAuth = async (req, res, next) => {
     const error = new Error('Invalid token or bearer');
     res.status(403).json({ message: error.message });
   }
-  next();
 }
 
 const checkAdminAuth = async (req, res, next) => {
@@ -43,7 +42,6 @@ const checkAdminAuth = async (req, res, next) => {
     const error = new Error('Invalid token or bearer');
     res.status(403).json({ message: error.message });
   }
-  next();
 }
 
 export {
