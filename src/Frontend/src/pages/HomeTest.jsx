@@ -2,7 +2,7 @@ import { useState } from "react";
 import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
-import playaDev from "../assets/images/playaDev.jpeg";
+import playaDev from "../assets/images/wallpaper.jpg";
 import Button from "../components/Buttons/Button";
 
 const HomeTest = () => {
