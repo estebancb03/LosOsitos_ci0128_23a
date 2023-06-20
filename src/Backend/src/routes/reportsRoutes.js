@@ -4,7 +4,7 @@ import { checkOperatorAuth, checkAdminAuth } from "../middlewares/authMiddleware
 
 const router = Router();
 
-router.get('/income/:start_date/:end_date/:file_type', checkAdminAuth, getIncomeData)
-router.get('/visitation/:start_date/:end_date/:file_type', checkAdminAuth, getVisitationData)
+router.get('/income/:start_date/:end_date', checkAdminAuth, getIncomeData)
+router.get('/visitation/:start_date/:end_date', checkAdminAuth, getVisitationData)
 
 export default router;

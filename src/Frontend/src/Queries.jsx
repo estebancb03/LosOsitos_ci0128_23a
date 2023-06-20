@@ -58,17 +58,13 @@ export const getKayakPrices = async () => {
   }
   return result;
 };
-export const getIncomeData = async (startDate, endDate, fileType) => {
+export const getIncomeData = async (startDate, endDate) => {
   let result = [];
-  let config = {};
-  if (fileType == "CSV") {
-    config = {};
-  } else if (fileType == "Excel") {
-    config = {method: "GET", responseType: "blob"};
-  }
+  const config = {method: "GET", responseType: "blob"};
+
   try {
     await AuthToken(localStorage.getItem('auth-token'));
-    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}/${fileType}`, config);    
+    const { data } = await axiosClient.get(`${incomeReporteRoute}/${startDate}/${endDate}`, config);    
     result = data;
   } catch (exception) {
     console.error(exception);
@@ -89,18 +85,13 @@ export const getRemainingCapacity = async (date, reservationType) => {
   return result;
 };
 
-export const getVisitationData = async (startDate, endDate, fileType) => {
+export const getVisitationData = async (startDate, endDate) => {
   let result = [];
-  let config = {};
-  if (fileType == "CSV") {
-    config = {};
-  } else if (fileType == "Excel") {
-    config = {method: "GET", responseType: "blob"};
-  }
+  let config = {method: "GET", responseType: "blob"};
 
   try {
     await AuthToken(localStorage.getItem('auth-token'));
-    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}/${fileType}`, config);
+    const { data } = await axiosClient.get(`${visitationReportRoute}/${startDate}/${endDate}`, config);
     result = data;
   } catch (exception) {
     console.error(exception);
