@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { formatDateMMDDYYYY } from "../../helpers/formatDate";
 
 const DatePickerButton = ({
+  datacy,
   text,
   typeClass,
   type,
@@ -27,6 +28,7 @@ const DatePickerButton = ({
                 setStartDate(date);
                 onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
+              data-cy={datacy}
               disabled={disabled}
               selected={startDate}
               dateFormat="dd/MM/yyyy"
@@ -43,6 +45,7 @@ const DatePickerButton = ({
                 setStartDate(date);
                 onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
+              data-cy={datacy}
               disabled={disabled}
               selected={selectedDate}
               dateFormat="dd/MM/yyyy"
@@ -59,6 +62,7 @@ const DatePickerButton = ({
                 setStartDate(date);
                 onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
+              data-cy={datacy}
               selected={selectedDate}
               disabled={disabled}
               dateFormat="dd/MM/yyyy"
@@ -75,6 +79,7 @@ const DatePickerButton = ({
                 setStartDate(date);
                 onChangeFunction(type, formatDateMMDDYYYY(date));
               }}
+              data-cy={datacy}
               disabled={disabled}
               selected={startDate}
               dateFormat="dd/MM/yyyy"

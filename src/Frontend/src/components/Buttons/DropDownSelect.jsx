@@ -3,6 +3,7 @@ import { useState } from "react";
 const DropDownSelect = ({
  text,
  disabled,
+ datacy,
  selectedOption,
  options,
  typeChange,
@@ -23,6 +24,7 @@ const DropDownSelect = ({
                setCurrentOption(e.target.value);
                onChangeFunction(typeChange, e.target.value);
              }}
+             data-cy={datacy}
              selected={currentOption}
              value={currentOption}
              disabled={disabled}
@@ -44,6 +46,7 @@ const DropDownSelect = ({
                setCurrentOption(e.target.value);
                onChangeFunction(typeChange, e.target.value);
              }}
+             data-cy={datacy}
              selected={currentOption}
              value={currentOption}
              disabled={disabled}

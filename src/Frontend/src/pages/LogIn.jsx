@@ -45,12 +45,13 @@ const LogIn = () => {
       <Container>
         <Title name="Log In"/>
         <Container>
-          <div className="flex items-center justify-center">
+          <div data-cy="login-form" className="flex items-center justify-center">
             <div className="flex h-full w-[35%] md:w-[100%] sm:w-[100%] ring-4 ring-[#004e98] rounded-lg drop-shadow-md">
               <img className="float-left my-10 mx-10 h-64 w-64" src={img} />
               <div className=" h-full w-full mr-10 my-10">
                 <div className="my-5 grid grid-cols-1">
                   <InputButton
+                    datacy="username-input"
                     text="Username"
                     type="username"
                     placeholderText=""
@@ -60,6 +61,7 @@ const LogIn = () => {
                 </div>
                 <div className="my-5 grid grid-cols-1">
                   <PasswordButton
+                    datacy="password-input"
                     text="Password"
                     type="userpassword"
                     placeholderText=""
@@ -69,6 +71,7 @@ const LogIn = () => {
                 </div>
                 <div className="my-5">
                   <Button
+                    datacy="submit-button"
                     text="Log In"
                     onclickFunction={login}
                   />

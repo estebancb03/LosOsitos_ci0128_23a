@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const PasswordButton = ({ text, placeholderText, disabled, type, onChangeFunction }) => {
+const PasswordButton = ({ datacy, text, placeholderText, disabled, type, onChangeFunction }) => {
   const [value, setValue] = useState(placeholderText);
   
   return (
@@ -15,6 +15,7 @@ const PasswordButton = ({ text, placeholderText, disabled, type, onChangeFunctio
               <input
                 type="password"
                 value={value}
+                data-cy={datacy}
                 placeholder={placeholderText}
                 disabled={disabled}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
@@ -36,6 +37,7 @@ const PasswordButton = ({ text, placeholderText, disabled, type, onChangeFunctio
                 <input
                   type="password"
                   value={placeholderText}
+                  data-cy={datacy}
                   placeholder={placeholderText}
                   disabled={disabled}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
@@ -54,6 +56,7 @@ const PasswordButton = ({ text, placeholderText, disabled, type, onChangeFunctio
               <input
                 type="password"
                 value={placeholderText}
+                data-cy={datacy}
                 placeholder={placeholderText}
                 disabled={disabled}
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#6545e6] sm:text-sm sm:leading-6"
