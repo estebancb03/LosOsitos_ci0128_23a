@@ -22,11 +22,11 @@ const Home = () => {
                 text. It has roots in a piece of classical Latin literature from
                 45 BC, making it over 2000 years old
               </p>
-              <div className="mx-20% flex justify-center space-x-10">
-                <button className="bg-white bg-opacity-25 text-black font-semi-bold py-4 px-8 rounded-full hover:bg-gray-300 transition-colors duration-300">
+              <div className="mx-60% flex justify-center space-x-10">
+                <button className="bg-white bg-opacity-25 text-black font-semi-bold py-4 px-12 rounded-full hover:bg-gray-300 transition-colors duration-300">
                   Book now
                 </button>
-                <button className="bg-white bg-opacity-25 text-black font-semi-bold py-4 px-8 rounded-full hover:bg-gray-300 transition-colors duration-300">
+                <button className="bg-white bg-opacity-25 text-black font-semi-bold py-4 px-12 rounded-full hover:bg-gray-300 transition-colors duration-300">
                   Contact us
                 </button>
               </div>
