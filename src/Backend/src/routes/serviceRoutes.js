@@ -1,8 +1,10 @@
 import {Router} from "express";
-import {getServicesOptions} from "../models/serviceModel.js"
+import {getServicesOptions, getServicesWithQuantityAndPrices} from "../models/serviceModel.js"
 
 const router = Router()
 
 router.get("/getServicesOptions", getServicesOptions);
+
+router.get("/getServicesWithQuantityAndPrices", getServicesWithQuantityAndPrices);
 
 export default router;

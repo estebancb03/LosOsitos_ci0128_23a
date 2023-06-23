@@ -9,7 +9,19 @@ const useServices = () => {
   const { token } = AuthContext;
   const [servicesNames, setServicesNames] = useState([]);
   const [servicesPrices, setServicesPrices] = useState([]);
+  const [servicesWithQuantityAndPrices, setServicesWithQuantityAndPrices] =
+    useState([]);
 
+  const fetchServicesWithQuantityAndPrices = async () => {
+    try {
+      const url = "/getServicesWithQuantityAndPrices";
+      await AuthToken(token);
+      const result = await AxiosClient.get(url);
+      setServicesWithQuantityAndPrices(result.data);
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
   const fetchServicesNames = async () => {
     try {
       const url = "/getServicesOptions";
@@ -35,18 +47,25 @@ const useServices = () => {
 
   const searchServicePrice = (nameService, currency) => {
     if (servicesPrices.length > 0) {
-      const result = servicesPrices.filter((price) => price.Name_Service === nameService && price.Currency === currency);
+      const result = servicesPrices.filter(
+        (price) =>
+          price.Name_Service === nameService && price.Currency === currency
+      );
       return result[0].Price;
     }
   };
 
   const modifyService = (type, value, reservation) => {
-    const newReservation = {...reservation};
+    const newReservation = { ...reservation };
     const newServices = [...reservation.NewServices];
     if (type[0] === "name") {
       newServices[type[1]].Name_Service = value;
-      newServices[type[1]].Price = searchServicePrice(value, reservation.Country_Name === "Costa Rica" ? "CRC" : "USD");
-      newServices[type[1]].Currency = reservation.Country_Name === "Costa Rica" ? "CRC" : "USD";
+      newServices[type[1]].Price = searchServicePrice(
+        value,
+        reservation.Country_Name === "Costa Rica" ? "CRC" : "USD"
+      );
+      newServices[type[1]].Currency =
+        reservation.Country_Name === "Costa Rica" ? "CRC" : "USD";
     } else if (type[0] === "quantity") {
       newServices[type[1]].Quantity = value;
     }
@@ -57,9 +76,16 @@ const useServices = () => {
   useEffect(() => {
     fetchServicesNames();
     fetchServicesPrices();
+    fetchServicesWithQuantityAndPrices();
   }, []);
 
-  return { servicesNames, servicesPrices, searchServicePrice, modifyService };
+  return {
+    servicesNames,
+    servicesPrices,
+    searchServicePrice,
+    modifyService,
+    servicesWithQuantityAndPrices,
+  };
 };
 
 export default useServices;
