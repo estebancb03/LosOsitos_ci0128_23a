@@ -8,13 +8,15 @@ export const getIncomeData = async (req, res) => {
       end_date
     } = req.params;
     const pool = await getConnection();
-    let result = await pool.request().
+    const reservations = await pool.request().
       input("start_date", sql.DateTime, start_date).
       input("end_date", sql.DateTime, end_date).
-      execute("DailyIncome");
+      execute("ReservationsByVisitor");
+    
+    const prices = await pool.request().query("SELECT * FROM Ticket");
 
     res.status(200);
-    const workbook = generateIncomeXLSX(result.recordset)
+    const workbook = generateIncomeXLSX(reservations.recordset, prices.recordset);
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
     await workbook.xlsx.write(res);

@@ -1,7 +1,79 @@
 import Excel from "exceljs";
 
-export const generateIncomeXLSX = (data) => {
+export const generateIncomeXLSX = (reservations, prices) => {
+  const workbook = new Excel.Workbook();
+  const campingIncomeSheet = workbook.addWorksheet("Camping");
+  const picnicIncomeSheet = workbook.addWorksheet("Picnic");
+  const sheetsList = [campingIncomeSheet, picnicIncomeSheet];
 
+  sheetsList.forEach((sheet) => {
+    sheet.mergeCells("A1", "K1");
+    sheet.getCell("A1").value = "SISTEMA NACIONAL DE AREAS DE CONSERVACION";
+    sheet.getCell('A1').alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.mergeCells("A2", "K2");
+    sheet.getCell("A2").value = "AREA DE CONSERVACION GUANACASTE";
+    sheet.getCell('A2').alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.mergeCells("A3", "K3");
+    sheet.getCell("A3").value = "Informe de Venta de Tiquetes, Sector Junquillal";
+    sheet.getCell('A3').alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.mergeCells("A4", "K4");
+    sheet.getCell("A4").value = "R.V.S. Bahía Junquillal";
+    sheet.getCell('A4').alignment = { vertical: 'middle', horizontal: 'center'};
+    
+    sheet.mergeCells("A5", "K5");
+    sheet.getCell("A5").value = "";
+    sheet.getCell('A5').alignment = { vertical: 'middle', horizontal: 'center'};
+
+
+    sheet.mergeCells("A6", "A8");
+    sheet.getCell("A6").value = "Fecha";
+    sheet.getCell('A6').alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.mergeCells("B6", "F6");
+    sheet.getCell("B6").value = "Residentes";
+    sheet.getCell("B6").alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.getCell("B7").value = "Adulto";
+    sheet.getCell("C7").value = "---";
+    sheet.getCell("B8").value = "Cantidad";
+    sheet.getCell("C8").value = "Total";
+
+    sheet.getCell("D7").value = "Niño";
+    sheet.getCell("E7").value = "---";
+    sheet.getCell("D8").value = "Cantidad";
+    sheet.getCell("E8").value = "Total";
+
+    sheet.mergeCells("F6", "F8");
+    sheet.getCell("F6").value = "Total de ingresos residentes";
+
+
+    sheet.mergeCells("G6", "K6");
+    sheet.getCell("G6").value = "No Residentes";
+    sheet.getCell("G6").alignment = { vertical: 'middle', horizontal: 'center'};
+
+    sheet.getCell("G7").value = "Adulto";
+    sheet.getCell("H7").value = "---";
+    sheet.getCell("G8").value = "Cantidad";
+    sheet.getCell("H8").value = "Total";
+
+    sheet.getCell("I7").value = "Niño";
+    sheet.getCell("J7").value = "---";
+    sheet.getCell("I8").value = "Cantidad";
+    sheet.getCell("J8").value = "Total";
+
+    sheet.mergeCells("F6", "F8");
+    sheet.getCell("K6").value = "Total de ingresos residentes";
+
+    
+    // reservations.forEach((reservation) => {
+    //   sheet.addRow(reservation);
+    // })
+  })
+
+  return workbook;
 }
 
 export const generateVisitationXLSX = (data) => {
