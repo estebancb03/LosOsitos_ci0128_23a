@@ -11,7 +11,7 @@ import ContactUs from "./ContactUs";
 const Home = () => {
   return (
     <>
-      <ContactUs></ContactUs>
+      <HomePage></HomePage>
     </>
   );
 };
