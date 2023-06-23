@@ -48,12 +48,11 @@ const ContactUs = () => {
           </div>
         </div>
         <div className="flex justify-end items-center "> 
-          <h1 className="font-bold text-4xl">Info</h1>
-          <br></br>
-          <p>Phone number: +506 8906-0672</p>
-          <br></br>
-          <p>Email: apatubaju@gmail.com</p>
-          <br></br>
+          <div className="text-gray-700">
+            <h1 className="font-bold text-4xl mb-4">Info</h1>
+            <p className="text-lg font-semi-bold">Phone number: +506 8906-0672</p>
+            <p className="text-lg font-semi-bold">Email: apatubaju@gmail.com</p>
+          </div>
         </div>
         <Footer />
     </>
