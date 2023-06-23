@@ -25,7 +25,7 @@ const ContactUs = () => {
       </Container>
       <Container>
         <div className="flex justify-start justify-items-start space-x-10">
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-around">
             <InputButton
               disabled={false}
               type="Name"
@@ -39,7 +39,7 @@ const ContactUs = () => {
               placeholderText=""
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col justify-around">
             <InputButton
               disabled={false}
               type="Phone"
@@ -53,7 +53,7 @@ const ContactUs = () => {
               placeholderText=""
             />
           </div>
-          <div className="flex flex-col text-gray-700">
+          <div className="flex flex-col text-gray-700 justify-around">
             <h1 className="font-bold text-4xl mb-4">Info</h1>
             <p className="text-lg font-semi-bold">
               Phone number: +506 8906-0672
