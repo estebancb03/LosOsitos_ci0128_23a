@@ -6,11 +6,12 @@ import playaDev from "../assets/images/playaDev.jpeg";
 import Button from "../components/Buttons/Button";
 import HomePage from "./HomePage";
 import Information from "./Information";
+import ContactUs from "./ContactUs";
 
 const Home = () => {
   return (
     <>
-      <HomePage></HomePage>
+      <ContactUs></ContactUs>
     </>
   );
 };
