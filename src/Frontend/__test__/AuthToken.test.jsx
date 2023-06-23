@@ -1,6 +1,5 @@
-import { renderHook } from "@testing-library/react-hooks";
-import AxiosClient from "../src/config/AxiosClient";
 import AuthToken from "../src/config/AuthToken";
+import AxiosClient from "../src/config/AxiosClient";
 
 describe('AuthToken', () => {
   test('Should add an Authorization header to AxiosClient', () => {
