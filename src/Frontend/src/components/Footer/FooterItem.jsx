@@ -7,11 +7,11 @@ const FooterItem = ({ item }) => {
       <ul>
         <h1 className="mb-2 font-semibold">{name}</h1>
         {attributes.map((attribute, index) => (
-          <li key={index} className="text-gray-400">
+          <li key={index} className="text-black">
             {attribute.link && attribute.icon ? (
               <Link
                 to={attribute.link}
-                className="flex justify-center mt-1 hover:font-semibold"
+                className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300"
               >
                 <span className="mt-0.5">{attribute.icon}</span>
                 <span className="ml-3">{attribute.description}</span>
@@ -19,8 +19,8 @@ const FooterItem = ({ item }) => {
             ) : attribute.link && attribute.externalicon ? (
               <Link to={attribute.link}>
                 <div
-                  className="bg-[#004e98] h-16 flex justify-center items-center rounded-md 
-                      hover: hover:font-semibold"
+                  className="bg-[#219ebc] h-16 flex justify-center items-center rounded-md 
+                      hover:font-semibold hover:bg-blue-600 transition-all duration-300"
                 >
                   <span className="ml-3 mr-3 h-[50px] w-[50px]">
                     <img src={attribute.externalicon} />
@@ -31,18 +31,16 @@ const FooterItem = ({ item }) => {
             ) : attribute.link ? (
               <Link
                 to={attribute.link}
-                className="flex justify-center mt-1 hover:font-semibold"
+                className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300"
               >
                 <span>{attribute.description}</span>
               </Link>
             ) : attribute.icon ? (
-              <div className="flex justify-center mt-1">
-                <span className="mt-0.5">{attribute.icon}</span>
-                <span className="ml-3">{attribute.description}</span>
+              <div className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300">
+                <span>{attribute.icon}</span>
               </div>
             ) : (
-              <div>
-                <span>{attribute.title}</span>
+              <div className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300">
                 <span>{attribute.description}</span>
               </div>
             )}

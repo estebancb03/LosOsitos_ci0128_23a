@@ -6,23 +6,20 @@ const NavMenu = () => {
   return (
     <div className="sticky top-0 z-10">
       <SideBarMenu />
-      <nav className="h-20 p-5 bg-[#004e98] shadow flex items-center justify-between">
+      <nav className="h-20 p-5 bg-[#219ebc] shadow flex items-center justify-between">
         <div className="flex justify-between items-center">
           <Link className="text-2xl text-gray-300 cursor-pointer">
             <img className="h-16 w-16" src={img} />
           </Link>
         </div>
-        <ul
-          className="text-gray-300 flex items-center w-full pl-20 opacity-100 top-[-400px] 
-          transition-all ease-in duration-500 sm:hidden"
-        >
-          <Link to="/" className="mx-4 my-6 text-xl duration-500 hover:text-white">
+        <ul className="text-gray-300 flex items-center w-full pl-20 opacity-100 top-[-400px] sm:hidden">
+          <Link to="/" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
             Home
           </Link>
-          <Link to="/information" className="mx-4 my-6 text-xl duration-500 hover:text-white">
+          <Link to="/information" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
             Information
           </Link>
-          <Link to="/meet" className="mx-4 my-6 text-xl duration-500 hover:text-white">
+          <Link to="/meet" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
             Meet Junquillal
           </Link>
         </ul>

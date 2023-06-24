@@ -16,7 +16,7 @@ const SubMenu = ({ item }) => {
             to={item.path}
             className="
               flex text-gray-300 items-center h-16 text-lg
-              hover:bg-[#efefd0] hover:text-black cursor-pointer hover:border-gray-300 border-transparent border-2"
+              hover:bg-[#efefd0] hover:text-black cursor-pointer hover:border-gray-300 border-transparent border-2 transition-all duration-300 ease-in-out"
             onClick={item.subnav && showIcon}
           >
             <span className="ml-4">{item.icon}</span>
@@ -37,7 +37,7 @@ const SubMenu = ({ item }) => {
             to={item.path}
             className="
               bg-[#6545e6] flex text-gray-300 items-center h-16 text-lg 
-              hover:bg-[#efefd0] cursor-pointer hover:border-gray-300 border-transparent border-2"
+              hover:bg-[#efefd0] cursor-pointer hover:border-gray-300 border-transparent border-2 transition-all duration-300 ease-in-out"
             onClick={item.subnav && showIcon}
           >
             <span className="ml-4">{item.icon}</span>
@@ -65,7 +65,7 @@ const SubMenu = ({ item }) => {
               key={index}
               className="
                 bg-[#6545e6] h-16 sm:pl-5 pl-10 flex items-center no-underline text-gray-200 text-lg
-                hover:cursor-pointer hover:border-gray-300 border-transparent border-2"
+                hover:cursor-pointer hover:border-gray-300 border-transparent border-2 transition-all duration-300 ease-in-out"
             >
               <span className="ml-4">{item.icon}</span>
               <span className="ml-4">{item.title}</span>

@@ -39,7 +39,7 @@ const SideBarMenu = () => {
           <Link
             data-cy="hamburger-menu-button"
             to="#"
-            className="text-stone-50 text-3xl h-10 flex justify-end items-center"
+            className="text-stone-50 text-3xl h-10 flex justify-end items-center transition-colors duration-200 hover:text-white hover:bg-gray-700 rounded-full p-2"
             onClick={showSideBar}
           >
             <FaIcons.FaBars />
@@ -49,7 +49,7 @@ const SideBarMenu = () => {
         <Link
           data-cy="hamburger-menu-button"
           to="#"
-          className="text-stone-50 mt-6 text-3xl h-10 fixed right-5 z-10"
+          className="text-stone-50 mt-6 text-3xl h-10 fixed right-5 z-10 transition-colors duration-200 hover:text-white hover:bg-gray-700 rounded-full p-2"
           onClick={showSideBar}
         >
           <IoIcons.IoMdClose />
@@ -63,7 +63,7 @@ const SideBarMenu = () => {
         <div className="pt-16">
           <User />
           {
-            // A SubMenu component is created for ach item in the data array
+            // A SubMenu component is created for each item in the data array
             data.map((submenu, index) => (
               <div key={index} onClick={() => {
                 if (submenu.title === "Log out") {
