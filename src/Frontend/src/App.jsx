@@ -12,6 +12,9 @@ import ParkStatus from "./pages/ParkStatus";
 import Settings from "./pages/Settings";
 import UserList from "./pages/UserList";
 import LogIn from "./pages/LogIn";
+import MeetJunquillal from "./pages/MeetJunquillal";
+import ContactUs from "./pages/ContactUs";
+import Information from "./pages/Information";
 import "filepond/dist/filepond.min.css";
 
 const App = () => {
@@ -24,6 +27,9 @@ const App = () => {
             <Route index element={<Home />} />
             <Route path="reservation" element={<Reservation />} />
             <Route path="login" element={<LogIn />} />
+            <Route path="contact-us" element={<ContactUs />} />
+            <Route path="information" element={<Information />} />
+            <Route path="meet" element={<MeetJunquillal />} />
           </Route>
           //Private access operator routes
           <Route path="/operator" element={<OperatorLayout />}>
@@ -39,7 +45,7 @@ const App = () => {
             <Route path="reservation-list" element={<ReservationList />} />
             <Route path="reservation" element={<Reservation />} />
             <Route path="reports" element={<Reports />} />
-            <Route path="settings" element={<Settings/>} />
+            <Route path="settings" element={<Settings />} />
             <Route path="park-status" element={<ParkStatus />} />
             <Route path="user-list" element={<UserList />} />
           </Route>
