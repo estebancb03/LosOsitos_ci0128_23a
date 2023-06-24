@@ -8,8 +8,13 @@ describe('AuthToken', () => {
     expect(AxiosClient.defaults.headers.common['Authorization']).toBe(`Bearer ${token}`);
   });
 
-  test('Should delete the Authorization header when a falsy value is given ', () => {
+  test('Should delete the Authorization header when a falsy token is given', () => {
     AuthToken(null);
+    expect(AxiosClient.defaults.headers.common['Authorization']).toBeUndefined();
+  });
+
+  test('Should delete the Authorization header when a empty token is given', () => {
+    AuthToken('');
     expect(AxiosClient.defaults.headers.common['Authorization']).toBeUndefined();
   });
 });
