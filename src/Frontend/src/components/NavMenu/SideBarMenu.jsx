@@ -21,17 +21,17 @@ const SideBarMenu = () => {
   const [sideBar, setSideBar] = useState(false);
   const [data, setData] = useState([]);
   const showSideBar = () => setSideBar(!sideBar);
-  
+
   useEffect(() => {
-   if (type === 0) {
-     setData(AdminSideBarData);
-   } else if (type === 1) {
-     setData(OperatorSideBarData);
-   } else {
-     setData(DefaultSideBarData);
-   }
+    if (type === 0) {
+      setData(AdminSideBarData);
+    } else if (type === 1) {
+      setData(OperatorSideBarData);
+    } else {
+      setData(DefaultSideBarData);
+    }
   });
-  
+
   return (
     <div>
       {!sideBar ? (
@@ -54,7 +54,6 @@ const SideBarMenu = () => {
         >
           <IoIcons.IoMdClose />
         </Link>
-        
       )}
       <div
         className={`bg-[#3a6ea5] top-0 right-0 fixed w-96 sm:w-60 h-full p-5 ${
@@ -66,11 +65,14 @@ const SideBarMenu = () => {
           {
             // A SubMenu component is created for each item in the data array
             data.map((submenu, index) => (
-              <div key={index} onClick={() => {
-                if (submenu.title === "Log out") {
-                  deauthUser();
-                }
-              }}>
+              <div
+                key={index}
+                onClick={() => {
+                  if (submenu.title === "Log out") {
+                    deauthUser();
+                  }
+                }}
+              >
                 <SubMenu item={submenu} key={index} />
               </div>
             ))
