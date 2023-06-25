@@ -57,6 +57,7 @@ const UserList = () => {
         <Table colums={tableColumns}>
           {users.map((user, index) => (
             <TableItem
+              datacy={user.Username+"-tr"}
               key={index}
               number={index}
               data={[
@@ -69,6 +70,7 @@ const UserList = () => {
                 user.Gender === 2 ? "Non-Binary" : "Other",
                 user.Type === 0 ? "Admin" : "Operator",
                 <Button
+                  datacy={"delete-"+user.Username+"-button"}
                   text="Delete"
                   type="delete"
                   onclickFunction={(e) => deleteSelectedUser(user)}

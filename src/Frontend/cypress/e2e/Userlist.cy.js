@@ -25,12 +25,25 @@ describe('<UserList />', () => {
     cy.get('[data-cy=adduserpassword-input]').type('test1234');
     cy.get('[data-cy=saveuser-button]').click();
     cy.get('[data-cy=closepopup-button]').click();
-    cy.visit('/admin');
+    // cy.visit('/admin');
+    // cy.get('[data-cy=hamburger-menu-button]').click();
+    // cy.get('[data-cy=userlist-submenu]').click();
+    cy.reload();
+    cy.get('[data-cy=test-tr]').should('exist');
+  });
+
+  it('Operator user elimination process', () => {
+    cy.visit('/');
+    cy.get('[data-cy=hamburger-menu-button]').click();
+    cy.get('[data-cy=login-submenu]').click();
+    cy.get('[data-cy=username-input]').type('estebancb');
+    cy.get('[data-cy=password-input]').type('estebancb');
+    cy.get('[data-cy=submit-button]').click();
+    cy.get('[data-cy=hamburger-menu-button]').click();
     cy.get('[data-cy=hamburger-menu-button]').click();
     cy.get('[data-cy=userlist-submenu]').click();
-    cy.contains('123456789').should('exist');
-    cy.contains('Test').should('exist');
-    cy.contains('Test Test Test').should('exist');
-    cy.contains('test@gmail.com').should('exist');
+    cy.get('[data-cy=test-tr]').should('exist');
+    cy.get('[data-cy=delete-test-button]').click();
+    cy.get('[data-cy=test-tr]').should('not.exist');
   });
 });
