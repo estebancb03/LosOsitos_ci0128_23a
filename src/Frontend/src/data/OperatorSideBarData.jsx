@@ -12,26 +12,31 @@ const OperatorSideBarData = [
     title: "Reservation",
     path: "/operator/reservation",
     icon: <SiIcons.SiAddthis />,
+    datacy: "reservationlist-submenu"
   },
   {
     title: "Testimonials",
     path: "/operator/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,
+    datacy: "testimonials-submenu"
   },
   {
     title: "Park Status",
     path: "/operator/park-status",
     icon: <BsIcons.BsFillPersonCheckFill />,
+    datacy: "parkstatus-submenu"
   },
   {
     title: "Reservation List",
     path: "/operator/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
+    datacy: "resservationlist-submenu"
   },
   {
     title: "Log out",
     path: "/",
     icon: <RiIcons.RiLogoutBoxFill />,
+    datacy: "logout-submenu"
   }
 ];
 
