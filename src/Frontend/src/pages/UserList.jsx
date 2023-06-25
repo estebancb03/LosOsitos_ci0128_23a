@@ -45,7 +45,7 @@ const UserList = () => {
       <Container>
         <Title name="User List" />
         <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
-          <Button text="Create user" type="" onclickFunction={() => setViewModal(true)} />
+          <Button datacy="createuser-button" text="Create user" type="" onclickFunction={() => setViewModal(true)} />
         </div>
         <CreateUser
           viewModal={viewModal}
