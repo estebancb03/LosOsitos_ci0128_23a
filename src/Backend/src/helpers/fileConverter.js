@@ -27,10 +27,8 @@ export const generateIncomeXLSX = (reservations, prices) => {
     sheet.getCell("A5").value = "";
     sheet.getCell('A5').alignment = { vertical: 'middle', horizontal: 'center'};
 
-
-    sheet.mergeCells("A6", "A8");
-    sheet.getCell("A6").value = "Fecha";
-    sheet.getCell('A6').alignment = { vertical: 'middle', horizontal: 'center'};
+    sheet.getCell("A8").value = "Fecha";
+    sheet.getCell('A8').alignment = { vertical: 'middle', horizontal: 'center'};
 
     sheet.mergeCells("B6", "F6");
     sheet.getCell("B6").value = "Residentes";
@@ -46,8 +44,8 @@ export const generateIncomeXLSX = (reservations, prices) => {
     sheet.getCell("D8").value = "Cantidad";
     sheet.getCell("E8").value = "Total";
 
-    sheet.mergeCells("F6", "F8");
-    sheet.getCell("F6").value = "Total de ingresos residentes";
+    sheet.getCell("F8").value = "Total de ingresos residentes";
+    sheet.getCell('F8').alignment = { vertical: 'middle', horizontal: 'center'};
 
 
     sheet.mergeCells("G6", "K6");
@@ -64,13 +62,39 @@ export const generateIncomeXLSX = (reservations, prices) => {
     sheet.getCell("I8").value = "Cantidad";
     sheet.getCell("J8").value = "Total";
 
-    sheet.mergeCells("F6", "F8");
-    sheet.getCell("K6").value = "Total de ingresos residentes";
+    sheet.getCell("K8").value = "Total de ingresos no residentes";
+    sheet.getCell('K8').alignment = { vertical: 'middle', horizontal: 'center'};
 
     
-    // reservations.forEach((reservation) => {
-    //   sheet.addRow(reservation);
-    // })
+    sheet.columns = [
+      { key: 'Fecha', width: 18.5},
+      { key: 'Cantidad_Adulto_Residente', width: 18.5},
+      { key: 'Total_Adulto_Residente', width: 18.5},
+      { key: 'Cantidad_Nino_Residente', width: 18.5},
+      { key: 'Total_Nino_Residente', width: 18.5},
+      { key: 'Ingresos_Residente', width: 18.5},
+      { key: 'Cantidad_Adulto_Extranjero', width: 18.5},
+      { key: 'Total_Adulto_Extranjero', width: 18.5},
+      { key: 'Cantidad_Nino_Extranjero', width: 18.5},
+      { key: 'Total_Nino_Extranjero', width: 18.5},
+      { key: 'Ingresos_Extranjero', width: 18.5}
+    ]
+
+    reservations.forEach((reservation) => {
+      sheet.addRow({
+        'Fecha': reservation.Fecha,
+        'Cantidad_Adulto_Residente': 0,
+        'Total_Adulto_Residente': 0,
+        'Cantidad_Nino_Residente': 0,
+        'Total_Nino_Residente': 0,
+        'Ingresos_Residente': 0,
+        'Cantidad_Adulto_Extranjero': 0,
+        'Total_Adulto_Extranjero': 0,
+        'Cantidad_Nino_Extranjero': 0,
+        'Total_Nino_Extranjero': 0,
+        'Ingresos_Extranjero': 0,
+      });
+    })
   })
 
   return workbook;
