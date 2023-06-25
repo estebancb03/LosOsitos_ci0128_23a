@@ -25,9 +25,6 @@ describe('<UserList />', () => {
     cy.get('[data-cy=adduserpassword-input]').type('test1234');
     cy.get('[data-cy=saveuser-button]').click();
     cy.get('[data-cy=closepopup-button]').click();
-    // cy.visit('/admin');
-    // cy.get('[data-cy=hamburger-menu-button]').click();
-    // cy.get('[data-cy=userlist-submenu]').click();
     cy.reload();
     cy.get('[data-cy=test-tr]').should('exist');
   });
