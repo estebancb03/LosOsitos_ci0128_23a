@@ -6,7 +6,7 @@ const NavMenu = () => {
   return (
     <div className="sticky top-0 z-10">
       <SideBarMenu />
-      <nav className="h-20 p-5 shadow flex items-center justify-between" style={{backgroundImage: "linear-gradient(to right, #219ebc, #4ecdc4)"}}>
+      <nav className="h-20 p-5 shadow flex items-center justify-between" style={{backgroundImage: "linear-gradient(to left, #219ebc, #4ecdc4)"}}>
         <div className="flex justify-between items-center">
           <Link className="text-2xl text-gray-300 cursor-pointer">
             <img className="h-16 w-16" src={img} />
