@@ -1,15 +1,15 @@
-import { Input } from 'antd';
 import { useState } from "react";
+import { Input } from 'antd';
 
-const InputButton = (props) => {
-  const {
-    text,
-    datacy,
-    placeholderText,
-    disabled,
-    type,
-    onChangeFunction
-  } = props;
+const InputButton = ({
+  text,
+  datacy,
+  placeholderText,
+  disabled,
+  type,
+  onChangeFunction,
+}) => {
+  const [value, setValue] = useState(placeholderText);
   const [inputValue, setInputValue] = useState(placeholderText);
 
   const handleChange = (e) => {
@@ -20,7 +20,8 @@ const InputButton = (props) => {
 
   return (
     <>
-      <div className='grid grid-cols-1 sm:my-3'>
+      {text ? (
+        <div className='grid grid-cols-1 sm:my-3'>
         <div className='sm:col-span-2'>
           {text && (
             <label className="block text-xl font-semibold leading-6 text-gray-900">
@@ -40,6 +41,23 @@ const InputButton = (props) => {
           </div>
         </div>
       </div>
+      ) : (
+        <div className="grid grid-cols-1 my-1 mx-2">
+          <div className="sm:col-span-2">
+            <div className="mt-2.5">
+              <Input
+                data-cy={datacy}
+                value={disabled ? placeholderText : inputValue}
+                placeholder={placeholderText}
+                disabled={disabled}
+                size='large'
+                className='w-full'
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
