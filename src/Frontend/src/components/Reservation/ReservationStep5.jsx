@@ -1,11 +1,8 @@
 import { useState, useEffect } from "react";
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget.jsx";
 import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
 import useCalculateFees from "../../hooks/useCalculateFees";
-import { FilePond, registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-registerPlugin(FilePondPluginFileEncode);
 import { Checkbox } from "antd";
 
 const ReservationStep5 = ({
@@ -15,15 +12,9 @@ const ReservationStep5 = ({
   setReservationData,
 }) => {
   const {calculateTotalFee} = useCalculateFees(reservationData);
-  const [files, setFiles] = useState([]);
-  const [filesBase64, setFilesBase64] = useState("");
+  const [image, setImage] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
-  const saveBase64 = (setFilesBase64, files) => {
-    if (files.length != 0) {
-      setFilesBase64(files[0].getFileEncodeBase64String());
-    }
-  };
   const insertPerson = async () => {
     try {
       const {
@@ -69,6 +60,7 @@ const ReservationStep5 = ({
 
   const insertReservation = async () => {
     try {
+      console.log(image);
       console.log("reservation");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
@@ -76,7 +68,7 @@ const ReservationStep5 = ({
         ID_Client: ID,
         Reservation_Date,
         Payment_Method: 2,
-        Payment_Proof: null,
+        Payment_Proof: image,
         Status: 0,
         Reservation_Method: 0,
       });
@@ -137,7 +129,7 @@ const ReservationStep5 = ({
   };
 
   const updateReservationData = async (method) => {
-    if (checkbox && filesBase64 != "") {
+    if (checkbox) { //condition to continue
       await insertPerson();
       await insertClient();
       await insertReservation();
@@ -149,7 +141,7 @@ const ReservationStep5 = ({
       console.log(bill);
       newWindows.Step5 = false;
       newWindows.Step6 = true;
-      newReservationData.Payment_Proof = filesBase64;
+      newReservationData.Payment_Proof = image;
       newReservationData.QRData = {
         data: newReservationData.ID + newReservationData.Reservation_Date,
         mail: newReservationData.Email,
@@ -181,9 +173,6 @@ const ReservationStep5 = ({
     }
   };
 
-  useEffect(() => {
-    saveBase64(setFilesBase64, files);
-  });
 
   return (
     <>
@@ -192,14 +181,9 @@ const ReservationStep5 = ({
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Upload payment proof picture
           </h2>
-          <FilePond
-            files={files}
-            onupdatefiles={setFiles}
-            allowMultiple={false}
-            maxFiles={1}
-            name="files"
-            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-          />
+          <CloudinaryUploadWidget 
+          setImage={(imageProp) => setImage(imageProp)} /> 
+          <br></br>
           <Checkbox
             onChange={() => {
               setCheckbox(!checkbox);
