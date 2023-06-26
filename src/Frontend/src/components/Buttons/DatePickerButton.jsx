@@ -78,8 +78,7 @@ const DatePickerButton = (props) => {
               {text}
             </label>
             <DatePicker
-              data-cy={datacy} 
-              defaultValue={dayjs(startDate)} 
+              data-cy={datacy}
               format={dateFormat}
               disabled={disabled}
               size='large'
