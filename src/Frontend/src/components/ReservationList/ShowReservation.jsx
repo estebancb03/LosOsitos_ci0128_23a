@@ -11,6 +11,7 @@ import ShowVehicles from "./Show/ShowVehicles";
 import ShowServices from "./Show/ShowServices";
 import ShowTickets from "./Show/ShowTickets";
 import ShowFee from "./Show/ShowFee";
+import ShowImage from "./Show/ShowImage";
 
 const ShowReservation = (props) => {
   const {
@@ -70,6 +71,11 @@ const ShowReservation = (props) => {
         setReservation={setCurrentRecord}
       />
       <ShowMainData
+        disabledElements={disabledElements}
+        reservation={currentRecord}
+        setReservation={setCurrentRecord}
+      />
+      <ShowImage
         disabledElements={disabledElements}
         reservation={currentRecord}
         setReservation={setCurrentRecord}
