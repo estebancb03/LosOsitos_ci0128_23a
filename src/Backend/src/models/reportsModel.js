@@ -17,11 +17,9 @@ export const getIncomeData = async (req, res) => {
       input("start_date", sql.DateTime, start_date).
       input("end_date", sql.DateTime, end_date).
       execute("DailyIncomePicnic");
-    
-    const prices = await pool.request().query("SELECT * FROM Ticket");
 
     res.status(200);
-    const workbook = generateIncomeXLSX(campingIncome.recordset, picnicIncome.recordset, prices.recordset);
+    const workbook = generateIncomeXLSX(campingIncome.recordset, picnicIncome.recordset);
     res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.setHeader("Content-Disposition", "attachment; filename=income_report.xlsx");  
     await workbook.xlsx.write(res);
