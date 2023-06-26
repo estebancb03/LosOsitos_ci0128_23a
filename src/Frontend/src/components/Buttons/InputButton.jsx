@@ -9,7 +9,6 @@ const InputButton = ({
   type,
   onChangeFunction,
 }) => {
-  const [value, setValue] = useState(placeholderText);
   const [inputValue, setInputValue] = useState(placeholderText);
 
   const handleChange = (e) => {
