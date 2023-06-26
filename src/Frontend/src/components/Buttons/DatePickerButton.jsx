@@ -1,5 +1,4 @@
 import dayjs from 'dayjs';
-import moment from 'moment';
 import { useState } from "react";
 import { DatePicker } from 'antd';
 import { formatDateMMDDYYYY, addZerosToDate } from "../../helpers/formatDate";
