@@ -1,14 +1,15 @@
-import { useState } from "react";
 import { Input } from 'antd';
+import { useState } from "react";
 
-const InputButton = ({
-  text,
-  datacy,
-  placeholderText,
-  disabled,
-  type,
-  onChangeFunction,
-}) => {
+const InputButton = (props) => {
+  const {
+    text,
+    datacy,
+    placeholderText,
+    disabled,
+    type,
+    onChangeFunction,
+  } = props;
   const [inputValue, setInputValue] = useState(placeholderText);
 
   const handleChange = (e) => {
