@@ -24,12 +24,32 @@ describe('useValidation', () => {
       LastName2: 'Smith',
       Birth_Date: '1990-01-01',
       Email: 'john.doe',
-      Gender: 'male',
+      Gender: 'Male',
       Country_Name: 'Argentina'
     }));
     const { validatePersonalData } = result.current;
     const validationResult = validatePersonalData();
     // Must be false because the email field is wrong
+    expect(validationResult).toBe(false);
+  });
+
+  test('validatePersonalData returns true when all personal data fields are valid', () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useValidations({
+      ID: 11123,
+      Name: '',
+      LastName1: 'Doe',
+      LastName2: 'Smith',
+      Birth_Date: '1990-01-01',
+      Email: 'john.doe@gmail.com',
+      Gender: 'Male',
+      Country_Name: 'Argentina'
+    }));
+    const { validatePersonalData } = result.current;
+    const validationResult = validatePersonalData();
+    // Must be false because the name field is wrong
     expect(validationResult).toBe(false);
   });
 
