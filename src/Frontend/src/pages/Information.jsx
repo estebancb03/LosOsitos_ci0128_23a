@@ -25,11 +25,17 @@ const Title = ({ title, style }) => {
 const Information = () => (
   <>
     <NavMenu />
-    <div
-      className="h-80 bg-cover bg-center filter brightness-70"
-      style={{ backgroundImage: `url(${backgroundImage})` }}
-    >
-      <Title title="Information" style={{ zIndex: "1" }} />
+    <div className="relative">
+      <img
+        src={backgroundImage}
+        alt="Header background image"
+        className="h-80 w-full object-cover object-center filter brightness-50"
+      />
+      <div className="z-30">
+        <h1 className="text-center text-white font-semibold text-6xl mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Information
+        </h1>
+      </div>
     </div>
     <Container>
       <h1 className="text-3xl font-semi-bold mb-4">Junquillal Beach</h1>
