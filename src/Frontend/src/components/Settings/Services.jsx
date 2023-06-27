@@ -7,12 +7,14 @@ import { BsCheck2 } from "react-icons/bs";
 import { TiDeleteOutline } from "react-icons/ti";
 import InputButton from "../Buttons/InputButton";
 import Button from "../Buttons/Button";
+import CreateService from "./CreateService";
 
 const Services = () => {
   const { servicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices } =
     useServices();
   const columnNames = ["Name", "Inventory", "USD", "CRC", "Modify", "Delete"];
 
+  const [viewModal, setViewModal] = useState(false);
   const [servicesData, setServicesData] = useState([]);
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonIconOfModify, setButtonIconOfModify] = useState([]);
@@ -209,7 +211,11 @@ const Services = () => {
       {readyToLoad() && (
         <div>
           <div className="grid grid-cols-7 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4 flex-justifiy">
-            <Button text={"Create"} />
+            <Button
+              text={"Create"}
+              onclickFunction={() => setViewModal(true)}
+            />
+            <CreateService viewModal={viewModal} setViewModal={setViewModal} />
           </div>
           <Table colums={columnNames}>
             {servicesData.map((service, index) => (
