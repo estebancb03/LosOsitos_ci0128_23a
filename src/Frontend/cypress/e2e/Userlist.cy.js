@@ -17,10 +17,14 @@ describe('<UserList />', () => {
     cy.get('[data-cy=addlastname1-input]').type('Test');
     cy.get('[data-cy=addlastname2-input]').type('Test');
     cy.get('[data-cy=addemail-input]').type('test@gmail.com');
-    cy.get('[data-cy=addgender-select]').select('Female');
-    cy.get('[data-cy=addcountry-select]').select('Costa Rica');
-    cy.get('[data-cy=addstate-select]').select('Guanacaste');
-    cy.get('[data-cy=addusertype-select]').select('Operator');
+    cy.get('[data-cy=addgender-select]').click();
+    cy.contains('.ant-select-item-option-content', 'Female').click();
+    cy.get('[data-cy=addcountry-select]').click();
+    cy.contains('.ant-select-item-option-content', 'Costa Rica').click();
+    cy.get('[data-cy=addstate-select]').click();
+    cy.contains('.ant-select-item-option-content', 'Guanacaste').click();
+    cy.get('[data-cy=addusertype-select]').click();
+    cy.contains('.ant-select-item-option-content', 'Operator').click();
     cy.get('[data-cy=addusername-input]').type('test');
     cy.get('[data-cy=adduserpassword-input]').type('test1234');
     cy.get('[data-cy=saveuser-button]').click();

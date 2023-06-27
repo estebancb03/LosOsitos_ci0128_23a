@@ -75,7 +75,7 @@ const ReservationList = () => {
           setCurrentReservations={setCurrentReservations}
           exitMethod={refreshRecords}
         />
-        <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
+        <div className="mt-5 mb-3 grid grid-cols-6 sm:grid-cols-1">
           <Button text="Book Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
         </div>
         <CreateReservation
