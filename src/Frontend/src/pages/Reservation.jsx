@@ -29,7 +29,9 @@ const Reservation = () => {
       <NavMenu />
       <Container>
         <Title name="Reservation" />
-        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10">
+        <div className="mt-6 shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] mx-96 sm:mx-6 md:mx-10">
+          <div className="h-1 rounded-sm"></div>
+          <div className="bg-[#FDFFFC] mx-1">
           <Container>
             {windows.Step0 === true && (
               <ReservationStep0
@@ -88,6 +90,8 @@ const Reservation = () => {
               />
             )}
           </Container>
+          </div>
+          <div className="h-1 bg-[#FDFFFC] rounded-sm"></div>
         </div>
       </Container>
       <Footer />
