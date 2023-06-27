@@ -9,11 +9,11 @@ const FiltersContainer = ({ applyFunction, restartFunction, children }) => {
         <div className="grid grid-cols-6 sm:grid-cols-2 md:grid-cols-6 mt-7 mx-7 md:mt-6 md:mx-6 sm:mt-5 sm:mx-5">
           {children}
         </div>
-        <div className="mx-6 mb-5 grid grid-cols-4 sm:grid-cols-2 sm:mx-5 mt-5 sm:mt-3">
-          <div className="mr-3 sm:mr-2 sm:mb-2">
+        <div className="mx-6 mb-5 grid grid-cols-6 sm:grid-cols-2 sm:mx-5 mt-5 sm:mt-3">
+          <div className="sm:mr-2 sm:mb-2">
             <Button text="Apply" type="add" onclickFunction={applyFunction} />
           </div>
-          <div className="ml-3 sm:ml-3">
+          <div className="ml-5 mr-4 sm:ml-3 sm:mr-0">
             <Button text="Reset" type="delete" onclickFunction={restartFunction} />
           </div>
         </div>
