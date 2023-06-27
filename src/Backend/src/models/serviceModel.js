@@ -25,4 +25,24 @@ const getServicesWithQuantityAndPrices = async (req, res) => {
     res.send(error.message)
   }
 }
-export {getServicesOptions, getServicesWithQuantityAndPrices}
+
+const updateServicesWithQuantityAndPrices = async (req, res) => {
+  try {
+    const {
+      originalName,
+      modifiedName,
+      quantity,
+      USD,
+      CRC
+    } = req.body;
+    const pool = await getConnection();
+    await pool.request().query(`UPDATE Service SET NAME = '${modifiedName}' WHERE NAME LIKE '%${originalName}'`)
+    await pool.request().query(`UPDATE Service SET Quantity = ${quantity} WHERE Name LIKE '%${modifiedName}'`);
+    await pool.request().query(`UPDATE Service_Price SET PRICE = ${USD} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%USD'`);
+    await pool.request().query(`UPDATE Service_Price SET PRICE = ${CRC} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%CRC'`);
+  } catch (error) {
+    res.status(500)
+    res.send(error.message)
+  }
+}
+export {getServicesOptions, getServicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices}

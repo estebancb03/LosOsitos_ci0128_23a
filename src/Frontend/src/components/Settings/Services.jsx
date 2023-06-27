@@ -9,23 +9,20 @@ import InputButton from "../Buttons/InputButton";
 import Button from "../Buttons/Button";
 
 const Services = () => {
-  const { servicesWithQuantityAndPrices } = useServices();
+  const { servicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices } =
+    useServices();
   const columnNames = ["Name", "Inventory", "USD", "CRC", "Modify", "Delete"];
 
   const [servicesData, setServicesData] = useState([]);
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonIconOfModify, setButtonIconOfModify] = useState([]);
-  const [isValidData, setIsValidData] = useState([]);
+  const [originalNames, setOriginalNames] = useState([]);
 
   const readyToLoad = () => {
-    //console.log("Length is " + servicesWithQuantityAndPrices.length);
     return servicesWithQuantityAndPrices.length > 0;
   };
 
   const checkQuantity = (quantity) => {
-    // console.log(
-    //   "Entered the checkQuantity with the following quantity " + quantity
-    // );
     let validQuantity = 0;
     quantity === 0 ? (validQuantity = "NA") : (validQuantity = quantity);
     return validQuantity;
@@ -48,14 +45,6 @@ const Services = () => {
   };
 
   const modifyPriceValue = (columnToModify, index, value) => {
-    // console.log(
-    //   "[ModifyPriceValue] columnToModify: " +
-    //     columnToModify +
-    //     "\n[ModifyPriceValue] Index: " +
-    //     index +
-    //     "\n[ModfiyPriceValue] Value: " +
-    //     value
-    // );
     if (columnToModify === "USD") {
       setServicesData((prevServicesData) => {
         const updatedData = [...prevServicesData];
@@ -74,14 +63,6 @@ const Services = () => {
   const modifyValueInTable = (type, value) => {
     const columnToModify = type[0];
     const indexToModify = type[1];
-    // console.log(
-    //   "[ModifyValueInTable] Type: " +
-    //     columnToModify +
-    //     "\n[ModifyValueInTable] Index: " +
-    //     indexToModify +
-    //     "\n[ModifyValueInTable] Value: " +
-    //     value
-    // );
     columnToModify === "Name"
       ? modifyName(indexToModify, value)
       : columnToModify === "Quantity"
@@ -89,16 +70,18 @@ const Services = () => {
       : modifyPriceValue(columnToModify, indexToModify, value);
   };
 
-  const enableIndex = (index) => {
-    console.log("[EnableIndex] Received the following index: " + index);
-    console.log(
-      "[EnableIndex] isValidData[" + index + "]: " + isValidData[index]
+  const validateUserInput = (index) => {
+    return (
+      checkNameEntered(index) &&
+      checkInventoryValue(index) &&
+      checkPricesValues(index)
     );
-    if (isValidData[index]) {
-      setDisabledButtons((prevButtons) =>
-        prevButtons.map((button, i) => (i === index ? !button : button))
-      );
-    }
+  };
+
+  const enableInput = (index) => {
+    setDisabledButtons((prevButtons) =>
+      prevButtons.map((button, i) => (i === index ? !button : button))
+    );
   };
 
   const capitalizeString = (str) => {
@@ -110,12 +93,6 @@ const Services = () => {
   };
 
   const checkNameEntered = (index) => {
-    console.log(
-      "[CheckNameEntered] Index: " +
-        index +
-        "\n[CheckNameEntered] Name to be checked: " +
-        servicesData[index].Name
-    );
     const regex = /^[A-Za-z]+$/;
     let successfulConversion = true;
     if (regex.test(servicesData[index].Name)) {
@@ -134,12 +111,6 @@ const Services = () => {
   };
 
   const checkInventoryValue = (index) => {
-    console.log(
-      "[CheckInventoryValues] Index: " +
-        index +
-        "\n[CheckInventoryValues] Value to check: " +
-        servicesData[index].Quantity
-    );
     const regex = /^(0|[1-9]\d*)$/;
     let successfulConversion = true;
     if (
@@ -161,16 +132,6 @@ const Services = () => {
   };
 
   const checkPricesValues = (index) => {
-    console.log(
-      "[CheckPriceValues] Index: " +
-        index +
-        "\n[CheckPircesValues] Values to check: " +
-        "USD[" +
-        servicesData[index].USD +
-        "]  CRC[" +
-        servicesData[index].CRC +
-        "]"
-    );
     let successfulConversion = true;
     const regex = /^(?!.*[,])\d+(\.\d+)?$/;
     if (
@@ -193,40 +154,31 @@ const Services = () => {
   };
 
   const changeButtonIcon = (buttonToModify, index) => {
-    console.log("[ChangeButtonIcon] Index: " + index);
+    let managedToChangeIcon = true;
     if (buttonToModify === "Modify") {
       if (buttonIconOfModify[index].type === BsPencil) {
-        console.log("[ChangeButtonIcon] Entered the first case");
         const updatedIcons = [...buttonIconOfModify];
         updatedIcons[index] = <BsCheck2 />;
         setButtonIconOfModify(updatedIcons);
       } else {
-        console.log("[ChangeButtonIcon] Entered the else case");
-        if (
-          checkNameEntered(index) &&
-          checkInventoryValue(index) &&
-          checkPricesValues(index)
-        ) {
-          setIsValidData((prevValidData) => {
-            const updatedData = [...prevValidData];
-            updatedData[index] = true;
-            return updatedData;
-          });
+        if (validateUserInput(index)) {
           const updatedIcons = [...buttonIconOfModify];
           updatedIcons[index] = <BsPencil />;
           setButtonIconOfModify(updatedIcons);
-          console.log(
-            "[ChangeButtonIcon] Passed all the checkpoints. Time to send the data"
+          // Send data to database
+          updateServicesWithQuantityAndPrices(
+            originalNames[index],
+            servicesData[index].Name,
+            servicesData[index].Quantity,
+            servicesData[index].USD,
+            servicesData[index].CRC
           );
         } else {
-          setIsValidData((prevValidData) => {
-            const updatedData = [...prevValidData];
-            updatedData[index] = false;
-            return updatedData;
-          });
+          managedToChangeIcon = false;
         }
       }
     }
+    return managedToChangeIcon;
   };
 
   const deleteService = (index) => {
@@ -248,13 +200,17 @@ const Services = () => {
     setButtonIconOfModify(
       Array(servicesWithQuantityAndPrices.length).fill(<BsPencil />)
     );
-    setIsValidData(Array(servicesWithQuantityAndPrices.length).fill(true));
+    const names = servicesWithQuantityAndPrices.map((obj) => obj.Name);
+    setOriginalNames(names);
   }, [servicesWithQuantityAndPrices]);
 
   return (
     <>
       {readyToLoad() && (
         <div>
+          <div className="grid grid-cols-7 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4 flex-justifiy">
+            <Button text={"Create"} />
+          </div>
           <Table colums={columnNames}>
             {servicesData.map((service, index) => (
               <TableItem
@@ -289,8 +245,13 @@ const Services = () => {
                     text={buttonIconOfModify[index]}
                     type="icon"
                     onclickFunction={() => {
-                      changeButtonIcon("Modify", index);
-                      enableIndex(index);
+                      const changedButtonIcon = changeButtonIcon(
+                        "Modify",
+                        index
+                      );
+                      if (changedButtonIcon) {
+                        enableInput(index);
+                      }
                     }}
                   />,
                   <Button
@@ -304,9 +265,6 @@ const Services = () => {
               />
             ))}
           </Table>
-          <div className="grid grid-cols-10 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4 ">
-            <Button text={"Create"} />
-          </div>
         </div>
       )}
     </>

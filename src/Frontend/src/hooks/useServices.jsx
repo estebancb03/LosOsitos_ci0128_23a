@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect, useContext } from "react";
 import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
@@ -22,6 +21,29 @@ const useServices = () => {
       console.log(exception);
     }
   };
+
+  const updateServicesWithQuantityAndPrices = async (
+    originalName,
+    modifiedName,
+    quantity,
+    USD,
+    CRC
+  ) => {
+    try {
+      const url = "/updateServicesWithQuantityAndPrices";
+      await AuthToken(localStorage.getItem("auth-token"));
+      await AxiosClient.put(url, {
+        originalName,
+        modifiedName,
+        quantity,
+        USD,
+        CRC,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const fetchServicesNames = async () => {
     try {
       const url = "/getServicesOptions";
@@ -85,6 +107,7 @@ const useServices = () => {
     searchServicePrice,
     modifyService,
     servicesWithQuantityAndPrices,
+    updateServicesWithQuantityAndPrices,
   };
 };
 
