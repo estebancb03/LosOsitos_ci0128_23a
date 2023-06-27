@@ -14,13 +14,14 @@ const Container = ({ children }) => {
 const Title = ({ title, style }) => {
   return (
     <h1
-      className="text-center z-10 text-white font-semibold text-6xl absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      className="text-center z-20 text-white font-semibold text-6xl mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
       style={{ ...style }}
     >
       {title}
     </h1>
   );
 };
+
 
 const MeetJunquillal = () => (
   <>
@@ -31,7 +32,11 @@ const MeetJunquillal = () => (
         alt="Header background image"
         className="h-80 w-full object-cover object-center filter brightness-50"
       />
-      <Title title="Meet Junquillal" />
+      <div className="z-30">
+        <h1 className="text-center text-white font-semibold text-6xl mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          Meet Junquillal
+        </h1>
+      </div>
     </div>
     <Container style={{ backgroundColor: "#fff" }}>
       <h1 className="text-3xl font-semi-bold mb-4">Junquillal Beach</h1>
@@ -41,11 +46,8 @@ const MeetJunquillal = () => (
         parking, camping area, tables, showers, bathrooms. Because it is located
         in a conservation area. It is a special place for families!
       </p>
-      <br></br>
-      <h1 className="text-3xl font-semi-bold mb-4">Walking trails</h1>
     </Container>
-    <Footer />
+    <Footer></Footer>
   </>
 );
-
 export default MeetJunquillal;
