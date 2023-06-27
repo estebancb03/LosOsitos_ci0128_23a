@@ -44,6 +44,31 @@ const useServices = () => {
     }
   };
 
+  const insertNewService = async (serviceName, quantity, USD, CRC) => {
+    try {
+      console.log(
+        "[InsertNewService] ServiceName: " +
+          serviceName +
+          "\n[InsertNewService] Quantity: " +
+          quantity +
+          "\n[InsertNewService] USD Price: " +
+          USD +
+          "\n[InsertNewService] CRC Price: " +
+          CRC
+      );
+      const url = "/insertNewService";
+      await AuthToken(localStorage.getItem("auth-token"));
+      await AxiosClient.post(url, {
+        serviceName,
+        quantity,
+        USD,
+        CRC,
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
   const fetchServicesNames = async () => {
     try {
       const url = "/getServicesOptions";
@@ -108,6 +133,8 @@ const useServices = () => {
     modifyService,
     servicesWithQuantityAndPrices,
     updateServicesWithQuantityAndPrices,
+    insertNewService,
+    fetchServicesWithQuantityAndPrices,
   };
 };
 

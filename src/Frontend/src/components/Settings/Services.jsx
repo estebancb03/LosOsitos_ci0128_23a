@@ -10,8 +10,11 @@ import Button from "../Buttons/Button";
 import CreateService from "./CreateService";
 
 const Services = () => {
-  const { servicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices } =
-    useServices();
+  const {
+    servicesWithQuantityAndPrices,
+    updateServicesWithQuantityAndPrices,
+    fetchServicesWithQuantityAndPrices,
+  } = useServices();
   const columnNames = ["Name", "Inventory", "USD", "CRC", "Modify", "Delete"];
 
   const [viewModal, setViewModal] = useState(false);
@@ -19,6 +22,12 @@ const Services = () => {
   const [disabledButtons, setDisabledButtons] = useState([]);
   const [buttonIconOfModify, setButtonIconOfModify] = useState([]);
   const [originalNames, setOriginalNames] = useState([]);
+
+  const refreshPage = async () => {
+    console.log["[RefreshPage] He sido invocado!!"];
+    await fetchServicesWithQuantityAndPrices();
+    setServicesData(servicesWithQuantityAndPrices);
+  };
 
   const readyToLoad = () => {
     return servicesWithQuantityAndPrices.length > 0;
@@ -95,7 +104,7 @@ const Services = () => {
   };
 
   const checkNameEntered = (index) => {
-    const regex = /^[A-Za-z]+$/;
+    const regex = /^[A-Za-z ]+$/;
     let successfulConversion = true;
     if (regex.test(servicesData[index].Name)) {
       setServicesData((prevServicesData) => {
@@ -119,6 +128,9 @@ const Services = () => {
       regex.test(servicesData[index].Quantity) ||
       servicesData[index].Quantity === "NA"
     ) {
+      if (servicesData[index].Quantity === "NA") {
+        servicesData[index].Quantity = 0;
+      }
       setServicesData((prevServicesData) => {
         const updatedData = [...prevServicesData];
         updatedData[index].Quantity = parseInt(servicesData[index].Quantity);
@@ -214,8 +226,13 @@ const Services = () => {
             <Button
               text={"Create"}
               onclickFunction={() => setViewModal(true)}
+              exitFunction={refreshPage}
             />
-            <CreateService viewModal={viewModal} setViewModal={setViewModal} />
+            <CreateService
+              viewModal={viewModal}
+              setViewModal={setViewModal}
+              exitFunction={refreshPage}
+            />
           </div>
           <Table colums={columnNames}>
             {servicesData.map((service, index) => (
@@ -230,19 +247,21 @@ const Services = () => {
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
-                    placeholderText={checkQuantity(service.Quantity)}
+                    placeholderText={checkQuantity(
+                      servicesData[index].Quantity
+                    )}
                     disabled={disabledButtons[index]}
                     type={["Quantity", index]}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
-                    placeholderText={service.USD}
+                    placeholderText={servicesData[index].USD}
                     disabled={disabledButtons[index]}
                     type={["USD", index]}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
-                    placeholderText={service.CRC}
+                    placeholderText={servicesData[index].CRC}
                     disabled={disabledButtons[index]}
                     type={["CRC", index]}
                     onChangeFunction={modifyValueInTable}

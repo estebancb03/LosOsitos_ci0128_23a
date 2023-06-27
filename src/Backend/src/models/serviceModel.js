@@ -40,9 +40,37 @@ const updateServicesWithQuantityAndPrices = async (req, res) => {
     await pool.request().query(`UPDATE Service SET Quantity = ${quantity} WHERE Name LIKE '%${modifiedName}'`);
     await pool.request().query(`UPDATE Service_Price SET PRICE = ${USD} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%USD'`);
     await pool.request().query(`UPDATE Service_Price SET PRICE = ${CRC} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%CRC'`);
+    res.status(200);
   } catch (error) {
     res.status(500)
     res.send(error.message)
   }
 }
-export {getServicesOptions, getServicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices}
+
+const insertNewService = async (req, res) => {
+  try {
+    const {
+      serviceName,
+      quantity,
+      USD,
+      CRC
+    } = req.body
+    const disabled = 0
+    console.log("[BACKEND] ServiceName: " + serviceName +
+    "\n[BACKEND] Quantity: " + quantity +
+    "\n[BACKEND] USD: " + USD +
+    "\n[BACKEND] CRC: " + CRC)
+    const pool = await getConnection();
+    await pool.query(`INSERT INTO Service VALUES ('${serviceName}', ${quantity}, ${disabled})`)
+    console.log("Ended the first query")
+    await pool.query(`INSERT INTO Service_Price VALUES ('USD', ${USD}, '${serviceName}')`)
+    console.log("Ended the second query")
+    await pool.query(`INSERT INTO Service_Price VALUES ('CRC', ${CRC}, '${serviceName}')`)
+    console.log("Ended the third query")
+    res.status(200);
+  } catch (error) {
+    res.status(500)
+    res.send(error.message)
+  }
+}
+export {getServicesOptions, getServicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices, insertNewService}

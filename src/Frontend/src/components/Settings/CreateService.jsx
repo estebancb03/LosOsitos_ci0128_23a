@@ -2,9 +2,11 @@ import { useState } from "react";
 import Modal from "../Modal";
 import InputButton from "../Buttons/InputButton";
 import Button from "../Buttons/Button";
+import useServices from "../../hooks/useServices";
 
 const CreateService = (props) => {
-  const { viewModal, setViewModal } = props;
+  const { viewModal, setViewModal, exitFunction } = props;
+  const { insertNewService } = useServices();
   const [newServiceInfo, setNewServiceInfo] = useState({
     Name: "",
     Quantity: "",
@@ -16,19 +18,14 @@ const CreateService = (props) => {
     if (!checkForEmptyValues()) {
       if (checkNameEntered() && checkInventoryValue() && checkPricesValues()) {
         // Send data to database
-        // reset the new service info state
-        resetNewServiceInfo();
-        // Exit the pop up
-        setViewModal(false);
-      } else {
-        // Don't exit the pop up
-        // until the data entered is correct
-        setViewModal(true);
+        insertNewService(
+          newServiceInfo.Name,
+          newServiceInfo.Quantity,
+          newServiceInfo.USD,
+          newServiceInfo.CRC
+        );
+        alert("The service has been added");
       }
-    } else {
-      // Don't exit the pop up
-      // until all fields are filled
-      setViewModal(true);
     }
   };
 
@@ -55,7 +52,7 @@ const CreateService = (props) => {
   };
 
   const checkNameEntered = () => {
-    const regex = /^[A-Za-z]+$/;
+    const regex = /^[A-Za-z ]+$/;
     let successfulConversion = true;
     if (regex.test(newServiceInfo.Name)) {
       setNewServiceInfo((prevServiceInfo) => ({
@@ -146,7 +143,10 @@ const CreateService = (props) => {
       <Modal
         state={viewModal}
         setState={setViewModal}
-        exitFunction={() => resetNewServiceInfo()}
+        exitFunction={() => {
+          exitFunction();
+          resetNewServiceInfo();
+        }}
         title="Create Service"
       >
         <div className="mt-6 grid grid-cols-1">
