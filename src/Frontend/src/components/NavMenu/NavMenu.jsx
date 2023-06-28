@@ -8,11 +8,11 @@ const NavMenu = () => {
       <SideBarMenu />
       <nav className="h-20 p-5 shadow flex items-center justify-between" style={{backgroundImage: "linear-gradient(to left, #219ebc, #4ecdc4)"}}>
         <div className="flex justify-between items-center">
-          <Link className="text-2xl text-gray-300 cursor-pointer">
+          <Link className="text-2xl text-white cursor-pointer">
             <img className="h-16 w-16" src={img} />
           </Link>
         </div>
-        <ul className="text-gray-300 flex items-center w-full pl-20 opacity-100 top-[-400px] sm:hidden">
+        <ul className="text-white flex items-center w-full pl-20 opacity-100 top-[-400px] sm:hidden">
           <Link to="/" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
             Home
           </Link>
