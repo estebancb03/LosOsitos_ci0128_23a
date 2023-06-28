@@ -80,6 +80,13 @@ const ParkStatus = () => {
            <Title name="Picnic" />
             <Title name={statusData.peopleInDatePicnic}/>
           </BoxContainer>
+          <BoxContainer>
+            <span className="flex justify-center my-1">
+              <RiIcons.RiShoppingBasketFill size={50} color="#21295c"/>
+            </span> 
+           <Title name="People In Park" />
+            <Title name={statusData.PeopleInPark}/>
+          </BoxContainer>
         </div>
       </Container>
       <Footer />
