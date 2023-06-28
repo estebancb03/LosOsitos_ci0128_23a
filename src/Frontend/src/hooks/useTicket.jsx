@@ -9,19 +9,37 @@ const useTicket = () => {
   const { token } = AuthContext;
 
   const ticketOptions = [
-    "National-Children",
-    "National-Adult",
-    "Foreign-Children",
-    "Foreign-Adult"
+    "National Children (0-6 years)",
+    "National Children (7-12 years)",
+    "National Adult",
+    "National Senior Citysen",
+    "Foreign Children (0-6 years)",
+    "Foreign Children (7-12 years)",
+    "Foreign Adult",
+    "Foreign Senior Citysen"
   ];
   const [ticketPrices, setTicketPrices] = useState([]);
 
   const formatTicket = (ticket) => {
-    const {Age_Range, Demographic_Group} = ticket;
-    const resultAgeRange = Age_Range == 0 ? "Children" : "Adult";
-    const resultDemographicGroup =
-      Demographic_Group == 0 ? "National" : "Foreign";
-    return resultDemographicGroup + "-" + resultAgeRange;
+    let resultAgeRange;
+    let resultDemographicGroup;
+    const { Age_Range, Demographic_Group } = ticket;
+    if (Age_Range === 0) {
+      resultAgeRange = "Children (7-12 years)";
+    } else if (Age_Range === 1) {
+      resultAgeRange = "Adult";
+    } else if (Age_Range === 2) {
+      resultAgeRange = "Children (0-6 years)";
+    } else if (Age_Range === 3) {
+      resultAgeRange = "Senior Citysen";
+    }
+    if (Demographic_Group === 0) {
+      resultDemographicGroup = "National";
+    } else if (Demographic_Group === 1) {
+      resultDemographicGroup = "Foreign";
+    }
+
+    return resultDemographicGroup + " " + resultAgeRange;
   };
 
   const formatTicketPrices = async () => {
@@ -57,18 +75,30 @@ const useTicket = () => {
     const newReservation = {...reservation};
     const newTickets = [...reservation.Tickets];
     if (type[0] === "name") {
-      if (value === "Foreign-Adult") {
+      if (value === "Foreign Adult") {
         newTickets[type[1]].Demographic_Group = 1;
         newTickets[type[1]].Age_Range = 1;
-      } else if (value === "Foreign-Children") {
+      } else if (value === "Foreign Children (7-12 years)") {
         newTickets[type[1]].Demographic_Group = 1;
         newTickets[type[1]].Age_Range = 0;
-      } else if (value === "National-Adult") {
+      } else if (value === "National Adult") {
         newTickets[type[1]].Demographic_Group = 0;
         newTickets[type[1]].Age_Range = 1;
-      } else if (value === "National-Children") {
+      } else if (value === "National Children (7-12 years)") {
         newTickets[type[1]].Demographic_Group = 0;
         newTickets[type[1]].Age_Range = 0;
+      } else if (value === "Foreign Children (0-6 years)") {
+        newTickets[type[1]].Demographic_Group = 1;
+        newTickets[type[1]].Age_Range = 2;
+      } else if (value === "National Children (0-6 years)") {
+        newTickets[type[1]].Demographic_Group = 0;
+        newTickets[type[1]].Age_Range = 2;
+      } else if (value === "Foreign Senior Citysen") {
+        newTickets[type[1]].Demographic_Group = 1;
+        newTickets[type[1]].Age_Range = 3;
+      } else if (value === "National Senior Citysen") {
+        newTickets[type[1]].Demographic_Group = 0;
+        newTickets[type[1]].Age_Range = 3;
       }
     } else if (type[0] === "amount") {
       newTickets[type[1]].Amount = value;
@@ -107,18 +137,30 @@ const useTicket = () => {
       Special: 0,
       Price: 0
     };
-    if (ticketName === "Foreign-Adult") {
+    if (ticketName === "Foreign Adult") {
       data.Demographic_Group = 1;
       data.Age_Range = 1;
-    } else if (ticketName === "Foreign-Children") {
+    } else if (ticketName === "Foreign Children (7-12 years)") {
       data.Demographic_Group = 1;
       data.Age_Range = 0;
-    } else if (ticketName === "National-Adult") {
+    } else if (ticketName === "National Adult") {
       data.Demographic_Group = 0;
       data.Age_Range = 1;
-    } else if (ticketName === "National-Children") {
+    } else if (ticketName === "National Children (7-12 years)") {
       data.Demographic_Group = 0;
       data.Age_Range = 0;
+    } else if (ticketName === "Foreign Children (0-6 years)") {
+      data.Demographic_Group = 1;
+      data.Age_Range = 2;
+    } else if (ticketName === "National Children (0-6 years)") {
+      data.Demographic_Group = 0;
+      data.Age_Range = 2;
+    } else if (ticketName === "Foreign Senior Citysen") {
+      data.Demographic_Group = 1;
+      data.Age_Range = 3;
+    } else if (ticketName === "National Senior Citysen") {
+      data.Demographic_Group = 0;
+      data.Age_Range = 3;
     }
     ticketPrices.map((ticket) => {
       if (ticket.Age_Range === data.Age_Range &&
@@ -136,18 +178,30 @@ const useTicket = () => {
     const newReservation = {...reservation};
     const newTickets = [...reservation.NewTickets];
     if (type[0] === "name") {
-      if (value === "Foreign-Adult") {
+      if (value === "Foreign Adult") {
         newTickets[type[1]].Demographic_Group = 1;
         newTickets[type[1]].Age_Range = 1;
-      } else if (value === "Foreign-Children") {
+      } else if (value === "Foreign Children (7-12 years)") {
         newTickets[type[1]].Demographic_Group = 1;
         newTickets[type[1]].Age_Range = 0;
-      } else if (value === "National-Adult") {
+      } else if (value === "National Adult") {
         newTickets[type[1]].Demographic_Group = 0;
         newTickets[type[1]].Age_Range = 1;
-      } else if (value === "National-Children") {
+      } else if (value === "National Children (7-12 years)") {
         newTickets[type[1]].Demographic_Group = 0;
         newTickets[type[1]].Age_Range = 0;
+      } else if (value === "Foreign Children (0-6 years)") {
+        newTickets[type[1]].Demographic_Group = 1;
+        newTickets[type[1]].Age_Range = 2;
+      } else if (value === "National Children (0-6 years)") {
+        newTickets[type[1]].Demographic_Group = 0;
+        newTickets[type[1]].Age_Range = 2;
+      } else if (value === "Foreign Senior Citysen") {
+        newTickets[type[1]].Demographic_Group = 1;
+        newTickets[type[1]].Age_Range = 3;
+      } else if (value === "National Senior Citysen") {
+        newTickets[type[1]].Demographic_Group = 0;
+        newTickets[type[1]].Age_Range = 3;
       }
     } else if (type[0] === "amount") {
       newTickets[type[1]].Amount = value;
