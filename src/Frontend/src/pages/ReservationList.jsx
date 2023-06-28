@@ -106,7 +106,10 @@ const ReservationList = () => {
                   reservation.LastName2,
                 reservation.Reservation_Type == 1 ? "Camping" : "Picnic",
                 reservation.Reservation_Method == 0 ? "Online" : "In site",
-                reservation.Status == 0 ? "Pending" : "Approved",
+                reservation.Status == 0 ? "Pending" 
+                : reservation.Status === 1 ? "Approved" 
+                : reservation.Status === 2 ?"In Park"
+                : "Finished",
                 reservation.Start_Date !== null
                   ? formatDateDTDDMMYYYY(reservation.Start_Date)
                   : reservation.Picnic_Date !== null ? formatDateDTDDMMYYYY(reservation.Picnic_Date) : "N/A",
