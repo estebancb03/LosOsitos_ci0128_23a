@@ -36,7 +36,10 @@ const ShowMainData = (props) => {
         newReservation.Status = 1;
       } else if (value === "In Park"){
         newReservation.Status = 2;
-      }
+      } else if (value === "Finished"){
+      newReservation.Status = 3;
+    }
+      console.log(newReservation.Status);
     } else if (type === "picnicdate") {
       newReservation.Picnic_Date = value;
     } else if (type === "startdate") {
@@ -49,6 +52,7 @@ const ShowMainData = (props) => {
 
   return (
     <>
+      {console.log(reservation.Status)}
       <div className="-mt-3 my-3 grid grid-cols-2">
         <div className="my-3 mr-3">
           <InputButton
@@ -62,17 +66,19 @@ const ShowMainData = (props) => {
             <InputButton
               text="Status"
               placeholderText={reservation.Status === 0 ? "Pending" 
-              : 1 ?"Approved"
-              : "In Park"}
+              : reservation.Status === 1 ? "Approved"
+              : reservation.Status === 2 ?"In Park"
+              : "Finished"}
               disabled={true}
             />
           ) : (
             <DropDownSelect
               text="Status"
-              options={["Pending", "Approved", "In Park"]}
+              options={["Pending", "Approved", "In Park", "Finished"]}
               selectedOption={reservation.Status === 0 ? "Pending" 
-              : 1 ? "Approved" 
-              : "In Park"}
+              : reservation.Status === 1 ? "Approved" 
+              : reservation.Status === 2 ?"In Park"
+              : "Finished"}
               disabled={disabledElements}
               typeChange="status"
               onChangeFunction={changeMainData}
