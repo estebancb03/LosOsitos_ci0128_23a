@@ -93,8 +93,7 @@ const Reports = () => {
           </div>
           <div className="mt-8">
             <Button
-              text="Generate"
-              type="add"
+              text="Download"
               onclickFunction={generateReport}
             />
           </div>
