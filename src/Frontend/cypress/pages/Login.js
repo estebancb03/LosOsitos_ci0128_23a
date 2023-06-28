@@ -19,6 +19,7 @@ class Login {
 
   submit() {
     cy.get('[data-cy=submit-button]').click();
+    cy.wait(1000);
   };
 }
 

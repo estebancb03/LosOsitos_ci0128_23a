@@ -17,7 +17,8 @@ describe('<UserList />', () => {
     login.insertUsername('estebancb');
     login.insertPassword('estebancb');
     login.submit();
-    userlist.visit();
+    sideBarMenu.open();
+    sideBarMenu.navigateToOption('User list');
     userlist.createUser();
     userlist.insertID('123456789');
     userlist.insertName('Test');

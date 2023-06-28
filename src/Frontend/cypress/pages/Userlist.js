@@ -65,6 +65,7 @@ class Userlist {
     cy.get('[data-cy=saveuser-button]').click();
     cy.get('[data-cy=closepopup-button]').click();
     cy.reload();
+    cy.wait(1000);
   };
 
   deleteUser(user) {
