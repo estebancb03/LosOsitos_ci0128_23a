@@ -15,12 +15,6 @@ const DefaultSideBarData = [
     datacy: "reservationlist-submenu"
   },
   {
-    title: "Testimonials",
-    path: "/testimonials",
-    icon: <RiIcons.RiFilePaper2Fill />,
-    datacy: "testimonials-submenu"
-  },
-  {
     title: "LogIn",
     path: "/login",
     icon: <RiIcons.RiLoginBoxFill />,
