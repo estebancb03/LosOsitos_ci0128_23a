@@ -12,11 +12,14 @@ const sideBarMenu = new SideBarMenu();
 
 describe('<UserList />', () => {
   it('Operator user elimination process', () => {
+    // Arrange
     home.visit();
     login.visit();
+    // Actions
     login.insertUsername('estebancb');
     login.insertPassword('estebancb');
     login.submit();
+    cy.wait(1000);
     sideBarMenu.open();
     sideBarMenu.navigateToOption('User list');
     userlist.createUser();
@@ -32,6 +35,8 @@ describe('<UserList />', () => {
     userlist.insertUsername('test');
     userlist.insertPassword('test1234')
     userlist.saveUser();
+    cy.wait(1000);
+    // Asserts
     userlist.verifyUserExist('test');
     userlist.deleteUser('test');
     userlist.verifyUserNotExist('test');

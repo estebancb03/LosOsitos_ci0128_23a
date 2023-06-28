@@ -10,13 +10,16 @@ const sideBarMenu = new SideBarMenu();
 
 describe('<Login />', () => {
   it('Admin user login process', () => {
+    // Arrange
     home.visit();
     sideBarMenu.open();
+    // Actions
     sideBarMenu.navigateToOption('Log in');
     login.insertUsername('estebancb');
     login.insertPassword('estebancb');
     login.submit();
     sideBarMenu.open();
+    // Asserts
     sideBarMenu.verifyUsernameText('estebancb');
     sideBarMenu.verifyRoleText('administrator');
     sideBarMenu.verifyOptionExist('Park status');
