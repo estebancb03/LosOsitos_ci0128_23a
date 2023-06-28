@@ -10,6 +10,7 @@ import AxiosClient from "../config/AxiosClient";
 import * as BsIcons from "react-icons/bs";
 import * as GiIcons from "react-icons/gi";
 import * as RiIcons from "react-icons/ri";
+import * as MdIcons from "react-icons/md";
 import { useState, useEffect, useContext } from "react";
 
 const ParkStatus = () => {
@@ -82,7 +83,7 @@ const ParkStatus = () => {
           </BoxContainer>
           <BoxContainer>
             <span className="flex justify-center my-1">
-              <RiIcons.RiShoppingBasketFill size={50} color="#21295c"/>
+              <MdIcons.MdPark size={50} color="#21295c"/>
             </span> 
            <Title name="People In Park" />
             <Title name={statusData.PeopleInPark}/>
