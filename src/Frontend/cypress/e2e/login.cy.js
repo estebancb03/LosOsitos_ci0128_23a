@@ -1,22 +1,29 @@
 /// <reference types='cypress' />
 
+import Home from '../pages/Home';
+import Login from '../pages/Login';
+import SideBarMenu from '../pages/SideBarMenu';
+
+const home = new Home();
+const login = new Login();
+const sideBarMenu = new SideBarMenu();
+
 describe('<Login />', () => {
   it('Admin user login process', () => {
-    cy.visit('/');
-    cy.get('[data-cy=hamburger-menu-button]').click();
-    cy.get('[data-cy=login-submenu]').click();
-    cy.get('[data-cy=username-input]').type('estebancb');
-    cy.get('[data-cy=password-input]').type('estebancb');
-    cy.get('[data-cy=submit-button]').click();
-    cy.get('[data-cy=hamburger-menu-button]').click();
-    cy.get('[data-cy=hamburger-menu-button]').click();
-    cy.get('[data-cy=username]').invoke('text').should('equal', 'Username: estebancb');
-    cy.get('[data-cy=userrole]').invoke('text').should('equal', 'Role: administrator');
-    cy.get('[data-cy=parkstatus-submenu]').should('exist');
-    cy.get('[data-cy=userlist-submenu]').should('exist');
-    cy.get('[data-cy=reservationlist-submenu]').should('exist');
-    cy.get('[data-cy=reports-submenu]').should('exist');
-    cy.get('[data-cy=settings-submenu]').should('exist');
-    cy.get('[data-cy=logout-submenu]').should('exist');
+    home.visit();
+    sideBarMenu.open();
+    sideBarMenu.navigateToOption('Log in');
+    login.insertUsername('estebancb');
+    login.insertPassword('estebancb');
+    login.submit();
+    sideBarMenu.open();
+    sideBarMenu.verifyUsernameText('estebancb');
+    sideBarMenu.verifyRoleText('administrator');
+    sideBarMenu.verifyOptionExist('Park status');
+    sideBarMenu.verifyOptionExist('User list');
+    sideBarMenu.verifyOptionExist('Reservation list');
+    sideBarMenu.verifyOptionExist('Reports');
+    sideBarMenu.verifyOptionExist('Settings');
+    sideBarMenu.verifyOptionExist('Log out');
   });
 });
