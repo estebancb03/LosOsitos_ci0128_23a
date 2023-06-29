@@ -1,31 +1,49 @@
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
+import useTestimonials from "../hooks/useTestimonials";
+import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
 import backgroundImage from "../assets/images/playaDev.jpeg";
 
 const TestimonialsAdmin = () => {
   const [reviews, setReviews] = useState([]);
   const [pendingReviews, setPendingReviews] = useState([]);
-  const [name, setName] = useState("");
-  const [comment, setComment] = useState("");
+  const { reviewsHook, fetchReviews, updateReviewState } = useTestimonials();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const newReview = { name, comment };
-    setPendingReviews([...pendingReviews, newReview]);
-    setName("");
-    setComment("");
-  };
-
-  const handleApprove = (index) => {
+  const handleApprove = async (index) => {
     const review = pendingReviews[index];
-    setReviews([...reviews, review]);
-    setPendingReviews(pendingReviews.filter((_, i) => i !== index));
+    await updateReviewState(review.ID, 1);
+    await fetchReviews();
   };
 
-  const handleDeny = (index) => {
-    setPendingReviews(pendingReviews.filter((_, i) => i !== index));
+  const handleDeny = async (index) => {
+    const review = pendingReviews[index];
+    await updateReviewState(review.ID, 2);
+    await fetchReviews();
   };
+
+  const divideReviews = () => {
+    let reviewsTemp = [];
+    let pendingReviewsTemp = [];
+    reviewsHook.map((review, index) => {
+      if (review.State == 0) {
+        pendingReviewsTemp.push(review);
+      } else {
+        reviewsTemp.push(review);
+      }
+    });
+    setPendingReviews(pendingReviewsTemp);
+    setReviews(reviewsTemp);
+  };
+
+  useEffect(() => {
+    fetchReviews();
+  },[]);
+
+  useEffect(() => {
+    console.log(reviewsHook);
+    divideReviews();
+  },[reviewsHook]);
 
   return (
     <>
@@ -42,8 +60,10 @@ const TestimonialsAdmin = () => {
           ) : (
             reviews.map((review, index) => (
               <div key={index} className="mb-4">
-                <h3 className="text-lg font-bold">{review.name}</h3>
-                <p className="text-gray-700">{review.comment}</p>
+                <h3 className="text-lg font-bold">{review.Name + " " +review.LastName1}</h3>
+                <h4 className="text-sm">{formatDateDTDDMMYYYY(review.Date)}</h4>
+                <h4 className="text-sm">State: {review.State === 1 ? "Approved" : "Rejected"}</h4>
+                <p className="text-gray-700">{review.Description}</p>
               </div>
             ))
           )}
@@ -55,8 +75,9 @@ const TestimonialsAdmin = () => {
           ) : (
             pendingReviews.map((review, index) => (
               <div key={index} className="mb-4">
-                <h3 className="text-lg font-bold">{review.name}</h3>
-                <p className="text-gray-700">{review.comment}</p>
+                <h3 className="text-lg font-bold">{review.Name + " " + review.LastName1}</h3>
+                <h4 className="text-sm">{formatDateDTDDMMYYYY(review.Date)}</h4>
+                <p className="text-gray-700">{review.Description}</p>
                 <div className="flex justify-end">
                   <button
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
