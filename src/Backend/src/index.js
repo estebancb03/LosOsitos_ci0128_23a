@@ -23,6 +23,7 @@ import spotPriceRoutes from "./routes/spotPriceRoutes.js";
 import parkStatus from "./routes/parkStatus.js";
 import settingCapacityRoutes from "./routes/settingCapacityRoutes.js";
 import employeeRoutes from "./routes/employeeRoutes.js";
+import testimonialsRoutes from "./routes/testimonialsRoutes.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -59,6 +60,7 @@ app.use('/api', serviceReservationRoutes);
 app.use('/api', parkStatus);
 app.use('/api', settingCapacityRoutes);
 app.use('/api', employeeRoutes);
+app.use('/api', testimonialsRoutes);
 
 app.listen(port, () => {
   console.log(`[] LosOsitos Server running on port ${port}...`);
