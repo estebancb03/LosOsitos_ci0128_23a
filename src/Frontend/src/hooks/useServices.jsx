@@ -46,16 +46,6 @@ const useServices = () => {
 
   const insertNewService = async (serviceName, quantity, USD, CRC) => {
     try {
-      console.log(
-        "[InsertNewService] ServiceName: " +
-          serviceName +
-          "\n[InsertNewService] Quantity: " +
-          quantity +
-          "\n[InsertNewService] USD Price: " +
-          USD +
-          "\n[InsertNewService] CRC Price: " +
-          CRC
-      );
       const url = "/insertNewService";
       await AuthToken(localStorage.getItem("auth-token"));
       await AxiosClient.post(url, {
@@ -66,6 +56,17 @@ const useServices = () => {
       });
     } catch (exception) {
       console.log(exception);
+    }
+  };
+
+  const disableService = async (serviceName) => {
+    try {
+      console.log("[DisableService] Name: " + serviceName);
+      const url = "/disableService";
+      await AuthToken(localStorage.getItem("auth-token"));
+      await AxiosClient.put(url, { serviceName });
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -135,6 +136,7 @@ const useServices = () => {
     updateServicesWithQuantityAndPrices,
     insertNewService,
     fetchServicesWithQuantityAndPrices,
+    disableService,
   };
 };
 

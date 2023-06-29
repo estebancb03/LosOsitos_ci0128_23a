@@ -16,7 +16,7 @@ const getServicesOptions = async (req, res) => {
 const getServicesWithQuantityAndPrices = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query(`SELECT serv.Name, serv.Quantity, serv_price_usd.Price AS USD, serv_price_crc.Price AS CRC FROM Service AS serv JOIN Service_Price AS serv_price_usd ON serv.Name = serv_price_usd.Name_Service AND serv_price_usd.Currency = 'USD' JOIN Service_Price AS serv_price_crc ON serv.Name = serv_price_crc.Name_Service AND serv_price_crc.Currency = 'CRC'`);
+    const result = await pool.request().query(`SELECT serv.Name, serv.Quantity, serv_price_usd.Price AS USD, serv_price_crc.Price AS CRC FROM Service AS serv JOIN Service_Price AS serv_price_usd ON serv.Name = serv_price_usd.Name_Service AND serv_price_usd.Currency = 'USD' JOIN Service_Price AS serv_price_crc ON serv.Name = serv_price_crc.Name_Service AND serv_price_crc.Currency = 'CRC' WHERE serv.Disabled != 1`);
     res.status(200);
     res.json(result.recordset)
     console.log(result);
@@ -56,21 +56,28 @@ const insertNewService = async (req, res) => {
       CRC
     } = req.body
     const disabled = 0
-    console.log("[BACKEND] ServiceName: " + serviceName +
-    "\n[BACKEND] Quantity: " + quantity +
-    "\n[BACKEND] USD: " + USD +
-    "\n[BACKEND] CRC: " + CRC)
     const pool = await getConnection();
     await pool.query(`INSERT INTO Service VALUES ('${serviceName}', ${quantity}, ${disabled})`)
-    console.log("Ended the first query")
     await pool.query(`INSERT INTO Service_Price VALUES ('USD', ${USD}, '${serviceName}')`)
-    console.log("Ended the second query")
     await pool.query(`INSERT INTO Service_Price VALUES ('CRC', ${CRC}, '${serviceName}')`)
-    console.log("Ended the third query")
     res.status(200);
   } catch (error) {
     res.status(500)
     res.send(error.message)
   }
 }
-export {getServicesOptions, getServicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices, insertNewService}
+
+const disableService = async (req, res) => {
+  try {
+    const {serviceName} = req.body
+    console.log("[DisableService] ServiceName: " + serviceName);
+    const pool = await getConnection();
+    await pool.request().query(`UPDATE Service SET Disabled = 1 WHERE Service.Name LIKE '%${serviceName}%'`)
+    res.status(200);
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+
+}
+export {getServicesOptions, getServicesWithQuantityAndPrices, updateServicesWithQuantityAndPrices, insertNewService, disableService}

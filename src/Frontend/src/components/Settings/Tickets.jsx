@@ -69,12 +69,26 @@ const Tickets = () => {
   const filterTickets = async (result) => {
     setPicnicTickets(
       result.filter((ticket) => {
-        return ticket.Reservation_Type === 0 && ticket.Special !== 1;
+        return (
+          ticket.Reservation_Type === 0 &&
+          ticket.Special !== 1 &&
+          ticket.Price != 0 &&
+          // Remove this line to implement
+          // the new tickets
+          ticket.Age_Range <= 1
+        );
       })
     );
     setCampingTickets(
       result.filter((ticket) => {
-        return ticket.Reservation_Type === 1 && ticket.Special !== 1;
+        return (
+          ticket.Reservation_Type === 1 &&
+          ticket.Special !== 1 &&
+          ticket.Price != 0 &&
+          // Remove this line to implement
+          // the new tickets
+          ticket.Age_Range <= 1
+        );
       })
     );
   };

@@ -14,6 +14,7 @@ const Services = () => {
     servicesWithQuantityAndPrices,
     updateServicesWithQuantityAndPrices,
     fetchServicesWithQuantityAndPrices,
+    disableService,
   } = useServices();
   const columnNames = ["Name", "Inventory", "USD", "CRC", "Modify", "Delete"];
 
@@ -24,7 +25,6 @@ const Services = () => {
   const [originalNames, setOriginalNames] = useState([]);
 
   const refreshPage = async () => {
-    console.log["[RefreshPage] He sido invocado!!"];
     await fetchServicesWithQuantityAndPrices();
     setServicesData(servicesWithQuantityAndPrices);
   };
@@ -104,7 +104,7 @@ const Services = () => {
   };
 
   const checkNameEntered = (index) => {
-    const regex = /^[A-Za-z ]+$/;
+    const regex = /^[A-Za-z \(\)\[\]]+$/;
     let successfulConversion = true;
     if (regex.test(servicesData[index].Name)) {
       setServicesData((prevServicesData) => {
@@ -201,8 +201,11 @@ const Services = () => {
       `Are you sure you want to delete the ${serviceName} service?`
     );
     if (confirmDelete) {
+      refreshPage();
       console.log("[DeleteService] The user typed yes");
-      // Delete the service from the table
+      // Make a logical delete of the service
+      disableService(originalNames[index]);
+      refreshPage();
     } else {
       console.log("[DeleteService] The user typed no");
     }

@@ -52,7 +52,7 @@ const CreateService = (props) => {
   };
 
   const checkNameEntered = () => {
-    const regex = /^[A-Za-z ]+$/;
+    const regex = /^[A-Za-z \(\)\[\]]+$/;
     let successfulConversion = true;
     if (regex.test(newServiceInfo.Name)) {
       setNewServiceInfo((prevServiceInfo) => ({
