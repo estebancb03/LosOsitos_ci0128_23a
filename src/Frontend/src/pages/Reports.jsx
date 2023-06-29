@@ -73,6 +73,7 @@ const Reports = () => {
             <DropDownSelect
               text="Report type"
               typeChange="reportType"
+              datacy="select-report-type-dropdown"
               options={reportTypes}
               onChangeFunction={setValue}
             />
@@ -81,6 +82,7 @@ const Reports = () => {
             <DatePickerButton
               text="Start date"
               type="startDate"
+              datacy="startdate-datepicker"
               onChangeFunction={setValue}
             />
           </div>
@@ -88,12 +90,14 @@ const Reports = () => {
             <DatePickerButton
               text="End date"
               type="endDate"
+              datacy="enddate-datepicker"
               onChangeFunction={setValue}
             />
           </div>
           <div className="mt-8">
             <Button
               text="Download"
+              datacy="download-report-button"
               onclickFunction={generateReport}
             />
           </div>
