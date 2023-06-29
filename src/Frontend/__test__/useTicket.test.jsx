@@ -19,7 +19,7 @@ describe("useTicket", () => {
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
     const { result } = renderHook(() => useTicket());
     const { formatTicket } = result.current;
-    const expectedData = "National-Children";
+    const expectedData = "National Children (7-12 years)";
     const ticket = {
       Age_Range: 0,
       Demographic_Group: 0,
@@ -38,10 +38,14 @@ describe("useTicket", () => {
     const { result } = renderHook(() => useTicket());
     const { ticketOptions } = result.current;
     expect(ticketOptions).toEqual([
-      "National-Children",
-      "National-Adult",
-      "Foreign-Children",
-      "Foreign-Adult",
+      "National Children (0-6 years)",
+      "National Children (7-12 years)",
+      "National Adult",
+      "National Senior Citysen",
+      "Foreign Children (0-6 years)",
+      "Foreign Children (7-12 years)",
+      "Foreign Adult",
+      "Foreign Senior Citysen"
     ]);
   });
 });
