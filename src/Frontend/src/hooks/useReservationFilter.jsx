@@ -57,18 +57,22 @@ const useReservationFilter = (reservations) => {
           )
         : reservations;
     const startDateFilterResult =
-      filters.Start_Date !== null && filters.Start_Date !== undefined
+      filters.Start_Date !== null && filters.Start_Date !== '12-31-1969'
         ? reservations.filter(
             (record) =>
               formatDateDTMMDDYYYY(record.Start_Date) ===
+              addZerosToDate(filters.Start_Date) ||
+              formatDateDTMMDDYYYY(record.Picnic_Date) ===
               addZerosToDate(filters.Start_Date)
           )
         : reservations;
     const endDateFilterResult =
-      filters.End_Date !== null && filters.End_Date !== undefined
+      filters.End_Date !== null && filters.End_Date !== '12-31-1969'
         ? reservations.filter(
             (record) =>
               formatDateDTMMDDYYYY(record.End_Date) ===
+              addZerosToDate(filters.End_Date) ||
+              formatDateDTMMDDYYYY(record.Picnic_Date) ===
               addZerosToDate(filters.End_Date)
           )
         : reservations;
