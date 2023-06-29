@@ -46,10 +46,11 @@ const LogIn = () => {
         <Title name="Log In"/>
         <Container>
           <div data-cy="login-form" className="flex items-center justify-center">
-            <div className="flex h-full w-[35%] md:w-[100%] sm:w-[100%] ring-4 ring-[#004e98] rounded-lg drop-shadow-md">
-              <img className="float-left my-10 mx-10 h-64 w-64" src={img} />
-              <div className=" h-full w-full mr-10 my-10">
-                <div className="my-5 grid grid-cols-1">
+            <div className="w-[20%] md:w-[100%] sm:w-[100%] bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] drop-shadow-md">
+            <div className="shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] h-1"></div>
+              <div className="bg-[#FDFFFC] mx-1">
+                <img className="mx-auto h-64 w-64" src={img} />
+                <div className="mt-5 mx-10 grid grid-cols-1">
                   <InputButton
                     datacy="username-input"
                     text="Username"
@@ -59,7 +60,7 @@ const LogIn = () => {
                     onChangeFunction={changeUserData}
                   />
                 </div>
-                <div className="my-5 grid grid-cols-1">
+                <div className="mt-5 mx-10 grid grid-cols-1">
                   <PasswordButton
                     datacy="password-input"
                     text="Password"
@@ -67,16 +68,19 @@ const LogIn = () => {
                     placeholderText=""
                     disabled={false}
                     onChangeFunction={changeUserData}
+                    onPressEnterFunction={login}
                   />
                 </div>
-                <div className="my-5">
+                <div className="mt-5 mx-10">
                   <Button
                     datacy="submit-button"
                     text="Log In"
                     onclickFunction={login}
                   />
                 </div>
+                <div className="h-5"></div>
               </div>
+            <div className="shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] h-1"></div>
             </div>
           </div>
         </Container>
