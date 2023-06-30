@@ -1,20 +1,39 @@
 import { useState, useEffect } from "react";
 import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
+import useTestimonials from "../hooks/useTestimonials";
 import backgroundImage from "../assets/images/playaDev.jpeg";
 
 const Testimonials = () => {
+  const {
+    getRandomReviews,
+    randomReviews,
+    checkReview,
+    updateReview,
+    insertReview,
+  } = useTestimonials();
+
   const [reviews, setReviews] = useState([]);
-  const [name, setName] = useState("");
+  const [ID, setID] = useState("");
   const [comment, setComment] = useState("");
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const newReview = { name, comment };
-    setReviews([...reviews, newReview]);
-    setName("");
+    if (await checkReview(ID))
+      updateReview(ID, comment);
+    else
+      insertReview(ID, comment);
+    setID("");
     setComment("");
   };
+
+  useEffect(() => {
+    getRandomReviews();
+  },[]);
+
+  useEffect(() => {
+    setReviews(randomReviews);
+  },[randomReviews]);
 
   return (
     <>
@@ -36,9 +55,9 @@ const Testimonials = () => {
               </label>
               <input
                 type="text"
-                id="name"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
+                id="ID"
+                value={ID}
+                onChange={(event) => setID(event.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               />
             </div>
@@ -72,8 +91,8 @@ const Testimonials = () => {
           ) : (
             reviews.map((review, index) => (
               <div key={index} className="mb-4">
-                <h3 className="text-lg font-bold">{review.name}</h3>
-                <p className="text-gray-700">{review.comment}</p>
+                <h3 className="text-lg font-bold">{review.Name + " " + review.LastName1}</h3>
+                <p className="text-gray-700">{review.Description}</p>
               </div>
             ))
           )}
