@@ -33,7 +33,7 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
         </button>
       ) : type && type === "icon" ? (
         <button
-          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-sm hover:bg-[#758bfd] opacity-100 top-[-400px] 
+          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-lg hover:bg-[#758bfd] opacity-100 top-[-400px] 
         transition-all ease-in duration-300 flex justify-center py-2 text-lg"
           disabled={disabled}
           onClick={onclickFunction}
@@ -43,7 +43,7 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
         </button>
       ) : (
         <button
-          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-sm hover:bg-[#758bfd] opacity-100 top-[-400px] 
+          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-lg hover:bg-[#758bfd] opacity-100 top-[-400px] 
         transition-all ease-in duration-300 "
           disabled={disabled}
           onClick={onclickFunction}
