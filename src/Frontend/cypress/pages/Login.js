@@ -1,3 +1,6 @@
+import SideBarMenu from "./SideBarMenu";
+
+const sideBarMenu = new SideBarMenu();
 
 class Login {
   constructor() {
@@ -9,18 +12,14 @@ class Login {
     cy.visit(this.url);
   };
 
-  insertUsername(username) {
+  login(username, password) {
+    sideBarMenu.navigateToOption('Log in');
     cy.get('[data-cy=username-input]').type(username);
-  };
-
-  insertPassword(password) {
     cy.get('[data-cy=password-input]').type(password);
-  };
-
-  submit() {
     cy.get('[data-cy=submit-button]').click();
     cy.wait(1000);
   };
+
 }
 
 export default Login;
