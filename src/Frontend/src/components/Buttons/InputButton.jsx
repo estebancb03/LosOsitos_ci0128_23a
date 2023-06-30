@@ -1,81 +1,58 @@
+import { Input } from 'antd';
 import { useState } from "react";
 
-const InputButton = ({
-  text,
-  datacy,
-  placeholderText,
-  disabled,
-  type,
-  onChangeFunction,
-}) => {
-  const [value, setValue] = useState(placeholderText);
+const InputButton = (props) => {
+  const {
+    text,
+    datacy,
+    placeholderText,
+    disabled,
+    type,
+    onChangeFunction,
+  } = props;
+  const [inputValue, setInputValue] = useState(placeholderText);
+
+  const handleChange = (e) => {
+    type ? onChangeFunction(type, e.target.value)
+         : onChangeFunction();
+    setInputValue(e.target.value);
+  };
+
   return (
     <>
-      {text && placeholderText === "" ? (
-        <div className="grid grid-cols-1 sm:my-3">
-          <div className="sm:col-span-2">
+      {text ? (
+        <div className='grid grid-cols-1 sm:my-3'>
+        <div className='sm:col-span-2'>
+          {text && (
             <label className="block text-xl font-semibold leading-6 text-gray-900">
               {text}
             </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                data-cy={datacy}
-                value={value}
-                placeholder={placeholderText}
-                disabled={disabled}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
-                onChange={(e) => {
-                  type
-                    ? onChangeFunction(type, e.target.value)
-                    : onChangeFunction;
-                  setValue(e.target.value);
-                }}
-              />
-            </div>
+          )}
+          <div className='mt-2.5'>
+            <Input
+              data-cy={datacy}
+              value={inputValue}
+              disabled={disabled}
+              placeholder={placeholderText}
+              size='large' 
+              className='w-full'
+              onChange={handleChange}
+            />
           </div>
         </div>
-      ) : text && placeholderText !== "" ? (
-        <div className="grid grid-cols-1 sm:my-3">
-          <div className="sm:col-span-2">
-            <label className="block text-xl font-semibold leading-6 text-gray-900">
-              {text}
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                data-cy={datacy}
-                value={placeholderText}
-                placeholder={placeholderText}
-                disabled={disabled}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#004e98] sm:text-sm sm:leading-6"
-                onChange={(e) => {
-                  type
-                    ? onChangeFunction(type, e.target.value)
-                    : onChangeFunction;
-                  setValue(e.target.value);
-                }}
-              />
-            </div>
-          </div>
-        </div>
+      </div>
       ) : (
         <div className="grid grid-cols-1 my-1 mx-2">
           <div className="sm:col-span-2">
             <div className="mt-2.5">
-              <input
-                type="text"
+              <Input
                 data-cy={datacy}
-                value={placeholderText}
+                value={disabled ? placeholderText : inputValue}
                 placeholder={placeholderText}
                 disabled={disabled}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-[#054a91] sm:text-sm sm:leading-6"
-                onChange={(e) => {
-                  type
-                    ? onChangeFunction(type, e.target.value)
-                    : onChangeFunction;
-                  setValue(e.target.value);
-                }}
+                size='large'
+                className='w-full'
+                onChange={handleChange}
               />
             </div>
           </div>

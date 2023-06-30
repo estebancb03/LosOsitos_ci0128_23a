@@ -3,7 +3,7 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
     <div className="text-gray-200 w-full h-10">
       {type && type === "add" ? (
         <button
-          className="w-full h-full bg-[#03B358] uppercase tracking-wider rounded-sm hover:bg-[#00A545] opacity-100 top-[-400px] 
+          className="w-full h-full bg-[#00962B] uppercase tracking-wider rounded-lg hover:bg-[#00B359] opacity-100 top-[-400px] 
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
@@ -13,7 +13,7 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
         </button>
       ) : type && type === "modify" ? (
         <button
-          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-sm hover:bg-[#758bfd] opacity-100 top-[-400px] 
+          className="w-full h-full bg-[#004e98]  uppercase tracking-wider rounded-lg hover:bg-[#4E76D3] opacity-100 top-[-400px] 
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}
@@ -23,7 +23,7 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
         </button>
       ) : type && type === "delete" ? (
         <button
-          className="w-full h-full bg-[#F52F57] uppercase tracking-wider rounded-sm hover:bg-[#FC0839] opacity-100 top-[-400px] 
+          className="w-full h-full bg-[#C62222]  uppercase tracking-wider rounded-lg hover:bg-[#FA5151] opacity-100 top-[-400px] 
         transition-all ease-in duration-300"
           disabled={disabled}
           onClick={onclickFunction}

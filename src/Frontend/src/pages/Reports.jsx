@@ -6,7 +6,7 @@ import Button from "../components/Buttons/Button";
 
 import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
-import { downloadXLSX } from "../helpers/fileDownloader"
+import { downloadXLSX } from "../helpers/fileDownloader";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Footer from "../components/Footer/Footer";
 
@@ -42,7 +42,7 @@ const Reports = () => {
   };
 
   const getReportData = async () => {
-    let result = []
+    let result = [];
     if (reportType == reportTypes[0]) {
       result = await getIncomeData(startDate, endDate);
       setReportData(result);
@@ -51,7 +51,7 @@ const Reports = () => {
       setReportData(result);
     }
     return result;
-  }
+  };
 
   const downloadReport = (result) => {
     let reportFileName = "";
@@ -61,11 +61,11 @@ const Reports = () => {
       reportFileName = `${visitationReportFileName}.xlsx`;
     }
     downloadXLSX(result, reportFileName);
-  } 
+  };
 
   return (
     <>
-    <NavMenu />
+      <NavMenu />
       <Container>
         <Title name="Reports" />
         <div className="grid grid-cols-4 gap-4 my-5 sm:grid-cols-2">
@@ -93,8 +93,7 @@ const Reports = () => {
           </div>
           <div className="mt-8">
             <Button
-              text="Generate"
-              type="add"
+              text="Download"
               onclickFunction={generateReport}
             />
           </div>

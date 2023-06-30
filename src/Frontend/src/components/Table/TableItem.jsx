@@ -1,8 +1,8 @@
-const TableItem = ({ number, data }) => {
+const TableItem = ({ number, data, datacy }) => {
   return (
     <>
       {number && number % 2 === 0 || number === 0 ? (
-        <tr className="bg-white">
+        <tr data-cy={datacy} className="bg-white">
           {data.map((content, index) => (
             <td key={index} className="p-3 text-sm text-gray-700 whitespace-nowrap">
               {Array.isArray(content) ? (

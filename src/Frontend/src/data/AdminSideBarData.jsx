@@ -14,6 +14,7 @@ const AdminSideBarData = [
     title: "Reservation",
     path: "/admin/reservation",
     icon: <SiIcons.SiAddthis />,
+    datacy: "reservation-submenu",
     function: () => {}
   },
   ,
@@ -21,42 +22,49 @@ const AdminSideBarData = [
     title: "Testimonials",
     path: "/admin/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,
+    datacy: "testimonials-submenu",
     function: () => {}
   },
   {
     title: "Park Status",
     path: "/admin/park-status",
     icon: <BsIcons.BsFillPersonCheckFill />,
+    datacy: "parkstatus-submenu",
     function: () => {}
   },
   {
     title: "User List",
     path: "/admin/user-list",
     icon: <FaIcons.FaUser />,
+    datacy: "userlist-submenu",
     function: () => {}
   },
   {
     title: "Reservation List",
     path: "/admin/reservation-list",
     icon: <MdIcons.MdEventAvailable />,
+    datacy: "reservationlist-submenu",
     function: () => {}
   },
   {
     title: "Reports",
     path: "/admin/reports",
     icon: <BsIcons.BsFillFileBarGraphFill />,
+    datacy: "reports-submenu",
     function: () => {}
   },
   {
     title: "Settings",
     path: "/admin/settings",
     icon: <MdIcons.MdSettings />,
+    datacy: "settings-submenu",
     function: () => {}
   },
   {
     title: "Log out",
     path: "/",
     icon: <RiIcons.RiLogoutBoxFill />,
+    datacy: "logout-submenu",
     function: () => localStorage.removeItem('auth-token')
   }
 ];

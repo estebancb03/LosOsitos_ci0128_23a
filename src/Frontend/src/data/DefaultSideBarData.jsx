@@ -12,16 +12,19 @@ const DefaultSideBarData = [
     title: "Reservation",
     path: "/reservation",
     icon: <SiIcons.SiAddthis />,
+    datacy: "reservationlist-submenu"
   },
   {
     title: "Testimonials",
     path: "/testimonials",
     icon: <RiIcons.RiFilePaper2Fill />,
+    datacy: "testimonials-submenu"
   },
   {
     title: "LogIn",
     path: "/login",
     icon: <RiIcons.RiLoginBoxFill />,
+    datacy: "login-submenu"
   },
 ];
 

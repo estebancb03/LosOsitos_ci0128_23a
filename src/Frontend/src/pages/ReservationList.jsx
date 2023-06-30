@@ -75,7 +75,7 @@ const ReservationList = () => {
           setCurrentReservations={setCurrentReservations}
           exitMethod={refreshRecords}
         />
-        <div className="mt-5 mb-3 grid grid-cols-4 sm:grid-cols-1">
+        <div className="mt-5 mb-3 grid grid-cols-6 sm:grid-cols-1">
           <Button text="Book Reservation" type="" onclickFunction={(e) => setViewCreateModal(true)} />
         </div>
         <CreateReservation
@@ -106,7 +106,10 @@ const ReservationList = () => {
                   reservation.LastName2,
                 reservation.Reservation_Type == 1 ? "Camping" : "Picnic",
                 reservation.Reservation_Method == 0 ? "Online" : "In site",
-                reservation.Status == 0 ? "Pending" : "Approved",
+                reservation.Status == 0 ? "Pending" 
+                : reservation.Status === 1 ? "Approved" 
+                : reservation.Status === 2 ?"In Park"
+                : "Finished",
                 reservation.Start_Date !== null
                   ? formatDateDTDDMMYYYY(reservation.Start_Date)
                   : reservation.Picnic_Date !== null ? formatDateDTDDMMYYYY(reservation.Picnic_Date) : "N/A",

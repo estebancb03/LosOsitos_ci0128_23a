@@ -49,6 +49,7 @@ const CreateUser = (props) => {
         />
         <div className="my-3 grid grid-cols-1">
           <DropDownSelect
+            datacy="addusertype-select"
             text="Type"
             options={["Admin", "Operator"]}
             disabled={false}
@@ -58,6 +59,7 @@ const CreateUser = (props) => {
         </div>
         <div className="my-3 grid grid-cols-1">
           <InputButton
+            datacy="addusername-input"
             text="Username"
             type="username"
             placeholderText=""
@@ -67,6 +69,7 @@ const CreateUser = (props) => {
         </div>
         <div className="my-3 grid grid-cols-1">
           <PasswordButton
+            datacy="adduserpassword-input"
             text="Password"
             type="userpassword"
             placeholderText=""
@@ -76,6 +79,7 @@ const CreateUser = (props) => {
         </div>
         <div className="my-3">
           <Button
+            datacy="saveuser-button"
             text="Save user"
             onclickFunction={saveUser}
           />
