@@ -103,10 +103,6 @@ const ExchangeRate = () => {
               ]}
             />
           </Table>
-          <span>
-            Note: The conversion from CRC to USD is made by the system
-            automatically
-          </span>
         </div>
       </>
     )
