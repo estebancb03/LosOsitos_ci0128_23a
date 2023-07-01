@@ -42,7 +42,7 @@ const ReservationStep1 = (props) => {
   return (
     <>
       {windows.Step1 && (
-        <div className="mb-10">
+        <div className="">
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Personal information
           </h2>

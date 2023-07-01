@@ -22,6 +22,9 @@ const NavMenu = () => {
           <Link to="/meet" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
             Meet Junquillal
           </Link>
+          <Link to="/testimonials" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Testimonials
+          </Link>
         </ul>
       </nav>
     </div>

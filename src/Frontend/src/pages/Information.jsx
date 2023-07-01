@@ -11,17 +11,6 @@ const Container = ({ children }) => {
   );
 };
 
-const Title = ({ title, style }) => {
-  return (
-    <h1
-      className="text-center pt-20 z-10 text-gray-600 font-semibold text-6xl"
-      style={{ ...style }}
-    >
-      {title}
-    </h1>
-  );
-};
-
 const Information = () => (
   <>
     <NavMenu />
@@ -29,7 +18,7 @@ const Information = () => (
       <img
         src={backgroundImage}
         alt="Header background image"
-        className="h-80 w-full object-cover object-center filter brightness-50"
+        className="h-80 w-full object-cover object-center filter brightness-75"
       />
       <div className="z-30">
         <h1 className="text-center text-white font-semibold text-6xl mx-auto absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

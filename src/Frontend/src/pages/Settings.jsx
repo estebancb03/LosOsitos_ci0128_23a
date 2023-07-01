@@ -6,6 +6,7 @@ import Container from "../components/Containers/Container";
 import Capacity from "../components/Settings/Capacity";
 import Tickets from "../components/Settings/Tickets";
 import ExchangeRate from "../components/Settings/ExchangeRate";
+import Services from "../components/Settings/Services";
 
 const Settings = () => {
   return (
@@ -26,6 +27,10 @@ const Settings = () => {
           Exchange Rate
         </div>
         <ExchangeRate />
+        <div className=" mt-4 ml-1 text-2xl sm:text-2xl font-semibold">
+          Services
+        </div>
+        <Services />
       </Container>
       <Footer />
     </>
