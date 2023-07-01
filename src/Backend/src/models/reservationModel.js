@@ -1,5 +1,32 @@
 import { getConnection } from "../config/db.js";
 
+const reservationTransaction = async (req, res) => {
+  const transaction = new sql.Transaction(/* [pool] */)
+  transaction.begin(err => {  // begin(isolation_level)
+    let rolledBack = false
+    transaction.on('rollback', aborted => {
+      // emited with aborted === true
+      rolledBack = true
+    })
+    new sql.Request(transaction)
+      .query('insert into mytable (bitcolumn) values (2)', (err, result) => {
+        // insert should fail because of invalid value
+
+      if (err) {
+        if (!rolledBack) {
+          transaction.rollback(err => {
+            // ... error checks
+          })
+        }
+      } else {
+        transaction.commit(err => {
+          // ... error checks
+        })
+      }
+    })
+  })
+}
+
 // Method that inserts a reservation
 const insertReservation = async (req, res) => {
   try {
