@@ -57,23 +57,23 @@ class SideBarMenu {
 
   verifyOptionNoExist(option) {
     if (option === 'Reservation') {
-      cy.get('[data-cy=reservation-submenu]').should('not exist');
+      cy.get('[data-cy=reservation-submenu]').should('not.exist');
     } else if (option === 'Testimonials') {
-      cy.get('[data-cy=testimonials-submenu]').should('not exist');
+      cy.get('[data-cy=testimonials-submenu]').should('not.exist');
     } else if (option === 'Park status') {
-      cy.get('[data-cy=parkstatus-submenu]').should('not exist');
+      cy.get('[data-cy=parkstatus-submenu]').should('not.exist');
     } else if (option === 'User list') {
-      cy.get('[data-cy=userlist-submenu]').should('not exist');
+      cy.get('[data-cy=userlist-submenu]').should('not.exist');
     } if (option === 'Reservation list') {
-      cy.get('[data-cy=reservationlist-submenu]').should('not exist');
+      cy.get('[data-cy=reservationlist-submenu]').should('not.exist');
     } if (option === 'Reports') {
-      cy.get('[data-cy=reports-submenu]').should('not exist');
+      cy.get('[data-cy=reports-submenu]').should('not.exist');
     } if (option === 'Settings') {
-      cy.get('[data-cy=settings-submenu]').should('not exist');
+      cy.get('[data-cy=settings-submenu]').should('not.exist');
     } if (option === 'Log out') {
-      cy.get('[data-cy=logout-submenu]').should('not exist');
+      cy.get('[data-cy=logout-submenu]').should('not.exist');
     } if (option === 'Log in') {
-      cy.get('[data-cy=login-submenu]').should('not exist');
+      cy.get('[data-cy=login-submenu]').should('not.exist');
     }
   };
 };
