@@ -40,7 +40,6 @@ const useTestimonials = () => {
     const getRandomReviews = async () => {
         try {
             const url = "/getRandomReviews";
-            await AuthToken(token);
             const records = await AxiosClient.get(url);
             setRandomReviews(records.data);
         }
@@ -52,7 +51,6 @@ const useTestimonials = () => {
     const checkReview = async (ID) => {
         try {
             const url = `/getCheckReview/${ID}`;
-            await AuthToken(token);
             const records = await AxiosClient.get(url);
             return records.data;
         }
@@ -64,7 +62,6 @@ const useTestimonials = () => {
     const updateReview = async (ID, Description) => {
         try {
             const url = '/updateReview';
-            await AuthToken(token);
             await axiosClient.put(url, {
                 ID,
                 Description,
@@ -78,7 +75,6 @@ const useTestimonials = () => {
     const insertReview = async (ID, Description) => {
         try {
             const url = '/insertReview';
-            await AuthToken(token);
             await axiosClient.post(url, {
                 ID,
                 Description, 
