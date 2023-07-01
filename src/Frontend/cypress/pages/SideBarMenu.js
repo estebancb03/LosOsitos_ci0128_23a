@@ -2,14 +2,6 @@
 class SideBarMenu {
   constructor() {}
 
-  open() {
-    cy.get('[data-cy=hamburger-menu-button]').click();
-  };
-
-  close() {
-    cy.get('[data-cy=hamburger-menu-button]').click();
-  };
-
   verifyUsernameText(username) {
     cy.get('[data-cy=username]').invoke('text').should('equal', `Username: ${username}`);
   };
@@ -19,6 +11,7 @@ class SideBarMenu {
   };
 
   navigateToOption(option) {
+    cy.get('[data-cy=hamburger-menu-button]').click();
     if (option === 'Reservation') {
       cy.get('[data-cy=reservation-submenu]').click();
     } else if (option === 'Testimonials') {
