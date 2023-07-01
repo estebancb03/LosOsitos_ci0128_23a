@@ -53,6 +53,27 @@ const getUSDPrices = async (req, res) => {
   }
 };
 
+const getPicnicTickets = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.request().query("SELECT * FROM Ticket WHERE Reservation_Type = 0 AND Special = 0 ORDER BY Currency, Age_Range")
+    res.json(result.recordset)
+  } catch (error) {
+    res.status(500);
+    res.send(error.message)
+  }
+}
+
+const getCampingTickets = async (req, res) => {
+  try {
+    const pool = await getConnection();
+    const result = await pool.request().query("SELECT * FROM Ticket WHERE Reservation_Type = 1 AND Special = 0 ORDER BY Currency, Age_Range")
+  } catch (error) {
+    res.status(500)
+    res.send(error.message)
+  }
+}
+
 const getPriceByARDGCurrency = async (req, res) => {
   try {
     const {
@@ -92,5 +113,5 @@ const updateTicketPrice = async (req, res) => {
   }
 };
 
-export { insertTicket, getPrices, updateTicketPrice, getCRCPrices, getUSDPrices, getPriceByARDGCurrency };
+export { insertTicket, getPrices, updateTicketPrice, getCRCPrices, getUSDPrices, getPriceByARDGCurrency, getPicnicTickets, getCampingTickets };
 

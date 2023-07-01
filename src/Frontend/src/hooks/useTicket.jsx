@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect, useContext } from "react";
 import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
@@ -16,7 +15,7 @@ const useTicket = () => {
     "Foreign Children (0-6 years)",
     "Foreign Children (7-12 years)",
     "Foreign Adult",
-    "Foreign Senior Citysen"
+    "Foreign Senior Citysen",
   ];
   const [ticketPrices, setTicketPrices] = useState([]);
 
@@ -51,7 +50,7 @@ const useTicket = () => {
 
   const getUSDTickets = async () => {
     try {
-      const url = '/ticket-prices-usd';
+      const url = "/ticket-prices-usd";
       await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       return data;
@@ -62,7 +61,7 @@ const useTicket = () => {
 
   const getCRCTickets = async () => {
     try {
-      const url = '/ticket-prices-crc';
+      const url = "/ticket-prices-crc";
       await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       return data;
@@ -71,8 +70,28 @@ const useTicket = () => {
     }
   };
 
+  const getPicnicTickets = async () => {
+    try {
+      const url = "/getPicnicTickets";
+      const { data } = await AxiosClient.get(url);
+      return data;
+    } catch (exception) {
+      console.error(exception);
+    }
+  };
+
+  const getCampingTickets = async () => {
+    try {
+      const url = "/getCampingTickets";
+      const { data } = await AxiosClient.get(url);
+      return data;
+    } catch (exception) {
+      console.error(exception);
+    }
+  };
+
   const modifyTicket = (type, value, reservation) => {
-    const newReservation = {...reservation};
+    const newReservation = { ...reservation };
     const newTickets = [...reservation.Tickets];
     if (type[0] === "name") {
       if (value === "Foreign Adult") {
@@ -114,20 +133,26 @@ const useTicket = () => {
         newTickets[type[1]].Demographic_Group,
         newReservation.Reservation_Type,
         newTickets[type[1]]
-        );
+      );
     }
     newReservation.Tickets = newTickets;
     return newReservation;
   };
 
-  const getPriceByARDGCurrency = async (Age_Range, Demographic_Group, Reservation_Type, Ticket) => {
-    const filteredPrices = ticketPrices.filter((ticket) =>
-      ticket.Age_Range === Age_Range &&
-      ticket.Demographic_Group === Demographic_Group &&
-      ticket.Reservation_Type === Reservation_Type
+  const getPriceByARDGCurrency = async (
+    Age_Range,
+    Demographic_Group,
+    Reservation_Type,
+    Ticket
+  ) => {
+    const filteredPrices = ticketPrices.filter(
+      (ticket) =>
+        ticket.Age_Range === Age_Range &&
+        ticket.Demographic_Group === Demographic_Group &&
+        ticket.Reservation_Type === Reservation_Type
     );
     Ticket.Price = filteredPrices[0].Price;
-  }
+  };
 
   const extractTicketData = (ticketName, Reservation_Type) => {
     const data = {
@@ -135,7 +160,7 @@ const useTicket = () => {
       Demographic_Group: 0,
       Reservation_Type,
       Special: 0,
-      Price: 0
+      Price: 0,
     };
     if (ticketName === "Foreign Adult") {
       data.Demographic_Group = 1;
@@ -163,10 +188,11 @@ const useTicket = () => {
       data.Age_Range = 3;
     }
     ticketPrices.map((ticket) => {
-      if (ticket.Age_Range === data.Age_Range &&
-          ticket.Demographic_Group === data.Demographic_Group &&
-          ticket.Reservation_Type === data.Reservation_Type &&
-          ticket.Special === data.Special
+      if (
+        ticket.Age_Range === data.Age_Range &&
+        ticket.Demographic_Group === data.Demographic_Group &&
+        ticket.Reservation_Type === data.Reservation_Type &&
+        ticket.Special === data.Special
       ) {
         data.Price = ticket.Price;
       }
@@ -175,7 +201,7 @@ const useTicket = () => {
   };
 
   const modifyNewTicket = (type, value, reservation) => {
-    const newReservation = {...reservation};
+    const newReservation = { ...reservation };
     const newTickets = [...reservation.NewTickets];
     if (type[0] === "name") {
       if (value === "Foreign Adult") {
@@ -217,7 +243,7 @@ const useTicket = () => {
         newTickets[type[1]].Demographic_Group,
         newReservation.Reservation_Type,
         newTickets[type[1]]
-        );
+      );
     }
     newReservation.NewTickets = newTickets;
     return newReservation;
@@ -225,7 +251,16 @@ const useTicket = () => {
 
   useEffect(() => formatTicketPrices, []);
 
-  return { ticketOptions, ticketPrices, formatTicket, modifyTicket, modifyNewTicket, extractTicketData };
+  return {
+    ticketOptions,
+    ticketPrices,
+    formatTicket,
+    modifyTicket,
+    modifyNewTicket,
+    extractTicketData,
+    getCampingTickets,
+    getPicnicTickets,
+  };
 };
 
 export default useTicket;

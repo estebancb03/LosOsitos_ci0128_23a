@@ -16,4 +16,10 @@ router.get("/ticket-prices-usd", getUSDPrices);
 
 router.get("/ticket-prices-ardgcurrency/:Age_Range/:Demographic_Group/:Reservation_Type/:Currency", getPriceByARDGCurrency);
 
+router.get("/getPicnicTickets", getPicnicTickets);
+
+router.get("/getCampingTickets", getCampingTickets);
+
+router.get("/ticket-prices-ardgcurrency/:Age_Range/:Demographic_Group/:Reservation_Type/:Currency", getPriceByARDGCurrency);
+
 export default router;
