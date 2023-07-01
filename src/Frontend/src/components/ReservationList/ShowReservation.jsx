@@ -45,6 +45,7 @@ const ShowReservation = (props) => {
     if (modifyButton === "Save changes") {
       if (validateUpdateReservation()) {
         if (await validateCapacity()) {
+          
           updateReservation();
         } else {
           alert("Insufficient capacity");

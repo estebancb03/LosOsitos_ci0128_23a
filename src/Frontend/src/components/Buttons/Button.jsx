@@ -31,10 +31,20 @@ const Button = ({ datacy, text, type, disabled = false, onclickFunction }) => {
         >
           {text}
         </button>
+      ) : type && type === "icon" ? (
+        <button
+          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-lg hover:bg-[#758bfd] opacity-100 top-[-400px] 
+        transition-all ease-in duration-300 flex justify-center py-2 text-lg"
+          disabled={disabled}
+          onClick={onclickFunction}
+          data-cy={datacy}
+        >
+          {text}
+        </button>
       ) : (
         <button
-          className="w-full h-full bg-[#004e98]  uppercase tracking-wider rounded-lg hover:bg-[#4E76D3] opacity-100 top-[-400px] 
-          transition-all ease-in duration-300"
+          className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-lg hover:bg-[#758bfd] opacity-100 top-[-400px] 
+        transition-all ease-in duration-300 "
           disabled={disabled}
           onClick={onclickFunction}
           data-cy={datacy}
