@@ -19,8 +19,8 @@ const AdminSideBarData = [
   },
   ,
   {
-    title: "Testimonials",
-    path: "/admin/testimonials",
+    title: "Testimonial List",
+    path: "/admin/testimonial-list",
     icon: <RiIcons.RiFilePaper2Fill />,
     datacy: "testimonials-submenu",
     function: () => {}

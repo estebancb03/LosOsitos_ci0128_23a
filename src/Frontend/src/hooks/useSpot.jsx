@@ -56,9 +56,9 @@ const useSpot = () => {
     let result = "";
     if (size === sizes[2]) {
       result = "Small";
-    } else if (size === sizes[1]) {
-      result = "Medium";
     } else if (size === sizes[0]) {
+      result = "Medium";
+    } else if (size === sizes[1]) {
       result = "Big";
     }
     return result;

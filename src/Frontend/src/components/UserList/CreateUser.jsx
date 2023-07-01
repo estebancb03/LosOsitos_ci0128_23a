@@ -75,6 +75,7 @@ const CreateUser = (props) => {
             placeholderText=""
             disabled={false}
             onChangeFunction={changeUser}
+            onPressEnterFunction={saveUser}
           />
         </div>
         <div className="my-3">

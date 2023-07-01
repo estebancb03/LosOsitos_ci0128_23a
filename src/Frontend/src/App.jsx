@@ -15,6 +15,8 @@ import LogIn from "./pages/LogIn";
 import MeetJunquillal from "./pages/MeetJunquillal";
 import ContactUs from "./pages/ContactUs";
 import Information from "./pages/Information";
+import Testimonials from "./pages/Testimonials";
+import TestimonialsAdmin from "./pages/TestimonialsAdmin";
 import "filepond/dist/filepond.min.css";
 
 const App = () => {
@@ -30,6 +32,8 @@ const App = () => {
             <Route path="contact-us" element={<ContactUs />} />
             <Route path="information" element={<Information />} />
             <Route path="meet" element={<MeetJunquillal />} />
+            <Route path="testimonials" element={<Testimonials />} />
+
           </Route>
           //Private access operator routes
           <Route path="/operator" element={<OperatorLayout />}>
@@ -48,6 +52,7 @@ const App = () => {
             <Route path="settings" element={<Settings />} />
             <Route path="park-status" element={<ParkStatus />} />
             <Route path="user-list" element={<UserList />} />
+            <Route path="testimonial-list" element={<TestimonialsAdmin />} />
           </Route>
         </Routes>
       </AuthProvider>

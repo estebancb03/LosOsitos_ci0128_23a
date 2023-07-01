@@ -10,6 +10,7 @@ const InputButton = (props) => {
     disabled,
     type,
     onChangeFunction,
+    onPressEnterFunction,
   } = props;
   const [inputValue, setInputValue] = useState(placeholderText);
 
@@ -39,6 +40,7 @@ const InputButton = (props) => {
               size='large' 
               className='w-full'
               onChange={handleChange}
+              onPressEnter={onPressEnterFunction}
             />
           </div>
         </div>
@@ -56,6 +58,7 @@ const InputButton = (props) => {
                 size='large'
                 className='w-full'
                 onChange={handleChange}
+                onPressEnter={onPressEnterFunction}
               />
             </div>
           </div>
