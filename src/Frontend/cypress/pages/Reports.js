@@ -1,6 +1,6 @@
 class Reports {
   constructor() {
-    this.url = '/reports'
+    this.url = 'admin/reports'
     this.title = 'Reports'
   }
 
