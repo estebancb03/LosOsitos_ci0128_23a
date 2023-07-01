@@ -252,6 +252,21 @@ const useValidations = (reservation) => {
     }
     return result;
   };
+
+  const validateTicketsAmount = (ticketObject) => {
+    let result = false;
+    if (ticketObject.NC06 !== 0 || 
+        ticketObject.NC712 !== 0 ||
+        ticketObject.NA !== 0 ||
+        ticketObject.NSC !== 0 ||
+        ticketObject.FC06 !== 0 || 
+        ticketObject.FC712 !== 0 ||
+        ticketObject.FA !== 0 ||
+        ticketObject.FSC !== 0 ) {
+      result = true;
+    }
+    return result;
+  };
   
   return {
     validatePersonalData,
@@ -262,7 +277,8 @@ const useValidations = (reservation) => {
     validateTickets,
     validateNewSpots,
     validateUpdateReservation,
-    validateUser
+    validateUser,
+    validateTicketsAmount
   };
 }
 

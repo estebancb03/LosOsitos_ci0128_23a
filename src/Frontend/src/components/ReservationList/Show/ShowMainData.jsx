@@ -29,7 +29,6 @@ const ShowMainData = (props) => {
         newReservation.Payment_Method = 2;
       }
     } else if (type === "status") {
-      console.log(value);
       if (value === "Pending") {
         newReservation.Status = 0;
       } else if (value === "Approved") {
@@ -39,7 +38,6 @@ const ShowMainData = (props) => {
       } else if (value === "Finished"){
       newReservation.Status = 3;
     }
-      console.log(newReservation.Status);
     } else if (type === "picnicdate") {
       newReservation.Picnic_Date = value;
     } else if (type === "startdate") {
@@ -52,7 +50,6 @@ const ShowMainData = (props) => {
 
   return (
     <>
-      {console.log(reservation.Status)}
       <div className="-mt-3 my-3 grid grid-cols-2">
         <div className="my-3 mr-3">
           <InputButton

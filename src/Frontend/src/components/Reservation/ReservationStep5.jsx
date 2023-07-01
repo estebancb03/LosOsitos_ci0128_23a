@@ -47,7 +47,6 @@ const ReservationStep5 = ({
 
   const insertClient = async () => {
     try {
-      console.log("client");
       const { ID } = reservationData;
       const url2 = "/client";
       await AxiosClient.post(url2, {
@@ -60,8 +59,6 @@ const ReservationStep5 = ({
 
   const insertReservation = async () => {
     try {
-      console.log(image);
-      console.log("reservation");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
       await AxiosClient.post(url, {
@@ -79,12 +76,10 @@ const ReservationStep5 = ({
 
   const insertReservationTicket = async () => {
     try {
-      console.log("tickets");
       const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
-          console.log("tickets map");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -104,7 +99,6 @@ const ReservationStep5 = ({
 
   const insertReservationType = async () => {
     try {
-      console.log("reservation type");
       const { ID, Reservation_Date, Start_Date, End_Date, Picnic_Date } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
@@ -138,7 +132,6 @@ const ReservationStep5 = ({
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       const bill = calculateTotalFee();
-      console.log(bill);
       newWindows.Step5 = false;
       newWindows.Step6 = true;
       newReservationData.Payment_Proof = image;
@@ -152,7 +145,6 @@ const ReservationStep5 = ({
       setReservationData(newReservationData);
       setWindows(newWindows);
       sendQRData(newReservationData.QRData);
-      console.log(newReservationData.Payment_Proof);
     } else {
       alert(
         "Check if you uploaded the payment proof or if you have already accepter the terms and conditions"
@@ -162,7 +154,6 @@ const ReservationStep5 = ({
 
   const sendQRData = async (value) => {
     try {
-      console.log(value);
       const data = value;
       const url = "/mail";
       await AxiosClient.post(url, {
