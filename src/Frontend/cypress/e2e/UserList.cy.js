@@ -3,7 +3,7 @@
 import Home from '../pages/Home';
 
 const home = new Home();
-const tesUser = {
+const testUser = {
   id: '123456789',
   name: 'Test',
   lastname1: 'Test',
@@ -35,7 +35,7 @@ describe('<UserList />', () => {
     // Actions
     const { adminHome } = home.login('estebancb', 'estebancb');
     adminHome.sideBarMenu.navigateToOption('User list');
-    adminHome.userList.createUser(tesUser);
+    adminHome.userList.createUser(testUser);
     // Asserts
     adminHome.userList.verifyUserExist('test');
     // Actions

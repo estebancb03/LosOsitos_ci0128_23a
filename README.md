@@ -63,7 +63,12 @@ Los archivos de pruebas unitarias se encuentran en la carpeta de ```__test__``` 
 Se emplea la biblioteca ```cypress``` para etse fin. Las pruebas se encuentran en ```src/Frontend/cypress/e2e```, como requisito para la ejecución de estas pruebas es necesario que tanto la aplicación de Frontend como Backend estén en ejecución. Para correr las pruebas automatizadas hay que utilizar el siguiente comando en la ```src/Frontend```:
 
 ```
-npx cypress open
+npm run cypress:run
+```
+Este comando ejecutará todas las pruebas existentes y dará un reporte en consola, adicional a eso, se generarán y guardarán videos de la ejecución de cada prueba en la carpeta ```src/Frontend/cypress/videos```. Si en cambio se desea ejecutar cada prueba de forma individual, use el siguiente comando:
+
+```
+npm run cypress:open
 ```
 
 Una vez ejecutado el comando se desplegará la siguiente ventana, seleccione la opción ```E2E Testing```:
