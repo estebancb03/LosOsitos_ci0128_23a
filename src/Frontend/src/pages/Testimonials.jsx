@@ -3,6 +3,8 @@ import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import useTestimonials from "../hooks/useTestimonials";
 import backgroundImage from "../assets/images/playaDev.jpeg";
+import Alert from '@mui/material/Alert';
+import Collapse from '@mui/material/Collapse';
 
 const Testimonials = () => {
   const {
@@ -16,6 +18,7 @@ const Testimonials = () => {
   const [reviews, setReviews] = useState([]);
   const [ID, setID] = useState("");
   const [comment, setComment] = useState("");
+  const [collapseStatus, setCollapseStatus] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,6 +28,7 @@ const Testimonials = () => {
       insertReview(ID, comment);
     setID("");
     setComment("");
+    setCollapseStatus(true);
   };
 
   useEffect(() => {
@@ -82,6 +86,10 @@ const Testimonials = () => {
             >
               Submit
             </button>
+            <Collapse in={collapseStatus}>
+            <Alert severity="success" className="mt-8" onClick={() => {setCollapseStatus(false)}}>Testimony sent correctly!</Alert>
+            </Collapse>
+            
           </form>
         </div>
         <div className="bg-white p-8 rounded-lg w-1/2 mt-8">
