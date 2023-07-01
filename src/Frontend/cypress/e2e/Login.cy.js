@@ -20,4 +20,20 @@ describe('<Login />', () => {
     adminHome.sideBarMenu.verifyOptionExist('Settings');
     adminHome.sideBarMenu.verifyOptionExist('Log out');
   });
+
+  it('Operator user login process', () => {
+    // Arrange
+    home.visit();
+    // Actions
+    const { operatorHome } = home.login('chiqui', 'chiqui');
+    // Asserts
+    operatorHome.sideBarMenu.verifyUsernameText('chiqui');
+    operatorHome.sideBarMenu.verifyRoleText('operator');
+    operatorHome.sideBarMenu.verifyOptionExist('Park status');
+    operatorHome.sideBarMenu.verifyOptionNoExist('User list');
+    operatorHome.sideBarMenu.verifyOptionExist('Reservation list');
+    operatorHome.sideBarMenu.verifyOptionNoExist('Reports');
+    operatorHome.sideBarMenu.verifyOptionNoExist('Settings');
+    operatorHome.sideBarMenu.verifyOptionExist('Log out');
+  });
 });
