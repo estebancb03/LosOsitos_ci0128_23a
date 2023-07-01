@@ -1,32 +1,23 @@
 /// <reference types='cypress' />
 
 import Home from '../pages/Home';
-import Login from '../pages/Login';
-import SideBarMenu from '../pages/SideBarMenu';
 
 const home = new Home();
-const login = new Login();
-const sideBarMenu = new SideBarMenu();
 
 describe('<Login />', () => {
-  it('Operator user login process', () => {
+  it('Admin user login process', () => {
     // Arrange
     home.visit();
-    sideBarMenu.open();
     // Actions
-    sideBarMenu.navigateToOption('Log in');
-    login.insertUsername('chiqui');
-    login.insertPassword('chiqui');
-    login.submit();
-    sideBarMenu.open();
+    const { operatorHome } = home.login('chiqui', 'chiqui');
     // Asserts
-    sideBarMenu.verifyUsernameText('chiqui');
-    sideBarMenu.verifyRoleText('operator');
-    sideBarMenu.verifyOptionExist('Park status');
-    sideBarMenu.verifyOptionNotExist('User list');
-    sideBarMenu.verifyOptionExist('Reservation list');
-    sideBarMenu.verifyOptionNotExist('Reports');
-    sideBarMenu.verifyOptionNotExist('Settings');
-    sideBarMenu.verifyOptionExist('Log out');
+    operatorHome.sideBarMenu.verifyUsernameText('chiqui');
+    operatorHome.sideBarMenu.verifyRoleText('operator');
+    operatorHome.sideBarMenu.verifyOptionExist('Park status');
+    operatorHome.sideBarMenu.verifyOptionNotExist('User list');
+    operatorHome.sideBarMenu.verifyOptionExist('Reservation list');
+    operatorHome.sideBarMenu.verifyOptionNotExist('Reports');
+    operatorHome.sideBarMenu.verifyOptionNotExist('Settings');
+    operatorHome.sideBarMenu.verifyOptionExist('Log out');
   });
 });
