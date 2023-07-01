@@ -223,9 +223,168 @@ const useTicket = () => {
     return newReservation;
   };
 
+  const addTicket = (ticketOption, tickets) => {
+    const newTickets = { ...tickets };
+    if (ticketOption === 'National Children (0-6 years)') {
+      ++newTickets.NC06; 
+    } else if (ticketOption === 'National Children (7-12 years)') {
+      ++newTickets.NC712;
+    } else if (ticketOption === 'National Adult') {
+      ++newTickets.NA;
+    } else if (ticketOption === 'National Senior Citysen') {
+      ++newTickets.NSC;
+    } else if (ticketOption === 'Foreign Children (0-6 years)') {
+      ++newTickets.FC06;
+    } else if (ticketOption === 'Foreign Children (7-12 years)') {
+      ++newTickets.FC712;
+    } else if (ticketOption === 'Foreign Adult') {
+      ++newTickets.FA;
+    } else if (ticketOption === 'Foreign Senior Citysen') {
+      ++newTickets.FSC;
+    }
+    return newTickets;
+  };
+
+  const deleteTicket = (ticketOption, tickets) => {
+    const newTickets = { ...tickets };
+    if (ticketOption === 'National Children (0-6 years)' &&
+        newTickets.NC06 !== 0) {
+      --newTickets.NC06; 
+    } else if (ticketOption === 'National Children (7-12 years)' &&
+               newTickets.NC712 !== 0) {
+      --newTickets.NC712;
+    } else if (ticketOption === 'National Adult' &&
+               newTickets.NA !== 0) {
+      --newTickets.NA;
+    } else if (ticketOption === 'National Senior Citysen' &&
+               newTickets.NSC !== 0) {
+      --newTickets.NSC;
+    } else if (ticketOption === 'Foreign Children (0-6 years)' &&
+               newTickets.FC06 !== 0) {
+      --newTickets.FC06;
+    } else if (ticketOption === 'Foreign Children (7-12 years)' &&
+               newTickets.FC712 !== 0) {
+      --newTickets.FC712;
+    } else if (ticketOption === 'Foreign Adult' &&
+               newTickets.FA !== 0) {
+      --newTickets.FA;
+    } else if (ticketOption === 'Foreign Senior Citysen' &&
+               newTickets.FSC !== 0) {
+      --newTickets.FSC;
+    }
+    return newTickets;
+  };
+
+  const getTicketQuantity = (ticketOption, tickets) => {
+    let quantity = 0;
+    if (ticketOption === 'National Children (0-6 years)') {
+      quantity = tickets.NC06; 
+    } else if (ticketOption === 'National Children (7-12 years)') {
+      quantity = tickets.NC712;
+    } else if (ticketOption === 'National Adult') {
+      quantity = tickets.NA;
+    } else if (ticketOption === 'National Senior Citysen') {
+      quantity = tickets.NSC;
+    } else if (ticketOption === 'Foreign Children (0-6 years)') {
+      quantity = tickets.FC06;
+    } else if (ticketOption === 'Foreign Children (7-12 years)') {
+      quantity = tickets.FC712;
+    } else if (ticketOption === 'Foreign Adult') {
+      quantity = tickets.FA;
+    } else if (ticketOption === 'Foreign Senior Citysen') {
+      quantity = tickets.FSC;
+    }
+    return quantity;
+  };
+
+  const getTicketCurrency = (ticket) => {
+    let currency = '$';
+    const { Demographic_Group } = ticket
+    if (Demographic_Group === 0 || Demographic_Group === 2) {
+      currency = '₡';
+    };
+    return currency;
+  };
+
+  const formatAllTickets = (reservationData, tickets) => {
+    const formatedTicket = {
+      ID_Client: reservationData.ID,
+      Reservation_Date: reservationData.Reservation_Date,
+      Reservation_Type: reservationData.Reservation_Type,
+      Age_Range: null,
+      Demographic_Group: null,
+      Special: 0,
+      Amount: null,
+      Price: null
+    }
+    let ticketData;
+    let formated = [];
+    if (tickets.NC06 !== 0) {
+      ticketData = extractTicketData('National Children (0-6 years)', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.NC06;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.NC712 !== 0) {
+      ticketData = extractTicketData('National Children (7-12 years)', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.NC712;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.NA !== 0) {
+      ticketData = extractTicketData('National Adult', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.NA;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.NSC !== 0) {
+      ticketData = extractTicketData('National Senior Citysen', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.NSC;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.FC06 !== 0) {
+      ticketData = extractTicketData('Foreign Children (0-6 years)', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.FC06;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.FC712 !== 0) {
+      ticketData = extractTicketData('Foreign Children (7-12 years)', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.FC712;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.FA !== 0) {
+      ticketData = extractTicketData('Foreign Adult', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.FA;
+      formated.push(newFormatedTicket);
+    }
+    if (tickets.FSC !== 0) {
+      ticketData = extractTicketData('Foreign Senior Citysen', reservationData.Reservation_Type);
+      const newFormatedTicket = { ...formatedTicket, ...ticketData };
+      newFormatedTicket.Amount = tickets.FSC;
+      formated.push(newFormatedTicket);
+    }
+    return formated;
+  };
+
   useEffect(() => formatTicketPrices, []);
 
-  return { ticketOptions, ticketPrices, formatTicket, modifyTicket, modifyNewTicket, extractTicketData };
+  return { 
+    ticketOptions, 
+    ticketPrices, 
+    formatTicket, 
+    modifyTicket, 
+    modifyNewTicket, 
+    extractTicketData,
+    addTicket,
+    deleteTicket,
+    getTicketQuantity,
+    getTicketCurrency,
+    formatAllTickets
+  };
 };
 
 export default useTicket;
