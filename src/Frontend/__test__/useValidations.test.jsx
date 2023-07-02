@@ -1,5 +1,5 @@
-import { renderHook } from '@testing-library/react-hooks';
-import useValidations from '../src/hooks/useValidations';
+import { renderHook } from "@testing-library/react-hooks";
+import useValidations from "../src/hooks/useValidations";
 import { useContext } from "react";
 
 const mockAuthContext = {
@@ -12,41 +12,45 @@ jest.mock("react", () => ({
   useContext: jest.fn(),
 }));
 
-describe('useValidation', () => {
-  test('validatePersonalData returns true when all personal data fields are valid', () => {
+describe("useValidation", () => {
+  test("validatePersonalData returns true when all personal data fields are valid", () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations({
-      ID: 11123,
-      Name: 'John',
-      LastName1: 'Doe',
-      LastName2: 'Smith',
-      Birth_Date: '1990-01-01',
-      Email: 'john.doe',
-      Gender: 'Male',
-      Country_Name: 'Argentina'
-    }));
+    const { result } = renderHook(() =>
+      useValidations({
+        ID: 11123,
+        Name: "John",
+        LastName1: "Doe",
+        LastName2: "Smith",
+        Birth_Date: "1990-01-01",
+        Email: "john.doe",
+        Gender: "Male",
+        Country_Name: "Argentina",
+      })
+    );
     const { validatePersonalData } = result.current;
     const validationResult = validatePersonalData();
     // Must be false because the email field is wrong
     expect(validationResult).toBe(false);
   });
 
-  test('validatePersonalData returns true when all personal data fields are valid', () => {
+  test("validatePersonalData returns true when all personal data fields are valid", () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations({
-      ID: 11123,
-      Name: '',
-      LastName1: 'Doe',
-      LastName2: 'Smith',
-      Birth_Date: '1990-01-01',
-      Email: 'john.doe@gmail.com',
-      Gender: 'Male',
-      Country_Name: 'Argentina'
-    }));
+    const { result } = renderHook(() =>
+      useValidations({
+        ID: 11123,
+        Name: "",
+        LastName1: "Doe",
+        LastName2: "Smith",
+        Birth_Date: "1990-01-01",
+        Email: "john.doe@gmail.com",
+        Gender: "Male",
+        Country_Name: "Argentina",
+      })
+    );
     const { validatePersonalData } = result.current;
     const validationResult = validatePersonalData();
     // Must be false because the name field is wrong
@@ -57,26 +61,28 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations({
-      Services: [
-        {
-          ID_Client: "118090359",
-          Reservation_Date: "2023-06-03T19:01:54.970Z",
-          Name_Service: "Hiking",
-          Price: 2000,
-          Quantity: 0,
-          Currency: "CRC"
-        },
-        {
-          ID_Client: "118090359",
-          Reservation_Date: "2023-06-03T19:01:54.970Z",
-          Name_Service: "Kayak",
-          Price: 7000,
-          Quantity: 2,
-          Currency: "CRC"
-        }
-      ]
-    }));
+    const { result } = renderHook(() =>
+      useValidations({
+        Services: [
+          {
+            ID_Client: "118090359",
+            Reservation_Date: "2023-06-03T19:01:54.970Z",
+            Name_Service: "Hiking",
+            Price: 2000,
+            Quantity: 0,
+            Currency: "CRC",
+          },
+          {
+            ID_Client: "118090359",
+            Reservation_Date: "2023-06-03T19:01:54.970Z",
+            Name_Service: "Kayak",
+            Price: 7000,
+            Quantity: 2,
+            Currency: "CRC",
+          },
+        ],
+      })
+    );
     const { validateServices } = result.current;
     const validationResult = validateServices();
     // Must be false because the quantity field of Hiking is 0
@@ -87,14 +93,14 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-        {
-          ID_Client: "118090359",
-          Reservation_Date: "2023-06-03T19:01:54.970Z",
-          Reservation_Type: 0,
-          Picnic_Date: "23-12-2023"
-        }
-    ));
+    const { result } = renderHook(() =>
+      useValidations({
+        ID_Client: "118090359",
+        Reservation_Date: "2023-06-03T19:01:54.970Z",
+        Reservation_Type: 0,
+        Picnic_Date: "23-12-2023",
+      })
+    );
     const { validateDates } = result.current;
     const validationResult = validateDates();
     // Must be true because the date is correct
@@ -105,15 +111,15 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-        {
-          ID_Client: "118090359",
-          Reservation_Date: "2023-06-03T19:01:54.970Z",
-          Reservation_Type: 1,
-          Start_Date: "2023-09-10T19:01:54.970Z",
-          End_Date: "2023-09-11T19:01:54.970Z"
-        }
-    ));
+    const { result } = renderHook(() =>
+      useValidations({
+        ID_Client: "118090359",
+        Reservation_Date: "2023-06-03T19:01:54.970Z",
+        Reservation_Type: 1,
+        Start_Date: "2023-09-10T19:01:54.970Z",
+        End_Date: "2023-09-11T19:01:54.970Z",
+      })
+    );
     const { validateDates } = result.current;
     const validationResult = validateDates();
     // Must be true because the date is correct
@@ -124,21 +130,21 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Tickets: [
           {
-            Amount: 10
+            Amount: 10,
           },
           {
-            Amount: 9
+            Amount: 9,
           },
           {
-            Amount: 4
-          }
-        ]
-      }
-    ));
+            Amount: 4,
+          },
+        ],
+      })
+    );
     const { validateTickets } = result.current;
     const validationResult = validateTickets();
     // Must be true because the Amount is correct
@@ -149,12 +155,12 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Reservation_Type: 1,
-        NewSpots: 3
-      }
-    ));
+        NewSpots: 3,
+      })
+    );
     const { validateNewSpots } = result.current;
     const validationResult = validateNewSpots();
     // Must be true because the Amount is correct
@@ -165,73 +171,115 @@ describe('useValidation', () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Start_Date: "2023-05-01",
         End_Date: "2023-05-02",
         Reservation_Method: 0,
-        New_Tickets: [{Amount: 1}],
-        Reservation_Type: 1
-      }
-    ));
+        New_Tickets: [{ Amount: 1 }],
+        Reservation_Type: 1,
+      })
+    );
     const { validateCapacity } = result.current;
     const validationResult = await validateCapacity();
     // Must be true because the Amount is correct
     expect(validationResult).toBe(true);
-  })
+  });
 
   test("validateCapacity should return true if picnic capacity is not exceeded", async () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Picnic_Date: "2023-05-01",
         Reservation_Method: 0,
-        New_Tickets: [{Amount: 1}],
-        Reservation_Type: 0
-      }
-    ));
+        New_Tickets: [{ Amount: 1 }],
+        Reservation_Type: 0,
+      })
+    );
     const { validateCapacity } = result.current;
     const validationResult = await validateCapacity();
     // Must be true because the Amount is correct
     expect(validationResult).toBe(true);
-  })
+  });
 
   test("validateCapacity should return false if picnic capacity is exceeded", async () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Picnic_Date: "2023-05-01",
         Reservation_Method: 0,
-        New_Tickets: [{Amount: 10000}],
-        Reservation_Type: 0
-      }
-    ));
+        New_Tickets: [{ Amount: 10000 }],
+        Reservation_Type: 0,
+      })
+    );
     const { validateCapacity } = result.current;
     const validationResult = await validateCapacity();
     // Must be true because the Amount is correct
     expect(validationResult).toBe(true);
-  })
+  });
 
   test("validateCapacity should return false if camping capacity is exceeded", async () => {
     useContext.mockReturnValue(mockAuthContext);
     const mockAxiosClient = jest.fn();
     jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
-    const { result } = renderHook(() => useValidations(
-      {
+    const { result } = renderHook(() =>
+      useValidations({
         Start_Date: "2023-05-01",
         End_Date: "2023-05-02",
         Reservation_Method: 0,
-        New_Tickets: [{Amount: 1000}],
-        Reservation_Type: 1
-      }
-    ));
+        New_Tickets: [{ Amount: 1000 }],
+        Reservation_Type: 1,
+      })
+    );
     const { validateCapacity } = result.current;
     const validationResult = await validateCapacity();
     // Must be true because the Amount is correct
     expect(validationResult).toBe(true);
-  })
+  });
+
+  test("validateTicketsAmount should return false if all properties of tickets object are equal to 0", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useValidations({}));
+    const { validateTicketsAmount } = result.current;
+    const ticketsObject = {
+      NC06: 0,
+      NC712: 0,
+      NA: 0,
+      NSC: 0,
+      FC06: 0,
+      FC712: 0,
+      FA: 0,
+      FSC: 0,
+    };
+    const validationResult = await validateTicketsAmount(ticketsObject);
+    // Must be false because the all properties are 0
+    expect(validationResult).toBe(false);
+  });
+
+  test("validateTicketsAmount should return true if at least one of the tickets object's properties is different from 0", async () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useValidations({}));
+    const { validateTicketsAmount } = result.current;
+    const ticketsObject = {
+      NC06: 2,
+      NC712: 0,
+      NA: 0,
+      NSC: 0,
+      FC06: 0,
+      FC712: 0,
+      FA: 0,
+      FSC: 0,
+    };
+    const validationResult = await validateTicketsAmount(ticketsObject);
+    // Must be true because ticketsObject have properties that are not 0
+    expect(validationResult).toBe(true);
+  });
 });
