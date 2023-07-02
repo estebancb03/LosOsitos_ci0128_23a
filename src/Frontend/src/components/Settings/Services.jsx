@@ -228,11 +228,13 @@ const Services = () => {
           <div className="grid grid-cols-7 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4 flex-justifiy">
             <Button
               text={"Create"}
+              datacy="create-service-button"
               onclickFunction={() => setViewModal(true)}
               exitFunction={refreshPage}
             />
             <CreateService
               viewModal={viewModal}
+              datacy="create-service-modal"
               setViewModal={setViewModal}
               exitFunction={refreshPage}
             />
@@ -242,11 +244,13 @@ const Services = () => {
               <TableItem
                 key={index}
                 number={index}
+                datacy={`${servicesData[index].Name}-tr`}
                 data={[
                   <InputButton
                     placeholderText={servicesData[index].Name}
                     disabled={disabledButtons[index]}
                     type={["Name", index]}
+                    datacy={`service-modify-name-input-${servicesData[index].Name}`}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
@@ -255,23 +259,27 @@ const Services = () => {
                     )}
                     disabled={disabledButtons[index]}
                     type={["Quantity", index]}
+                    datacy={`service-modify-quantity-input-${servicesData[index].Name}`}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
                     placeholderText={servicesData[index].USD}
                     disabled={disabledButtons[index]}
                     type={["USD", index]}
+                    datacy={`service-modify-usd-price-input-${servicesData[index].Name}`}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <InputButton
                     placeholderText={servicesData[index].CRC}
                     disabled={disabledButtons[index]}
                     type={["CRC", index]}
+                    datacy={`service-modify-crc-price-input-${servicesData[index].Name}`}
                     onChangeFunction={modifyValueInTable}
                   />,
                   <Button
                     text={buttonIconOfModify[index]}
                     type="icon"
+                    datacy={`service-modify-button-${servicesData[index].Name}`}
                     onclickFunction={() => {
                       const changedButtonIcon = changeButtonIcon(
                         "Modify",
@@ -285,6 +293,7 @@ const Services = () => {
                   <Button
                     text={<TiDeleteOutline />}
                     type="icon"
+                    datacy={`service-delete-button-${servicesData[index].Name}`}
                     onclickFunction={() => {
                       deleteService(index);
                     }}

@@ -20,7 +20,7 @@ const TableItem = ({ number, data, datacy }) => {
           ))}
         </tr>
       ) : (
-        <tr className="bg-gray-50">
+        <tr className="bg-gray-50" data-cy={datacy}>
           {data.map((content, index) => (
             <td key={index} className="p-3 text-sm text-gray-700 whitespace-nowrap">
               {Array.isArray(content) ? (
