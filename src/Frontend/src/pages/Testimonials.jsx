@@ -52,14 +52,14 @@ const Testimonials = () => {
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
-                htmlFor="name"
+                htmlFor="Id"
                 className="block text-gray-700 font-bold mb-2"
               >
-                Name:
+                ID:
               </label>
               <input
                 type="text"
-                id="ID"
+                data-cy="id-input"
                 value={ID}
                 onChange={(event) => setID(event.target.value)}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -73,7 +73,7 @@ const Testimonials = () => {
                 Comment:
               </label>
               <textarea
-                id="comment"
+                data-cy="comment-textarea"
                 rows={5}
                 value={comment}
                 onChange={(event) => setComment(event.target.value)}
@@ -81,13 +81,14 @@ const Testimonials = () => {
               />
             </div>
             <button
+              data-cy="submit-button"
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Submit
             </button>
             <Collapse in={collapseStatus}>
-            <Alert severity="success" className="mt-8" onClick={() => {setCollapseStatus(false)}}>Testimony sent correctly!</Alert>
+            <Alert data-cy="success-alert" severity="success" className="mt-8" onClick={() => {setCollapseStatus(false)}}>Testimony sent correctly!</Alert>
             </Collapse>
             
           </form>

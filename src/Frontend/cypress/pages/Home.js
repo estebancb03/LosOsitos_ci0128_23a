@@ -4,6 +4,7 @@ import Login from './Login';
 import AdminHome from './AdminHome';
 import OperatorHome from './OperatorHome';
 import SideBarMenu from './SideBarMenu';
+import Testimonials from './Testimonials';
 
 const login = new Login();
 const adminHome = new AdminHome();
@@ -14,6 +15,7 @@ class Home {
     this.url = '/';
     this.title = 'Home';
     this.sideBarMenu = new SideBarMenu();
+    this.testimonials = new Testimonials();
   }
 
   visit() {
