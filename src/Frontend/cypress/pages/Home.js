@@ -3,6 +3,7 @@
 import Login from './Login';
 import AdminHome from './AdminHome';
 import OperatorHome from './OperatorHome';
+import SideBarMenu from './SideBarMenu';
 
 const login = new Login();
 const adminHome = new AdminHome();
@@ -12,6 +13,7 @@ class Home {
   constructor() {
     this.url = '/';
     this.title = 'Home';
+    this.sideBarMenu = new SideBarMenu();
   }
 
   visit() {

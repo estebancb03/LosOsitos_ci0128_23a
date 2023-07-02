@@ -12,7 +12,7 @@ const DefaultSideBarData = [
     title: "Reservation",
     path: "/reservation",
     icon: <SiIcons.SiAddthis />,
-    datacy: "reservationlist-submenu"
+    datacy: "reservation-submenu"
   },
   {
     title: "LogIn",
