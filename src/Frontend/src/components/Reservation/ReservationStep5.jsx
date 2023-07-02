@@ -4,6 +4,7 @@ import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
 import useCalculateFees from "../../hooks/useCalculateFees";
 import { Checkbox } from "antd";
+import useTermsAndConditions from "../../hooks/useTermsAndConditions.jsx";
 
 const ReservationStep5 = ({
   windows,
@@ -11,7 +12,9 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
-  const {calculateTotalFee} = useCalculateFees(reservationData);
+  const { calculateTotalFee } = useCalculateFees(reservationData);
+  const { fetchTermsAndConditionsLink } = useTermsAndConditions();
+  let termsAndConditionLink = "";
   const [image, setImage] = useState("");
   const [checkbox, setCheckbox] = useState(false);
 
@@ -26,7 +29,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       } = reservationData;
       const url = "/person";
       await AxiosClient.post(url, {
@@ -38,7 +41,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       });
     } catch (exception) {
       console.log(exception);
@@ -129,7 +132,8 @@ const ReservationStep5 = ({
   };
 
   const updateReservationData = async (method) => {
-    if (checkbox) { //condition to continue
+    if (checkbox) {
+      //condition to continue
       await insertPerson();
       await insertClient();
       await insertReservation();
@@ -147,7 +151,7 @@ const ReservationStep5 = ({
         mail: newReservationData.Email,
         text: reservationData,
         crcBill: parseInt(bill[0]),
-        usdBill: bill[1].toFixed(2)
+        usdBill: bill[1].toFixed(2),
       };
       setReservationData(newReservationData);
       setWindows(newWindows);
@@ -172,8 +176,10 @@ const ReservationStep5 = ({
       console.log(exception);
     }
   };
-
-
+  useEffect(() => {
+    termsAndConditionLink = fetchTermsAndConditionsLink();
+    console.log("[ReservationStep5] Link: " + termsAndConditionLink);
+  }, []);
   return (
     <>
       {windows.Step5 && (
@@ -181,8 +187,9 @@ const ReservationStep5 = ({
           <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
             Upload payment proof picture
           </h2>
-          <CloudinaryUploadWidget 
-          setImage={(imageProp) => setImage(imageProp)} /> 
+          <CloudinaryUploadWidget
+            setImage={(imageProp) => setImage(imageProp)}
+          />
           <br></br>
           <Checkbox
             onChange={() => {
