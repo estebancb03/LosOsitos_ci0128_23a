@@ -45,11 +45,12 @@ const getExchangeRate = async (req, res) => {
 
 const getTermsAndConditionLink = async (req, res) => {
     try {
+        console.log("ENTROERNTIRETNFDGKNGKNGKDFGJNKGDFJNDGFKJDFNGKN")
         const pool = await getConnection()
         const result = await pool.request().query(`SELECT Link FROM Setting_Capacity WHERE Type = 'TermsAndConditions'`)
-        console.log(result.recordset)
+        console.log(result)
         res.status(200)
-        res.json(result.recordset)
+        res.json(result)
     } catch (error) {
         console.log(error.message)
         res.status(500)
@@ -59,9 +60,10 @@ const getTermsAndConditionLink = async (req, res) => {
 
 const updateTermsAndConditionsLink = async (req, res) => {
     try {
-        const {Link} = req.body
+        const {link} = req.body
+        console.log("[Backend] Received the following link: " + link)
         const pool = await getConnection();
-        await pool.query(`Update Setting_Capacity SET Link = '${Link}' WHERE TYPE = 'TermsAndConditions'`);
+        await pool.query(`Update Setting_Capacity SET Link = '${link}' WHERE TYPE = 'TermsAndConditions'`);
         res.status(200);
         console.log("The update to the Setting_Capacity was successful");
     } catch (error) {
