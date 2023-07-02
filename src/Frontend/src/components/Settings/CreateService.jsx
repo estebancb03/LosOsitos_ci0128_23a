@@ -153,6 +153,7 @@ const CreateService = (props) => {
           <InputButton
             text="Service Name"
             type="serviceName"
+            datacy='service-name-input'
             placeholderText={newServiceInfo.Name}
             disabled={false}
             onChangeFunction={modifyName}
@@ -161,6 +162,7 @@ const CreateService = (props) => {
             <InputButton
               text="Inventory"
               type="inventory"
+              datacy='service-inventory-input'
               placeholderText={newServiceInfo.Quantity}
               disabled={false}
               onChangeFunction={modifyInventoryValue}
@@ -170,6 +172,7 @@ const CreateService = (props) => {
             <InputButton
               text="USD Price"
               type="usdPrice"
+              datacy='service-usd-price'
               placeholderText={newServiceInfo.USD}
               disabled={false}
               onChangeFunction={modifyPriceValue}
@@ -179,6 +182,7 @@ const CreateService = (props) => {
             <InputButton
               text="CRC Price"
               type="crcPrice"
+              datacy='service-crc-price'
               placeholderText={newServiceInfo.CRC}
               disabled={false}
               onChangeFunction={modifyPriceValue}
@@ -186,7 +190,7 @@ const CreateService = (props) => {
           </div>
         </div>
         <div className="mt-8 grid grid-cols-1">
-          <Button text="Save" onclickFunction={() => checkInformation()} />
+          <Button text="Save" datacy='service-save-button' onclickFunction={() => checkInformation()} />
         </div>
       </Modal>
     </>
