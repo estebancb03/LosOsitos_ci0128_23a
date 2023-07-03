@@ -52,13 +52,13 @@ const ReservationStep2 = (props) => {
     }
   };
 
-  const add = (ticketOption) => {
+  const addOneTicket = (ticketOption) => {
     const newTickets = addTicket(ticketOption, tickets);
     setTickets(newTickets);
     addTicketsToReservation(newTickets);
   };
 
-  const delete_ = (ticketOption) => {
+  const deleteOneTicket = (ticketOption) => {
     const newTickets = deleteTicket(ticketOption, tickets);
     setTickets(newTickets);
     addTicketsToReservation(newTickets);
@@ -69,12 +69,6 @@ const ReservationStep2 = (props) => {
     const formatedTickets = formatAllTickets(reservationData, array);
     newReservationData.Tickets = formatedTickets;
     await setReservationData(newReservationData);
-  };
-
-  const deleteTicketsFromReservation = () => {
-    const newReservationData = { ...reservationData };
-    newReservationData.Tickets = [];
-    setReservationData(newReservationData);
   };
 
   useEffect(() => {
@@ -100,12 +94,12 @@ const ReservationStep2 = (props) => {
                   <Button
                     text="+"
                     type="add"
-                    onclickFunction={() => add(ticketOption)}
+                    onclickFunction={() => addOneTicket(ticketOption)}
                   />,
                   <Button
                     text="-"
                     type="delete"
-                    onclickFunction={() => delete_(ticketOption)}
+                    onclickFunction={() => deleteOneTicket(ticketOption)}
                   />,
                 ]}
               />
