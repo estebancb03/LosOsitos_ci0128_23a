@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import Modal from "../Modal";
 import Button from "../Buttons/Button";
 import InputButton from "../Buttons/InputButton";

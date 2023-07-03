@@ -1,6 +1,5 @@
 import React from "react";
 import { useEffect, useState } from "react";
-
 import Title from "../components/Title";
 import Table from "../components/Table/Table";
 import Footer from "../components/Footer/Footer";
@@ -31,7 +30,7 @@ const UserList = () => {
   };
 
   const deleteSelectedUser = async (selectedUser) => {
-    if (confirm("Are you sure to delete this user?")) {
+    if (confirm("Are you sure you want to delete this user?")) {
       await deleteUser(selectedUser);
       await fetchUsers();
     }

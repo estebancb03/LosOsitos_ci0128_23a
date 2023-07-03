@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect, useContext } from "react";
 import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
@@ -42,7 +41,7 @@ const useUser = () => {
     return newUser;
   };
 
-  const fetchUsers = async (user) => {
+  const fetchUsers = async () => {
     try {
       const url = "/employee";
       const { data } = await AxiosClient.get(url);
