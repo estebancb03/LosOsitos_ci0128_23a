@@ -45,7 +45,6 @@ const getExchangeRate = async (req, res) => {
 
 const getTermsAndConditionLink = async (req, res) => {
     try {
-        console.log("ENTROERNTIRETNFDGKNGKNGKDFGJNKGDFJNDGFKJDFNGKN")
         const pool = await getConnection()
         const result = await pool.request().query(`SELECT Link FROM Setting_Capacity WHERE Type = 'TermsAndConditions'`)
         console.log(result)

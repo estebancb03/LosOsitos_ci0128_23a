@@ -14,9 +14,9 @@ const ReservationStep5 = ({
 }) => {
   const { calculateTotalFee } = useCalculateFees(reservationData);
   const { fetchTermsAndConditionsLink } = useTermsAndConditions();
-  let termsAndConditionLink = "";
   const [image, setImage] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const [termsAndConditionLink, setTermsAndConditionsLink] = useState(0);
 
   const insertPerson = async () => {
     try {
@@ -176,52 +176,67 @@ const ReservationStep5 = ({
       console.log(exception);
     }
   };
+
   useEffect(() => {
-    termsAndConditionLink = fetchTermsAndConditionsLink();
-    console.log("[ReservationStep5] Link: " + termsAndConditionLink);
+    const fetchData = async () => {
+      const link = await fetchTermsAndConditionsLink();
+      const modifiedLink = link.endsWith(".pdf")
+        ? link.replace(".pdf", ".jpg")
+        : link;
+      setTermsAndConditionsLink(modifiedLink);
+      console.log("[ReservationStep5] Link: " + link);
+    };
+
+    fetchData();
   }, []);
+
+  const readyToLoad = () => {
+    return termsAndConditionLink !== 0;
+  };
   return (
-    <>
-      {windows.Step5 && (
-        <div>
-          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
-            Upload payment proof picture
-          </h2>
-          <CloudinaryUploadWidget
-            setImage={(imageProp) => setImage(imageProp)}
-          />
-          <br></br>
-          <Checkbox
-            onChange={() => {
-              setCheckbox(!checkbox);
-            }}
-          >
-            Agree with{" "}
-            <a href="./termsconditions.jpeg" target="_blank">
-              terms and conditions
-            </a>
-          </Checkbox>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
-            <Button
-              text="Back"
-              onclickFunction={(e) => {
-                const newWindows = { ...windows };
-                newWindows.Step4 = true;
-                newWindows.Step5 = false;
-                setWindows(newWindows);
-              }}
+    readyToLoad() && (
+      <>
+        {windows.Step5 && (
+          <div>
+            <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+              Upload payment proof picture
+            </h2>
+            <CloudinaryUploadWidget
+              setImage={(imageProp) => setImage(imageProp)}
             />
-            <Button
-              text="Next"
-              onclickFunction={() => {
-                updateReservationData();
+            <br></br>
+            <Checkbox
+              onChange={() => {
+                setCheckbox(!checkbox);
               }}
-            />
-            <div className="mb-1"></div>
+            >
+              Agree with{" "}
+              <a href={termsAndConditionLink} target="_blank">
+                terms and conditions
+              </a>
+            </Checkbox>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
+              <Button
+                text="Back"
+                onclickFunction={(e) => {
+                  const newWindows = { ...windows };
+                  newWindows.Step4 = true;
+                  newWindows.Step5 = false;
+                  setWindows(newWindows);
+                }}
+              />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
+            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </>
+    )
   );
 };
 

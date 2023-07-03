@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 const CloudinaryUploadWidget = (props) => {
   const myWidget = () =>
@@ -10,10 +10,10 @@ const CloudinaryUploadWidget = (props) => {
         multiple: false,
         singleUploadAutoClose: false,
         folder: "termsAndConditions",
+        clientAllowedFormats: ["jpg", "jpeg", "png", "pdf"],
       },
       (error, result) => {
         if (!error && result && result.event === "success") {
-          console.log("Done! Here is the image info: ", result.info);
           props.setImage(result.info.url);
         }
       }
