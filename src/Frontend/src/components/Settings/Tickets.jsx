@@ -5,17 +5,30 @@ import TableItem from "../Table/TableItem";
 import InputButton from "../Buttons/InputButton";
 import Button from "../Buttons/Button";
 import useUpdateTicketPrice from "../../hooks/useUpdateTicketPrice";
+import { BsPencil } from "react-icons/bs";
+import { BsCheck2 } from "react-icons/bs";
 
 const Tickets = () => {
   const [picnicTickets, setPicnicTickets] = useState([]);
   const [campingTickets, setCampingTickets] = useState([]);
   const columnNames = ["Ticket", "Currency", "Price", "Action"];
-  const rowNames = [
+  const rowNamesPicnic = [
     "Domestic Child",
     "Foreign Child",
     "Domestic Adult",
     "Foreign Adult",
+    "Foreign Elder",
   ];
+
+  const rowNamesCamping = [
+    "Domestic Child",
+    "Foreign Child",
+    "Domestic Adult",
+    "Foreign Adult",
+    "Domestic Elder",
+    "Foreign Elder",
+  ];
+
   const [modifyButtons, setModifyButtons] = useState([
     "Modify",
     "Modify",
@@ -25,8 +38,14 @@ const Tickets = () => {
     "Modify",
     "Modify",
     "Modify",
+    "Modify",
+    "Modify",
+    "Modify",
   ]);
+
+  <BsPencil />;
   const [disablePicnicButtons, setDisabledPicnicButtons] = useState([
+    true,
     true,
     true,
     true,
@@ -37,16 +56,26 @@ const Tickets = () => {
     true,
     true,
     true,
+    true,
+    true,
   ]);
   const [adultPicnicPrice, setAdultPicnicPrice] = useState(0);
   const [childPicnicPrice, setChildPicnicPrice] = useState(0);
   const [foreignAdultPicnicPrice, setForeignAdultPicnicPrice] = useState(0);
   const [foreignChildPicnicPrice, setForeignChildPicnicPrice] = useState(0);
+  const [foreignElderPicnicPrice, setForeignElderPicnicPrice] = useState(0);
+
   const [adultCampingPrice, setAdultCampingPrice] = useState(0);
   const [childCampingPrice, setChildCampingPrice] = useState(0);
   const [foreignAdultCampingPrice, setForeignAdultCampingPrice] = useState(0);
   const [foreignChildCampingPrice, setForeignChildCampingPrice] = useState(0);
+  const [elderCampingPrice, setElderCampingPrice] = useState(0);
+  const [foreignElderCampingPrice, setForeignElderCampingPrice] = useState(0);
+
   const [isValidData, setIsValidData] = useState([
+    true,
+    true,
+    true,
     true,
     true,
     true,
@@ -72,10 +101,7 @@ const Tickets = () => {
         return (
           ticket.Reservation_Type === 0 &&
           ticket.Special !== 1 &&
-          ticket.Price != 0 &&
-          // Remove this line to implement
-          // the new tickets
-          ticket.Age_Range <= 1
+          ticket.Price != 0
         );
       })
     );
@@ -84,10 +110,7 @@ const Tickets = () => {
         return (
           ticket.Reservation_Type === 1 &&
           ticket.Special !== 1 &&
-          ticket.Price != 0 &&
-          // Remove this line to implement
-          // the new tickets
-          ticket.Age_Range <= 1
+          ticket.Price != 0
         );
       })
     );
@@ -127,31 +150,47 @@ const Tickets = () => {
         break;
 
       case 4:
+        regex.test(foreignElderPicnicPrice)
+          ? setForeignElderPicnicPrice(parseFloat(foreignElderPicnicPrice))
+          : (successfulConversion = false);
+
+      case 5:
         regex.test(childCampingPrice)
           ? setChildCampingPrice(parseFloat(childCampingPrice))
           : (successfulConversion = false);
 
         break;
 
-      case 5:
+      case 6:
         regex.test(foreignChildCampingPrice)
           ? setForeignChildCampingPrice(parseFloat(foreignChildCampingPrice))
           : (successfulConversion = false);
 
         break;
 
-      case 6:
+      case 7:
         regex.test(adultCampingPrice)
           ? setAdultCampingPrice(parseFloat(adultCampingPrice))
           : (successfulConversion = false);
 
         break;
 
-      case 7:
+      case 8:
         regex.test(foreignAdultCampingPrice)
           ? setForeignAdultCampingPrice(parseFloat(foreignAdultCampingPrice))
           : (successfulConversion = false);
 
+        break;
+      case 9:
+        regex.test(elderCampingPrice)
+          ? setElderCampingPrice(parseFloat(elderCampingPrice))
+          : (successfulConversion = false);
+        break;
+
+      case 10:
+        regex.test(foreignElderCampingPrice)
+          ? setForeignElderCampingPrice(parseFloat(foreignElderCampingPrice))
+          : (successfulConversion = false);
         break;
     }
     return successfulConversion;
@@ -184,26 +223,44 @@ const Tickets = () => {
         break;
 
       case 4:
+        if (foreignElderPicnicPrice === 0) {
+          setForeignElderPicnicPrice(picnicTickets[4].Price);
+        }
+        break;
+
+      case 5:
         if (childCampingPrice === 0) {
           setChildCampingPrice(campingTickets[0].Price);
         }
         break;
 
-      case 5:
+      case 6:
         if (foreignChildPicnicPrice === 0) {
           setForeignChildCampingPrice(campingTickets[1].Price);
         }
         break;
 
-      case 6:
+      case 7:
         if (adultCampingPrice === 0) {
           setAdultCampingPrice(campingTickets[2].Price);
         }
         break;
 
-      case 7:
+      case 8:
         if (foreignAdultCampingPrice === 0) {
           setForeignAdultCampingPrice(campingTickets[3].Price);
+        }
+        break;
+
+      case 9:
+        if (elderCampingPrice === 0) {
+          setElderCampingPrice(campingTickets[4].Price);
+        }
+        break;
+
+      case 10:
+        if (foreignElderCampingPrice === 0) {
+          setForeignElderCampingPrice(campingTickets[5].Price);
         }
         break;
     }
@@ -242,17 +299,28 @@ const Tickets = () => {
       case 3:
         setForeignAdultPicnicPrice(value);
         break;
+
       case 4:
+        setForeignElderPicnicPrice(value);
+        break;
+
+      case 5:
         setChildCampingPrice(value);
         break;
-      case 5:
+      case 6:
         setForeignChildCampingPrice(value);
         break;
-      case 6:
+      case 7:
         setAdultCampingPrice(value);
         break;
-      case 7:
+      case 8:
         setForeignAdultCampingPrice(value);
+        break;
+      case 9:
+        setElderCampingPrice(value);
+        break;
+      case 10:
+        setForeignElderCampingPrice(value);
         break;
     }
   };
@@ -273,6 +341,8 @@ const Tickets = () => {
         case 3:
           price = foreignAdultPicnicPrice;
           break;
+        case 4:
+          price = foreignElderPicnicPrice;
       }
       useUpdateTicketPrice(
         picnicTickets[index].Age_Range,
@@ -293,6 +363,12 @@ const Tickets = () => {
           break;
         case 3:
           price = foreignAdultCampingPrice;
+          break;
+        case 4:
+          price = elderCampingPrice;
+          break;
+        case 5:
+          price = foreignElderCampingPrice;
           break;
       }
       useUpdateTicketPrice(
@@ -329,7 +405,7 @@ const Tickets = () => {
         }
       }
     } else {
-      const offSet = 4;
+      const offSet = 5;
       if (modifyButtons[index + offSet] === "Modify") {
         setModifyButtons((prevButtons) => {
           const updatedButtons = [...prevButtons];
@@ -363,7 +439,7 @@ const Tickets = () => {
         );
       }
     } else {
-      const offset = 4;
+      const offset = 5;
       if (isValidData[index + offset]) {
         setDisabledCampingButtons((prevButtons) =>
           prevButtons.map((button, i) => (i === index ? !button : button))
@@ -385,13 +461,19 @@ const Tickets = () => {
       case 3:
         return foreignAdultPicnicPrice;
       case 4:
-        return childCampingPrice;
+        return foreignElderPicnicPrice;
       case 5:
-        return foreignChildCampingPrice;
+        return childCampingPrice;
       case 6:
-        return adultCampingPrice;
+        return foreignChildCampingPrice;
       case 7:
+        return adultCampingPrice;
+      case 8:
         return foreignAdultCampingPrice;
+      case 9:
+        return elderCampingPrice;
+      case 10:
+        return foreignElderCampingPrice;
     }
     return price;
   };
@@ -422,19 +504,31 @@ const Tickets = () => {
 
   useEffect(() => {
     modifyHandleClick(4);
-  }, [childCampingPrice]);
+  }, [foreignElderPicnicPrice]);
 
   useEffect(() => {
     modifyHandleClick(5);
-  }, [foreignChildCampingPrice]);
+  }, [childCampingPrice]);
 
   useEffect(() => {
     modifyHandleClick(6);
-  }, [adultCampingPrice]);
+  }, [foreignChildCampingPrice]);
 
   useEffect(() => {
     modifyHandleClick(7);
+  }, [adultCampingPrice]);
+
+  useEffect(() => {
+    modifyHandleClick(8);
   }, [foreignAdultCampingPrice]);
+
+  useEffect(() => {
+    modifyHandleClick(9);
+  }, [elderCampingPrice]);
+
+  useEffect(() => {
+    modifyHandleClick(10);
+  }, [foreignElderCampingPrice]);
 
   return (
     <>
@@ -447,7 +541,7 @@ const Tickets = () => {
                 key={index}
                 number={index}
                 data={[
-                  rowNames[index],
+                  rowNamesPicnic[index],
                   picnicTicket.Currency,
                   <InputButton
                     placeholderText={returnState(index)}
@@ -473,16 +567,16 @@ const Tickets = () => {
                 key={index}
                 number={index}
                 data={[
-                  rowNames[index],
+                  rowNamesCamping[index],
                   campingTicket.Currency,
                   <InputButton
-                    placeholderText={returnState(index + 4)}
+                    placeholderText={returnState(index + 5)}
                     disabled={disabledCampingButtons[index]}
-                    type={["Camping", index + 4]}
+                    type={["Camping", index + 5]}
                     onChangeFunction={modifyPrice}
                   />,
                   <Button
-                    text={modifyButtons[index + 4]}
+                    text={modifyButtons[index + 5]}
                     onclickFunction={() => {
                       changeButtonAction(index, "Camping");
                       enableInput(index, "Camping");
