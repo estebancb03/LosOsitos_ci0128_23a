@@ -4,6 +4,7 @@ import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
 import useCalculateFees from "../../hooks/useCalculateFees";
 import { Checkbox } from "antd";
+import useTermsAndConditions from "../../hooks/useTermsAndConditions.jsx";
 
 const ReservationStep5 = ({
   windows,
@@ -11,9 +12,11 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
-  const {calculateTotalFee} = useCalculateFees(reservationData);
+  const { calculateTotalFee } = useCalculateFees(reservationData);
+  const { fetchTermsAndConditionsLink } = useTermsAndConditions();
   const [image, setImage] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const [termsAndConditionLink, setTermsAndConditionsLink] = useState(0);
 
   const insertPerson = async () => {
     try {
@@ -26,7 +29,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       } = reservationData;
       const url = "/person";
       await AxiosClient.post(url, {
@@ -38,7 +41,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       });
     } catch (exception) {
       console.log(exception);
@@ -123,7 +126,8 @@ const ReservationStep5 = ({
   };
 
   const updateReservationData = async (method) => {
-    if (checkbox) { //condition to continue
+    if (checkbox) {
+      //condition to continue
       await insertPerson();
       await insertClient();
       await insertReservation();
@@ -140,7 +144,7 @@ const ReservationStep5 = ({
         mail: newReservationData.Email,
         text: reservationData,
         crcBill: parseInt(bill[0]),
-        usdBill: bill[1].toFixed(2)
+        usdBill: bill[1].toFixed(2),
       };
       setReservationData(newReservationData);
       setWindows(newWindows);
@@ -164,48 +168,66 @@ const ReservationStep5 = ({
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const link = await fetchTermsAndConditionsLink();
+      const modifiedLink = link.endsWith(".pdf")
+        ? link.replace(".pdf", ".jpg")
+        : link;
+      setTermsAndConditionsLink(modifiedLink);
+      console.log("[ReservationStep5] Link: " + link);
+    };
 
+    fetchData();
+  }, []);
+
+  const readyToLoad = () => {
+    return termsAndConditionLink !== 0;
+  };
   return (
-    <>
-      {windows.Step5 && (
-        <div>
-          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
-            Upload payment proof picture
-          </h2>
-          <CloudinaryUploadWidget 
-          setImage={(imageProp) => setImage(imageProp)} /> 
-          <br></br>
-          <Checkbox
-            onChange={() => {
-              setCheckbox(!checkbox);
-            }}
-          >
-            Agree with{" "}
-            <a href="./termsconditions.jpeg" target="_blank">
-              terms and conditions
-            </a>
-          </Checkbox>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
-            <Button
-              text="Back"
-              onclickFunction={(e) => {
-                const newWindows = { ...windows };
-                newWindows.Step4 = true;
-                newWindows.Step5 = false;
-                setWindows(newWindows);
-              }}
+    readyToLoad() && (
+      <>
+        {windows.Step5 && (
+          <div>
+            <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+              Upload payment proof picture
+            </h2>
+            <CloudinaryUploadWidget
+              setImage={(imageProp) => setImage(imageProp)}
             />
-            <Button
-              text="Next"
-              onclickFunction={() => {
-                updateReservationData();
+            <br></br>
+            <Checkbox
+              onChange={() => {
+                setCheckbox(!checkbox);
               }}
-            />
-            <div className="mb-1"></div>
+            >
+              Agree with{" "}
+              <a href={termsAndConditionLink} target="_blank">
+                terms and conditions
+              </a>
+            </Checkbox>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
+              <Button
+                text="Back"
+                onclickFunction={(e) => {
+                  const newWindows = { ...windows };
+                  newWindows.Step4 = true;
+                  newWindows.Step5 = false;
+                  setWindows(newWindows);
+                }}
+              />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
+            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </>
+    )
   );
 };
 

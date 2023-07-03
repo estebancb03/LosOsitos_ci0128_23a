@@ -7,6 +7,7 @@ import Capacity from "../components/Settings/Capacity";
 import Tickets from "../components/Settings/Tickets";
 import ExchangeRate from "../components/Settings/ExchangeRate";
 import Services from "../components/Settings/Services";
+import TermsAndConditions from "../components/Settings/TermsAndConditions";
 
 const Settings = () => {
   return (
@@ -31,6 +32,10 @@ const Settings = () => {
           Services
         </div>
         <Services />
+        <div className=" mt-4 ml-1 text-2xl sm:text-2xl font-semibold">
+          Terms And Conditions
+        </div>
+        <TermsAndConditions />
       </Container>
       <Footer />
     </>
