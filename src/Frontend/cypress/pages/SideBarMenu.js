@@ -10,12 +10,16 @@ class SideBarMenu {
     cy.get('[data-cy=userrole]').invoke('text').should('equal', `Role: ${role}`);
   };
 
+  clickMenu() {
+    cy.get('[data-cy=hamburger-menu-button]').click();
+  };
+
   navigateToOption(option) {
     cy.get('[data-cy=hamburger-menu-button]').click();
     if (option === 'Reservation') {
       cy.get('[data-cy=reservation-submenu]').click();
-    } else if (option === 'Testimonials') {
-      cy.get('[data-cy=testimonials-submenu]').click();
+    } else if (option === 'Testimonials list') {
+      cy.get('[data-cy=testimonialslist-submenu]').click();
     } else if (option === 'Park status') {
       cy.get('[data-cy=parkstatus-submenu]').click();
     } else if (option === 'User list') {
@@ -36,7 +40,7 @@ class SideBarMenu {
   verifyOptionExist(option) {
     if (option === 'Reservation') {
       cy.get('[data-cy=reservation-submenu]').should('exist');
-    } else if (option === 'Testimonials') {
+    } else if (option === 'Testimonials list') {
       cy.get('[data-cy=testimonials-submenu]').should('exist');
     } else if (option === 'Park status') {
       cy.get('[data-cy=parkstatus-submenu]').should('exist');
@@ -58,7 +62,7 @@ class SideBarMenu {
   verifyOptionNoExist(option) {
     if (option === 'Reservation') {
       cy.get('[data-cy=reservation-submenu]').should('not.exist');
-    } else if (option === 'Testimonials') {
+    } else if (option === 'Testimonials list') {
       cy.get('[data-cy=testimonials-submenu]').should('not.exist');
     } else if (option === 'Park status') {
       cy.get('[data-cy=parkstatus-submenu]').should('not.exist');

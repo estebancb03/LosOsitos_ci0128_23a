@@ -5,6 +5,22 @@ import Home from '../pages/Home';
 const home = new Home();
 
 describe('<Login />', () => {
+  it('Default user options', () => {
+    // Arrange
+    home.visit();
+    // Actions
+    home.sideBarMenu.clickMenu();
+    // Asserts
+    home.sideBarMenu.verifyOptionExist('Reservation');
+    home.sideBarMenu.verifyOptionExist('Log in');
+    home.sideBarMenu.verifyOptionNoExist('Park status');
+    home.sideBarMenu.verifyOptionNoExist('User list');
+    home.sideBarMenu.verifyOptionNoExist('Reservation list');
+    home.sideBarMenu.verifyOptionNoExist('Reports');
+    home.sideBarMenu.verifyOptionNoExist('Settings');
+    home.sideBarMenu.verifyOptionNoExist('Log out');
+  });
+
   it('Admin user login process', () => {
     // Arrange
     home.visit();
