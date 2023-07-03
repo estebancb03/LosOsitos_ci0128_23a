@@ -1,3 +1,4 @@
+
 class SideBarMenu {
   constructor() {}
 
@@ -17,8 +18,8 @@ class SideBarMenu {
     cy.get('[data-cy=hamburger-menu-button]').click();
     if (option === 'Reservation') {
       cy.get('[data-cy=reservation-submenu]').click();
-    } else if (option === 'Testimonials') {
-      cy.get('[data-cy=testimonials-submenu]').click();
+    } else if (option === 'Testimonials list') {
+      cy.get('[data-cy=testimonialslist-submenu]').click();
     } else if (option === 'Park status') {
       cy.get('[data-cy=parkstatus-submenu]').click();
     } else if (option === 'User list') {
