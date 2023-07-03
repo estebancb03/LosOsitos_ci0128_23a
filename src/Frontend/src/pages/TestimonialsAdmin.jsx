@@ -59,18 +59,20 @@ const TestimonialsAdmin = () => {
             <p>No pending reviews.</p>
           ) : (
             pendingReviews.map((review, index) => (
-              <div key={index} className="mb-4">
+              <div data-cy={review.Name + "-pending-testimonial"} key={index} className="mb-4">
                 <h3 className="text-lg font-bold">{review.Name + " " + review.LastName1}</h3>
                 <h4 className="text-sm">{formatDateDTDDMMYYYY(review.Date)}</h4>
                 <p className="text-gray-700">{review.Description}</p>
                 <div className="flex justify-end">
                   <button
+                    data-cy={review.Name + "-testimonial" + "-approve-button"}
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                     onClick={() => handleApprove(index)}
                   >
                     Approve
                   </button>
                   <button
+                    data-cy={review.Name + "-testimonial" + "-deny-button"}
                     className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     onClick={() => handleDeny(index)}
                   >
@@ -87,7 +89,7 @@ const TestimonialsAdmin = () => {
             <p>No reviews yet.</p>
           ) : (
             reviews.map((review, index) => (
-              <div key={index} className="mb-4">
+              <div data-cy={review.Name + "-approved-testimonial"} key={index} className="mb-4">
                 <h3 className="text-lg font-bold">{review.Name + " " +review.LastName1}</h3>
                 <h4 className="text-sm">{formatDateDTDDMMYYYY(review.Date)}</h4>
                 <h4 className="text-sm">State: {review.State === 1 ? "Approved" : "Rejected"}</h4>
