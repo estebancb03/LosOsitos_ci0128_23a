@@ -16,11 +16,11 @@ const FooterItem = ({ item }) => {
                 <span className="mt-0.5">{attribute.icon}</span>
                 <span className="ml-3">{attribute.description}</span>
               </Link>
-            ) : attribute.link && attribute.externalicon ? (
+            ) : attribute.externalicon ? (
               <Link to={attribute.link}>
                 <div
-                  className="bg-[#219ebc] h-16 flex justify-center items-center rounded-md 
-                      hover:font-semibold hover:bg-blue-600 transition-all duration-300"
+                  className="h-16 mx-24 flex items-center rounded-md 
+                      hover:font-semibold hover:bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] transition-all duration-300 hover:ring-2 hover:ring-white"
                 >
                   <span className="ml-3 mr-3 h-[50px] w-[50px]">
                     <img src={attribute.externalicon} />
@@ -41,6 +41,7 @@ const FooterItem = ({ item }) => {
               </div>
             ) : (
               <div className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300">
+                {console.log(attribute)}
                 <span>{attribute.description}</span>
               </div>
             )}
