@@ -9,6 +9,7 @@ const getAllReviews = async (req, res) => {
     `SELECT ID, Name, LastName1, Description, Testimony.State, Date
     FROM Testimony JOIN Client ON ID_Client = ID_Person JOIN Person ON ID_Person = ID `
     );
+    res.status(200);
     res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -24,8 +25,9 @@ const updateReviewState = async (req, res) => {
       `UPDATE Testimony SET State = ${State} WHERE ID_Client = '${ID}'`
     );
     res.status(200);
-    res.send("The update to the review was successfull");
+    res.send("The update to the review was successful");
   } catch (error) {
+    console.log(error)
     res.status(500);
     res.send(error.message);
   }
@@ -41,6 +43,7 @@ const getRandomReviews = async (req, res) => {
   FROM Testimony JOIN Client ON ID_Client = ID_Person JOIN Person ON ID_Person = ID 
   WHERE Testimony.State = 1 ORDER BY newid()`
   );
+  res.status(200);
   res.json(result.recordset);
   } catch (error) {
     res.status(500);
@@ -73,7 +76,7 @@ const updateReview = async (req, res) => {
       `UPDATE Testimony SET Description = '${Description}', State = 0 WHERE ID_Client = '${ID}'`
     );
     res.status(200);
-    res.send("The update to the review was successfull");
+    res.send("The update to the review was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);
@@ -90,7 +93,6 @@ const insertReview = async (req, res) => {
     await pool.query(
       `INSERT INTO Testimony VALUES (${ID}, '${Description}', 0, '${new Date().toLocaleDateString()}')`);
     res.status(200);
-    console.log("The insert of review was successful");
     res.send('The insert of review was successful');
   } catch (error) {
     console.log(error)
