@@ -49,8 +49,9 @@ describe('<Settings />', () => {
     const { adminHome } = home.login('carlosqe', 'carlosqe');
     adminHome.sideBarMenu.navigateToOption('Settings');
     // Act
-    adminHome.settings.deleteService(modifiedTestService);
+    adminHome.settings.editService(modifiedTestService.name, testService);
+    adminHome.settings.deleteService(testService);
     // Assert
-    adminHome.settings.verifyServiceDeletion(modifiedTestService);
+    adminHome.settings.verifyServiceDeletion(testService);
   });
 });

@@ -106,6 +106,7 @@ const authEmployee = async (req, res) => {
     }
     res.status(200);
     res.json({token});
+    res.send();
   } catch (error) {
     res.status(500);
     res.send(error.message);

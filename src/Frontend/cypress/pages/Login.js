@@ -13,11 +13,18 @@ class Login {
   };
 
   login(username, password) {
+    cy.intercept({
+      method: 'GET',
+      url: 'http://localhost:3000/api/employee/*/*',
+    }).as('getEmployeeData');
+
+
     sideBarMenu.navigateToOption('Log in');
     cy.get('[data-cy=username-input]').type(username);
     cy.get('[data-cy=password-input]').type(password);
     cy.get('[data-cy=submit-button]').click();
-    cy.wait(1000);
+
+    cy.wait('@getEmployeeData');
   };
 
 }

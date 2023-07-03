@@ -22,21 +22,35 @@ class Settings {
   }
 
   editService(oldName, {name, inventory, usdPrice, crcPrice}) {
+    cy.intercept({
+      method: 'PUT',
+      url: 'http://localhost:3000/api/updateServicesWithQuantityAndPrices',
+    }).as('updateService');
+
     cy.get(`[data-cy=service-modify-button-${oldName}]`).click();
     cy.get(`[data-cy=service-modify-name-input-${oldName}]`).clear().type(name);
     cy.get(`[data-cy=service-modify-quantity-input-${name}]`).clear().type(inventory);
     cy.get(`[data-cy=service-modify-usd-price-input-${name}]`).clear().type(usdPrice);
     cy.get(`[data-cy=service-modify-crc-price-input-${name}]`).clear().type(crcPrice);
     cy.get(`[data-cy=service-modify-button-${name}]`).click();
+
+    cy.wait('@updateService');
+    cy.reload();
   }
 
   deleteService({name}) {
+    cy.intercept({
+      method: 'PUT',
+      url: 'http://localhost:3000/api/disableService',
+    }).as('deleteService');
+
     cy.get(`[data-cy=service-delete-button-${name}]`).click();
+
+    cy.wait('@deleteService');
   }
 
   verifyServiceCreation({name}) {
     cy.reload();
-    cy.wait(1000);
     cy.get(`[data-cy=${name}-tr]`).should('exist');
   }
 
@@ -49,7 +63,6 @@ class Settings {
 
   verifyServiceDeletion({name}) {
     cy.reload();
-    cy.wait(1000);
     cy.get(`[data-cy=${name}-tr]`).should('not.exist');
   }
 };

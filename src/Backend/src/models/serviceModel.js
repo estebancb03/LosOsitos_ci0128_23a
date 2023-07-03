@@ -41,6 +41,7 @@ const updateServicesWithQuantityAndPrices = async (req, res) => {
     await pool.request().query(`UPDATE Service_Price SET PRICE = ${USD} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%USD'`);
     await pool.request().query(`UPDATE Service_Price SET PRICE = ${CRC} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%CRC'`);
     res.status(200);
+    res.send();
   } catch (error) {
     res.status(500)
     res.send(error.message)
@@ -74,6 +75,7 @@ const disableService = async (req, res) => {
     const pool = await getConnection();
     await pool.request().query(`UPDATE Service SET Disabled = 1 WHERE Service.Name LIKE '%${serviceName}%'`)
     res.status(200);
+    res.send();
   } catch (error) {
     res.status(500);
     res.send(error.message);
