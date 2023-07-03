@@ -1,7 +1,6 @@
 import React from "react";
 import Title from "../components/Title";
 import NavMenu from "../components/NavMenu/NavMenu";
-import Footer from "../components/Footer/Footer";
 import Container from "../components/Containers/Container";
 import Capacity from "../components/Settings/Capacity";
 import Tickets from "../components/Settings/Tickets";
@@ -32,7 +31,6 @@ const Settings = () => {
         </div>
         <Services />
       </Container>
-      <Footer />
     </>
   );
 };

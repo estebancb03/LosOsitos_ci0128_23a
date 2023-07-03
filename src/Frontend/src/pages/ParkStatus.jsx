@@ -1,5 +1,4 @@
 import Title from "../components/Title";
-import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
 import BoxContainer from "../components/ParkStatus/BoxContainer";
@@ -92,7 +91,6 @@ const ParkStatus = () => {
           </BoxContainer>
         </div>
       </Container>
-      <Footer />
     </>
   );
 };

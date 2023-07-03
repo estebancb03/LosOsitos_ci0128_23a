@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 
 import Title from "../components/Title";
 import Table from "../components/Table/Table";
-import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import TableItem from "../components/Table/TableItem";
@@ -135,7 +134,6 @@ const ReservationList = () => {
           ))}
         </Table>
       </Container>
-      <Footer />
     </>
   );
 };

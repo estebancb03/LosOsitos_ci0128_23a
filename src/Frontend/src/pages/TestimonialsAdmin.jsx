@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import Footer from "../components/Footer/Footer";
 import NavMenu from "../components/NavMenu/NavMenu";
 import useTestimonials from "../hooks/useTestimonials";
 import { formatDateDTDDMMYYYY } from "../helpers/formatDate";
@@ -99,7 +98,6 @@ const TestimonialsAdmin = () => {
           )}
         </div>
       </div>
-      <Footer />
     </>
   );
 };

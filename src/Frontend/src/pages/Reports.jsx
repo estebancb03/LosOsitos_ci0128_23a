@@ -8,7 +8,6 @@ import { useState } from "react";
 import { getIncomeData, getVisitationData } from "../Queries";
 import { downloadXLSX } from "../helpers/fileDownloader";
 import NavMenu from "../components/NavMenu/NavMenu";
-import Footer from "../components/Footer/Footer";
 
 const reportTypes = ["Income", "Visitors"];
 
@@ -103,7 +102,6 @@ const Reports = () => {
           </div>
         </div>
       </Container>
-      <Footer />
     </>
   );
 };

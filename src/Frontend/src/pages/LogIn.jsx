@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import useUser from "../hooks/useUser";
 import useAuth from "../hooks/useAuth";
 import Title from "../components/Title";
-import Footer from "../components/Footer/Footer";
 import Button from "../components/Buttons/Button";
 import NavMenu from "../components/NavMenu/NavMenu";
 import Container from "../components/Containers/Container";
@@ -85,7 +84,6 @@ const LogIn = () => {
           </div>
         </Container>
       </Container>
-      <Footer />
     </>
   );
 };
