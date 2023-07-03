@@ -29,7 +29,6 @@ const postOcupation = async (req, res) => {
     responsesVehicles.forEach(element => {
       vehiclesInDate += element.recordset[0].Amount;
     });    
-    console.log('fuck')
     let PeopleInPark = 0;
     const promisesPeopleInPark = reservationsInDate.map(
       element => (
@@ -40,8 +39,6 @@ const postOcupation = async (req, res) => {
       PeopleInPark += element.recordset[0].Amount;
     });
 
-    console.log(PeopleInPark)
-
     const totalPeople = {
         peopleInDate,
         peopleInDateCamping,
@@ -49,8 +46,8 @@ const postOcupation = async (req, res) => {
         vehiclesInDate,
         PeopleInPark,
     };
-    console.log(totalPeople)
     res.json(totalPeople);
+    res.status(200);
     res.send();
   } catch (error) {
     res.status(500);
