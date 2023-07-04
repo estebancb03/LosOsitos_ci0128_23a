@@ -15,12 +15,6 @@ const OperatorSideBarData = [
     datacy: "reservationlist-submenu"
   },
   {
-    title: "Testimonials",
-    path: "/operator/testimonials",
-    icon: <RiIcons.RiFilePaper2Fill />,
-    datacy: "testimonials-submenu"
-  },
-  {
     title: "Park Status",
     path: "/operator/park-status",
     icon: <BsIcons.BsFillPersonCheckFill />,
