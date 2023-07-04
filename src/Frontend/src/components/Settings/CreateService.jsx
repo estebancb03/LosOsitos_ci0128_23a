@@ -52,6 +52,8 @@ const CreateService = (props) => {
   };
 
   const checkNameEntered = () => {
+    // Matches strings that consist of only letters (uppercase or lowercase),
+    // spaces, parentheses (( and )), and square brackets ([ and ]).
     const regex = /^[A-Za-z \(\)\[\]]+$/;
     let successfulConversion = true;
     if (regex.test(newServiceInfo.Name)) {
@@ -69,6 +71,7 @@ const CreateService = (props) => {
   };
 
   const checkInventoryValue = () => {
+    // Matches strings that represent positive integers
     const regex = /^(0|[1-9]\d*)$/;
     let successfulConversion = true;
     if (regex.test(newServiceInfo.Quantity)) {
@@ -87,6 +90,7 @@ const CreateService = (props) => {
 
   const checkPricesValues = () => {
     let successfulConversion = true;
+    // Matches numeric values, including integers and decimals, that do not contain commas.
     const regex = /^(?!.*[,])\d+(\.\d+)?$/;
     if (regex.test(newServiceInfo.USD) && regex.test(newServiceInfo.CRC)) {
       setNewServiceInfo((prevServiceInfo) => ({
@@ -153,7 +157,7 @@ const CreateService = (props) => {
           <InputButton
             text="Service Name"
             type="serviceName"
-            datacy='service-name-input'
+            datacy="service-name-input"
             placeholderText={newServiceInfo.Name}
             disabled={false}
             onChangeFunction={modifyName}
@@ -162,7 +166,7 @@ const CreateService = (props) => {
             <InputButton
               text="Inventory"
               type="inventory"
-              datacy='service-inventory-input'
+              datacy="service-inventory-input"
               placeholderText={newServiceInfo.Quantity}
               disabled={false}
               onChangeFunction={modifyInventoryValue}
@@ -172,7 +176,7 @@ const CreateService = (props) => {
             <InputButton
               text="USD Price"
               type="usdPrice"
-              datacy='service-usd-price'
+              datacy="service-usd-price"
               placeholderText={newServiceInfo.USD}
               disabled={false}
               onChangeFunction={modifyPriceValue}
@@ -182,7 +186,7 @@ const CreateService = (props) => {
             <InputButton
               text="CRC Price"
               type="crcPrice"
-              datacy='service-crc-price'
+              datacy="service-crc-price"
               placeholderText={newServiceInfo.CRC}
               disabled={false}
               onChangeFunction={modifyPriceValue}
@@ -190,7 +194,11 @@ const CreateService = (props) => {
           </div>
         </div>
         <div className="mt-8 grid grid-cols-1">
-          <Button text="Save" datacy='service-save-button' onclickFunction={() => checkInformation()} />
+          <Button
+            text="Save"
+            datacy="service-save-button"
+            onclickFunction={() => checkInformation()}
+          />
         </div>
       </Modal>
     </>

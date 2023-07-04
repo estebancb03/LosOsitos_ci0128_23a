@@ -27,6 +27,7 @@ const Services = () => {
   const refreshPage = async () => {
     await fetchServicesWithQuantityAndPrices();
     setServicesData(servicesWithQuantityAndPrices);
+    location.reload();
   };
 
   const readyToLoad = () => {
@@ -104,6 +105,8 @@ const Services = () => {
   };
 
   const checkNameEntered = (index) => {
+    // Matches strings that consist of only letters (uppercase or lowercase),
+    // spaces, parentheses (( and )), and square brackets ([ and ]).
     const regex = /^[A-Za-z \(\)\[\]]+$/;
     let successfulConversion = true;
     if (regex.test(servicesData[index].Name)) {
@@ -122,6 +125,7 @@ const Services = () => {
   };
 
   const checkInventoryValue = (index) => {
+    // Matches strings that represent positive integers
     const regex = /^(0|[1-9]\d*)$/;
     let successfulConversion = true;
     if (
@@ -147,6 +151,7 @@ const Services = () => {
 
   const checkPricesValues = (index) => {
     let successfulConversion = true;
+    // Matches numeric values, including integers and decimals, that do not contain commas.
     const regex = /^(?!.*[,])\d+(\.\d+)?$/;
     if (
       regex.test(servicesData[index].USD) &&
@@ -202,12 +207,9 @@ const Services = () => {
     );
     if (confirmDelete) {
       refreshPage();
-      console.log("[DeleteService] The user typed yes");
       // Make a logical delete of the service
       disableService(originalNames[index]);
       refreshPage();
-    } else {
-      console.log("[DeleteService] The user typed no");
     }
   };
 

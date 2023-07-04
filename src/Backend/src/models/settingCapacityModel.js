@@ -61,11 +61,9 @@ const getTermsAndConditionLink = async (req, res) => {
 const updateTermsAndConditionsLink = async (req, res) => {
     try {
         const {link} = req.body
-        console.log("[Backend] Received the following link: " + link)
         const pool = await getConnection();
         await pool.query(`Update Setting_Capacity SET Link = '${link}' WHERE TYPE = 'TermsAndConditions'`);
         res.status(200);
-        console.log("The update to the Setting_Capacity was successful");
     } catch (error) {
         console.log(error.message)
         res.status(500)
