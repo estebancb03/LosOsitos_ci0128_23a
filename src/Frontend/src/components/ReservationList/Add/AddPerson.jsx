@@ -34,7 +34,8 @@ const AddPerson = (props) => {
       <div className="my-3 grid grid-cols-2">
         <div className="mr-3">
           <InputButton
-            text="Customer ID"
+            datacy="addID-input"
+            text="ID"
             type="id"
             placeholderText=""
             disabled={false}
@@ -46,6 +47,7 @@ const AddPerson = (props) => {
         </div>
         <div className="my-3 mr-3">
           <InputButton
+            datacy="addname-input"
             text="Name"
             type="name"
             placeholderText={reservation.Name}
@@ -55,6 +57,7 @@ const AddPerson = (props) => {
         </div>
         <div className="my-3 ml-3">
           <InputButton
+            datacy="addlastname1-input"
             text="Lastname 1"
             type="lastname1"
             placeholderText={reservation.LastName1}
@@ -64,6 +67,7 @@ const AddPerson = (props) => {
         </div>
         <div className="my-3 mr-3">
           <InputButton
+            datacy="addlastname2-input"
             text="Lastname 2"
             type="lastname2"
             placeholderText={reservation.LastName2}
@@ -73,6 +77,7 @@ const AddPerson = (props) => {
         </div>
         <div className="-mt-0.5 ml-3">
           <DatePickerButton
+            datacy="addbirthdate-datepicker"
             text="Date of birth"
             typeClass="3"
             type="birthdate"
@@ -83,6 +88,7 @@ const AddPerson = (props) => {
         </div>
         <div className="my-3 mr-3">
           <InputButton
+            datacy="addemail-input"
             text="Email"
             type="email"
             placeholderText={reservation.Email}
@@ -106,6 +112,7 @@ const AddPerson = (props) => {
             />
           ) : (
             <DropDownSelect
+              datacy="addgender-select"
               text="Gender"
               options={["Male", "Female", "Non-Binary", "Other"]}
               disabled={false}
@@ -125,6 +132,7 @@ const AddPerson = (props) => {
             />
           ) : (
             <DropDownSelect
+              datacy="addcountry-select"
               text="Nationality"
               options={countries}
               selectedOption={reservation.Country_Name}
@@ -146,6 +154,7 @@ const AddPerson = (props) => {
               />
               ) : (
                 <DropDownSelect
+                  datacy="addstate-select"
                   text="State"
                   options={["San José", "Alajuela", "Cartago", "Heredia", "Guanacaste", "Puntarenas", "Limón"]}
                   selectedOption={reservation.State}

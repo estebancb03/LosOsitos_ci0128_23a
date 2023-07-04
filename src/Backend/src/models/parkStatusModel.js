@@ -27,7 +27,16 @@ const postOcupation = async (req, res) => {
         pool.request().input('IDClientParam', sql.NVarChar, element.ID_Client).input('ReservationDateParam', sql.DateTime, element.Reservation_Date).query(`SELECT COUNT(*) AS 'Amount' FROM Vehicle WHERE ID_Client = @IDClientParam AND Reservation_Date = @ReservationDateParam`)));
     const responsesVehicles = await Promise.all(promisesVehicles);
     responsesVehicles.forEach(element => {
-      vehiclesInDate = element.recordset[0].Amount;
+      vehiclesInDate += element.recordset[0].Amount;
+    });    
+    let PeopleInPark = 0;
+    const promisesPeopleInPark = reservationsInDate.map(
+      element => (
+        pool.request().input('IDClientParam', sql.NVarChar, element.ID_Client).input('ReservationDateParam', sql.DateTime, element.Reservation_Date).query(`SELECT COUNT(*) AS 'Amount'FROM Ticket_Reservation JOIN Reservation ON Ticket_Reservation.ID_Client = Reservation.ID_Client 
+        AND Ticket_Reservation.Reservation_Date = Reservation.Reservation_Date  WHERE Ticket_Reservation.ID_Client = @IDClientParam AND Ticket_Reservation.Reservation_Date = @ReservationDateParam AND Reservation.Status =  2`)));
+    const responsesPeopleInPark = await Promise.all(promisesPeopleInPark);
+    responsesPeopleInPark.forEach(element => {
+      PeopleInPark += element.recordset[0].Amount;
     });
 
     const totalPeople = {
@@ -35,9 +44,10 @@ const postOcupation = async (req, res) => {
         peopleInDateCamping,
         peopleInDatePicnic,
         vehiclesInDate,
+        PeopleInPark,
     };
-    console.log(totalPeople)
     res.json(totalPeople);
+    res.status(200);
     res.send();
   } catch (error) {
     res.status(500);

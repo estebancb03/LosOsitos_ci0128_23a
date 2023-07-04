@@ -1,11 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useSettingCapacity = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [capacityValues, setCapacityValues] = useState([]);
 
   const fetchActualCapacityValues = async () => {
     const url = "/getActualCapacities";
+    await AuthToken(token);
     const records = await AxiosClient.get(url);
     filterCapacityValues(records.data);
   };

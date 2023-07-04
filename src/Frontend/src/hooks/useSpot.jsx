@@ -1,8 +1,12 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useSpot = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [spots, setSpots] = useState([]);
   const [spotsPrices, setSpotsPrices] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -11,6 +15,7 @@ const useSpot = () => {
   const getSpots = async () => {
     try {
       const url = "/spots/getAllSpots";
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       await setSpots(data);
     } catch (exception) {
@@ -21,6 +26,7 @@ const useSpot = () => {
   const getSpotsPrices = async () => {
     try {
       const url = "/spot-prices";
+      await AuthToken(token);
       const { data } = await AxiosClient.get(url);
       await setSpotsPrices(data);
     } catch (exception) {
@@ -50,9 +56,9 @@ const useSpot = () => {
     let result = "";
     if (size === sizes[2]) {
       result = "Small";
-    } else if (size === sizes[1]) {
-      result = "Medium";
     } else if (size === sizes[0]) {
+      result = "Medium";
+    } else if (size === sizes[1]) {
       result = "Big";
     }
     return result;

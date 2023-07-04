@@ -35,6 +35,7 @@ const CreateReservation = (props) => {
     if (validateInsertReservation()) {
       if(await validateCapacity()) {
         insertReservation();
+        alert("Reservation booked successfully");
       } else {
         alert("Insufficient capacity");
       }

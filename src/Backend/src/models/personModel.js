@@ -39,6 +39,28 @@ const insertPerson = async (req, res) => {
   }
 };
 
+// Method that inserts a person using an existing pool
+const insertPersonTransaction = async (pool, {
+  ID,
+  Name,
+  LastName1,
+  LastName2,
+  Gender,
+  Birth_Date,
+  Email, 
+  Country_Name,
+  State
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO Person VALUES (${ID}, '${Name}', '${LastName1}', '${LastName2}', ${Gender}, '${Birth_Date}', '${Email}', '${Country_Name}', ${State !== null ? `'${State}'` : 'NULL'})`
+    );
+    console.log("The insert to the Person was successfull");
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+
 // Method that updates the Person table by ID
 const updatePersonData = async (req, res) => {
   try {
@@ -69,5 +91,6 @@ const updatePersonData = async (req, res) => {
 export {
   getPerson,
   insertPerson,
+  insertPersonTransaction,
   updatePersonData
 }

@@ -13,7 +13,7 @@ describe('personModel', () => {
         "Name": "Dylan",
         "LastName1": "Tenorio",
         "LastName2": "Rojas",
-        "Gender": 3,
+        "Gender": 0,
         "Email": "dylantr2001@gmail.com",
         "Country_Name": "Costa Rica",
         "State": "San Jose",

@@ -1,31 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
 import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 
 const useExchange = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [exchange, setExchange] = useState({});
-  const [loaded, setLoaded] = useState(false);
+  let result = [];
 
-  // Method that fetch the exchange
   const fetchData = async () => {
     try {
-      setLoaded(true);
-      const url = "";
-      const result = await AxiosClient(url);
+      const url = "/getExchangeRate";
+      await AuthToken(token);
+      result = await AxiosClient(url);
+      await setExchangeRate(result);
     } catch (exception) {
       console.log(exception);
-    } finally {
-      setLoaded(false);
     }
   };
 
-  useEffect(() => {
+  const setExchangeRate = async (result) => {
     setExchange({
-      USD: 537.33,
-      CRC: 0.0018622,
+      USD: result.data[0].Value,
+      CRC: 1 / result.data[0].Value,
     });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  return { setExchange, exchange };
+  return { exchange, setExchange };
 };
 
 export default useExchange;

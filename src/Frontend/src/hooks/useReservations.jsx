@@ -1,10 +1,13 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthToken from "../config/AuthToken";
+import AxiosClient from "../config/AxiosClient";
+import authContext from "../context/auth/authContext";
 import useCountry from "./useCountry";
 
-import AxiosClient from "../config/AxiosClient";
-
 const useReservations = () => {
+  const AuthContext = useContext(authContext);
+  const { token } = AuthContext;
   const [reservations, setReservations] = useState([]);
   const [spots, setSpots] = useState([]);
   const [vehicles, setVehicles] = useState([]);
@@ -20,9 +23,9 @@ const useReservations = () => {
       LastName2: "",
       Gender: 0,
       Email: "",
-      Country_Name: "Argentina",
+      Country_Name: "Costa Rica",
       Birth_Date: new Date().toISOString(),
-      State: "",
+      State: "San José",
       Reservation_Method: 1,
       Status: 1,
       Payment_Method: 2,
@@ -46,9 +49,9 @@ const useReservations = () => {
       LastName2: "",
       Gender: 0,
       Email: "",
-      Country_Name: "Argentina",
+      Country_Name: "Costa Rica",
       Birth_Date: new Date().toISOString(),
-      State: "",
+      State: "San José",
       Reservation_Method: 0,
       Status: 0,
       Payment_Method: 0,
@@ -63,6 +66,7 @@ const useReservations = () => {
   const fetchReservations = async () => {
     try {
       const url = "/getAllRecords";
+      await AuthToken(token);
       const records = await AxiosClient.get(url);
       setReservations(records.data);
     } catch (exception) {
@@ -73,6 +77,7 @@ const useReservations = () => {
   const fetchSpots = async () => {
     try {
       const url = "/getAllSpots";
+      await AuthToken(token);
       const result = await AxiosClient.get(url);
       setSpots(result.data);
     } catch (exception) {
@@ -83,6 +88,7 @@ const useReservations = () => {
   const fetchVehicles = async () => {
     try {
       const url = "/getAllVehicles";
+      await AuthToken(token);
       const result = await AxiosClient.get(url);
       setVehicles(result.data);
     } catch (exception) {
@@ -93,6 +99,7 @@ const useReservations = () => {
   const fetchTickets = async () => {
     try {
       const url = "/getAllTickets";
+      await AuthToken(token);
       const result = await AxiosClient.get(url);
       setTickets(result.data);
     } catch (exception) {
@@ -103,6 +110,7 @@ const useReservations = () => {
   const fetchServices = async () => {
     try {
       const url = "/getAllServices";
+      await AuthToken(token);
       const result = await AxiosClient.get(url);
       setServices(result.data);
     } catch (exception) {

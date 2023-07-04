@@ -34,27 +34,45 @@ const getSpotsByReservationID = async (req, res) => {
 
   // Method that inserts a spot camping
 const insertSpotCamping = async (req, res) => {
-    try {
-      const {
-        ID_Client,
-        Reservation_Date,
-        Location_Spot,
-        Price,
-        Currency
-      } = req.body;
-      const pool = await getConnection();
-      await pool.query(
-        `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price}, '${Currency}')`
-      );
-      res.status(200);
-      console.log("The insert to the Spot_Camping was successful");
-      res.send('The insert to the Spot_Camping was successful');
-    } catch (error) {
-      res.status(500);
-      res.send(error.message);
-      console.log(error.message);
-    }
-  };
+  try {
+    const {
+      ID_Client,
+      Reservation_Date,
+      Location_Spot,
+      Price,
+      Currency
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price}, '${Currency}')`
+    );
+    res.status(200);
+    console.log("The insert to the Spot_Camping was successful");
+    res.send('The insert to the Spot_Camping was successful');
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+    console.log(error.message);
+  }
+};
+
+  // Method that inserts a spot camping
+  const insertSpotCampingTransaction = async (pool, {
+    ID_Client,
+    Reservation_Date,
+    Location_Spot,
+    Price,
+    Currency
+  }) => {
+  try {
+    await pool.query(
+      `INSERT INTO Spot_Camping VALUES (${ID_Client}, '${Reservation_Date}', ${Location_Spot}, ${Price}, '${Currency}')`
+    );
+    console.log("The insert to the Spot_Camping was successful");
+  } catch (error) {
+    throw error;
+  }
+};
 
   // Method that updates a spot
 const updateSpot = async (req, res) => {
@@ -80,4 +98,4 @@ const updateSpot = async (req, res) => {
     }
   };
 
-  export {getAllSpots, getSpotsByReservationID, insertSpotCamping, updateSpot}
+  export {getAllSpots, getSpotsByReservationID, insertSpotCamping, insertSpotCampingTransaction, updateSpot}

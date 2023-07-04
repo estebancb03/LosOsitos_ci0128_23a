@@ -6,27 +6,27 @@ const NavMenu = () => {
   return (
     <div className="sticky top-0 z-10">
       <SideBarMenu />
-      <nav className="h-20 p-5 bg-[#21295c] shadow flex items-center justify-between">
+      <nav className="h-20 p-5 shadow flex items-center justify-between" style={{backgroundImage: "linear-gradient(to left, #219ebc, #4ecdc4)"}}>
         <div className="flex justify-between items-center">
-          <Link className="text-2xl text-gray-300 cursor-pointer">
+          <Link className="text-2xl text-white cursor-pointer">
             <img className="h-16 w-16" src={img} />
           </Link>
         </div>
-        <ul
-          className="text-gray-300 flex items-center w-full pl-20 opacity-100 top-[-400px] 
-          transition-all ease-in duration-500 sm:hidden"
-        >
-          <Link className="mx-4 my-6 text-xl hover:text-gray-300 duration-500">
-            Option
+        <ul className="text-white flex items-center w-full pl-20 opacity-100 top-[-400px] sm:hidden">
+          <Link to="/" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Home
           </Link>
-          <Link className="mx-4 my-6 text-xl hover:text-gray-300 duration-500">
-            Option
+          <Link to="/information" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Information
           </Link>
-          <Link className="mx-4 my-6 text-xl hover:text-gray-300 duration-500">
-            Option
+          <Link to="/meet" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Meet Junquillal
           </Link>
-          <Link className="mx-4 my-6  text-xl hover:text-gray-300 duration-500">
-            Option
+          <Link to="/contact-us" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Contact us
+          </Link>
+          <Link to="/testimonials" className="mx-4 my-6 text-xl hover:text-white hover:font-semibold transition-colors duration-200">
+            Testimonials
           </Link>
         </ul>
       </nav>

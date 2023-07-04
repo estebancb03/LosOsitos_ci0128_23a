@@ -27,15 +27,22 @@ const FooterData = [
       },
       {
         title: '',
-        description: 'Testimonials',
-        link: '/testimonials',
+        description: 'Information',
+        link: '/information',
         icon: null,
         externalicon: ''
       }, 
       {
         title: '',
-        description: 'Home',
-        link: '/',
+        description: 'Meet Junquillal',
+        link: '/meet',
+        icon: null,
+        externalicon: ''
+      },
+      {
+        title: '',
+        description: 'Contact us',
+        link: '/contact-us',
         icon: null,
         externalicon: ''
       },
@@ -43,13 +50,6 @@ const FooterData = [
         title: '',
         description: 'Testimonials',
         link: '/testimonials',
-        icon: null,
-        externalicon: ''
-      },
-      {
-        title: '',
-        description: 'Home',
-        link: '/',
         icon: null,
         externalicon: ''
       }
@@ -101,14 +101,14 @@ const FooterData = [
       {
         title: 'Phone: ',
         description: '+506 8906 0672',
-        link: '',
+        link: '#',
         icon: <FaIcons.FaPhoneAlt />,
         externalicon: ''
       },
       {
         title: 'Email: ',
         description: 'apatubaju@gmail.com',
-        link: '',
+        link: '#',
         icon: <HiIcons.HiMail />,
         externalicon: ''
       }, 
@@ -125,7 +125,7 @@ const FooterData = [
         link: 'https://www.google.com/maps/place/Refugio+de+Vida+Silvestre+Junquillal/@10.9643725,-85.7522295,12z/data=!4m5!3m4!1s0x8f75a1f3e79fd02b:0x32af8478562c4b84!8m2!3d10.9643805!4d-85.6820157?shorturl=1',
         icon: <SiIcons.SiGooglemaps />,
         externalicon: ''
-      }
+      },
     ]
   }
 ]

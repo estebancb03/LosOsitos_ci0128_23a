@@ -28,66 +28,70 @@ const Reservation = () => {
     <>
       <NavMenu />
       <Container>
-        <Title name="Reservation" />
-        <div className="mt-6 shadow-sm ring-4 ring-inset rounded-md ring-[#21295c] mx-96 sm:mx-6 md:mx-10">
-          <Container>
-            {windows.Step0 === true && (
-              <ReservationStep0
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step1 === true && (
-              <ReservationStep1
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step2 === true && (
-              <ReservationStep2
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step3 === true && (
-              <ReservationStep3
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step4 === true && (
-              <ReservationStep4
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step5 === true && (
-              <ReservationStep5
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-            {windows.Step6 === true && (
-              <ReservationStep6
-                windows={windows}
-                setWindows={setWindows}
-                reservationData={reservationData}
-                setReservationData={setReservationData}
-              />
-            )}
-          </Container>
+      <Title name="Reservation" />
+        <div className="mt-6 shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] mx-96 sm:mx-6 md:mx-10">
+          <div className="shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] h-1"></div>
+          <div className="shadow-sm rounded-sm mx-1 bg-[#FDFFFC]">
+            <div className="bg-[#FDFFFC] mx-7 md:mx-6 sm:mx-5">
+              {windows.Step0 === true && (
+                <ReservationStep0
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step1 === true && (
+                <ReservationStep1
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step2 === true && (
+                <ReservationStep2
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step3 === true && (
+                <ReservationStep3
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step4 === true && (
+                <ReservationStep4
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step5 === true && (
+                <ReservationStep5
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+              {windows.Step6 === true && (
+                <ReservationStep6
+                  windows={windows}
+                  setWindows={setWindows}
+                  reservationData={reservationData}
+                  setReservationData={setReservationData}
+                />
+              )}
+            </div>
+          </div>
+          <div className="shadow-sm rounded-sm bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] h-1 -mt-1"></div>
         </div>
       </Container>
       <Footer />

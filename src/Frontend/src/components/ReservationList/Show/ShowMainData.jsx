@@ -29,7 +29,15 @@ const ShowMainData = (props) => {
         newReservation.Payment_Method = 2;
       }
     } else if (type === "status") {
-      newReservation.Status = value === "Pending" ? 0 : 1;
+      if (value === "Pending") {
+        newReservation.Status = 0;
+      } else if (value === "Approved") {
+        newReservation.Status = 1;
+      } else if (value === "In Park"){
+        newReservation.Status = 2;
+      } else if (value === "Finished"){
+      newReservation.Status = 3;
+    }
     } else if (type === "picnicdate") {
       newReservation.Picnic_Date = value;
     } else if (type === "startdate") {
@@ -54,14 +62,20 @@ const ShowMainData = (props) => {
           {disabledElements ? (
             <InputButton
               text="Status"
-              placeholderText={reservation.Status === 0 ? "Pending" : "Approved"}
+              placeholderText={reservation.Status === 0 ? "Pending" 
+              : reservation.Status === 1 ? "Approved"
+              : reservation.Status === 2 ?"In Park"
+              : "Finished"}
               disabled={true}
             />
           ) : (
             <DropDownSelect
               text="Status"
-              options={["Pending", "Approved"]}
-              selectedOption={reservation.Status === 0 ? "Pending" : "Approved"}
+              options={["Pending", "Approved", "In Park", "Finished"]}
+              selectedOption={reservation.Status === 0 ? "Pending" 
+              : reservation.Status === 1 ? "Approved" 
+              : reservation.Status === 2 ?"In Park"
+              : "Finished"}
               disabled={disabledElements}
               typeChange="status"
               onChangeFunction={changeMainData}

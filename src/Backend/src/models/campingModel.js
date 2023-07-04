@@ -22,6 +22,23 @@ const insertCamping = async (req, res) => {
   }
 };
 
+// Method that inserts a camping
+const insertCampingTransaction = async (pool, {
+  ID_Client,
+  Reservation_Date,
+  Start_Date,
+  End_Date
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO Camping VALUES (${ID_Client}, '${Reservation_Date}', '${Start_Date}', '${End_Date}')`
+    );
+    console.log("The insert to the Camping was successfull");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Method that updates the Reservation dates by Reservation ID
 const updateStartEndDates = async (req, res) => {
   try {
@@ -39,4 +56,4 @@ const updateStartEndDates = async (req, res) => {
   }
 };
 
-export { insertCamping, updateStartEndDates };
+export { insertCamping, updateStartEndDates, insertCampingTransaction };

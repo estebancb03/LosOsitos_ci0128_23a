@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
+import CloudinaryUploadWidget from "./CloudinaryUploadWidget.jsx";
 import Button from "../Buttons/Button";
 import AxiosClient from "../../config/AxiosClient";
 import useCalculateFees from "../../hooks/useCalculateFees";
-import { FilePond, registerPlugin } from "react-filepond";
-import "filepond/dist/filepond.min.css";
-import FilePondPluginFileEncode from "filepond-plugin-file-encode";
-registerPlugin(FilePondPluginFileEncode);
 import { Checkbox } from "antd";
+import useTermsAndConditions from "../../hooks/useTermsAndConditions.jsx";
 
 const ReservationStep5 = ({
   windows,
@@ -14,16 +12,12 @@ const ReservationStep5 = ({
   reservationData,
   setReservationData,
 }) => {
-  const {calculateTotalFee} = useCalculateFees(reservationData);
-  const [files, setFiles] = useState([]);
-  const [filesBase64, setFilesBase64] = useState("");
+  const { calculateTotalFee } = useCalculateFees(reservationData);
+  const { fetchTermsAndConditionsLink } = useTermsAndConditions();
+  const [image, setImage] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const [termsAndConditionLink, setTermsAndConditionsLink] = useState(0);
 
-  const saveBase64 = (setFilesBase64, files) => {
-    if (files.length != 0) {
-      setFilesBase64(files[0].getFileEncodeBase64String());
-    }
-  };
   const insertPerson = async () => {
     try {
       const {
@@ -35,7 +29,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       } = reservationData;
       const url = "/person";
       await AxiosClient.post(url, {
@@ -47,7 +41,7 @@ const ReservationStep5 = ({
         Birth_Date,
         Email,
         Country_Name,
-        State
+        State,
       });
     } catch (exception) {
       console.log(exception);
@@ -56,7 +50,6 @@ const ReservationStep5 = ({
 
   const insertClient = async () => {
     try {
-      console.log("client");
       const { ID } = reservationData;
       const url2 = "/client";
       await AxiosClient.post(url2, {
@@ -69,14 +62,13 @@ const ReservationStep5 = ({
 
   const insertReservation = async () => {
     try {
-      console.log("reservation");
       const { ID, Reservation_Date } = reservationData;
       const url = "/reservation";
       await AxiosClient.post(url, {
         ID_Client: ID,
         Reservation_Date,
         Payment_Method: 2,
-        Payment_Proof: null,
+        Payment_Proof: image,
         Status: 0,
         Reservation_Method: 0,
       });
@@ -87,12 +79,10 @@ const ReservationStep5 = ({
 
   const insertReservationTicket = async () => {
     try {
-      console.log("tickets");
       const { ID, Reservation_Date, Tickets } = reservationData;
       const url = "/reservationTicket";
       await Promise.all(
         Tickets.map(async (ticket) => {
-          console.log("tickets map");
           await AxiosClient.post(url, {
             ID_Client: ID,
             Reservation_Date,
@@ -112,7 +102,6 @@ const ReservationStep5 = ({
 
   const insertReservationType = async () => {
     try {
-      console.log("reservation type");
       const { ID, Reservation_Date, Start_Date, End_Date, Picnic_Date } =
         reservationData;
       if (reservationData.Reservation_Type === 0) {
@@ -137,7 +126,8 @@ const ReservationStep5 = ({
   };
 
   const updateReservationData = async (method) => {
-    if (checkbox && filesBase64 != "") {
+    if (checkbox) {
+      //condition to continue
       await insertPerson();
       await insertClient();
       await insertReservation();
@@ -146,21 +136,19 @@ const ReservationStep5 = ({
       const newReservationData = { ...reservationData };
       const newWindows = { ...windows };
       const bill = calculateTotalFee();
-      console.log(bill);
       newWindows.Step5 = false;
       newWindows.Step6 = true;
-      newReservationData.Payment_Proof = filesBase64;
+      newReservationData.Payment_Proof = image;
       newReservationData.QRData = {
         data: newReservationData.ID + newReservationData.Reservation_Date,
         mail: newReservationData.Email,
         text: reservationData,
         crcBill: parseInt(bill[0]),
-        usdBill: bill[1].toFixed(2)
+        usdBill: bill[1].toFixed(2),
       };
       setReservationData(newReservationData);
       setWindows(newWindows);
       sendQRData(newReservationData.QRData);
-      console.log(newReservationData.Payment_Proof);
     } else {
       alert(
         "Check if you uploaded the payment proof or if you have already accepter the terms and conditions"
@@ -170,7 +158,6 @@ const ReservationStep5 = ({
 
   const sendQRData = async (value) => {
     try {
-      console.log(value);
       const data = value;
       const url = "/mail";
       await AxiosClient.post(url, {
@@ -182,55 +169,65 @@ const ReservationStep5 = ({
   };
 
   useEffect(() => {
-    saveBase64(setFilesBase64, files);
-  });
+    const fetchData = async () => {
+      const link = await fetchTermsAndConditionsLink();
+      const modifiedLink = link.endsWith(".pdf")
+        ? link.replace(".pdf", ".jpg")
+        : link;
+      setTermsAndConditionsLink(modifiedLink);
+      console.log("[ReservationStep5] Link: " + link);
+    };
 
+    fetchData();
+  }, []);
+
+  const readyToLoad = () => {
+    return termsAndConditionLink !== 0;
+  };
   return (
-    <>
-      {windows.Step5 && (
-        <div>
-          <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
-            Upload payment proof picture
-          </h2>
-          <FilePond
-            files={files}
-            onupdatefiles={setFiles}
-            allowMultiple={false}
-            maxFiles={1}
-            name="files"
-            labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-          />
-          <Checkbox
-            onChange={() => {
-              setCheckbox(!checkbox);
-            }}
-          >
-            Agree with{" "}
-            <a href="./termsconditions.jpeg" target="_blank">
-              terms and conditions
-            </a>
-          </Checkbox>
-          <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
-            <Button
-              text="Back"
-              onclickFunction={(e) => {
-                const newWindows = { ...windows };
-                newWindows.Step4 = true;
-                newWindows.Step5 = false;
-                setWindows(newWindows);
-              }}
+    readyToLoad() && (
+      <>
+        {windows.Step5 && (
+          <div>
+            <h2 className="pt-8 pb-4 pl-2 font-semibold text-2xl">
+              Upload payment proof picture
+            </h2>
+            <CloudinaryUploadWidget
+              setImage={(imageProp) => setImage(imageProp)}
             />
-            <Button
-              text="Next"
-              onclickFunction={() => {
-                updateReservationData();
+            <br></br>
+            <Checkbox
+              onChange={() => {
+                setCheckbox(!checkbox);
               }}
-            />
-            <div className="mb-1"></div>
+            >
+              Agree with{" "}
+              <a href={termsAndConditionLink} target="_blank">
+                terms and conditions
+              </a>
+            </Checkbox>
+            <div className="grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-2 mt-4">
+              <Button
+                text="Back"
+                onclickFunction={(e) => {
+                  const newWindows = { ...windows };
+                  newWindows.Step4 = true;
+                  newWindows.Step5 = false;
+                  setWindows(newWindows);
+                }}
+              />
+              <Button
+                text="Next"
+                onclickFunction={() => {
+                  updateReservationData();
+                }}
+              />
+              <div className="mb-1"></div>
+            </div>
           </div>
-        </div>
-      )}
-    </>
+        )}
+      </>
+    )
   );
 };
 

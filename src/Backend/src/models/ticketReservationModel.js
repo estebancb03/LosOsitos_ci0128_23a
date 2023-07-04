@@ -91,6 +91,27 @@ const insertReservationTicket = async (req, res) => {
   }
 };
 
+// Method that inserts a ticket price
+const insertReservationTicketTransaction = async (pool, {
+  ID_Client,
+  Reservation_Date,
+  Age_Range,
+  Demographic_Group,
+  Reservation_Type,
+  Special,
+  Price,
+  Amount
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO Ticket_Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Age_Range}, ${Demographic_Group}, ${Reservation_Type}, ${Special}, ${Price}, ${Amount})`
+    );
+    console.log("The insert to the Reservation_Ticket was successfull");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Method that updates a spot
 const updateTicket = async (req, res) => {
   try {
@@ -135,15 +156,15 @@ const deleteTicket = async (req, res) => {
     } = req.body;
     const pool = await getConnection();
     await pool.query(
-      `DELETE Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`
+      `DELETE FROM Ticket_Reservation WHERE ID_Client = ${ID} AND Reservation_Date = '${Reservation_Date}' AND Age_Range = ${Age_Range} AND Demographic_Group = ${Demographic_Group} AND Amount = ${Amount} AND Price = ${Price} AND Special = ${Special}`
       );
     res.status(200);
-    console.log("The update to the Ticket_Reservation was successfull");
+    console.log("The delete to the Ticket_Reservation was successfull");
   } catch (error) {
     res.status(500);
     res.send(error.message);
   }
 };
 
-export { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, updateTicket, getTicketsByReservationID, deleteTicket };
+export { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, insertReservationTicketTransaction, updateTicket, getTicketsByReservationID, deleteTicket };
 
