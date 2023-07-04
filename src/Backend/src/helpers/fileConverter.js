@@ -382,8 +382,17 @@ export const generateIncomeXLSX = (campingIncome, picnicIncome) => {
     ]
     
     incomeList[index].forEach((data) => {
-      data.Ingresos_Residente = (data?.Total_Adulto_Residente ?? 0) + (data?.Total_Nino_Residente ?? 0) + (data?.Total_Nino_Menor_Residente ?? 0) + (data?.Total_Especial_Residente ?? 0) + (data?.Total_Adulto_Mayor_Residente ?? 0);
-      data.Ingresos_Extranjero = (data?.Total_Adulto_Extranjero ?? 0) + (data?.Total_Nino_Extranjero ?? 0) + (data?.Total_Nino_Menor_Extranjero ?? 0) +(data?.Total_Especial_Extranjero ?? 0) + (data?.Total_Adulto_Mayor_Extranjero ?? 0);
+      data.Ingresos_Residente = (data?.Total_Adulto_Residente ?? 0) + 
+        (data?.Total_Nino_Residente ?? 0) + 
+        (data?.Total_Nino_Menor_Residente ?? 0) + 
+        (data?.Total_Especial_Residente ?? 0) + 
+        (data?.Total_Adulto_Mayor_Residente ?? 0);
+
+      data.Ingresos_Extranjero = (data?.Total_Adulto_Extranjero ?? 0) + 
+        (data?.Total_Nino_Extranjero ?? 0) + 
+        (data?.Total_Nino_Menor_Extranjero ?? 0) +
+        (data?.Total_Especial_Extranjero ?? 0) + 
+        (data?.Total_Adulto_Mayor_Extranjero ?? 0);
 
       sheetsList[index].addRow({
         'Fecha': data.Fecha,
