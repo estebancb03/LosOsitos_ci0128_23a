@@ -125,8 +125,9 @@ const ReservationStep5 = ({
     }
   };
 
-  const updateReservationData = async () => {
+  const updateReservationData = async (method) => {
     if (checkbox) {
+      //condition to continue
       await insertPerson();
       await insertClient();
       await insertReservation();
