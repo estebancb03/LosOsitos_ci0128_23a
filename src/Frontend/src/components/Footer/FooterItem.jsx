@@ -19,7 +19,7 @@ const FooterItem = ({ item }) => {
             ) : attribute.externalicon ? (
               <Link to={attribute.link}>
                 <div
-                  className="h-16 mx-24 flex items-center rounded-md 
+                  className="h-16 lg:mx-24 flex items-center rounded-md 
                       hover:font-semibold hover:bg-gradient-to-l from-[#219ebc] to-[#4ecdc4] transition-all duration-300 hover:ring-2 hover:ring-white"
                 >
                   <span className="ml-3 mr-3 h-[50px] w-[50px]">
