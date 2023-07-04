@@ -91,10 +91,12 @@ const ExchangeRate = () => {
                   placeholderText={assignValueToState()}
                   disabled={disabledButton}
                   type="DollarPrice"
+                  datacy="ExchangeRate-input"
                   onChangeFunction={modifyDollarPrice}
                 />,
                 <Button
                   text={modifyButton}
+                  datacy="ExchangeRate-button"
                   onclickFunction={() => {
                     changeButtonAction();
                     enableInput();
