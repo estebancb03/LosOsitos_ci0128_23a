@@ -50,29 +50,51 @@ const updateVehicle = async (req, res) => {
 
 // Method that inserts a vehicle in a reservation
 const insertNewVehicle = async (req, res) => {
-    try {
-      const {
-        ID,
-        Reservation_Date,
-        ID_Vehicle,
-      } = req.body;
-      const pool = await getConnection();
-      await pool.query(
-        `INSERT INTO Vehicle VALUES (${ID}, '${Reservation_Date}', '${ID_Vehicle}')`
-      );
-      res.status(200);
-      res.send("The insert to the Vehicle was successfull");
-      console.log("The insert to the Vehicle was successfull");
-    } catch (error) {
-      res.status(500);
-      res.send(error.message);
-    }
-  };
+  try {
+    const {
+      ID,
+      Reservation_Date,
+      ID_Vehicle,
+    } = req.body;
+    const pool = await getConnection();
+    await pool.query(
+      `INSERT INTO Vehicle VALUES (${ID}, '${Reservation_Date}', '${ID_Vehicle}')`
+    );
+    res.status(200);
+    res.send("The insert to the Vehicle was successfull");
+    console.log("The insert to the Vehicle was successfull");
+  } catch (error) {
+    res.status(500);
+    res.send(error.message);
+  }
+};
+
+// Method that inserts a vehicle in a reservation using an existing pool
+const insertNewVehicleTransaction = async (pool, {
+  ID,
+  Reservation_Date,
+  ID_Vehicle,
+}) => {
+  try {
+    console.log(ID);
+    console.log(Reservation_Date);
+    console.log(ID_Vehicle);
+    await pool.query(
+      `INSERT INTO Vehicle VALUES (${ID}, '${Reservation_Date}', '${ID_Vehicle}')`
+    );
+    console.log("The insert to the Vehicle was successfull");
+  } catch (error) {
+    console.log(error);
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    throw error;
+  }
+};
 
   export {
     getAllVehicles,
     getVehiclesByReservationID,
     updateVehicle,
-    insertNewVehicle
+    insertNewVehicle, 
+    insertNewVehicleTransaction
   }
 

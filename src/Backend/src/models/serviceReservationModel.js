@@ -23,6 +23,25 @@ const insertService = async (req, res) => {
   }
 };
 
+// Method that insert a new service in a reservation
+const insertServiceTransaction = async (pool, {
+  ID_Client,
+  Reservation_Date,
+  Name_Service,
+  Price,
+  Quantity,
+  Currency
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO SERVICE_RESERVATION VALUES (${ID_Client}, '${Reservation_Date}', '${Name_Service}', ${Price}, ${Quantity}, '${Currency}')`
+    );
+    console.log("The insert to the Service_Reservation was successfull");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Method that gets the services of all reservations
 const getAllServices = async (req, res) => {
     try {
@@ -80,6 +99,7 @@ const updateService = async (req, res) => {
 
   export {
     insertService,
+    insertServiceTransaction,
     getAllServices,
     getServicesByReservationID,
     updateService
