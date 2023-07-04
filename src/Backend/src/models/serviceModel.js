@@ -16,10 +16,12 @@ const getServicesOptions = async (req, res) => {
 const getServicesWithQuantityAndPrices = async (req, res) => {
   try {
     const pool = await getConnection();
-    const result = await pool.request().query(`SELECT serv.Name, serv.Quantity, serv_price_usd.Price AS USD, serv_price_crc.Price AS CRC FROM Service AS serv JOIN Service_Price AS serv_price_usd ON serv.Name = serv_price_usd.Name_Service AND serv_price_usd.Currency = 'USD' JOIN Service_Price AS serv_price_crc ON serv.Name = serv_price_crc.Name_Service AND serv_price_crc.Currency = 'CRC' WHERE serv.Disabled != 1`);
+    const result = await pool.request().query(`SELECT serv.Name, serv.Quantity, serv_price_usd.Price 
+    AS USD, serv_price_crc.Price AS CRC FROM Service AS serv JOIN Service_Price AS serv_price_usd 
+    ON serv.Name = serv_price_usd.Name_Service AND serv_price_usd.Currency = 'USD' JOIN Service_Price 
+    AS serv_price_crc ON serv.Name = serv_price_crc.Name_Service AND serv_price_crc.Currency = 'CRC' WHERE serv.Disabled != 1`);
     res.status(200);
     res.json(result.recordset)
-    console.log(result);
   } catch (error) {
     res.status(500);
     res.send(error.message)
@@ -38,8 +40,10 @@ const updateServicesWithQuantityAndPrices = async (req, res) => {
     const pool = await getConnection();
     await pool.request().query(`UPDATE Service SET NAME = '${modifiedName}' WHERE NAME LIKE '%${originalName}'`)
     await pool.request().query(`UPDATE Service SET Quantity = ${quantity} WHERE Name LIKE '%${modifiedName}'`);
-    await pool.request().query(`UPDATE Service_Price SET PRICE = ${USD} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%USD'`);
-    await pool.request().query(`UPDATE Service_Price SET PRICE = ${CRC} WHERE Name_Service LIKE '%${modifiedName}' AND Currency LIKE '%CRC'`);
+    await pool.request().query(`UPDATE Service_Price SET PRICE = ${USD} WHERE Name_Service LIKE '%${modifiedName}' 
+    AND Currency LIKE '%USD'`);
+    await pool.request().query(`UPDATE Service_Price SET PRICE = ${CRC} WHERE Name_Service LIKE '%${modifiedName}' 
+    AND Currency LIKE '%CRC'`);
     res.status(200);
     res.send();
   } catch (error) {
@@ -71,7 +75,6 @@ const insertNewService = async (req, res) => {
 const disableService = async (req, res) => {
   try {
     const {serviceName} = req.body
-    console.log("[DisableService] ServiceName: " + serviceName);
     const pool = await getConnection();
     await pool.request().query(`UPDATE Service SET Disabled = 1 WHERE Service.Name LIKE '%${serviceName}%'`)
     res.status(200);
