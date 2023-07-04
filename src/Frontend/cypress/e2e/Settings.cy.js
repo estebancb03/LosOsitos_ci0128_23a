@@ -19,7 +19,6 @@ const modifiedTestService = {
 }
 
 describe('<Settings />', () => {
-  /*
   it('Create service process', () => {
     // Arrange
     home.visit();
@@ -68,9 +67,6 @@ describe('<Settings />', () => {
     // Assert
     adminHome.settings.verifyCampingCapacityValues('10', '20');
   });
-  */
-
-  
 
   it('update a Exchange Rate value process', () => {
     // Arrange
