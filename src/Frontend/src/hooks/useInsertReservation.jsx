@@ -92,74 +92,6 @@ const useInsertReservation = (reservation) => {
       console.log(exception);
     }
   };
-  
-  const insertPersonData = async () => {
-    try {
-      const {
-        ID,
-        Name,
-        LastName1,
-        LastName2,
-        Gender,
-        Birth_Date,
-        Email,
-        Country_Name,
-        State
-      } = reservation;
-      const url = "/person";
-      await AuthToken(token);
-      await AxiosClient.post(url, {
-        ID,
-        Name,
-        LastName1,
-        LastName2,
-        Gender,
-        Birth_Date,
-        Email,
-        Country_Name,
-        State: Country_Name === "Costa Rica" ? State : null
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  const insertClient = async () => {
-    try {
-      const { ID } = reservation;
-      const url = "/client";
-      await AuthToken(token);
-      await AxiosClient.post(url, {
-        ID_Person: ID,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  const insertMainData = async () => {
-    try {
-      const {
-        ID,
-        Reservation_Date,
-        Reservation_Method,
-        Payment_Method,
-        Status
-      } = reservation;
-      const url = "/reservation";
-      await AuthToken(token);
-      await AxiosClient.post(url, {
-        ID_Client: ID,
-        Reservation_Date,
-        Payment_Method,
-        Payment_Proof: "NULL",
-        Status,
-        Reservation_Method,
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
 
   const insertPicnic = async () => {
     try {
@@ -201,24 +133,169 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  const insertReservationType = async () => {
-    if (reservation.Reservation_Type === 0) {
-      await insertPicnic();
+  const insertReservation = async () => {
+    const { Reservation_Type } = reservation;
+
+    if (Reservation_Type == 0) {
+      await insertPicnicReservation();
     } else {
-      await insertCamping();
+      await insertCampingReservation();
     }
   };
 
-  const insertReservation = async () => {
-    await insertPersonData();
-    await insertClient();
-    await insertMainData();
-    await insertReservationType();
-    await insertNewVehicle();
-    await insertNewTicket();
-    await insertNewSpot();
-    await insertNewService();
-  };
+  const insertCampingReservation = async () => {
+    try {
+      const {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State,
+        Reservation_Date,
+        Reservation_Method,
+        Reservation_Type,
+        Payment_Method,
+        Start_Date,
+        End_Date,
+        Status,
+        NewSpots,
+        NewServices, 
+        NewTickets,
+        NewVehicles
+      } = reservation;
+
+      const Spots = NewSpots.map((spot) => {
+        return {
+          Location_Spot: spot.Location_Spot,
+          Price: spot.Price,
+          Currency: spot.Currency
+        }
+      });
+
+      const Services = NewServices.map((service) => {
+        return {
+          Name_Service: service.Name_Service,
+          Price: service.Price,
+          Quantity: parseFloat(service.Quantity),
+          Currency: service.Currency
+        }
+      });
+
+      const Tickets = NewTickets.map((ticket) => {
+        return {
+          Age_Range: ticket.Age_Range,
+          Demographic_Group: ticket.Demographic_Group,
+          Special: ticket.Special,
+          Price: parseFloat(ticket.Price),
+          Amount: parseInt(ticket.Amount)
+        }
+      });
+
+      const url = "/campingReservation";
+      await AuthToken(token);
+      await AxiosClient.post(url, {
+        ID,
+        ID_Person: ID,
+        ID_Client: ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State,
+        Reservation_Date,
+        Reservation_Method,
+        Reservation_Type,
+        Payment_Method,
+        Start_Date,
+        End_Date,
+        Status,
+        Spots,
+        Services, 
+        Tickets,
+        NewVehicles
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  }
+
+  const insertPicnicReservation = async () => {
+    try {
+      const {
+        ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State,
+        Reservation_Date,
+        Reservation_Method,
+        Reservation_Type,
+        Payment_Method,
+        Picnic_Date,
+        Status,
+        NewServices, 
+        NewTickets,
+        NewVehicles
+      } = reservation;
+
+      const Services = NewServices.map((service) => {
+        return {
+          Name_Service: service.Name_Service,
+          Price: service.Price,
+          Quantity: parseFloat(service.Quantity),
+          Currency: service.Currency
+        }
+      });
+
+      const Tickets = NewTickets.map((ticket) => {
+        return {
+          Age_Range: ticket.Age_Range,
+          Demographic_Group: ticket.Demographic_Group,
+          Special: ticket.Special,
+          Price: parseFloat(ticket.Price),
+          Amount: parseInt(ticket.Amount)
+        }
+      });
+
+      const url = "/picnicReservation";
+      await AuthToken(token);
+      await AxiosClient.post(url, {
+        ID,
+        ID_Person: ID,
+        ID_Client: ID,
+        Name,
+        LastName1,
+        LastName2,
+        Gender,
+        Birth_Date,
+        Email,
+        Country_Name,
+        State,
+        Reservation_Date,
+        Reservation_Method,
+        Reservation_Type,
+        Payment_Method,
+        Picnic_Date,
+        Status,
+        Services, 
+        Tickets,
+        NewVehicles
+      });
+    } catch (exception) {
+      console.log(exception);
+    }
+  }
   
   return {
     insertReservation,
