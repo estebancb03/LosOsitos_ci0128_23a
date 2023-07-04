@@ -200,15 +200,18 @@ const Capacity = () => {
                     placeholderText={assignValuesToStates(0)}
                     disabled={disabledButtons.campingCapacity}
                     type="CampingOnline"
+                    datacy={"CampingOnline-input-text"}
                     onChangeFunction={modifyCapacityValues}
                   />,
                   <InputButton
                     placeholderText={assignValuesToStates(1)}
                     disabled={disabledButtons.campingCapacity}
                     type="CampingOnSite"
+                    datacy={"CampingOnSite-input-text"}
                     onChangeFunction={modifyCapacityValues}
                   />,
                   <Button
+                    datacy={"CampingCapacity-modify-button"}
                     text={modifyButton1}
                     onclickFunction={() => {
                       modifyButton(0);

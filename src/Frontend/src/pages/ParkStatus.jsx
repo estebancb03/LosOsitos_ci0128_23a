@@ -49,6 +49,7 @@ const ParkStatus = () => {
         <div className="block text-center">
           <DatePickerButton
           className="text-center"
+          datacy="DatePicker-Park-Status"
           onChangeFunction={changeSelectedDate}
           selectedDate={selectedDate}
           ></DatePickerButton>
@@ -59,7 +60,9 @@ const ParkStatus = () => {
               <BsIcons.BsPersonFill size={50} color="#21295c"/>
             </span> 
             <Title name="People" />
-            <Title name={statusData.peopleInDate}/>
+            <Title 
+            datacy="Title-People-Amount"
+            name={statusData.peopleInDate}/>
           </BoxContainer>
           <BoxContainer>
             <span className="flex justify-center my-1">

@@ -65,6 +65,28 @@ class Settings {
     cy.reload();
     cy.get(`[data-cy=${name}-tr]`).should('not.exist');
   }
+
+  editCampingCapacityValues(Online, OnSite){
+    cy.get('[data-cy=CampingCapacity-modify-button]').click();
+    cy.get('[data-cy=CampingOnline-input-text]').clear().type(Online);
+    cy.get('[data-cy=CampingOnSite-input-text]').clear().type(OnSite);
+    cy.get('[data-cy=CampingCapacity-modify-button]').click();
+  }
+
+  verifyCampingCapacityValues(Online, OnSite){
+    cy.get('[data-cy=CampingOnline-input-text]').invoke('val').should('equal', Online);
+    cy.get('[data-cy=CampingOnSite-input-text]').invoke('val').should('equal', OnSite);
+  }
+
+  editExchangeRateValues(value){
+    cy.get('[data-cy=ExchangeRate-button]').click();
+    cy.get('[data-cy=ExchangeRate-input]').clear().type(value);
+    cy.get('[data-cy=ExchangeRate-button]').click();
+  }
+
+  verifyExchangeRateValues(value){
+    cy.get('[data-cy=ExchangeRate-input]').invoke('val').should('equal', value);
+  }
 };
 
 export default Settings;

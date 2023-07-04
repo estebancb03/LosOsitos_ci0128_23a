@@ -24,6 +24,7 @@ const updateCapacity = async (req, res) => {
         );
         res.status(200);
         console.log("The update to the Setting_Capacity was successful");
+        res.send("The update to the Setting_Capacity was successful");
     } catch (error) {
         res.status(500)
         res.send(error.message);
