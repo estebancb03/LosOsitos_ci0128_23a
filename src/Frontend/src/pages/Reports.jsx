@@ -21,7 +21,6 @@ const Reports = () => {
   const [reportData, setReportData] = useState();
 
   const setValue = (type, value) => {
-    console.log(type, value);
     if (type == "reportType") {
       setReportType(value);
     } else if (type == "startDate") {

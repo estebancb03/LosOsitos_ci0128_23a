@@ -36,7 +36,6 @@ const reservationCampingTransaction = async (req, res) => {
           Reservation_Date: data.Reservation_Date,
           ID_Vehicle: vehicle
         }
-        console.log('vehicle');
         await insertNewVehicleTransaction(pool, vehicleData);
       });
 
@@ -51,7 +50,6 @@ const reservationCampingTransaction = async (req, res) => {
           Price: ticket.Price,
           Amount: ticket.Amount
         }
-        console.log('ticket');
         await insertReservationTicketTransaction(pool, ticketReservationData);
       });
 
@@ -75,7 +73,6 @@ const reservationCampingTransaction = async (req, res) => {
           Quantity: service.Quantity,
           Currency: service.Currency
         }
-        console.log('service');
         await insertServiceTransaction(pool, serviceData);
       });
 
@@ -112,16 +109,12 @@ const reservationPicnicTransaction = async (req, res) => {
 
     try {
       // Run queries inside the transaction
-      console.log('person');
       await insertPersonTransaction(pool, data);
 
-      console.log('client');
       await insertClientTransaction(pool, data);
 
-      console.log('reservation');
       await insertReservationTransaction(pool, data);
 
-      console.log('picnic');
       await insertPicnicTransaction(pool, data);
 
       data.NewVehicles.forEach(async (vehicle) => {
@@ -130,7 +123,6 @@ const reservationPicnicTransaction = async (req, res) => {
           Reservation_Date: data.Reservation_Date,
           ID_Vehicle: vehicle
         }
-        console.log('vehicle');
         await insertNewVehicleTransaction(pool, vehicleData);
       });
 
@@ -145,7 +137,6 @@ const reservationPicnicTransaction = async (req, res) => {
           Price: ticket.Price,
           Amount: ticket.Amount
         }
-        console.log('ticket');
         await insertReservationTicketTransaction(pool, ticketReservationData);
       });
 
@@ -158,7 +149,6 @@ const reservationPicnicTransaction = async (req, res) => {
           Quantity: service.Quantity,
           Currency: service.Currency
         }
-        console.log('service');
         await insertServiceTransaction(pool, serviceData);
       });
 
