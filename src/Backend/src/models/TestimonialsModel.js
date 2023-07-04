@@ -1,4 +1,4 @@
-import { getConnection, sql } from "../config/db.js";
+import { getConnection } from "../config/db.js";
 
 const getAllReviews = async (req, res) => {
   try {
@@ -27,7 +27,6 @@ const updateReviewState = async (req, res) => {
     res.status(200);
     res.send("The update to the review was successful");
   } catch (error) {
-    console.log(error)
     res.status(500);
     res.send(error.message);
   }
@@ -95,7 +94,6 @@ const insertReview = async (req, res) => {
     res.status(200);
     res.send('The insert of review was successful');
   } catch (error) {
-    console.log(error)
     res.status(500);
     res.send(error.message);
   }
