@@ -22,7 +22,7 @@ const CloudinaryUploadWidget = (props) => {
   return (
     <button
       id="upload_widget"
-      className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-sm hover:bg-[#758bfd] opacity-100 top-[-400px] 
+      className="w-full h-full bg-[#004e98] uppercase tracking-wider rounded-lg hover:bg-[#758bfd] opacity-100 top-[-400px] 
         transition-all ease-in duration-300 p-2 text-white"
       onClick={myWidget}
     >

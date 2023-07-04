@@ -41,11 +41,11 @@ describe("useTicket", () => {
       "National Children (0-6 years)",
       "National Children (7-12 years)",
       "National Adult",
-      "National Senior Citysen",
+      "National Senior Citizen",
       "Foreign Children (0-6 years)",
       "Foreign Children (7-12 years)",
       "Foreign Adult",
-      "Foreign Senior Citysen",
+      "Foreign Senior Citizen",
     ]);
   });
   test("addTicket should return a new ticketObject with the new ticket posted", () => {
@@ -131,7 +131,7 @@ describe("useTicket", () => {
       FSC: 0,
     };
     const resultTicketsObject = deleteTicket(
-      "National Senior Citysen",
+      "National Senior Citizen",
       ticketsObject
     );
     expect(resultTicketsObject).toEqual(expectedTicketsObject);
@@ -154,7 +154,7 @@ describe("useTicket", () => {
       FSC: 0,
     };
     const resultTicketsObject = deleteTicket(
-      "National Senior Citysen",
+      "National Senior Citizen",
       ticketsObject
     );
     expect(resultTicketsObject).not.toEqual(ticketsObject);
@@ -242,5 +242,203 @@ describe("useTicket", () => {
     const expectedResult = "₡";
     const resultTicketsObject = getTicketCurrency(ticket);
     expect(resultTicketsObject).toEqual(expectedResult);
+  });
+  test("getTicketCurrency should return a string", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { getTicketCurrency } = result.current;
+    const ticket = {
+      Age_Range: 0,
+      Demographic_Group: 0,
+      Reservation_Type: 0,
+      Special: 0,
+      Price: 100,
+    };
+    const expectedResult = "string";
+    const resultTicketsObject = getTicketCurrency(ticket);
+    expect(typeof resultTicketsObject).toEqual(expectedResult);
+  });
+
+  test("addTicket should return and object", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { addTicket } = result.current;
+    const ticketsObject = {
+      NC06: 0,
+      NC712: 0,
+      NA: 0,
+      NSC: 0,
+      FC06: 0,
+      FC712: 0,
+      FA: 0,
+      FSC: 0,
+    };
+    const expectedResult = "object";
+    const resultTicketsObject = addTicket(
+      "Foreign Children (0-6 years)",
+      ticketsObject
+    );
+    expect(typeof resultTicketsObject).toEqual(expectedResult);
+  });
+
+  test("formatAllTickets should return an array with the formatedTickets", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { formatAllTickets } = result.current;
+    const reservation = {
+      ID: "123456789",
+      Reservation_Date: "2023-09-10T19:01:54.970Z",
+      Reservation_Type: 0,
+    };
+    const ticketsObject = {
+      NC06: 1,
+      NC712: 1,
+      NA: 0,
+      NSC: 0,
+      FC06: 1,
+      FC712: 0,
+      FA: 0,
+      FSC: 0,
+    };
+    const expectedResult = [
+      {
+        Age_Range: 2,
+        Amount: 1,
+        Demographic_Group: 0,
+        ID_Client: "123456789",
+        Price: 0,
+        Reservation_Date: "2023-09-10T19:01:54.970Z",
+        Reservation_Type: 0,
+        Special: 0,
+      },
+      {
+        Age_Range: 0,
+        Amount: 1,
+        Demographic_Group: 0,
+        ID_Client: "123456789",
+        Price: 0,
+        Reservation_Date: "2023-09-10T19:01:54.970Z",
+        Reservation_Type: 0,
+        Special: 0,
+      },
+      {
+        Age_Range: 2,
+        Amount: 1,
+        Demographic_Group: 1,
+        ID_Client: "123456789",
+        Price: 0,
+        Reservation_Date: "2023-09-10T19:01:54.970Z",
+        Reservation_Type: 0,
+        Special: 0,
+      },
+    ];
+    const resultTicketsObject = formatAllTickets(reservation, ticketsObject);
+    expect(resultTicketsObject).toEqual(expectedResult);
+  });
+
+  test("formatAllTickets should return an object", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { formatAllTickets } = result.current;
+    const reservation = {
+      ID: "123456789",
+      Reservation_Date: "2023-09-10T19:01:54.970Z",
+      Reservation_Type: 0,
+    };
+    const ticketsObject = {
+      NC06: 2,
+      NC712: 2,
+      NA: 0,
+      NSC: 0,
+      FC06: 1,
+      FC712: 1,
+      FA: 0,
+      FSC: 0,
+    };
+    const expectedResult = "object";
+    const resultTicketsObject = formatAllTickets(reservation, ticketsObject);
+    expect(typeof resultTicketsObject).toEqual(expectedResult);
+  });
+
+  test("formatAllTickets should not return an empty object when at least one property of the tickets object is different to zero", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { formatAllTickets } = result.current;
+    const reservation = {
+      ID: "123456789",
+      Reservation_Date: "2023-09-10T19:01:54.970Z",
+      Reservation_Type: 0,
+    };
+    const ticketsObject = {
+      NC06: 2,
+      NC712: 2,
+      NA: 0,
+      NSC: 0,
+      FC06: 1,
+      FC712: 1,
+      FA: 0,
+      FSC: 0,
+    };
+    const expectedResult = "object";
+    const resultTicketsObject = formatAllTickets(reservation, ticketsObject);
+    expect(resultTicketsObject.length).not.toEqual(0);
+  });
+
+  test("getTicketQuantity should not return undefined", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { getTicketQuantity } = result.current;
+    const ticketsObject = {
+      NC06: 0,
+      NC712: 1,
+      NA: 0,
+      NSC: 3,
+      FC06: 0,
+      FC712: 0,
+      FA: 2,
+      FSC: 0,
+    };
+    const expectedResult = "undefined";
+    const resultTicketsObject = getTicketQuantity(
+      "Foreign Adult",
+      ticketsObject
+    );
+    expect(typeof resultTicketsObject).not.toEqual(expectedResult);
+  });
+
+  test("addTicket should not return undefined", () => {
+    useContext.mockReturnValue(mockAuthContext);
+    const mockAxiosClient = jest.fn();
+    jest.mock("../src/config/AxiosClient", () => mockAxiosClient);
+    const { result } = renderHook(() => useTicket());
+    const { addTicket } = result.current;
+    const ticketsObject = {
+      NC06: 0,
+      NC712: 0,
+      NA: 0,
+      NSC: 0,
+      FC06: 0,
+      FC712: 0,
+      FA: 0,
+      FSC: 0,
+    };
+    const expectResult = "undefined";
+    const resultTicketsObject = addTicket(
+      "Foreign Children (0-6 years)",
+      ticketsObject
+    );
+    expect(typeof resultTicketsObject).not.toEqual(expectResult);
   });
 });

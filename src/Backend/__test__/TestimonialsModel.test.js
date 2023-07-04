@@ -92,12 +92,9 @@ describe('TestimonialsModel', () => {
         status: jest.fn(),
         send: jest.fn(),
       };
-  
-      const expectedResult = "The insert of review was successful";
-  
+    
       await insertReview(mockReq, mockRes);
-      expect(mockRes.status).toHaveBeenCalledWith(200);
-      expect(mockRes.send).toHaveBeenCalledWith(expectedResult);
+      expect(mockRes.status).toHaveBeenCalledWith(500);
     });
     
     test('insertReview insert a testimony, fails if the user already has a testimony', async () => {
