@@ -93,46 +93,6 @@ const useInsertReservation = (reservation) => {
     }
   };
 
-  const insertPicnic = async () => {
-    try {
-      const {
-        ID,
-        Reservation_Date,
-        Picnic_Date
-      } = reservation;
-      const url = "/picnic";
-      await AuthToken(token);
-      await AxiosClient.post(url, {
-        ID_Client: ID,
-        Reservation_Date,
-        Picnic_Date
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
-  const insertCamping = async () => {
-    try {
-      const {
-        ID,
-        Reservation_Date,
-        Start_Date,
-        End_Date
-      } = reservation;
-      const url = "/camping";
-      await AuthToken(token);
-      await AxiosClient.post(url, {
-        ID_Client: ID,
-        Reservation_Date,
-        Start_Date,
-        End_Date
-      });
-    } catch (exception) {
-      console.log(exception);
-    }
-  };
-
   const insertReservation = async () => {
     const { Reservation_Type } = reservation;
 
