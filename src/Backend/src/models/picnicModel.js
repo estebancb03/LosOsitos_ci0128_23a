@@ -21,4 +21,20 @@ const insertPicnic = async (req, res) => {
   }
 };
 
-export { insertPicnic };
+// Method that inserts a picnic
+const insertPicnicTransaction = async (pool, {
+  ID_Client,
+  Reservation_Date,
+  Picnic_Date
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO Picnic VALUES (${ID_Client}, '${Reservation_Date}', '${Picnic_Date}')`
+    );
+    console.log("The insert to the Picnic was successfull");
+  } catch (error) {
+    throw error;
+  }
+};
+
+export { insertPicnic, insertPicnicTransaction };

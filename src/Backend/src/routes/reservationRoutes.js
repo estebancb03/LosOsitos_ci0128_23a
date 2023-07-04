@@ -7,7 +7,9 @@ import {
   getRecordsServices,
   getStateByReservationID,
   updateState,
-  deleteReservation
+  deleteReservation,
+  reservationPicnicTransaction,
+  reservationCampingTransaction,
 } from "../models/reservationModel.js";
 
 const router = Router();
@@ -23,6 +25,10 @@ router.get("/getStateByReservationID/:ID/:Reservation_Date", checkOperatorAuth, 
 router.put("/updateState", checkOperatorAuth, updateState);
 
 router.post("/reservation", insertReservation);
+
+router.post('/campingReservation', checkOperatorAuth, reservationCampingTransaction);
+
+router.post('/picnicReservation', checkOperatorAuth, reservationPicnicTransaction);
 
 router.delete("/reservation/:ID/:Reservation_Date", checkOperatorAuth, deleteReservation);
 

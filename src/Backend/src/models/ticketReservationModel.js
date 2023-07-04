@@ -91,6 +91,27 @@ const insertReservationTicket = async (req, res) => {
   }
 };
 
+// Method that inserts a ticket price
+const insertReservationTicketTransaction = async (pool, {
+  ID_Client,
+  Reservation_Date,
+  Age_Range,
+  Demographic_Group,
+  Reservation_Type,
+  Special,
+  Price,
+  Amount
+}) => {
+  try {
+    await pool.query(
+      `INSERT INTO Ticket_Reservation VALUES (${ID_Client}, '${Reservation_Date}', ${Age_Range}, ${Demographic_Group}, ${Reservation_Type}, ${Special}, ${Price}, ${Amount})`
+    );
+    console.log("The insert to the Reservation_Ticket was successfull");
+  } catch (error) {
+    throw error;
+  }
+};
+
 // Method that updates a spot
 const updateTicket = async (req, res) => {
   try {
@@ -145,5 +166,5 @@ const deleteTicket = async (req, res) => {
   }
 };
 
-export { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, updateTicket, getTicketsByReservationID, deleteTicket };
+export { getAllTickets, getCampingCapacity, getPicnicCapacity, insertReservationTicket, insertReservationTicketTransaction, updateTicket, getTicketsByReservationID, deleteTicket };
 
