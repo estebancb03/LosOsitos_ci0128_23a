@@ -89,7 +89,6 @@ const reservationCampingTransaction = async (req, res) => {
       res.send(error.message);
     }
   } catch (error) {
-    console.error('Error occurred while connecting to the database:', error);
     res.status(500);
     res.send(error.message);
   }
@@ -165,13 +164,11 @@ const reservationPicnicTransaction = async (req, res) => {
       res.send(error.message);
     }
   } catch (error) {
-    console.error('Error occurred while connecting to the database:', error);
     res.status(500);
     res.send(error.message);
   }
 };
 
-// Method that inserts a reservation
 const insertReservation = async (req, res) => {
   try {
     const {
@@ -188,14 +185,12 @@ const insertReservation = async (req, res) => {
     );
     res.status(200);
     res.send('The insert to the Reservation was successful');
-    console.log("The insert to the Reservation was successful");
   } catch (error) {
     res.status(500);
     res.send(error.message);
   }
 };
 
-// Method that inserts a reservation
 const insertReservationTransaction = async (pool, {
   ID_Client,
   Reservation_Date,
@@ -214,7 +209,6 @@ const insertReservationTransaction = async (pool, {
   }
 };
 
-// Method that returns reservation data
 const getReservations = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -235,7 +229,6 @@ const getReservations = async (req, res) => {
   }
 };
 
-// Method that returns the reservation main information by id
 const getMainInfoByReservationID = async (req, res) => {
   const ID = "11801          ";
   const Reservation_Date = "2023-02-02T00:00:00.000Z";
@@ -254,7 +247,6 @@ const getMainInfoByReservationID = async (req, res) => {
   }
 };
 
-// Method that returns the services names of all reservations
 const getRecordsServices = async (req, res) => {
   try {
     const pool = await getConnection();
@@ -271,7 +263,6 @@ const getRecordsServices = async (req, res) => {
   }
 };
 
-// Method that gets the state by reservation ID
 const getStateByReservationID = async (req, res) => {
   try {
     const { ID, Reservation_Date } = req.params;
@@ -289,7 +280,6 @@ const getStateByReservationID = async (req, res) => {
   }
 };
 
-// Method that updates a service
 const updateState = async (req, res) => {
   try {
     const {
@@ -303,14 +293,12 @@ const updateState = async (req, res) => {
     );
     res.status(200);
     res.send("The update to the State was successfull");
-    console.log("The update to the State was successfull");
   } catch (error) {
     res.status(500);
     res.send(error.message);
   }
 };
 
-// Method that deletes a reservation
 const deleteReservation = async (req, res) => {
   try {
     const {
@@ -323,7 +311,6 @@ const deleteReservation = async (req, res) => {
       );
     res.status(200);
     res.send("The delete to the Reservation was successfull");
-    console.log("The delete to the Reservation was successfull");
   } catch (error) {
     res.status(500);
     res.send(error.message);
