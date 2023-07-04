@@ -20,7 +20,7 @@ class SideBarMenu {
       cy.get('[data-cy=reservation-submenu]').click();
     } else if (option === 'Testimonials list') {
       cy.get('[data-cy=testimonialslist-submenu]').click();
-    } else if (option === 'Park status') {
+    } else if (option === 'Park Status') {
       cy.get('[data-cy=parkstatus-submenu]').click();
     } else if (option === 'User list') {
       cy.get('[data-cy=userlist-submenu]').click();

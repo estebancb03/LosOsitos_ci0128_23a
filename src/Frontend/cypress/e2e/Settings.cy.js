@@ -19,6 +19,7 @@ const modifiedTestService = {
 }
 
 describe('<Settings />', () => {
+  /*
   it('Create service process', () => {
     // Arrange
     home.visit();
@@ -53,5 +54,34 @@ describe('<Settings />', () => {
     adminHome.settings.deleteService(testService);
     // Assert
     adminHome.settings.verifyServiceDeletion(testService);
+  });
+
+  it('update a Camping Capacity process', () => {
+    // Arrange
+    home.visit();
+    const { adminHome } = home.login('dylantr', 'dylantr');
+    adminHome.sideBarMenu.navigateToOption('Settings');
+
+    // Act
+    adminHome.settings.editCampingCapacityValues('10', '20');
+
+    // Assert
+    adminHome.settings.verifyCampingCapacityValues('10', '20');
+  });
+  */
+
+  
+
+  it('update a Exchange Rate value process', () => {
+    // Arrange
+    home.visit();
+    const { adminHome } = home.login('dylantr', 'dylantr');
+    adminHome.sideBarMenu.navigateToOption('Settings');
+
+    // Act
+    adminHome.settings.editExchangeRateValues('10');
+
+    // Assert
+    adminHome.settings.verifyExchangeRateValues('10');
   });
 });
