@@ -1,31 +1,44 @@
-import { getConnection } from "../config/db.js";
+import { getConnection, sql } from "../config/db.js";
+import { insertPerson } from "./personModel.js";
+import { insertClient } from "./clientModel.js";
+import { insertNewVehicle } from "./vehicleModel.js";
+import { insertReservationTicket } from "./ticketReservationModel.js";
+import { insertSpotCamping } from "./spotsCampingModel.js";
+import { insertService } from "./serviceReservationModel.js";
 
-const reservationTransaction = async (req, res) => {
-  const transaction = new sql.Transaction(/* [pool] */)
-  transaction.begin(err => {  // begin(isolation_level)
-    let rolledBack = false
-    transaction.on('rollback', aborted => {
-      // emited with aborted === true
-      rolledBack = true
-    })
-    new sql.Request(transaction)
-      .query('insert into mytable (bitcolumn) values (2)', (err, result) => {
-        // insert should fail because of invalid value
+const reservationTransaction = async () => {
+  try {
+    // Create a new connection pool
+    const pool = await getConnection();
 
-      if (err) {
-        if (!rolledBack) {
-          transaction.rollback(err => {
-            // ... error checks
-          })
-        }
-      } else {
-        transaction.commit(err => {
-          // ... error checks
-        })
-      }
-    })
-  })
-}
+    // Start a transaction
+    const transaction = new sql.Transaction(pool);
+    transaction.isolationLevel = sql.READ_UNCOMMITTED;
+    await transaction.begin();
+
+    try {
+      // Run queries inside the transaction
+      await insertPerson();
+      await insertClient();
+      await insertReservation();
+      await insertReservationType();  // waka waka
+      await insertNewVehicle();
+      await insertReservationTicket();
+      await insertSpotCamping();
+      await insertService();
+
+      // Commit the transaction if all queries succeed
+      await transaction.commit();
+      console.log('Transaction committed successfully.');
+    } catch (error) {
+      // Rollback the transaction if any query fails
+      await transaction.rollback();
+      console.error('Transaction rolled back due to an error:', error);
+    }
+  } catch (error) {
+    console.error('Error occurred while connecting to the database:', error);
+  }
+};
 
 // Method that inserts a reservation
 const insertReservation = async (req, res) => {
