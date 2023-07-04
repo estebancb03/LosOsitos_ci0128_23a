@@ -91,6 +91,15 @@ Una vez escogido el archivo de pruebas estas empezarán a ejecutarse:
   <img src="src/Frontend/public/cypress_test.png" alt="cypress_test">
 </div>
 
+### Despliegue para producción
+
+Para subir la aplicación a un servidor de producción antes se debe realizar un ```build``` a la aplicación del Frontend, para esto hay que dirigirse a la carpeta ```src/Frontend``` y ejecutar el siguiente comando:
+```
+npm run build
+```
+El comando anterior optimiza los archivos del proyecto y elimina las dependencias de desarrollo por lo que vuelve al proyecto bastante más ligero. Después de hecho el build, el código se ejecuta con los mismos comandos mencionados con anterioridad.
+
+
 ## Diseño de la aplicación
 
 La aplicación será desarrollada utilizando el lenguaje de programación **JavaScript**, mediante la ayuda de los frameworks **ReactJS** y **NodeJS** para el manejo del front-end y el back-end respectivamente. Para más información, refierase al directorio [design](design/README.md).
