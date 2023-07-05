@@ -34,27 +34,39 @@ CREATE PROCEDURE ReservationsByVisitor(
 AS
 BEGIN
 	SELECT 
-		Country,
-		Date,
-		CASE WHEN Reservation_Type = 0 THEN 'Picnic' ELSE 'Camping' END AS 'Reservation_Type',
-		CASE WHEN Demographic_Group = 0 THEN 'Resident' ELSE 'Foreigner' END AS 'Demographic_Group',
-		CASE WHEN Special = 0 THEN 'Yes' ELSE 'No' END AS 'Special',
-		CASE WHEN Age_Range = 0 THEN 'Child' ELSE 'Adult' END AS 'Age_Range',
-		Amount
+		Fecha,
+		Visitor_Type AS 'Tipo de visitante',
+		Procedencia,
+		CASE WHEN Reservation_Type = 0 THEN 'Por el día' ELSE 'Camping' END AS 'Tipo de visita',
+		CASE WHEN
+			Special = 1 THEN 'Especial'
+		ELSE
+			CASE WHEN 
+				Demographic_Group = 0 THEN CASE WHEN
+					Age_Range = 0  OR Age_Range = 2 THEN 'Nacional niño' ELSE
+					'Nacional adulto' END
+			ELSE CASE WHEN
+				Age_Range = 0 OR Age_Range = 2 THEN 'Extranjero niño' ELSE
+				'Extranjero adulto' END
+			END
+		END AS 'Tipo de tiquete',
+		Amount AS 'Cantidad de visitantes'
 	FROM (
-		SELECT CASE WHEN Person.Country_Name = 'Costa Rica' THEN Person.State ELSE Person.Country_Name END AS 'Country',
-		Ticket_Reservation.Reservation_Type, Camping.Start_Date AS 'Date', Ticket_Reservation.Demographic_Group, Ticket_Reservation.Special, Ticket_Reservation.Age_Range, Ticket_Reservation.Amount
+		SELECT CASE WHEN Person.Country_Name = 'Costa Rica' THEN Person.State ELSE Person.Country_Name END AS 'Procedencia',
+		CASE WHEN Person.Country_Name = 'Costa Rica' THEN 'Residente' ELSE 'No residente' END AS 'Visitor_Type',
+		Ticket_Reservation.Reservation_Type, Camping.Start_Date AS 'Fecha', Ticket_Reservation.Demographic_Group, Ticket_Reservation.Special, Ticket_Reservation.Age_Range, Ticket_Reservation.Amount
 		FROM Person JOIN Ticket_Reservation ON Person.ID = Ticket_Reservation.ID_Client
 		JOIN Camping ON Ticket_Reservation.ID_Client = Camping.ID_Client AND Ticket_Reservation.Reservation_Date = Camping.Reservation_Date
 		WHERE Camping.Start_Date BETWEEN @start_date AND @end_date AND Ticket_Reservation.Reservation_Type = 1
 		UNION
-		SELECT CASE WHEN Person.Country_Name = 'Costa Rica' THEN Person.State ELSE Person.Country_Name END AS 'Country',
-		Ticket_Reservation.Reservation_Type, Picnic.Picnic_Date AS 'Date', Ticket_Reservation.Demographic_Group, Ticket_Reservation.Special, Ticket_Reservation.Age_Range, Ticket_Reservation.Amount
+		SELECT CASE WHEN Person.Country_Name = 'Costa Rica' THEN Person.State ELSE Person.Country_Name END AS 'Procedencia',
+		CASE WHEN Person.Country_Name = 'Costa Rica' THEN 'Residente' ELSE 'No residente' END AS 'Visitor_Type',
+		Ticket_Reservation.Reservation_Type, Picnic.Picnic_Date AS 'Fecha', Ticket_Reservation.Demographic_Group, Ticket_Reservation.Special, Ticket_Reservation.Age_Range, Ticket_Reservation.Amount
 		FROM Person JOIN Ticket_Reservation ON Person.ID = Ticket_Reservation.ID_Client
 		JOIN Picnic ON Ticket_Reservation.ID_Client = Picnic.ID_Client AND Ticket_Reservation.Reservation_Date = Picnic.Reservation_Date
 		WHERE Picnic.Picnic_Date BETWEEN @start_date AND @end_date AND Ticket_Reservation.Reservation_Type = 0
 	) AS T
-	ORDER BY Date
+	ORDER BY Fecha
 END
 
 
@@ -98,30 +110,6 @@ BEGIN
 	WHERE ID_Client = @Client AND Reservation_Date = @Date
 END
 
-
-GO
-CREATE PROCEDURE DailyIncome(
-	@start_date AS DATE,
-	@end_date AS DATE
-)AS 
-BEGIN
-	SELECT Reservation_Date, Currency, SUM(Price) AS 'Total Price' FROM
-	(
-	SELECT Ticket.Currency, (Ticket_Reservation.Price * Ticket_Reservation.Amount) AS 'Price', Reservation_Date
-	FROM Ticket_Reservation JOIN Ticket ON Ticket.Age_Range = Ticket_Reservation.Age_Range AND Ticket.Demographic_Group = Ticket_Reservation.Demographic_Group AND
-	Ticket.Reservation_Type = Ticket_Reservation.Reservation_Type AND Ticket.Special = Ticket_Reservation.Special
-	WHERE Reservation_Date BETWEEN @start_date AND @end_date
-	UNION
-	SELECT Service_Reservation.Currency, (Service_Reservation.Price * Service_Reservation.Quantity) AS 'Price', Reservation_Date
-	FROM Service_Reservation
-	WHERE Reservation_Date BETWEEN @start_date AND @end_date
-	UNION
-	SELECT Spot_Camping.Currency, Spot_Camping.Price AS 'Price', Reservation_Date
-	FROM Spot_Camping
-	WHERE Reservation_Date BETWEEN @start_date AND @end_date
-	) AS Total
-	GROUP BY Currency, Reservation_Date
-END
 
 -- Procedure 6
 
@@ -181,4 +169,74 @@ BEGIN
 		SELECT @onlineCapacity, 0
 	) AS S
 	GROUP BY Reservation_Method
+END
+
+-- Procedure 8
+
+GO
+CREATE PROCEDURE DailyIncomeCamping(
+	@start_date AS DATE,
+	@end_date AS DATE
+)AS
+BEGIN
+	SELECT
+		Camping.Start_Date AS 'Fecha', 
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Menor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Menor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Mayor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Mayor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 1 THEN Amount ELSE 0 END) AS 'Cantidad_Especial_Residente', 
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 1 THEN Amount*Price ELSE 0 END) AS 'Total_Especial_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Menor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Menor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Mayor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Mayor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 1 THEN Amount ELSE 0 END) AS 'Cantidad_Especial_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 1 THEN Amount*Price ELSE 0 END) AS 'Total_Especial_Extranjero'
+	FROM Ticket_Reservation JOIN Camping ON Ticket_Reservation.ID_Client = Camping.ID_Client AND Ticket_Reservation.Reservation_Date = Camping.Reservation_Date
+	WHERE Camping.Start_Date BETWEEN @start_date AND @end_date
+	GROUP BY Camping.Start_Date
+END
+
+-- Procedure 9
+
+GO
+CREATE PROCEDURE DailyIncomePicnic(
+	@start_date AS DATE,
+	@end_date AS DATE
+)AS
+BEGIN
+	SELECT 
+		Picnic.Picnic_Date AS 'Fecha', 
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Menor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Menor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Mayor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Mayor_Residente',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 1 THEN Amount ELSE 0 END) AS 'Cantidad_Especial_Residente', 
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 0 AND Ticket_Reservation.Special = 1 THEN Amount*Price ELSE 0 END) AS 'Total_Especial_Residente', 
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 1 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 0 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Nino_Menor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 2 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Nino_Menor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount ELSE 0 END) AS 'Cantidad_Adulto_Mayor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Age_Range = 3 AND Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 0 THEN Amount*Price ELSE 0 END) AS 'Total_Adulto_Mayor_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 1 THEN Amount ELSE 0 END) AS 'Cantidad_Especial_Extranjero',
+		SUM(CASE WHEN Ticket_Reservation.Demographic_Group = 1 AND Ticket_Reservation.Special = 1 THEN Amount*Price ELSE 0 END) AS 'Total_Especial_Extranjero'
+	FROM Ticket_Reservation JOIN Picnic ON Ticket_Reservation.ID_Client = Picnic.ID_Client AND Ticket_Reservation.Reservation_Date = Picnic.Reservation_Date
+	WHERE Picnic.Picnic_Date BETWEEN @start_date AND @end_date
+	GROUP BY Picnic.Picnic_Date
 END
