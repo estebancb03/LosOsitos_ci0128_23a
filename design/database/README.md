@@ -20,6 +20,17 @@ En el siguiente enlace se puede observar el PDF con el mapeo realizado:
 
 [Diseño relacional de la base de datos](relationalMapping.pdf)
 
+## Indices
+
+Se realizaron dos índices *non-clustered* sobre dos tablas distintas en la base de datos.
+
+1. Camping_Index: se crea sobre la tabla **Camping** utilizando sus atributos **Start_Date** y **End_date**
+2. Picnic_Index: se crea sobre la tabla **Picnic** utilizando su atributo **Picnic_Date**
+
+Ambos índices se crearon dado que una porción importante de las consultas realizadas sobre la base de datos utiliza las fechas para filtrar las reservas y los datos asociados a estas, por lo que con la creación de estos índices se mejoraría el rendimiento.
+
+Para más detalles sobre estos índices, refiérase al archivo [indexes.pdf](indexes.pdf).
+
 ## Procedimientos almacenados
 
 ### Procedimientos de uso común
@@ -38,9 +49,29 @@ En el siguiente enlace se puede observar el PDF con el mapeo realizado:
 
 ### Procedimientos de generación de reportes
 
-1. DailyIncome: calcula los ingresos diarios del parque dado un rango de fechas
+1. DailyIncomeCamping: calcula los ingresos diarios del parque, dado un rango de fechas, generados por dar servicios de **camping**
 
-2. ReservationsByVisitor: obtiene la información no personal de los visitantes del parque entre un rango de fechas
+2. DailyIncomePicnic: calcula los ingresos diarios del parque, dado un rango de fechas, generados por dar servicios de **picnic**
+
+3. ReservationsByVisitor: obtiene la información no personal de los visitantes del parque entre un rango de fechas
+
+## Transacciones
+
+La transacción realizada pretende insertar todos los datos de una reserva a manera de transacción, por lo que si una de las inserciones falla, no queda la posibilidad de resultar en información incoherente dentro de la base de datos. 
+
+### Frontend
+
+La transacción es llamada dentro del archivo `src/Frontend/src/hooks/useInsertReservation.jsx`, en la función **insertReservation** en la línea 96.
+
+### Backend
+
+La transacción es realizada en el archivo `src/Backend/src/models/reservationModel.js`. Se decidió realizar una transacción para *picnic* y otra para *camping*, dado que deben de insertar datos distintos para cada caso.
+
+Las transacciones están incluidas en las funciones **reservationCampingTransaction** y **reservationPicnicTransaction**, en las líneas 11 y 97 respectivamente.
+
+### Nivel de aislamiento
+
+Se utiliza un nivel de aislamiento de ***read uncommitted***, esto como consecuencia de que esta transacción no debe de realizar operaciones de read, por lo que no podría presentar problemas de *dirty reads* o entre otros que sean ocasionados por inconsistencias en los valores de la base de datos. 
 
 ## Triggers
 
