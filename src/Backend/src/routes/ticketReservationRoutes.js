@@ -7,7 +7,7 @@ const router = Router();
 
 router.get("/getAllTickets", getAllTickets);
 
-router.get("/getTicketsByReservationID/:ID/:Reservation_Date", checkOperatorAuth, getTicketsByReservationID);
+router.get("/getTicketsByReservationID/:ID/:Reservation_Date", getTicketsByReservationID);
 
 router.get("/getCampingCapacity/:date", getCampingCapacity);
 

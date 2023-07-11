@@ -41,7 +41,6 @@ const FooterItem = ({ item }) => {
               </div>
             ) : (
               <div className="flex justify-center mt-1 hover:font-semibold transition-colors duration-300">
-                {console.log(attribute)}
                 <span>{attribute.description}</span>
               </div>
             )}
