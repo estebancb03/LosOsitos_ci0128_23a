@@ -25,7 +25,7 @@
     "jspdf": "^2.5.1",
     "morgan": "^1.10.0",
     "mssql": "^9.1.1",
-    "nodemailer": "^6.9.1",
+    "nodemailer": "^6.9.7",
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
