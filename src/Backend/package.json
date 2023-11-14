@@ -24,7 +24,7 @@
     "jsonwebtoken": "^9.0.0",
     "jspdf": "^2.5.1",
     "morgan": "^1.10.0",
-    "mssql": "^9.1.1",
+    "mssql": "^9.3.2",
     "nodemailer": "^6.9.1",
     "qrcode": "^1.5.3"
   },
